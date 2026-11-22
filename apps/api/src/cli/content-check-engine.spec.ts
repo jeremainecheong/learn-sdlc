@@ -1222,11 +1222,13 @@ describe('checkContent (a pack that is not the reference project)', () => {
     expect(digestOf(stable.filter((r) => r.id !== PREBAKE))).toBe('bef60aaf1d4d906461d1e5e3d4767cf420b208520df1af20c0ad2223baece58e');
     const prebake = expectPrebakeIsTheHosts(report, pack);
     if (prebake.outcome === 'ok') {
-      // This whole-report value was recorded for an earlier TaskTrackr version, without the brief-plain and
-      // canonical-copies-agree rows that `stable` now holds, so it is red on the first host whose prebake row is
-      // ok. A host without the prebaked runtime layer never reaches it. The value must be recorded again on a
-      // host with the layer before the next run there is trusted; until it is, this assertion fails on that host.
-      expect(digestOf(stable)).toBe('2019c07a013cf3b0568c9712004db0aafa7f81b840abfa8d5eadf8de10367d0f');
+      // The whole report, the prebake row included, on a host whose layer matches the packs. That row's detail
+      // carries the layer's digest (`scripts/prebake.mjs print`), which is computed from the packs' pins alone,
+      // so this value holds on every such host and moves with the pack or with a pinned version, never with the
+      // machine. A host without the prebaked runtime layer never reaches it. Recorded for the shipped pack, with
+      // the brief-plain and canonical-copies-agree rows, on two hosts with the layer (the CI runner and a clean
+      // Linux checkout), which agreed.
+      expect(digestOf(stable)).toBe('e97784055b3267f848c9387e6cc8c9685320c622f0fc2a536c6e82b32cd14a37');
     }
   };
 
