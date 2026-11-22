@@ -1,20 +1,61 @@
-# LearnSDLC
+<p align="center">
+  <img src="apps/web/public/artwork/learnsdlc-laptop-cap.svg" width="112" height="112" alt="LearnSDLC: a laptop wearing a graduation cap">
+</p>
+
+<h1 align="center">LearnSDLC</h1>
+
+<p align="center">
+  <strong>You already know how to code.</strong><br>
+  Carry one real project through every phase of the software development life cycle,<br>
+  with a mentor that refuses to write your answer.
+</p>
+
+<p align="center">
+  A product of the <strong>SMU School of Computing and Information Systems</strong>, built by team <strong>SMUTors!</strong>
+</p>
+
+<p align="center">
+  <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-000000?style=flat&logo=nextdotjs&logoColor=white">
+  <img alt="React 19" src="https://img.shields.io/badge/React-19-20232A?style=flat&logo=react&logoColor=61DAFB">
+  <img alt="NestJS 12" src="https://img.shields.io/badge/NestJS-12-E0234E?style=flat&logo=nestjs&logoColor=white">
+  <img alt="TypeScript 5" src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript&logoColor=white">
+  <img alt="Node.js 24" src="https://img.shields.io/badge/Node.js-24-5FA04E?style=flat&logo=nodedotjs&logoColor=white">
+  <img alt="Python 3.11" src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat&logo=python&logoColor=white">
+  <img alt="PostgreSQL 16" src="https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat&logo=postgresql&logoColor=white">
+  <img alt="Redis 7" src="https://img.shields.io/badge/Redis-7-FF4438?style=flat&logo=redis&logoColor=white">
+  <img alt="Docker Compose" src="https://img.shields.io/badge/Docker-Compose-2496ED?style=flat&logo=docker&logoColor=white">
+  <img alt="Playwright" src="https://img.shields.io/badge/Playwright-tested-2EAD33?style=flat&logo=playwright&logoColor=white">
+</p>
+
+<p align="center">
+  <img src="apps/web/public/artwork/journey-map-3d.webp" width="760" alt="The six stations of the journey: requirements, design, implementation, testing, deployment, maintenance">
+</p>
+
+<table align="center">
+<tr>
+<td align="center" valign="top" width="16%"><img src="apps/web/public/artwork/dashboard-requirements-3d.webp" width="104" alt=""><br><a href="#what-you-get"><strong>Requirements</strong></a><br><sub>an issue form</sub></td>
+<td align="center" valign="top" width="16%"><img src="apps/web/public/artwork/dashboard-design-3d.webp" width="104" alt=""><br><a href="#what-you-get"><strong>Design</strong></a><br><sub>a design editor</sub></td>
+<td align="center" valign="top" width="16%"><img src="apps/web/public/artwork/dashboard-implementation-3d.webp" width="104" alt=""><br><a href="#what-you-get"><strong>Implementation</strong></a><br><sub>a pull request</sub></td>
+<td align="center" valign="top" width="16%"><img src="apps/web/public/artwork/dashboard-testing-3d.webp" width="104" alt=""><br><a href="#what-you-get"><strong>Testing</strong></a><br><sub>a kill matrix</sub></td>
+<td align="center" valign="top" width="16%"><img src="apps/web/public/artwork/dashboard-deployment-3d.webp" width="104" alt=""><br><a href="#what-you-get"><strong>Deployment</strong></a><br><sub>an incident drill</sub></td>
+<td align="center" valign="top" width="16%"><img src="apps/web/public/artwork/dashboard-maintenance-3d.webp" width="104" alt=""><br><a href="#what-you-get"><strong>Maintenance</strong></a><br><sub>a change request</sub></td>
+</tr>
+</table>
 
 LearnSDLC from SMU SCIS is a web application for learning the software development life cycle by doing it. A learner takes one small software project through the phases of the life cycle, from requirements through design, implementation, testing and deployment to maintenance. Each phase is checked automatically before the next one opens: rule checks, visible and hidden tests run in a sandbox, static analysis, and an AI review of every criterion. An AI mentor sits beside the work. It reviews, explains and asks questions, and it refuses to hand out answers. Teachers get a console for their classes, and can upload or customise projects of their own. The built-in project is TaskTrackr, a small task tracker with a Python API over SQLite and a TypeScript React front end.
 
 It is for teachers who want to run a hands-on software engineering class, and for developers who want to change or extend it.
 
-![A learner's phase room: the task brief, the editor and the mentor](docs/images/workspace.png)
-*A learner's phase room: the task brief and the files on the left, the editor in the middle, the mentor on the right.*
-
-![The project map](docs/images/project-map.png)
-*The project map: everything a learner has written for the project, one lane per phase, with a line from each promise to what builds it and what proves it.*
-
-![The teacher console](docs/images/teacher-console.png)
-*The teacher console: a class's learners, phase by phase.*
-
-![An Agentic proposal](docs/images/agentic-proposal.png)
-*The Agentic mode: a proposed change waits for the learner's explanation before it can be applied. The reply shown comes from the test mentor that ships for trials without an AI key.*
+<table>
+<tr>
+<td width="50%" valign="top"><img src="docs/images/workspace.png" alt="A learner's phase room: the task brief, the editor and the mentor"><br><sub><strong>A learner's phase room.</strong> The task brief and the files on the left, the editor in the middle, the mentor on the right.</sub></td>
+<td width="50%" valign="top"><img src="docs/images/project-map.png" alt="The project map"><br><sub><strong>The project map.</strong> Everything a learner has written for the project, one lane per phase, with a line from each promise to what builds it and what proves it.</sub></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><img src="docs/images/teacher-console.png" alt="The teacher console"><br><sub><strong>The teacher console.</strong> A class's learners, phase by phase.</sub></td>
+<td width="50%" valign="top"><img src="docs/images/agentic-proposal.png" alt="An Agentic proposal"><br><sub><strong>The Agentic mode.</strong> A proposed change waits for the learner's explanation before it can be applied. The reply shown comes from the test mentor that ships for trials without an AI key.</sub></td>
+</tr>
+</table>
 
 ## What you get
 
