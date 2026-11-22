@@ -1,0 +1,14 @@
+.experience-scroll-region { min-width: 0; max-width: 100%; }
+.experience-scroll-viewport { min-width: 0; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.experience-scroll-viewport:focus-visible { outline: 3px solid #2185a4; outline-offset: 3px; }
+.experience-scroll-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 10px; }
+.experience-scroll-controls > span { color: var(--exp-muted, #536d7f); font-size: 11px; line-height: 1.6; }
+.experience-scroll-controls > div { display: flex; flex: none; gap: 4px; }
+.experience-scroll-controls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--exp-line, #cfdee8); border-radius: 10px; background: var(--exp-card, #f7fbfd); color: var(--exp-cyan, #227c96); cursor: pointer; }
+.experience-scroll-controls button:hover:enabled { background: #e3f3f8; border-color: #89bacb; }
+.experience-scroll-controls button:focus-visible { outline: 3px solid #2185a4; outline-offset: 2px; }
+.experience-scroll-controls button:disabled { opacity: .38; cursor: default; }
+[data-theme="graphite"] .experience-scroll-controls > span { color: #a8c0d0; }
+[data-theme="graphite"] .experience-scroll-controls button { background: #213a4b; border-color: #3a5a6e; color: #c5e4ee; }
+[data-theme="graphite"] .experience-scroll-controls button:hover:enabled { background: #2c5066; }
+@media print { .experience-scroll-controls { display: none; } }

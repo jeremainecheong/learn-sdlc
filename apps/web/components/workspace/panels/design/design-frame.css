@@ -1,0 +1,32 @@
+/* The Design room's tabs row sits above its three columns, as
+   Requirements' row does (requirements-toolbar), not inside the middle
+   column. Out of `.design-room`, the row takes the tool palette the room and
+   Requirements' row are given in phase-experience.css, in both themes, so the
+   tabs and the panel switches keep their look. Its layout is still
+   `.design-tool-toolbar`'s (one row that wraps the switches under the tabs only
+   where it cannot hold both). */
+.design-frame-toolbar{
+  --tool-surface:#fff;--tool-raised:#f2f8fc;--tool-canvas:#edf3f7;
+  --tool-ink:#183344;--tool-muted:#526c7c;--tool-line:#cfdee8;
+  --tool-accent:#176e8a;--tool-tint:#e0f2f9;--tool-hover:#eaf5fb;
+  --tool-selected-line:#79b8d0;--tool-shadow:0 2px 7px #163f590d;
+  --tool-orange:#c86020;--tool-coral:#cc624f;
+  background:linear-gradient(180deg,var(--tool-surface),var(--tool-raised));
+}
+html[data-theme=graphite] .design-frame-toolbar{
+  --tool-surface:#172a39;--tool-raised:#1c3345;--tool-canvas:#112330;
+  --tool-ink:#deedf6;--tool-muted:#adc3d3;--tool-line:#365267;
+  --tool-accent:#91d4ec;--tool-tint:#25485d;--tool-hover:#223f53;
+  --tool-selected-line:#69aecb;--tool-shadow:0 2px 8px #0002;
+  --tool-orange:#f5ad73;--tool-coral:#f18e7a;
+}
+
+/* The mentor switch's "Optional", drawn as Requirements' row draws it. */
+.design-frame-toolbar .workspace-panel-note{height:20px;padding:0 6px;flex:none;margin-left:2px}
+@media(max-width:700px){.design-frame-toolbar .workspace-panel-note{display:none}}
+
+/* The room's notices in a box of their own. As a pane-level child
+   of the editor a notice was laid out as a pane (a column), which put its icon
+   on a line above its words; inside this box it keeps its one line. The box
+   leaves the pane below it its own top padding. */
+.design-tool-room [data-testid=phase-design-editor]>div.design-room-notices:not([hidden]){gap:10px;padding-bottom:0}

@@ -1,0 +1,1 @@
+LearnSDLC — carry one real project through every phase of the software development life cycle, with an AI mentor that refuses to write your answer.

@@ -1,0 +1,6 @@
+{
+  "name": "overdue_includes_due_today",
+  "description": "The overdue query uses <= where < belongs, so a task due today is reported as late.",
+  "covers": "US-4/AC-2",
+  "run": "api"
+}

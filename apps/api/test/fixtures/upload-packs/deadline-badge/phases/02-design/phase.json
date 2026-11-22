@@ -1,0 +1,84 @@
+{
+  "title": "Design",
+  "intro": "Design the overdue rule before anyone codes it: one entity and one operation.",
+  "artifactKind": "design",
+  "canRun": false,
+  "taskPanel": "Design the overdue badge for US-1 in the Design room's forms.\n\nWhat good looks like\n\n- One entity, Task, with its title and due date.\n- One operation, isOverdue(task, today): its inputs, its return (true or false) and the story it serves, US-1.\n- In the operation's note, the boundary: a task due today is not overdue.\n\nThis task has no API contract, no screens and no sequence diagram.",
+  "objectives": [
+    "Model one entity, Task",
+    "Define isOverdue(task, today) with its inputs and return",
+    "Trace the operation to US-1"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "model",
+        "title": "Model",
+        "weight": 0.4,
+        "description": "Task holds what the overdue rule needs."
+      },
+      {
+        "key": "operation",
+        "title": "Operation",
+        "weight": 0.4,
+        "description": "isOverdue names its inputs, returns true or false, and states the today boundary."
+      },
+      {
+        "key": "trace",
+        "title": "Story trace",
+        "weight": 0.2,
+        "description": "The operation serves US-1."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "design",
+    "record": "design/design.json",
+    "contracts": {
+      "api": false,
+      "screens": false
+    },
+    "sequence": false,
+    "stories": [
+      {
+        "id": "US-1",
+        "title": "Overdue badge",
+        "line": "As a team member, I want a badge on a task that is past its due date, so that I spot late work."
+      }
+    ],
+    "floor": {
+      "minEntities": 1,
+      "minRelations": 0,
+      "minOperations": 1,
+      "operationShape": true,
+      "minDecisions": 0,
+      "decisionShape": true,
+      "traceEveryStory": true,
+      "minEndpoints": 0,
+      "requireErrorCatalogue": false,
+      "minScreens": 0,
+      "screenShape": true
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the DESIGN phase of Deadline badge. The learner models one entity, Task, and one operation, isOverdue(task, today), traced to US-1. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 80 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "operation",
+          "input",
+          "return"
+        ],
+        "hints": [
+          "What does isOverdue need to know, and what does it answer?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Add the Task entity with the fields the rule reads.",
+      "Add isOverdue with its inputs and return.",
+      "Link the operation to US-1."
+    ]
+  }
+}

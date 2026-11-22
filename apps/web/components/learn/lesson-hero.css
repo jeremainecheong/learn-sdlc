@@ -1,0 +1,42 @@
+/* The study guides' shared look, the rules lessons.css does not
+ * already hold. Every selector is scoped to the learn pages.
+ *
+ * The chapter cards under the banner: four across, two by two below 900 px,
+ * one column below 520 px. `.lesson-reader-shell` raises the selectors over
+ * lessons.css's `.lesson-layout .lesson-chapters`, whichever file loads
+ * first. */
+@media (max-width: 900px) {
+  .lesson-reader-shell .lesson-layout .lesson-chapters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .lesson-reader-shell .lesson-layout .lesson-chapters {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The catalogue's guide cards: three across, two on a library narrower than
+ * 900 px, one below 560 px. Measured on the library itself (`container:
+ * learning` in lessons.css), so the sidebar and the page's padding are
+ * allowed for. */
+@container learning (max-width: 900px) {
+  .learn-library .learn-phase-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@container learning (max-width: 560px) {
+  .learn-library .learn-phase-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* A card's title never breaks inside a word on a narrow library (never
+ * "Implementati / on" at 390 px). The title keeps its words whole and
+ * steps down a size, so "Implementation" fits beside its picture and glyph. */
+@container learning (max-width: 560px) {
+  .learn-library .learn-feature h3 {
+    font-size: 21px;
+    overflow-wrap: break-word;
+  }
+}

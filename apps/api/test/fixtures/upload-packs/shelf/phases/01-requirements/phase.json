@@ -1,0 +1,185 @@
+{
+  "title": "Requirements",
+  "intro": "Four stories are settled. Write the fifth, the one a member asked for, with criteria a tester could check.",
+  "artifactKind": "story",
+  "canRun": false,
+  "taskPanel": "Requirements: write the missing story\n\nThe shelf's backlog has four settled stories. A member has asked for a fifth: to see which of an author's books are free to borrow right now. Write SH-5 in the story form in this room; it is saved as requirements/story.json.\n\nWhat good looks like\n\n- One story in the As a … I want … so that … form, naming who wants it and why.\n- At least two acceptance criteria in the Given … When … Then … form: tag one happy path and one boundary, the book that is already on loan.\n- At least one thing the story leaves out of scope.\n\nUsing the AI mentor well\n\nAsk the mentor to question your story, not to write it: \"what would a tester ask about this criterion?\" gets you further than \"write SH-5\".\n",
+  "objectives": [
+    "Write SH-5 in the As a / I want / so that form",
+    "Give it at least two Given / When / Then acceptance criteria",
+    "Cover the case of a book that is already on loan"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "story_quality",
+        "title": "Story",
+        "weight": 0.4,
+        "description": "Who wants it, what they want, and why."
+      },
+      {
+        "key": "acceptance_criteria",
+        "title": "Acceptance criteria",
+        "weight": 0.4,
+        "description": "Given / When / Then criteria a tester could check, including a book on loan."
+      },
+      {
+        "key": "completeness",
+        "title": "Completeness",
+        "weight": 0.2,
+        "description": "Enough criteria and scope lines to say what is in and what is left out."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "story",
+    "record": "requirements/story.json",
+    "providedStories": [
+      {
+        "id": "SH-1",
+        "title": "Browse the shelf",
+        "persona": "member",
+        "capability": "to see every book in shelf order",
+        "benefit": "I can find one without asking",
+        "criteria": [
+          {
+            "id": "AC-1",
+            "given": "books with different titles",
+            "when": "I open the shelf",
+            "then": "they are listed by title",
+            "tag": "happy"
+          },
+          {
+            "id": "AC-2",
+            "given": "books by several authors",
+            "when": "I filter by an author in any case",
+            "then": "only that author's books are listed",
+            "tag": "boundary"
+          }
+        ]
+      },
+      {
+        "id": "SH-2",
+        "title": "Lend a book",
+        "persona": "librarian",
+        "capability": "to record who has borrowed a book",
+        "benefit": "I know where it is",
+        "criteria": [
+          {
+            "id": "AC-1",
+            "given": "a book on the shelf",
+            "when": "I lend it to a member",
+            "then": "the book says who has it",
+            "tag": "happy"
+          },
+          {
+            "id": "AC-2",
+            "given": "a book already on loan",
+            "when": "I try to lend it again",
+            "then": "the loan is refused",
+            "tag": "error"
+          }
+        ]
+      },
+      {
+        "id": "SH-3",
+        "title": "Return a book",
+        "persona": "librarian",
+        "capability": "to put a returned book back",
+        "benefit": "the next member can borrow it",
+        "criteria": [
+          {
+            "id": "AC-1",
+            "given": "a book on loan",
+            "when": "it is returned",
+            "then": "it is on the shelf again",
+            "tag": "happy"
+          },
+          {
+            "id": "AC-2",
+            "given": "an id no book has",
+            "when": "it is returned",
+            "then": "the request is refused as not found",
+            "tag": "error"
+          }
+        ]
+      },
+      {
+        "id": "SH-4",
+        "title": "See what is out",
+        "persona": "member",
+        "capability": "the shelf to say which books are on loan",
+        "benefit": "I do not walk to an empty space",
+        "criteria": [
+          {
+            "id": "AC-1",
+            "given": "a book on loan",
+            "when": "I read its line",
+            "then": "the line ends \"on loan\"",
+            "tag": "happy"
+          }
+        ]
+      }
+    ],
+    "learnerStory": {
+      "id": "SH-5",
+      "hints": {}
+    },
+    "floor": {
+      "minCriteria": 2,
+      "requiredTags": [
+        "happy",
+        "boundary"
+      ],
+      "minExclusions": 1,
+      "requireSentence": true
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the REQUIREMENTS phase of Shelf, a teacher's own application: a Python Flask API that keeps books in memory and a TypeScript React page that lists them. The learner writes story SH-5 in the Requirements room's story form, saved as requirements/story.json. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "story",
+          "as a",
+          "i want",
+          "so that"
+        ],
+        "hints": [
+          "Who is asking for this, and what would they do differently once they had it?",
+          "Read SH-1 to SH-4: which part of each sentence names the reason?"
+        ]
+      },
+      {
+        "keywords": [
+          "acceptance",
+          "given",
+          "when",
+          "then",
+          "criteria"
+        ],
+        "hints": [
+          "What state is the shelf in before the member acts, and what can a tester observe afterwards?",
+          "Could someone who never met you decide pass or fail from your criterion alone?"
+        ]
+      },
+      {
+        "keywords": [
+          "loan",
+          "borrowed",
+          "lent"
+        ],
+        "hints": [
+          "What should a member see for an author whose only book is out?",
+          "Is 'free to borrow' the same as 'on the shelf'? Which story already says what on loan means?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with the sentence: who, what, and why.",
+      "Then the criteria: one ordinary case and one about a book already on loan.",
+      "Read each criterion as a tester would: could you check it without asking you?"
+    ]
+  }
+}

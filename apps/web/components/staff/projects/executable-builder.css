@@ -1,0 +1,10 @@
+/*
+ * The Implementation and Testing builders in the teacher's editor
+ * (`ExecutableBuilder`).
+ *
+ * They draw their cards in the Requirements builder's `.tre-*` shell; these
+ * are the rules their own layout adds: a step bar of three, three wide at
+ * any width (its labels are short enough to wrap in a phone's third).
+ */
+.tdx-panel .tre-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tdx-readiness{margin:0}

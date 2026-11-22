@@ -1,0 +1,137 @@
+{
+  "$comment": "The screen contract: which screens exist, what each one shows, and which operations in api.json it uses. web/src/router.tsx publishes the routes and every page is written against the row for it here.",
+  "version": "2.0.0",
+  "router": "hash",
+  "$router_comment": "Hash routing, so the server needs no history fallback and the app works inside the sandboxed preview frame.",
+  "screens": [
+    {
+      "route": "#/",
+      "component": "ListsPage",
+      "title": "Your lists",
+      "shows": "Every list with how many of its tasks are still open, and a form that makes a new one.",
+      "reads": [
+        "listLists"
+      ],
+      "writes": [
+        "createList"
+      ],
+      "components": [
+        "ListsPage"
+      ],
+      "testIds": [
+        "lists-page",
+        "new-list-form",
+        "list-card",
+        "list-link",
+        "list-counts"
+      ]
+    },
+    {
+      "route": "#/lists/:listId",
+      "component": "TasksPage",
+      "title": "Tasks",
+      "shows": "The tasks in one list, a filter bar over status, search and tag, and a form that adds a task. The API does the filtering and the ordering.",
+      "satisfies": [
+        "US-1",
+        "US-2",
+        "US-3",
+        "US-5"
+      ],
+      "reads": [
+        "listTasks"
+      ],
+      "writes": [
+        "createTask",
+        "completeTask",
+        "reopenTask"
+      ],
+      "components": [
+        "TasksPage",
+        "TaskFilters",
+        "NewTaskForm",
+        "TaskRow",
+        "OverdueBadge"
+      ],
+      "testIds": [
+        "tasks-page",
+        "task-filters",
+        "filter-status",
+        "filter-q",
+        "filter-tag",
+        "new-task-form",
+        "task-list",
+        "task-row",
+        "complete-task",
+        "reopen-task"
+      ]
+    },
+    {
+      "route": "#/overdue",
+      "component": "OverduePage",
+      "title": "Overdue",
+      "shows": "Every open task across every list whose due date is strictly before today, most overdue first, with how many days late each one is.",
+      "satisfies": [
+        "US-4",
+        "US-5"
+      ],
+      "reads": [
+        "getOverdue"
+      ],
+      "writes": [],
+      "components": [
+        "OverduePage",
+        "TaskRow",
+        "OverdueBadge"
+      ],
+      "testIds": [
+        "overdue-page",
+        "overdue-asof",
+        "overdue-summary",
+        "overdue-list",
+        "overdue-empty",
+        "overdue-badge"
+      ],
+      "empty": "Nothing is late. Every open task is due today or later."
+    }
+  ],
+  "components": {
+    "TaskRow": {
+      "props": [
+        "task",
+        "today",
+        "onComplete?",
+        "onReopen?"
+      ],
+      "shows": "The title, the priority, the overdue badge when the task is late, the comment count when it has any, the due date and the tags.",
+      "uses": [
+        "isOverdue",
+        "daysLate"
+      ]
+    },
+    "OverdueBadge": {
+      "props": [
+        "days"
+      ],
+      "shows": "How many days late a task is. Renders nothing at all when the task is on time."
+    },
+    "TaskFilters": {
+      "props": [
+        "filters",
+        "onChange"
+      ],
+      "shows": "A status select, a search box and a tag box. Holds no state of its own."
+    },
+    "NewTaskForm": {
+      "props": [
+        "onAdd",
+        "disabled?"
+      ],
+      "shows": "Title, priority, due date and tags, and whatever the API refused."
+    }
+  },
+  "rules": [
+    "The API filters and orders. Nothing in web/src filters an array that came back from the API, because the filter has to be right about the rows that were never downloaded.",
+    "The overdue rule lives in web/src/lib/overdue.ts and nowhere else. Every screen that needs it asks that function.",
+    "No cookies, no localStorage, no sessionStorage and no history.pushState. State is React state and the API, so the app works unchanged inside the preview's sandboxed frame."
+  ]
+}

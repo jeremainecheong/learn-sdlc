@@ -1,0 +1,13 @@
+{
+  "slug": "shelf-design-task",
+  "version": "1.0.0",
+  "title": "Shelf: a Requirements and a Design phase of the older kind",
+  "tagline": "The smallest teacher pack whose Design is still written prose: the older kind a draft is converted from.",
+  "description": "The Requirements phase of Shelf, a small library application, and its Design phase as packs wrote it before the structured design: a markdown document graded by rules. A copy, the next draft and the one-time pass convert it; publish refuses it.",
+  "language": "python",
+  "languages": ["python"],
+  "phases": [
+    "phases/01-requirements",
+    "phases/02-design"
+  ]
+}

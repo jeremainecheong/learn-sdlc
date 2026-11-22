@@ -1,0 +1,27 @@
+# The house style every editor should apply. Formatting is not enforced by a
+# tool; this keeps new files consistent with the existing ones.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+
+[*.py]
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+
+# Caddy's own formatter (caddy fmt) indents with tabs.
+[Caddyfile]
+indent_style = tab
+
+# Byte-exact files: the web tests' recorded snapshots and the social image's
+# alt text end without a newline, and an editor must not add one.
+[{apps/web/test/__snapshots__/**,apps/web/app/*.alt.txt}]
+insert_final_newline = false
+trim_trailing_whitespace = false

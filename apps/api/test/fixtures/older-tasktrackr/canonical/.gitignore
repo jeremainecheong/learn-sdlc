@@ -1,0 +1,11 @@
+# Built output, not source.
+web/dist/
+web/.test/
+node_modules/
+
+# Whatever the application wrote while you were running it.
+*.db
+*.sqlite
+data/
+__pycache__/
+.pytest_cache/

@@ -1,0 +1,28 @@
+.teacher-help h2 { display: flex; align-items: center; gap: 10px; }
+/* No open request: one compact row; the first read draws the same row. */
+.exp-panel.teacher-help-empty, .exp-panel.teacher-help-loading { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-top: 14px; padding-bottom: 14px; }
+.teacher-help-empty h2, .teacher-help-loading h2 { margin: 0; font-size: 15px; }
+.teacher-help-empty > p, .teacher-help-loading > p { flex: 1; min-width: 12ch; margin: 0; font-size: 13px; color: var(--exp-muted); }
+.teacher-help-list { margin: 0; padding: 0; list-style: none; }
+.teacher-help-row { min-width: 0; padding: 21px 0; border-top: 1px solid var(--exp-line); }
+.teacher-help-row-heading { display: flex; justify-content: space-between; align-items: start; gap: 16px; }
+.teacher-help-row-heading > div { display: grid; gap: 2px; }
+.teacher-help-row-heading strong { font-size: 14px; overflow-wrap: anywhere; }
+.teacher-help-row-heading > div > span { font-size: 12px; color: var(--exp-muted); }
+.teacher-help-row .teacher-help-question, .teacher-help-answer p { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--exp-ink); line-height: 1.7; }
+.teacher-help-row .teacher-help-tried { white-space: pre-wrap; overflow-wrap: anywhere; }
+.teacher-help-row .exp-actions { justify-content: flex-start; gap: 10px; }
+.teacher-help-form { display: grid; gap: 10px; margin-top: 16px; max-width: 850px; }
+.teacher-help-form .exp-field { width: 100%; }
+.teacher-help-form textarea { min-height: 130px; resize: vertical; }
+.teacher-help-form > button { justify-self: start; }
+.teacher-help-form > .exp-caption { margin: 0; }
+.teacher-help-answer { padding: 16px; margin-top: 16px; background: var(--exp-ground); border: 1px solid var(--exp-line); border-radius: 13px; }
+.teacher-help-answer p { margin-bottom: 0; }
+.teacher-help-answered summary { cursor: pointer; color: var(--exp-cyan); font-size: 13px; padding: 12px 0; }
+.teacher-help-answered summary:focus-visible { outline: 3px solid #228fa8; outline-offset: 4px; }
+@media (max-width: 540px) {
+  .teacher-help .exp-section-heading { align-items: start; }
+  .teacher-help-row .exp-actions { align-items: stretch; flex-direction: column; }
+  .teacher-help-row .exp-button { white-space: normal; height: auto; min-height: 42px; }
+}

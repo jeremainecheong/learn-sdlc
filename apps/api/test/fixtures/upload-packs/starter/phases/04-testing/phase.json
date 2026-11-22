@@ -1,0 +1,155 @@
+{
+  "title": "Testing",
+  "intro": "Write the acceptance suites that prove SH-1 to SH-4 on both sides, and catch the bugs planted in copies of the application.",
+  "artifactKind": "tests",
+  "canRun": true,
+  "runLabel": "Run my tests",
+  "taskPanel": "Testing: prove the backlog\n\nWrite acceptance tests for SH-1 to SH-4 in tests/test_acceptance.py (the API) and web/src/lib/acceptance.test.ts (the page). The graders run your suites against the working application and against copies of it with bugs planted in them; a good suite passes on the first and fails on every one of the others.\n\nWhat good looks like\n\n- Every test passes against the working application.\n- At least one test per acceptance criterion, asserting what a person or a client would see, not only a status code.\n- Cases about the author filter, lending, returning and the \"on loan\" line.\n\nUsing the AI mentor well\n\nAsk the mentor which acceptance criterion a test of yours does not yet cover.\n",
+  "objectives": [
+    "Turn SH-1, SH-2 and SH-3 into tests over the HTTP contract",
+    "Prove the shelf line and the shelf order on the page",
+    "Make every test pass against the working application",
+    "Write assertions sharp enough to fail on every broken copy"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "tests_pass",
+        "title": "Tests pass against a working application",
+        "weight": 0.3,
+        "description": "A test that fails on correct code is a bug in the test."
+      },
+      {
+        "key": "mutants_killed",
+        "title": "Bug-detection power",
+        "weight": 0.45,
+        "description": "Your suites run against broken copies of the application; a good suite fails on every one."
+      },
+      {
+        "key": "coverage_mapping",
+        "title": "Criteria coverage",
+        "weight": 0.25,
+        "description": "The author filter, lending, returning and the on-loan line each have a test."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "tests",
+    "learnerTestFiles": [
+      "tests/test_acceptance.py",
+      "web/src/lib/acceptance.test.ts"
+    ],
+    "supportFiles": [
+      "tests/conftest.py"
+    ],
+    "runs": [
+      {
+        "id": "api",
+        "language": "python",
+        "harness": "pytest",
+        "label": "API tests",
+        "learnerTestFiles": [
+          "tests/test_acceptance.py"
+        ],
+        "implFiles": [
+          "api/main.py",
+          "api/shelf.py"
+        ],
+        "supportFiles": [
+          "tests/conftest.py"
+        ]
+      },
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "label": "Front end",
+        "transform": true,
+        "learnerTestFiles": [
+          "web/src/lib/acceptance.test.ts"
+        ],
+        "implFiles": [
+          "web/src/lib/shelf.ts"
+        ],
+        "supportFiles": []
+      }
+    ],
+    "coverageKeywords": [
+      {
+        "criterion": "SH-1 author filter",
+        "criterionId": "SH-1/AC-2",
+        "keywords": [
+          "?author="
+        ]
+      },
+      {
+        "criterion": "SH-2 lend",
+        "criterionId": "SH-2/AC-1",
+        "keywords": [
+          "lend"
+        ]
+      },
+      {
+        "criterion": "SH-3 return",
+        "criterionId": "SH-3/AC-1",
+        "keywords": [
+          "/return"
+        ]
+      },
+      {
+        "criterion": "SH-4 on loan",
+        "criterionId": "SH-4/AC-1",
+        "keywords": [
+          "on loan"
+        ]
+      }
+    ],
+    "minTests": 6
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the TESTING phase of Shelf, a teacher's own application: a Python Flask API that keeps books in memory and a TypeScript React page that lists them. The learner writes acceptance tests in tests/test_acceptance.py and web/src/lib/acceptance.test.ts; never name or describe the planted bugs. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "test",
+          "assert",
+          "acceptance"
+        ],
+        "hints": [
+          "Which acceptance criterion does this test prove, and what would a client see if it failed?",
+          "Does your assertion check the body, or only the status?"
+        ]
+      },
+      {
+        "keywords": [
+          "mutant",
+          "bug",
+          "broken",
+          "kill"
+        ],
+        "hints": [
+          "If the application quietly did the wrong thing here, would your test notice?",
+          "What is the smallest change to the code that your suite would not catch?"
+        ]
+      },
+      {
+        "keywords": [
+          "fixture",
+          "client",
+          "add_book",
+          "conftest"
+        ],
+        "hints": [
+          "What does add_book hand back, and how can a test use it to arrange the shelf?",
+          "Why does every test get a fresh, empty shelf?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with one test per acceptance criterion, against the HTTP contract.",
+      "Then sharpen each assertion: check what changed, not just that something answered.",
+      "Finish with the page: the line a lent book shows, and the order of the lines."
+    ]
+  }
+}

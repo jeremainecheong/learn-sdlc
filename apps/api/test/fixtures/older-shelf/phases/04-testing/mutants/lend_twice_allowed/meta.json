@@ -1,0 +1,6 @@
+{
+  "name": "lend_twice_allowed",
+  "description": "Lending never checks whether the book is already out, so a second borrower silently takes a book somebody else has.",
+  "covers": "SH-2/AC-2",
+  "run": "api"
+}

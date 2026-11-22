@@ -1,0 +1,36 @@
+# Overlay: run learner code through the Lambda transport (RUNNER_MODE=lambda)
+# on LocalStack instead of the socket runner. Python only: the Lambda runtime
+# has no Node, and previews are refused on this transport.
+#
+# Export the variables docker-compose.yml requires first (its header lists
+# them: JWT_SECRET, ADMIN_EMAIL, ADMIN_PASSWORD, POSTGRES_PASSWORD, SITE_HOST,
+# API_HOST), or Compose stops on the first one that is missing. Then start the
+# stack and deploy the function:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.localstack.yml up -d
+#   AWS_ENDPOINT_URL=http://localhost:4566 bash scripts/localstack-lambda.sh
+services:
+  localstack:
+    image: localstack/localstack:3
+    # Loopback only: this container holds the Docker socket (below).
+    ports:
+      - '127.0.0.1:4566:4566'
+    environment:
+      SERVICES: lambda
+    volumes:
+      # NEVER on a production host. LocalStack starts Lambda containers, so it
+      # needs the daemon socket, and a container holding that socket is root
+      # on the host. This overlay is a development and CI harness for the
+      # RUNNER_MODE=lambda transport, nothing more.
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  api:
+    environment:
+      RUNNER_MODE: lambda
+      AWS_ENDPOINT_URL: http://localstack:4566
+      AWS_REGION: us-east-1
+      RUNNER_LAMBDA_FUNCTION: learnsdlc-code-runner
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+    depends_on:
+      - localstack

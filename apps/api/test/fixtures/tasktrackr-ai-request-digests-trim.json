@@ -1,0 +1,1288 @@
+{
+  "pack": "tasktrackr",
+  "version": "6.0.0",
+  "model": "gpt-5.6-luna",
+  "effort": "none",
+  "entries": [
+    {
+      "surface": "grading.review",
+      "phase": "requirements",
+      "scenario": "grading:scaffold-no-checks",
+      "call": 1,
+      "sha256": "a36dab7b893a4a9d1c20f3ea231963f10e0301f57258dd29a83170b64ec3482d",
+      "length": 24434
+    },
+    {
+      "surface": "grading.review",
+      "phase": "design",
+      "scenario": "grading:scaffold-no-checks",
+      "call": 1,
+      "sha256": "46c69e71ebe7e4faae9521db82b54006b5b08b117d3af032b4fe340e2eb2e9bd",
+      "length": 34118
+    },
+    {
+      "surface": "grading.review",
+      "phase": "implementation",
+      "scenario": "grading:scaffold-no-checks",
+      "call": 1,
+      "sha256": "a637f0b19bfeff33cd2ffeaec2a898c8214e7c4835e14fd90638555830001e64",
+      "length": 63783
+    },
+    {
+      "surface": "grading.review",
+      "phase": "testing",
+      "scenario": "grading:scaffold-no-checks",
+      "call": 1,
+      "sha256": "321b60c4625559900f193996d24de16f275549bd6ce92149efa5d8807bd3db3a",
+      "length": 46127
+    },
+    {
+      "surface": "grading.review",
+      "phase": "deployment",
+      "scenario": "grading:scaffold-no-checks",
+      "call": 1,
+      "sha256": "5db401b073e278b486f655de9cc71356c6cf1c26944b4949d806521bdcdef274",
+      "length": 32477
+    },
+    {
+      "surface": "grading.review",
+      "phase": "maintenance",
+      "scenario": "grading:scaffold-no-checks",
+      "call": 1,
+      "sha256": "7c1f422cc8f37f20782dc9f03e9d34aab4f433576367127c46b441eb6eb7b6bf",
+      "length": 93618
+    },
+    {
+      "surface": "grading.review",
+      "phase": "requirements",
+      "scenario": "grading:fixed-checks",
+      "call": 1,
+      "sha256": "8d95600e2b05cdf23608175e37204bf1c2689935a70c0a119e42ba38b2884375",
+      "length": 26071
+    },
+    {
+      "surface": "grading.review",
+      "phase": "design",
+      "scenario": "grading:fixed-checks",
+      "call": 1,
+      "sha256": "d98f42c74eb452b962de2eb402303b20bc96dc3505a180a8a92daf5648dc30de",
+      "length": 35281
+    },
+    {
+      "surface": "grading.review",
+      "phase": "implementation",
+      "scenario": "grading:fixed-checks",
+      "call": 1,
+      "sha256": "f8799e3f39a5d0308b27721666662a9fba339932a88eb00c96153bd329183bf6",
+      "length": 65354
+    },
+    {
+      "surface": "grading.review",
+      "phase": "testing",
+      "scenario": "grading:fixed-checks",
+      "call": 1,
+      "sha256": "d2c592244fec62136379dd1a96cfe71968df1695ff622a281d5767d01c59f603",
+      "length": 47288
+    },
+    {
+      "surface": "grading.review",
+      "phase": "deployment",
+      "scenario": "grading:fixed-checks",
+      "call": 1,
+      "sha256": "a5c69a59c1abb161399a7562fafab770c35dc15a1ea96b7ba6da780bbba30e11",
+      "length": 34154
+    },
+    {
+      "surface": "grading.review",
+      "phase": "maintenance",
+      "scenario": "grading:fixed-checks",
+      "call": 1,
+      "sha256": "b103acc19b115bb51ae2a141a0bbb8dff6d8577e4af0d229c51e4ea35cfad5f5",
+      "length": 95189
+    },
+    {
+      "surface": "grading.review",
+      "phase": "requirements",
+      "scenario": "grading:build-report",
+      "call": 1,
+      "sha256": "b63de947cd0165a48166b145ebd7b4c34a92281228c1982f55906f82da308d90",
+      "length": 23349
+    },
+    {
+      "surface": "grading.review",
+      "phase": "design",
+      "scenario": "grading:build-report",
+      "call": 1,
+      "sha256": "9e83db73abc6ddb79d317c4159585bcea8fb953bd5b8b7f0847db67fd8879fe1",
+      "length": 48745
+    },
+    {
+      "surface": "grading.review",
+      "phase": "implementation",
+      "scenario": "grading:build-report",
+      "call": 1,
+      "sha256": "8fecaed137be31ce4cc6e146ba1b63e47380d3bc74480d027cb44d4fcddd1356",
+      "length": 65373
+    },
+    {
+      "surface": "grading.review",
+      "phase": "testing",
+      "scenario": "grading:build-report",
+      "call": 1,
+      "sha256": "13a20bb5ac5b6d054bd410a49b571436f8d415ea24d74f32de89eecf44f98132",
+      "length": 48087
+    },
+    {
+      "surface": "grading.review",
+      "phase": "deployment",
+      "scenario": "grading:build-report",
+      "call": 1,
+      "sha256": "6097d3fd40aafa25611af5224f683e1d1feca777904832438b4c938d1daf89c3",
+      "length": 37153
+    },
+    {
+      "surface": "grading.review",
+      "phase": "maintenance",
+      "scenario": "grading:build-report",
+      "call": 1,
+      "sha256": "ce608e31a3862854de11fdc662a580dc59c9f1f24ecefde42d383e380f9fc8dd",
+      "length": 96552
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "requirements",
+      "scenario": "guided:plain",
+      "call": 1,
+      "sha256": "96d3e28e11cab35f7ad6fe0c5421ccbfddf4c26c18984325ee50e89960748720",
+      "length": 8849
+    },
+    {
+      "surface": "guided.review",
+      "phase": "requirements",
+      "scenario": "guided:plain",
+      "call": 2,
+      "sha256": "346dcf84d43cf96a73fec543cbf976e0f24bbdf79c07a98cb4f6993a3a2afd62",
+      "length": 14619
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "design",
+      "scenario": "guided:plain",
+      "call": 1,
+      "sha256": "5e04fd342915ba0f0114878bccfcf9351796c34b2781400b9b9f04e816dedb69",
+      "length": 19759
+    },
+    {
+      "surface": "guided.review",
+      "phase": "design",
+      "scenario": "guided:plain",
+      "call": 2,
+      "sha256": "98769b78fb9677369b9ad7dd5f7e6c8a88512efc901d48263e6805f61940a8a6",
+      "length": 21677
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "implementation",
+      "scenario": "guided:plain",
+      "call": 1,
+      "sha256": "161721bdbeb4e290332d47c575f83dd098e6f08381ab7fb9d5bfc0c1289654b7",
+      "length": 28509
+    },
+    {
+      "surface": "guided.review",
+      "phase": "implementation",
+      "scenario": "guided:plain",
+      "call": 2,
+      "sha256": "7c082285b87e039133c292604683b9897d3c20d588287ce35dcf04db686811de",
+      "length": 111566
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "testing",
+      "scenario": "guided:plain",
+      "call": 1,
+      "sha256": "c87b15d841ee8ad70d0b198c9d1c19786c0a6abe7d54aa065fe3e1a2e61fce5d",
+      "length": 15259
+    },
+    {
+      "surface": "guided.review",
+      "phase": "testing",
+      "scenario": "guided:plain",
+      "call": 2,
+      "sha256": "f56e616873a49188bbb949decbca06ee606aa9053def28680b83a97fa3a7b67f",
+      "length": 118169
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "deployment",
+      "scenario": "guided:plain",
+      "call": 1,
+      "sha256": "de13f2ecb6d85a4e146017152c5feae1916d7d3127bf415d10cba6fefc584777",
+      "length": 15617
+    },
+    {
+      "surface": "guided.review",
+      "phase": "deployment",
+      "scenario": "guided:plain",
+      "call": 2,
+      "sha256": "4e79e14ea931976e7504d6d74d986873db4fd7f5cf1a57d69f51fd03be729ea8",
+      "length": 40062
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "maintenance",
+      "scenario": "guided:plain",
+      "call": 1,
+      "sha256": "8e88ff1b263e639d45335aaa323a3032893db33df2c1470047a033062fce611b",
+      "length": 37612
+    },
+    {
+      "surface": "guided.review",
+      "phase": "maintenance",
+      "scenario": "guided:plain",
+      "call": 2,
+      "sha256": "3c75c47fbc0c64a25ea15cb0bba68a0851bed87a42a499452f7b48038dfd2eb8",
+      "length": 126484
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "requirements",
+      "scenario": "guided:instructor-notes",
+      "call": 1,
+      "sha256": "47ec642a1d290e3ce7e6b69529d57d89719bef5da2da8b951f8900aab7753359",
+      "length": 9220
+    },
+    {
+      "surface": "guided.review",
+      "phase": "requirements",
+      "scenario": "guided:instructor-notes",
+      "call": 2,
+      "sha256": "346dcf84d43cf96a73fec543cbf976e0f24bbdf79c07a98cb4f6993a3a2afd62",
+      "length": 14619
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "design",
+      "scenario": "guided:instructor-notes",
+      "call": 1,
+      "sha256": "7b740899f92920a691a60715e70fd9bb723c2259c6f3a3d0380020edd2e6dbb7",
+      "length": 20130
+    },
+    {
+      "surface": "guided.review",
+      "phase": "design",
+      "scenario": "guided:instructor-notes",
+      "call": 2,
+      "sha256": "98769b78fb9677369b9ad7dd5f7e6c8a88512efc901d48263e6805f61940a8a6",
+      "length": 21677
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "implementation",
+      "scenario": "guided:instructor-notes",
+      "call": 1,
+      "sha256": "4028bf4aa58c8c15f2394ccd4d30760d5d6bf3f9a5d35b7242ea81700edf47a9",
+      "length": 28880
+    },
+    {
+      "surface": "guided.review",
+      "phase": "implementation",
+      "scenario": "guided:instructor-notes",
+      "call": 2,
+      "sha256": "7c082285b87e039133c292604683b9897d3c20d588287ce35dcf04db686811de",
+      "length": 111566
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "testing",
+      "scenario": "guided:instructor-notes",
+      "call": 1,
+      "sha256": "eff39ab0b48e0821912ad773aa16103400625a080a5062407e1a10e01f713932",
+      "length": 15630
+    },
+    {
+      "surface": "guided.review",
+      "phase": "testing",
+      "scenario": "guided:instructor-notes",
+      "call": 2,
+      "sha256": "f56e616873a49188bbb949decbca06ee606aa9053def28680b83a97fa3a7b67f",
+      "length": 118169
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "deployment",
+      "scenario": "guided:instructor-notes",
+      "call": 1,
+      "sha256": "f6d8220d3550c63f35a5c28b24151422f229f7ebb3e0e4e1143dd3b845189eeb",
+      "length": 15988
+    },
+    {
+      "surface": "guided.review",
+      "phase": "deployment",
+      "scenario": "guided:instructor-notes",
+      "call": 2,
+      "sha256": "4e79e14ea931976e7504d6d74d986873db4fd7f5cf1a57d69f51fd03be729ea8",
+      "length": 40062
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "maintenance",
+      "scenario": "guided:instructor-notes",
+      "call": 1,
+      "sha256": "3506107faa89acf637e182b965858b6fe0e2017a9acfdd5594e3ec63e004e299",
+      "length": 37983
+    },
+    {
+      "surface": "guided.review",
+      "phase": "maintenance",
+      "scenario": "guided:instructor-notes",
+      "call": 2,
+      "sha256": "3c75c47fbc0c64a25ea15cb0bba68a0851bed87a42a499452f7b48038dfd2eb8",
+      "length": 126484
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "requirements",
+      "scenario": "guided:memory",
+      "call": 1,
+      "sha256": "96d3e28e11cab35f7ad6fe0c5421ccbfddf4c26c18984325ee50e89960748720",
+      "length": 8849
+    },
+    {
+      "surface": "guided.review",
+      "phase": "requirements",
+      "scenario": "guided:memory",
+      "call": 2,
+      "sha256": "346dcf84d43cf96a73fec543cbf976e0f24bbdf79c07a98cb4f6993a3a2afd62",
+      "length": 14619
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "design",
+      "scenario": "guided:memory",
+      "call": 1,
+      "sha256": "3e740734a4f36637114e715ca79658e740267a9308f7156fe3afb7df8d6bcd65",
+      "length": 20034
+    },
+    {
+      "surface": "guided.review",
+      "phase": "design",
+      "scenario": "guided:memory",
+      "call": 2,
+      "sha256": "98769b78fb9677369b9ad7dd5f7e6c8a88512efc901d48263e6805f61940a8a6",
+      "length": 21677
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "implementation",
+      "scenario": "guided:memory",
+      "call": 1,
+      "sha256": "8e80d4ce04a45a19b3f4483bddc3b4b99cc05e84de5cb784260425b94495fbb4",
+      "length": 28784
+    },
+    {
+      "surface": "guided.review",
+      "phase": "implementation",
+      "scenario": "guided:memory",
+      "call": 2,
+      "sha256": "7c082285b87e039133c292604683b9897d3c20d588287ce35dcf04db686811de",
+      "length": 111566
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "testing",
+      "scenario": "guided:memory",
+      "call": 1,
+      "sha256": "e80cbba619b47a4564a2237bfe64732bef4de7af6ff18595236e9d1e5401e436",
+      "length": 15622
+    },
+    {
+      "surface": "guided.review",
+      "phase": "testing",
+      "scenario": "guided:memory",
+      "call": 2,
+      "sha256": "f56e616873a49188bbb949decbca06ee606aa9053def28680b83a97fa3a7b67f",
+      "length": 118169
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "deployment",
+      "scenario": "guided:memory",
+      "call": 1,
+      "sha256": "7175671b3d627fc8661072e9e9cb3cf680e92420621a30d276c29c325da59b27",
+      "length": 16022
+    },
+    {
+      "surface": "guided.review",
+      "phase": "deployment",
+      "scenario": "guided:memory",
+      "call": 2,
+      "sha256": "4e79e14ea931976e7504d6d74d986873db4fd7f5cf1a57d69f51fd03be729ea8",
+      "length": 40062
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "maintenance",
+      "scenario": "guided:memory",
+      "call": 1,
+      "sha256": "274300bc7a5e7aa543cedd63e20c1059ca7b27944b2493df3b5e360eafe03256",
+      "length": 38068
+    },
+    {
+      "surface": "guided.review",
+      "phase": "maintenance",
+      "scenario": "guided:memory",
+      "call": 2,
+      "sha256": "3c75c47fbc0c64a25ea15cb0bba68a0851bed87a42a499452f7b48038dfd2eb8",
+      "length": 126484
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "requirements",
+      "scenario": "guided:last-failed-checks",
+      "call": 1,
+      "sha256": "12004de7ff38e2b2d725d61cfaf1db164065a7590f5cea46ccea4b29a52ae60d",
+      "length": 9060
+    },
+    {
+      "surface": "guided.review",
+      "phase": "requirements",
+      "scenario": "guided:last-failed-checks",
+      "call": 2,
+      "sha256": "346dcf84d43cf96a73fec543cbf976e0f24bbdf79c07a98cb4f6993a3a2afd62",
+      "length": 14619
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "design",
+      "scenario": "guided:last-failed-checks",
+      "call": 1,
+      "sha256": "0e20bfe72601c6f62b7a3e61ace0f8f77186fafb56a9366467aa7869d099345e",
+      "length": 19970
+    },
+    {
+      "surface": "guided.review",
+      "phase": "design",
+      "scenario": "guided:last-failed-checks",
+      "call": 2,
+      "sha256": "98769b78fb9677369b9ad7dd5f7e6c8a88512efc901d48263e6805f61940a8a6",
+      "length": 21677
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "implementation",
+      "scenario": "guided:last-failed-checks",
+      "call": 1,
+      "sha256": "9270e07ac5127993d75a58b0d0e8cb916f55a063bf3a968e4c8295140a07e897",
+      "length": 28666
+    },
+    {
+      "surface": "guided.review",
+      "phase": "implementation",
+      "scenario": "guided:last-failed-checks",
+      "call": 2,
+      "sha256": "7c082285b87e039133c292604683b9897d3c20d588287ce35dcf04db686811de",
+      "length": 111566
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "testing",
+      "scenario": "guided:last-failed-checks",
+      "call": 1,
+      "sha256": "1d187dd3820afc04d1cb0297ea77127d4dcb8ee9033906d2a5f11b5880a0b996",
+      "length": 15416
+    },
+    {
+      "surface": "guided.review",
+      "phase": "testing",
+      "scenario": "guided:last-failed-checks",
+      "call": 2,
+      "sha256": "f56e616873a49188bbb949decbca06ee606aa9053def28680b83a97fa3a7b67f",
+      "length": 118169
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "deployment",
+      "scenario": "guided:last-failed-checks",
+      "call": 1,
+      "sha256": "4997874e6c479c4b732b46916997395530df4a3a92f7ebab591172a3a3fb0745",
+      "length": 15828
+    },
+    {
+      "surface": "guided.review",
+      "phase": "deployment",
+      "scenario": "guided:last-failed-checks",
+      "call": 2,
+      "sha256": "4e79e14ea931976e7504d6d74d986873db4fd7f5cf1a57d69f51fd03be729ea8",
+      "length": 40062
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "maintenance",
+      "scenario": "guided:last-failed-checks",
+      "call": 1,
+      "sha256": "2634cb9c31cb8a7a3ffa628d7ec67d13917eff7921dccb52253ad8b1b965459c",
+      "length": 37769
+    },
+    {
+      "surface": "guided.review",
+      "phase": "maintenance",
+      "scenario": "guided:last-failed-checks",
+      "call": 2,
+      "sha256": "3c75c47fbc0c64a25ea15cb0bba68a0851bed87a42a499452f7b48038dfd2eb8",
+      "length": 126484
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "requirements",
+      "scenario": "guided:repair",
+      "call": 1,
+      "sha256": "96d3e28e11cab35f7ad6fe0c5421ccbfddf4c26c18984325ee50e89960748720",
+      "length": 8849
+    },
+    {
+      "surface": "guided.review",
+      "phase": "requirements",
+      "scenario": "guided:repair",
+      "call": 2,
+      "sha256": "346dcf84d43cf96a73fec543cbf976e0f24bbdf79c07a98cb4f6993a3a2afd62",
+      "length": 14619
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "requirements",
+      "scenario": "guided:repair",
+      "call": 3,
+      "sha256": "6f2d80961d56503378930acdf300f33a81cd7e0a99954a9cf8b6d2c31e5a79e2",
+      "length": 9897
+    },
+    {
+      "surface": "guided.review",
+      "phase": "requirements",
+      "scenario": "guided:repair",
+      "call": 4,
+      "sha256": "54f3a3210a9844ebb730ea1e977eafee4505c5c6d0cbbb477a5c56dca3ce91f0",
+      "length": 14601
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "design",
+      "scenario": "guided:repair",
+      "call": 1,
+      "sha256": "5e04fd342915ba0f0114878bccfcf9351796c34b2781400b9b9f04e816dedb69",
+      "length": 19759
+    },
+    {
+      "surface": "guided.review",
+      "phase": "design",
+      "scenario": "guided:repair",
+      "call": 2,
+      "sha256": "98769b78fb9677369b9ad7dd5f7e6c8a88512efc901d48263e6805f61940a8a6",
+      "length": 21677
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "design",
+      "scenario": "guided:repair",
+      "call": 3,
+      "sha256": "275f13236a9de1fb4f5b7518abe59173b218f0523515a4121ef36ec589c19898",
+      "length": 20807
+    },
+    {
+      "surface": "guided.review",
+      "phase": "design",
+      "scenario": "guided:repair",
+      "call": 4,
+      "sha256": "fa7b182a4dcd0c44eeeb9f9485892a8ba6243dcce242f9b4344041ffc9b76390",
+      "length": 21659
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "implementation",
+      "scenario": "guided:repair",
+      "call": 1,
+      "sha256": "161721bdbeb4e290332d47c575f83dd098e6f08381ab7fb9d5bfc0c1289654b7",
+      "length": 28509
+    },
+    {
+      "surface": "guided.review",
+      "phase": "implementation",
+      "scenario": "guided:repair",
+      "call": 2,
+      "sha256": "7c082285b87e039133c292604683b9897d3c20d588287ce35dcf04db686811de",
+      "length": 111566
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "implementation",
+      "scenario": "guided:repair",
+      "call": 3,
+      "sha256": "4a096619ed4567724cd0119facdd91d4734c3c7eb363f15063894473b05034d1",
+      "length": 29557
+    },
+    {
+      "surface": "guided.review",
+      "phase": "implementation",
+      "scenario": "guided:repair",
+      "call": 4,
+      "sha256": "f3c93f70e504630e5f354843fe07520690c998bcbf4ce7c06637e55277198a59",
+      "length": 111548
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "testing",
+      "scenario": "guided:repair",
+      "call": 1,
+      "sha256": "c87b15d841ee8ad70d0b198c9d1c19786c0a6abe7d54aa065fe3e1a2e61fce5d",
+      "length": 15259
+    },
+    {
+      "surface": "guided.review",
+      "phase": "testing",
+      "scenario": "guided:repair",
+      "call": 2,
+      "sha256": "f56e616873a49188bbb949decbca06ee606aa9053def28680b83a97fa3a7b67f",
+      "length": 118169
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "testing",
+      "scenario": "guided:repair",
+      "call": 3,
+      "sha256": "a834716f1a8f365fe5b5e3aca21476b0ba94d4101b41b328d703e722a68e63f8",
+      "length": 16307
+    },
+    {
+      "surface": "guided.review",
+      "phase": "testing",
+      "scenario": "guided:repair",
+      "call": 4,
+      "sha256": "f15d476688b82a5a919f444c19c1a1192a5c2c117919c79a8bac40e04a8730ae",
+      "length": 118151
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "deployment",
+      "scenario": "guided:repair",
+      "call": 1,
+      "sha256": "de13f2ecb6d85a4e146017152c5feae1916d7d3127bf415d10cba6fefc584777",
+      "length": 15617
+    },
+    {
+      "surface": "guided.review",
+      "phase": "deployment",
+      "scenario": "guided:repair",
+      "call": 2,
+      "sha256": "4e79e14ea931976e7504d6d74d986873db4fd7f5cf1a57d69f51fd03be729ea8",
+      "length": 40062
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "deployment",
+      "scenario": "guided:repair",
+      "call": 3,
+      "sha256": "2f8ae34012cac2e03831103d484dea9a3dc7473f6b96e3a57185529202191952",
+      "length": 16665
+    },
+    {
+      "surface": "guided.review",
+      "phase": "deployment",
+      "scenario": "guided:repair",
+      "call": 4,
+      "sha256": "56a51e9ca65d117a28fab34789c704c2c8f162017845a2ffce4a789efbb4772c",
+      "length": 40044
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "maintenance",
+      "scenario": "guided:repair",
+      "call": 1,
+      "sha256": "8e88ff1b263e639d45335aaa323a3032893db33df2c1470047a033062fce611b",
+      "length": 37612
+    },
+    {
+      "surface": "guided.review",
+      "phase": "maintenance",
+      "scenario": "guided:repair",
+      "call": 2,
+      "sha256": "3c75c47fbc0c64a25ea15cb0bba68a0851bed87a42a499452f7b48038dfd2eb8",
+      "length": 126484
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "maintenance",
+      "scenario": "guided:repair",
+      "call": 3,
+      "sha256": "34e826279b8adc25a559a625b755cad06725d8c911741837a21b594cccfe5859",
+      "length": 38660
+    },
+    {
+      "surface": "guided.review",
+      "phase": "maintenance",
+      "scenario": "guided:repair",
+      "call": 4,
+      "sha256": "d963f468a0d06e022305cbe1f8a404100473a023f76d6021eb877b3175434de1",
+      "length": 126466
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "requirements",
+      "scenario": "lesson:plain",
+      "call": 1,
+      "sha256": "85d8ff8f03231f89bc739cf9ccfbc0db2bfe44f3f344821545752b74eb6ec77d",
+      "length": 8706
+    },
+    {
+      "surface": "guided.review",
+      "phase": "requirements",
+      "scenario": "lesson:plain",
+      "call": 2,
+      "sha256": "4e75480841ce4577a8a2fc41e40ab0dd070c47c2d5ba38cc46b58542624419a6",
+      "length": 14460
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "design",
+      "scenario": "lesson:plain",
+      "call": 1,
+      "sha256": "a0c91be0ca097d680d0eb2b51a506fd09aaf17c4cd9791853284676b2abb0998",
+      "length": 11910
+    },
+    {
+      "surface": "guided.review",
+      "phase": "design",
+      "scenario": "lesson:plain",
+      "call": 2,
+      "sha256": "7635e4edac80f030b22db4575808cd10aaaf33b049d04721e1ab3fe897d7913b",
+      "length": 13652
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "implementation",
+      "scenario": "lesson:plain",
+      "call": 1,
+      "sha256": "e33262e2fb0510aa6738193720e50d80ebaf6d8f8b12b38db581f90961d2da80",
+      "length": 8399
+    },
+    {
+      "surface": "guided.review",
+      "phase": "implementation",
+      "scenario": "lesson:plain",
+      "call": 2,
+      "sha256": "02239ac93a5e4bf4e39da8b00d8e8cf38382ae52a96c467a940fa6f3e087eb41",
+      "length": 15138
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "testing",
+      "scenario": "lesson:plain",
+      "call": 1,
+      "sha256": "365bb6fa84e0948c1b75b3d61ff31b0a0f03366ce6eac4ad416c9ac47dfd3a80",
+      "length": 8304
+    },
+    {
+      "surface": "guided.review",
+      "phase": "testing",
+      "scenario": "lesson:plain",
+      "call": 2,
+      "sha256": "b83bf47c4d31f4da8b1a97db1482a13914999ae5dc718bf116d2c2733e5e308b",
+      "length": 17999
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "deployment",
+      "scenario": "lesson:plain",
+      "call": 1,
+      "sha256": "951b079630eb7dcc2e2d506ee68a727c3501a61516190d0d8a9a549af638955e",
+      "length": 9201
+    },
+    {
+      "surface": "guided.review",
+      "phase": "deployment",
+      "scenario": "lesson:plain",
+      "call": 2,
+      "sha256": "f5aacb18a59405b1056b9e663082e105ee2fc05e5814fe71f331b9949669d25e",
+      "length": 16360
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "maintenance",
+      "scenario": "lesson:plain",
+      "call": 1,
+      "sha256": "86e505905c95ba592c97ffb411733741c738bb96085decd4cd32e4cb4b31e736",
+      "length": 9169
+    },
+    {
+      "surface": "guided.review",
+      "phase": "maintenance",
+      "scenario": "lesson:plain",
+      "call": 2,
+      "sha256": "713bc35f8862e631a272b13ce3c0acc80f66a9f9d28310f4c9890960b60a5f39",
+      "length": 16061
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "implementation",
+      "scenario": "explain:failing-test",
+      "call": 1,
+      "sha256": "426875d484e3ad5c3deca8b6077563c24edd73d6ef634eeff99a16c2a90f17eb",
+      "length": 29359
+    },
+    {
+      "surface": "guided.review",
+      "phase": "implementation",
+      "scenario": "explain:failing-test",
+      "call": 2,
+      "sha256": "e3a47ff39d2885588bfa7ab145203b713abe35d7f5fca73bfbf2e9367ad83c33",
+      "length": 112281
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "testing",
+      "scenario": "explain:failing-test",
+      "call": 1,
+      "sha256": "719fe3fad7802bf2111a20d4dc08dc73557fa395d875d78762a4f3d1bc4060fd",
+      "length": 16273
+    },
+    {
+      "surface": "guided.review",
+      "phase": "testing",
+      "scenario": "explain:failing-test",
+      "call": 2,
+      "sha256": "f6b7e3ccdadc0ed8a3a73f837ccd47854f00ec7203ef36ebbcbdb6e283691432",
+      "length": 119024
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "maintenance",
+      "scenario": "explain:failing-test",
+      "call": 1,
+      "sha256": "00e67f5af12963ca8fd25c1d149cfe838152aeee7c5499f5f39c149d0894cde7",
+      "length": 38462
+    },
+    {
+      "surface": "guided.review",
+      "phase": "maintenance",
+      "scenario": "explain:failing-test",
+      "call": 2,
+      "sha256": "e05aeffa0240bb147afe547f3da84c06e88c80c3f930fc54b8f760987b63066a",
+      "length": 127199
+    },
+    {
+      "surface": "interview.answer",
+      "phase": "requirements",
+      "scenario": "interview:plain",
+      "call": 1,
+      "sha256": "554514d7373aeae680b62d8b4fd00f48cc104e7895c7cedd17c87d16ca5da62b",
+      "length": 3925
+    },
+    {
+      "surface": "interview.review",
+      "phase": "requirements",
+      "scenario": "interview:plain",
+      "call": 2,
+      "sha256": "c944f76482c54d5ebf55c7cd47e53ea7c9a43afdd3727e3877e2664e0501e5a2",
+      "length": 14597
+    },
+    {
+      "surface": "interview.answer",
+      "phase": "requirements",
+      "scenario": "interview:repair",
+      "call": 1,
+      "sha256": "554514d7373aeae680b62d8b4fd00f48cc104e7895c7cedd17c87d16ca5da62b",
+      "length": 3925
+    },
+    {
+      "surface": "interview.review",
+      "phase": "requirements",
+      "scenario": "interview:repair",
+      "call": 2,
+      "sha256": "c944f76482c54d5ebf55c7cd47e53ea7c9a43afdd3727e3877e2664e0501e5a2",
+      "length": 14597
+    },
+    {
+      "surface": "interview.answer",
+      "phase": "requirements",
+      "scenario": "interview:repair",
+      "call": 3,
+      "sha256": "f2345eb87d35731c4cd220d24fa2db668b6c3034ead23326e34a0ea0c586229f",
+      "length": 4635
+    },
+    {
+      "surface": "interview.review",
+      "phase": "requirements",
+      "scenario": "interview:repair",
+      "call": 4,
+      "sha256": "719d747b689e844c127a1ecbe4225f84a79fc6988824fcfedd729b409aa71b2d",
+      "length": 14535
+    },
+    {
+      "surface": "interview.answer",
+      "phase": "requirements",
+      "scenario": "interview:settled",
+      "call": 1,
+      "sha256": "554514d7373aeae680b62d8b4fd00f48cc104e7895c7cedd17c87d16ca5da62b",
+      "length": 3925
+    },
+    {
+      "surface": "interview.review",
+      "phase": "requirements",
+      "scenario": "interview:settled",
+      "call": 2,
+      "sha256": "c944f76482c54d5ebf55c7cd47e53ea7c9a43afdd3727e3877e2664e0501e5a2",
+      "length": 14597
+    },
+    {
+      "surface": "interview.answer",
+      "phase": "requirements",
+      "scenario": "interview:settled",
+      "call": 3,
+      "sha256": "0d15bababe3124392e489c69f0b3453f52cd8ee7198eac8df2c870f6dc234d69",
+      "length": 3943
+    },
+    {
+      "surface": "interview.review",
+      "phase": "requirements",
+      "scenario": "interview:settled",
+      "call": 4,
+      "sha256": "472ade236ff57272760bcc93e895d9c2aa02ed2d7be896e6cdf3d60b10898993",
+      "length": 14404
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "requirements",
+      "scenario": "agentic:propose-explain",
+      "call": 1,
+      "sha256": "809f6a844e653334a5bbfa050d261f69012784906304e2a7763b372f9f5b342a",
+      "length": 8441
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "requirements",
+      "scenario": "agentic:propose-explain",
+      "call": 2,
+      "sha256": "7e3bfb0315f7f000888c5b8c76416debca529477ddeca4df5e62d16fdcf9029c",
+      "length": 8327
+    },
+    {
+      "surface": "agentic.explanation",
+      "phase": "requirements",
+      "scenario": "agentic:propose-explain",
+      "call": 3,
+      "sha256": "5ffd5b4e1098c3d2951bb3473c18d65141b8261f5074db033cca4e99e4fb5386",
+      "length": 23090
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "design",
+      "scenario": "agentic:propose-explain",
+      "call": 1,
+      "sha256": "209a651d71611763af18cdc9484fab23d092220e784b71487c08309891f1d2c2",
+      "length": 16104
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "design",
+      "scenario": "agentic:propose-explain",
+      "call": 2,
+      "sha256": "0bfebc6e4d774e1bd73f9c10b65f54f9798417285d79bc9643d9db4b40c952b8",
+      "length": 18368
+    },
+    {
+      "surface": "agentic.explanation",
+      "phase": "design",
+      "scenario": "agentic:propose-explain",
+      "call": 3,
+      "sha256": "c15e43157e9ed8f1299c01a4c1befc6579e10be3f11553f900c399d706e1e2c1",
+      "length": 22682
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "implementation",
+      "scenario": "agentic:propose-explain",
+      "call": 1,
+      "sha256": "1f1740b485cecd6a82db94984554aed4fa2e83feb61b7f2d6e49aabe707ba2f7",
+      "length": 29469
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "implementation",
+      "scenario": "agentic:propose-explain",
+      "call": 2,
+      "sha256": "75dd8d8d0eb20e32b0242447a2c1ff4e7e412f862f63cb171d07e089f6d8ab2a",
+      "length": 28619
+    },
+    {
+      "surface": "agentic.explanation",
+      "phase": "implementation",
+      "scenario": "agentic:propose-explain",
+      "call": 3,
+      "sha256": "d2c4cf76b88836176b5050f57a636a85510081d8f52b3d86bb8d0d463ead545d",
+      "length": 43134
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "testing",
+      "scenario": "agentic:propose-explain",
+      "call": 1,
+      "sha256": "955dae9e6cb9a5b322d33e011d7c1df2ef1d1545c973dfb6ce4ad053bdff0e5e",
+      "length": 19025
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "testing",
+      "scenario": "agentic:propose-explain",
+      "call": 2,
+      "sha256": "3578f0fddcc9fde0286b15df35a576966dfba466d836807fcbbf1f1282cdba5d",
+      "length": 18175
+    },
+    {
+      "surface": "agentic.explanation",
+      "phase": "testing",
+      "scenario": "agentic:propose-explain",
+      "call": 3,
+      "sha256": "67a65b62f7f7b2f609f13ecc050c92cac7c67b7fc2d730f436b30e057e59499c",
+      "length": 32691
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "deployment",
+      "scenario": "agentic:propose-explain",
+      "call": 1,
+      "sha256": "a9e1504feb93a19a6e3c6de1e8a04a1599d4135da1a8474b0d9ca29ec2dfc6cd",
+      "length": 16285
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "deployment",
+      "scenario": "agentic:propose-explain",
+      "call": 2,
+      "sha256": "a2743ec7d5b79aac28151b8890e4b8f692b504aa019b058cd502cd0485ed1fd4",
+      "length": 16706
+    },
+    {
+      "surface": "agentic.explanation",
+      "phase": "deployment",
+      "scenario": "agentic:propose-explain",
+      "call": 3,
+      "sha256": "d315fa9255378a577800c70267b7f86ddb1791023a7a8555914e528283606988",
+      "length": 29951
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "maintenance",
+      "scenario": "agentic:propose-explain",
+      "call": 1,
+      "sha256": "706a59eeb055adebc4502be7fad314b80079e849224e66bb436db14a6f8935a0",
+      "length": 38056
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "maintenance",
+      "scenario": "agentic:propose-explain",
+      "call": 2,
+      "sha256": "0123cadef6abfffb2a41ec50b5e55cf891b34e45d8dc5a5e8acc1ca7d7dcf5c8",
+      "length": 39586
+    },
+    {
+      "surface": "agentic.explanation",
+      "phase": "maintenance",
+      "scenario": "agentic:propose-explain",
+      "call": 3,
+      "sha256": "8233e983f0e04c04270893a34c7442b9b8788cc29451496bc601de448516cc58",
+      "length": 51724
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "requirements",
+      "scenario": "agentic:chat",
+      "call": 1,
+      "sha256": "bdfa9602bf226ff2e20cc6f1fa6642650430d3e19974e86352e6bb8b58eedc0b",
+      "length": 10344
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "requirements",
+      "scenario": "agentic:chat",
+      "call": 2,
+      "sha256": "45fe28c346661ab6d816a1b9d2777a0deb781694366f026875a347d00c0ed3b9",
+      "length": 8774
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "design",
+      "scenario": "agentic:chat",
+      "call": 1,
+      "sha256": "f812780cf3c38dd55c1140eb55476fb9d6a5f26e5317fa5dff011e95466a82de",
+      "length": 18007
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "design",
+      "scenario": "agentic:chat",
+      "call": 2,
+      "sha256": "d233e2272d890426f3c83bd65222229bc5ed984bb44e92da24b11bc8dfcc17ea",
+      "length": 18815
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "implementation",
+      "scenario": "agentic:chat",
+      "call": 1,
+      "sha256": "b52a8680e32bd4070bbccd46210f3e2350c8e625819dd621f70f4e131e8be4ac",
+      "length": 31372
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "implementation",
+      "scenario": "agentic:chat",
+      "call": 2,
+      "sha256": "be8ae790f75d00d1c8f9bb91bf301d7e712089d2fc2664dbffc9be9afdadd275",
+      "length": 29066
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "testing",
+      "scenario": "agentic:chat",
+      "call": 1,
+      "sha256": "b0de33c51d8e0d9c795310ddde78e2de379bed1125dff9f8322951a08f322b3f",
+      "length": 20928
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "testing",
+      "scenario": "agentic:chat",
+      "call": 2,
+      "sha256": "40085b941d6c41c612d15fcd9a52b3f642cbaf65b7a2c16354fa03f5edac7102",
+      "length": 18622
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "deployment",
+      "scenario": "agentic:chat",
+      "call": 1,
+      "sha256": "eb65f4395089fb7bf1b36ac5dcf8cadac47ac62e744706b53d6df00e86295699",
+      "length": 18188
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "deployment",
+      "scenario": "agentic:chat",
+      "call": 2,
+      "sha256": "e1a769d9604f4b4f4a696d41a3aece2abe619f76ff54c822d7e053dc1cb6cf13",
+      "length": 17153
+    },
+    {
+      "surface": "agentic.classify",
+      "phase": "maintenance",
+      "scenario": "agentic:chat",
+      "call": 1,
+      "sha256": "ad1df2524d2d4efbd5d0c4b5469fedcc2e614fc1b83cfedb59f813dadc13f913",
+      "length": 39959
+    },
+    {
+      "surface": "agentic.generate",
+      "phase": "maintenance",
+      "scenario": "agentic:chat",
+      "call": 2,
+      "sha256": "9d7db0e292928a3b838011131f592814e28c5d2a4dd06f66bf488a63a6d091d4",
+      "length": 40033
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "requirements",
+      "scenario": "guided:history",
+      "call": 1,
+      "sha256": "0a624c1acf782f3899da50aae4712e7646d6becf814d78ace81f804d4fb4456e",
+      "length": 13687
+    },
+    {
+      "surface": "guided.review",
+      "phase": "requirements",
+      "scenario": "guided:history",
+      "call": 2,
+      "sha256": "3cc9c4343fc12eca3b06cf3628f1a909a8c3f48108fa7c6ae102e97040330101",
+      "length": 19889
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "design",
+      "scenario": "guided:history",
+      "call": 1,
+      "sha256": "d53a512c46c62b21808407a0871f7945fcd77db68bf57c08567dfb4e7e27b720",
+      "length": 24597
+    },
+    {
+      "surface": "guided.review",
+      "phase": "design",
+      "scenario": "guided:history",
+      "call": 2,
+      "sha256": "33150fb08aa0640014c4b8cc3db877e231509cfe1e228d52ca78ed88be9d233b",
+      "length": 26947
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "implementation",
+      "scenario": "guided:history",
+      "call": 1,
+      "sha256": "8387fa88e96ef4073d156db5bce5747ae37af23d3d7eb147965ede3c4843233d",
+      "length": 33347
+    },
+    {
+      "surface": "guided.review",
+      "phase": "implementation",
+      "scenario": "guided:history",
+      "call": 2,
+      "sha256": "bc9bf157e66faeb13b8e96113ee023fa0771ff840e658a97b76791c20357d907",
+      "length": 116836
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "testing",
+      "scenario": "guided:history",
+      "call": 1,
+      "sha256": "ed35bee847130ebc0ba5d5ce7e8feccc7c1b8afb1cea503fef767161a90d7d5a",
+      "length": 20097
+    },
+    {
+      "surface": "guided.review",
+      "phase": "testing",
+      "scenario": "guided:history",
+      "call": 2,
+      "sha256": "792e8f9bc5b65d266cce726c7548f2886c0ac615cd4c010b8b09eae2a5d8878c",
+      "length": 123439
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "deployment",
+      "scenario": "guided:history",
+      "call": 1,
+      "sha256": "5165f08ac593e5a9b97f918bb92aeb1f790969b70cdbfbf03cd69c5cd11f7289",
+      "length": 20455
+    },
+    {
+      "surface": "guided.review",
+      "phase": "deployment",
+      "scenario": "guided:history",
+      "call": 2,
+      "sha256": "2f843853116f8944d2c670cb1ecc3366da923a85aa895aa8270214e07361e840",
+      "length": 45332
+    },
+    {
+      "surface": "guided.draft",
+      "phase": "maintenance",
+      "scenario": "guided:history",
+      "call": 1,
+      "sha256": "5f5a0335a4efc250238c53d347a45a18623ae0bd17c7a191ff76006da8ab1433",
+      "length": 42450
+    },
+    {
+      "surface": "guided.review",
+      "phase": "maintenance",
+      "scenario": "guided:history",
+      "call": 2,
+      "sha256": "8920bf330a7f499a074723f18296321a6e67a380cd89458b7104997ebb678bc7",
+      "length": 131754
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "due_today_counts_as_overdue",
+  "description": "A task due today shows the overdue badge a day early.",
+  "covers": "US-1/AC-2",
+  "run": "web"
+}

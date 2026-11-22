@@ -1,0 +1,6 @@
+{
+  "name": "filters_drop_the_search",
+  "description": "The query string is built without the keyword, so the search box narrows nothing and a status chosen after it silently throws the search away.",
+  "covers": "US-3/AC-3",
+  "run": "web"
+}

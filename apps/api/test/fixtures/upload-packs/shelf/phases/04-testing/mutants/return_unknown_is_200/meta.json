@@ -1,0 +1,6 @@
+{
+  "name": "return_unknown_is_200",
+  "description": "Returning a book nobody has answers 200 with an empty-looking book instead of the 404 the contract promises.",
+  "covers": "SH-3/AC-2",
+  "run": "api"
+}

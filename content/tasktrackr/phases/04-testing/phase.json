@@ -1,0 +1,254 @@
+{
+  "title": "Testing",
+  "intro": "Write the acceptance suites that prove US-2, US-3, US-4 and US-5 on both sides of the contract, and catch the bugs we planted in the API and in the front end.",
+  "artifactKind": "tests",
+  "canRun": true,
+  "runLabel": "Run my tests",
+  "canPreview": true,
+  "taskPanel": "Your implementation passed, but \"the code runs\" is not the same as \"the behaviour is proven\". In this phase you write the acceptance suites for TaskTrackr — the suites a team would run before every release.\n\nThe application has two halves and so does the phase. The whole application is mounted in the workspace and locked, so the two test files you open are the only things that change.\n\n- tests/test_acceptance.py tests the API's HTTP routes through Flask's in-process test client.\n- web/src/acceptance.test.tsx tests the front end in the supplied jsdom DOM harness.\n\nThe API half, in tests/test_acceptance.py\n\n1. US-2, completing a task. Completion is stored, not merely answered, and an id no task has is refused with the status code and the error code shared/contract/api.json names.\n2. US-3, listing, filtering and ordering. Status filtering, keyword matching that ignores case, and the ordering promise: high before medium before low, ties by id.\n3. US-4, the overdue report. Open tasks with a due date strictly before the day you ask about. Cover the boundary — due today is not overdue — and keep out a task that has no due date and a task that was finished late.\n\nWhat is already in the file:\n\n- client is Flask's test client, wired to a fresh in-memory database for every test. client.post(\"/api/tasks/3/complete\") is the request a browser would make, minus the socket, and it goes through the same routing, status codes and JSON your front end will meet.\n- make_list and make_task build a starting state through the API, and the add and day helpers at the top of the file save you the repetition.\n- today() reads the run clock. See below.\n\nThe front-end half, in web/src/acceptance.test.tsx\n\n4. US-5, the late marker on a row. A row for a task whose due date has gone by carries a marker saying how many whole days late it is. A finished task carries none, however late it was. A task with no due date carries none either.\n5. US-3 again, from the other side. The search box has to survive the next filter: when a status is chosen as well, the request the front end sends still carries the keyword.\n\nWhat is already in that file:\n\n- render puts a component in jsdom and screen asks questions of that DOM. This harness checks rendered content and interactions without opening a browser or proving its visual layout. screen.getByTestId(...) throws when nothing matches; screen.queryByTestId(...) answers null, which is what you want when the point of the test is that something is absent.\n- renderHook runs a hook on its own, and waitFor waits for the state it settles into.\n- assert is node's assert module. There is no expect and no matcher library here.\n- aTask(...) and answerWith(...) are in web/src/testing/fixtures.ts, locked and worth reading once. aTask gives you a task with the contract's defaults so a test names only the fact it is about; answerWith answers every request with one canned response and collects the URLs that were asked for. There is no server behind these tests, and a test that reaches for the network is told so.\n- today() and daysAgo(n) are the twins of tests/clock.py, and they read the same run clock.\n\nThe testids the application already carries, so you can ask for exactly the thing you mean:\n\n- task-row is one row.\n- task-title is what the row says the task is called.\n- task-priority is what the row says its priority is.\n- task-due is what the row says its due date is.\n- task-tag is what the row says its tag is.\n- overdue-badge is the late marker, and its wording is \"3 days late\".\n- complete-task is the button the row offers to complete the task.\n- reopen-task is the button the row offers to reopen it.\n- filter-status is the filter bar's status filter.\n- filter-q is the filter bar's keyword filter.\n- filter-tag is the filter bar's tag filter.\n\nHow you are graded\n\n- Pass on a healthy application — a test that fails on correct code is a bug in the test.\n- Mutation testing — on submit, your suites also run against eight secretly broken copies of the application: six of the API and two of the front end. A strong suite fails on every one of them, which is what \"killing a mutant\" means. Weak assertions let them through.\n- Coverage mapping — completing, filtering, the overdue report and the late marker each need at least one test, and six tests across the two files is the floor.\n\nPress Run my tests while you work: both suites run one after the other and the report groups them under API tests and Front end. The broken copies only run on submit. Open Execution evidence to inspect each case, its failure details and the run's console output. These suites do not replace a separate browser check of the running application.\n\nName each test after the criterion it proves and keep the ids from the requirements phase — US-3/AC-2, US-5/AC-2. Every planted bug is filed against one criterion, so a surviving copy names the criterion your suite has not proved yet.\n\nThe response, or the next request\n\nOne habit is worth more than any other on the API side. A handler can answer \"status\": \"done\" and write nothing at all, and the only thing that can tell you is asking for the task again. Here is that habit in Python:\n\n    client.post(f\"/api/tasks/{task['id']}/complete\")\n    again = client.get(f\"/api/tasks/{task['id']}\").get_json()\n    assert again[\"status\"] == \"done\"\n\nA suite that stops at the first response passes on an API that forgets everything.\n\nThe front-end habit is the twin of it: assert the URL the screen asked for, not only that something came back. A hook that quietly drops a parameter still renders whatever the server sent, and only the URL can tell you. Here is that habit in TypeScript:\n\n    const urls = answerWith({ body: [] });\n    // ... run the hook, wait for it to settle ...\n    assert.ok(urls[0].includes('q=rent'), urls[0]);\n\nThe run clock\n\nBoth your suites have a boundary in them — due today is not overdue — and a boundary about dates is only testable if you decide what day it is. Read the day through tests/clock.py on the API side:\n\n    from tests.clock import today\n\n    def day(offset):\n        return (today() + timedelta(days=offset)).isoformat()\n\nand through web/src/testing/clock.ts on the front end, where daysAgo(3) is the date three days ago. Build every due date from them. Then pin the clock in the Run clock control beside the criteria: with a date pinned, your suites, the reference runs and all eight broken copies see that same day, so the kill matrix means the same thing tomorrow as it does now. With nothing pinned they all see the machine's date.\n\nA test that names a fixed date rots. A test that reads the machine's clock is a different test every day. Reading the clock through one function is how a real suite stays honest. Changing the clock costs you no attempt and invalidates no verdict — it is a parameter of the next run, not an event.\n\nWhat good looks like\n\n- One behaviour per test, named after the criterion it proves.\n- Assertions on stored state, on exact ordering, and on what the screen actually shows — not on \"it did not raise\".\n- Both sides of every boundary, every error path checked by status code and error code, and the absent case asserted as carefully as the present one.\n\nUsing the AI mentor well\n\nAsk about boundary values, what makes an assertion strong, how to tell a response apart from stored state, or how to ask a rendered row a question. It will not reveal the planted bugs — working out what could break is the skill being trained.\n\nWhen you are ready, press Submit PR-4. Every required criterion and its evidence must pass review before the next phase opens.\n",
+  "objectives": [
+    "Turn the acceptance criteria of US-2, US-3 and US-4 into tests over the HTTP contract",
+    "Prove the late marker and the search on the front end, in the supplied jsdom DOM harness",
+    "Make every test pass against an application that is behaving",
+    "Write assertions sharp enough to fail on every secretly broken copy of it"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "tests_pass",
+        "title": "Tests pass against a healthy application",
+        "weight": 0.3,
+        "description": "A test that fails on correct code is a bug in the test. Both suites have to be green."
+      },
+      {
+        "key": "mutants_killed",
+        "title": "Bug-detection power (mutants killed)",
+        "weight": 0.45,
+        "description": "Your suites run against eight secretly broken copies of the application, six of the API and two of the front end; a good suite fails on every one."
+      },
+      {
+        "key": "coverage_mapping",
+        "title": "Criteria coverage",
+        "weight": 0.25,
+        "description": "US-2, US-3, US-4 and US-5 behaviours (complete, filter, overdue, the late marker) each have at least one test."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "tests",
+    "learnerTestFiles": [
+      "tests/test_acceptance.py",
+      "web/src/acceptance.test.tsx"
+    ],
+    "supportFiles": [
+      "tests/conftest.py",
+      "tests/clock.py",
+      "api/db.py",
+      "api/schema.sql",
+      "web/src/testing/clock.ts",
+      "web/src/testing/fixtures.ts",
+      "shared/contract/accepted-screen-copy.json"
+    ],
+    "runs": [
+      {
+        "id": "api",
+        "language": "python",
+        "harness": "pytest",
+        "label": "API tests",
+        "learnerTestFiles": [
+          "tests/test_acceptance.py"
+        ],
+        "implFiles": [
+          "api/main.py",
+          "api/errors.py",
+          "api/repository/lists.py",
+          "api/repository/tasks.py",
+          "api/repository/comments.py",
+          "api/routes/lists.py",
+          "api/routes/tasks.py",
+          "api/routes/comments.py"
+        ],
+        "supportFiles": [
+          "tests/conftest.py",
+          "tests/clock.py",
+          "api/db.py",
+          "api/schema.sql"
+        ],
+        "testPaths": [
+          "tests"
+        ]
+      },
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "label": "Front end",
+        "transform": true,
+        "learnerTestFiles": [
+          "web/src/acceptance.test.tsx"
+        ],
+        "implFiles": [
+          "web/src/api/client.ts",
+          "web/src/api/types.ts",
+          "web/src/lib/overdue.ts",
+          "web/src/hooks/useTasks.ts",
+          "web/src/components/OverdueBadge.tsx",
+          "web/src/components/TaskRow.tsx",
+          "web/src/components/TaskFilters.tsx",
+          "web/src/pages/OverduePage.tsx"
+        ],
+        "supportFiles": [
+          "web/src/testing/clock.ts",
+          "web/src/testing/fixtures.ts",
+          "shared/contract/accepted-screen-copy.json"
+        ],
+        "testPaths": [
+          "web/src"
+        ]
+      }
+    ],
+    "coverageKeywords": [
+      {
+        "criterion": "US-2 complete",
+        "criterionId": "US-2/AC-1",
+        "keywords": [
+          "complete"
+        ]
+      },
+      {
+        "criterion": "US-3 filter",
+        "criterionId": "US-3/AC-1",
+        "keywords": [
+          "filter"
+        ]
+      },
+      {
+        "criterion": "US-4 overdue",
+        "criterionId": "US-4/AC-1",
+        "keywords": [
+          "overdue"
+        ]
+      },
+      {
+        "criterion": "US-5 late marker",
+        "criterionId": "US-5/AC-1",
+        "keywords": [
+          "badge"
+        ]
+      }
+    ],
+    "minTests": 6
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the TESTING phase of the TaskTrackr project. The learner writes two acceptance suites. The first is pytest over the HTTP API — completing a task, listing and filtering tasks, and the overdue report — through Flask's test client, using the client, make_list and make_task fixtures and the today() function from tests/clock.py. The second is a front-end suite in web/src/acceptance.test.tsx, run in the supplied jsdom DOM harness with render, screen, renderHook, waitFor and node's assert, using aTask and answerWith from web/src/testing/fixtures.ts and daysAgo from web/src/testing/clock.ts, covering the late marker on a row and the query string the screen asks the API for. There is no expect and no matcher library, and an unstubbed network call is refused on purpose. Coach on test design: arrange-act-assert, asserting stored state rather than only the response body, asserting the URL rather than only the rendered list, boundary values, the absent case, error paths by status code and error code, and building dates from today() and daysAgo() rather than typing them in. Never write their test functions and never reveal what the secretly broken copies of the application change. Keep replies under 120 words, end with one guiding question, and stay on testing topics.",
+    "topics": [
+      {
+        "keywords": [
+          "boundary",
+          "edge",
+          "today",
+          "overdue",
+          "date",
+          "clock"
+        ],
+        "hints": [
+          "Boundary bugs live exactly on the line. For the overdue rule three dates matter: clearly before today, exactly today, and after today. Which of those three does your suite pin down?",
+          "A suite that only checks 'due last month is overdue' passes even if the query used <= where < belongs. What extra task would tell those two apart?",
+          "Build every date from day(-3), day(0), day(2) rather than typing one in. today() reads the run clock, so the same suite gives the same verdict tomorrow."
+        ]
+      },
+      {
+        "keywords": [
+          "status code",
+          "404",
+          "error",
+          "unknown",
+          "missing",
+          "code"
+        ],
+        "hints": [
+          "Error paths need tests too. The contract says completing an id no task has is 404 with the error code task_not_found, so a test asserts both: response.status_code, and response.get_json()['error']['code'].",
+          "A route that answered 200 with a null body would pass a test that only checked the happy path. What id would you use to be sure no task can ever have it?"
+        ]
+      },
+      {
+        "keywords": [
+          "filter",
+          "keyword",
+          "search",
+          "order",
+          "priority",
+          "list"
+        ],
+        "hints": [
+          "Test one axis at a time before you combine them: status alone, keyword alone, then both. And the order is part of the contract — high before medium before low, ties by id. What fixture of tasks makes a wrong order visible?",
+          "Case-insensitivity is one line: add 'Pay Rent', filter for 'rent'. If the query compared case exactly, what would come back?"
+        ]
+      },
+      {
+        "keywords": [
+          "stored",
+          "persist",
+          "state",
+          "again",
+          "response"
+        ],
+        "hints": [
+          "The response is what the handler says. The next request is what the database holds. Which of the two does your completion test read?",
+          "Try completing a task and then asking for it again with GET /api/tasks/{id}. A handler that answers 'done' and writes nothing survives every test that stops at the first response."
+        ]
+      },
+      {
+        "keywords": [
+          "mutant",
+          "kill",
+          "variant",
+          "bug",
+          "power",
+          "broken"
+        ],
+        "hints": [
+          "The graders run your suite against secretly broken copies of the API. A copy dies when at least one of your tests fails on it. Weak assertions survive — which of your tests would still pass if completing a task changed nothing?"
+        ]
+      },
+      {
+        "keywords": [
+          "structure",
+          "arrange",
+          "fixture",
+          "client",
+          "start",
+          "write",
+          "how"
+        ],
+        "hints": [
+          "Follow arrange-act-assert: build a small starting state through the API, make one request, assert one observable outcome. The worked example at the top of the file shows the shape.",
+          "client is Flask's test client and it speaks HTTP: client.post('/api/tasks/3/complete') is the request a browser would make. make_list and make_task set the scene for you."
+        ]
+      },
+      {
+        "keywords": [
+          "render",
+          "screen",
+          "dom",
+          "component",
+          "row",
+          "marker",
+          "hook",
+          "front end"
+        ],
+        "hints": [
+          "A front-end test asks the screen a question, not the code. render the row, then use screen.getByTestId for the thing that should be there and screen.queryByTestId for the thing that should not — the second one answers null instead of throwing, which is what makes an absence assertable. Which absence is the interesting one on a row?",
+          "The marker is a fact about two things, the date and whether the work is finished. A suite that only renders a row that is late proves half of it. What second row would tell the two halves apart?",
+          "There is no server behind these tests. answerWith(...) answers every request with one canned response and hands you the URLs that were asked for, so the question a hook test can answer is 'what did the screen actually ask for'. What would you have to assert for a dropped parameter to fail the test?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Map before you write: list the acceptance criteria of US-2, US-3, US-4 and US-5 and give each one a test name in whichever of the two files it belongs to. The worked example at the top of each file shows the arrange-act-assert shape.",
+      "Now sharpen the assertions: completion should read the task back with a second request, filtering should check exact ids and the promised order, the error paths should assert the status code and the error code, and the front-end cases should read the URL that was asked for rather than the list that came back.",
+      "Finish with boundaries and absences: due yesterday against due today, a task with no due date, a task that was finished late, and the row that carries no marker at all. If your suites would catch <= where < belongs, in either language, you are ready to submit."
+    ]
+  }
+}

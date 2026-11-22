@@ -1,0 +1,296 @@
+/*
+ * The project map's own sheet: the drawing's blocks, lanes and lines, the
+ * framed well the drawing scrolls in, the skeleton drawn while the map loads,
+ * and the card Home and the map page set it in.
+ *
+ * Every colour is a theme token, so Paper and Graphite are one set of rules.
+ * The phase hues appear only as small marks (the lane's square, a block's
+ * bar) and as the pale tint of a lane's header band while that lane is
+ * pointed at, which is the one moment the hue means "this phase"; the lane
+ * itself is only outlined, so no tint ever sits behind the drawing's text.
+ */
+
+.pm-root {
+  /* The frame's shadow hue (redesign.css's --glass-shadow, #245369). */
+  --pm-lift: rgba(36, 83, 105, 0.16);
+  --pm-well-edge: rgb(var(--c-edge));
+  /* The map's numerals in the mono face the Tailwind theme's font-mono uses;
+     scoped here so the older sheets that read --font-mono keep their own
+     fallbacks. */
+  --font-mono: var(--font-geist-mono), 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+html[data-theme='graphite'] .pm-root {
+  --pm-lift: rgba(0, 0, 0, 0.55);
+}
+
+/* ------------------------------------------------------------------ well */
+
+/* The drawing sits in a framed well with its own edge, so at 360px the part
+   that scrolls is a visible compartment rather than a page that seems to be
+   cut off. The mask that says "there is more" is on the scroller inside it,
+   so the frame itself never fades. */
+.pm-well {
+  position: relative;
+  border: 1.5px solid var(--pm-well-edge);
+  border-radius: 12px;
+  background: rgb(var(--c-surface));
+  overflow: hidden;
+}
+.pm-scroller {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) transparent;
+}
+.pm-root .pm-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 2px 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgb(var(--c-muted));
+}
+.pm-root .pm-hint svg {
+  flex: none;
+  color: rgb(var(--c-ink2));
+}
+
+/* ----------------------------------------------------------------- lanes */
+
+.pm-lane {
+  transition: stroke var(--motion-fast, 120ms) var(--ease-out, ease-out);
+}
+.pm-lane-title {
+  transition: fill var(--motion-fast, 120ms) var(--ease-out, ease-out);
+}
+
+/* ----------------------------------------------------------------- lines */
+
+.pm-edge {
+  /* The lines take no pointer, so crossing one between a block and its lane
+     keeps the highlight rather than clearing it. */
+  pointer-events: none;
+  transition:
+    stroke var(--motion-fast, 120ms) var(--ease-out, ease-out),
+    opacity var(--motion-fast, 120ms) var(--ease-out, ease-out),
+    stroke-width var(--motion-fast, 120ms) var(--ease-out, ease-out);
+}
+
+/* ---------------------------------------------------------------- blocks */
+
+.pm-node {
+  cursor: pointer;
+}
+.pm-node .pm-body {
+  transition:
+    stroke-width var(--motion-fast, 120ms) var(--ease-out, ease-out),
+    filter var(--motion-base, 200ms) var(--ease-out, ease-out);
+}
+.pm-node:hover .pm-body {
+  stroke-width: 2.25;
+  filter: drop-shadow(0 6px 10px var(--pm-lift));
+}
+.pm-node:active .pm-body {
+  filter: drop-shadow(0 2px 4px var(--pm-lift));
+}
+/* The block draws its own ring: a rectangle three pixels out, in the accent.
+   The app's outline would trace the group's box, which on an SVG group is
+   drawn square against a rounded block, so the outline is the one thing
+   turned off here and the ring takes its place. */
+.pm-node:focus-visible {
+  outline: none;
+}
+.pm-node .pm-ring {
+  opacity: 0;
+  transition: opacity var(--motion-fast, 120ms) var(--ease-out, ease-out);
+}
+.pm-node:focus-visible .pm-ring {
+  opacity: 1;
+}
+.pm-node:focus-visible .pm-body {
+  stroke: rgb(var(--c-accent));
+  stroke-width: 2.25;
+}
+
+/* A block whose state changed since the last drawing settles: its ring shows
+   in the accent and fades out once, rather than the block jumping. */
+.pm-settle {
+  opacity: 0;
+  pointer-events: none;
+  animation: pm-settle 1.1s var(--ease-out, ease-out) 1;
+}
+@keyframes pm-settle {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* -------------------------------------------------------------- skeleton */
+
+.pm-skeleton {
+  display: grid;
+  grid-template-columns: 1.3fr 1.1fr 1fr 1.2fr 0.75fr 0.7fr;
+  gap: 10px;
+  min-width: 640px;
+  padding: 12px;
+}
+.pm-skeleton-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pm-skeleton-col > .skeleton:first-child {
+  height: 12px;
+  width: 60%;
+  margin-bottom: 6px;
+}
+.pm-skeleton-col > .skeleton {
+  height: 38px;
+  border-radius: 8px;
+}
+
+/* ------------------------------------------------------------------ card */
+
+/* The card Home and the map page set the map in: a white panel on the cool
+   ground with the long card shadow, a header compartment ruled off from the
+   body, and the drawing below. It brings its own type, because Home's page
+   sheet sets a different face on every heading and paragraph under it. */
+.pm-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: rgb(var(--c-surface));
+  border: 1.5px solid rgb(var(--c-edge));
+  border-radius: var(--radius-panel, 14px);
+  box-shadow: var(
+    --shadow-card,
+    0 12px 40px #2453690b
+  );
+  font-family: var(--font-sans);
+  color: rgb(var(--c-ink));
+  line-height: 1.45;
+  overflow: hidden;
+}
+/* Home's page sheet is unlayered, so its paragraph and heading rules would
+   beat the product's own utilities (which live in a cascade layer) on every
+   paragraph in this card: the empty state's title would turn muted and every
+   line would take a 15px bottom margin. Inside the card those page rules are
+   rolled back to the layered ones, so the card reads the same on Home as on
+   the map page. `:where` keeps this at one class, so the card's own rules
+   below still win. */
+.pm-card :where(p, h2, h3) {
+  all: revert-layer;
+}
+.pm-card.pm-card :is(a, button):focus-visible {
+  outline: 2px solid rgb(var(--c-accent));
+  outline-offset: 2px;
+}
+
+.pm-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px 16px;
+  padding: 16px;
+  border-bottom: 1.5px solid rgb(var(--c-edge));
+}
+.pm-card-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgb(var(--c-edge));
+  border-radius: var(--radius-ctl, 12px);
+  background: rgb(var(--c-raised));
+  color: rgb(var(--c-ink2));
+}
+.pm-card-titles {
+  display: flex;
+  flex: 1 1 16rem;
+  flex-direction: column;
+  gap: 2px;
+  min-width: min(100%, 14rem);
+}
+.pm-card .pm-card-title {
+  margin: 0;
+  /* The frame's heading face and weight (redesign.css's h1 to h3). */
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.3;
+  color: rgb(var(--c-ink));
+}
+.pm-card .pm-card-purpose {
+  margin: 0;
+  max-width: 72ch;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgb(var(--c-muted));
+}
+.pm-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.pm-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  min-width: 0;
+}
+/* The figures under the header: blocks, lines and phases opened, each a
+   number in the mono face over its word, the way a tool's status bar reads. */
+.pm-figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pm-figures li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 12.5px;
+  color: rgb(var(--c-muted));
+}
+.pm-figures strong {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(var(--c-ink));
+}
+
+@media (max-width: 480px) {
+  .pm-card-head,
+  .pm-card-body {
+    padding: 14px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-lane,
+  .pm-lane-title,
+  .pm-edge,
+  .pm-node .pm-body,
+  .pm-node .pm-ring {
+    transition: none;
+  }
+  .pm-settle {
+    animation: none;
+  }
+  .pm-node:hover .pm-body {
+    filter: none;
+  }
+}

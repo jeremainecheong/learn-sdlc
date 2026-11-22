@@ -1,0 +1,73 @@
+{
+  "slug": "shelf",
+  "version": "1.0.0",
+  "project": "3cd60b04619b7290de935991b0fc66c8f564316d710609fcef080234a2c2740f",
+  "phases": {
+    "requirements": {
+      "header": "34aa9f548b7acf4e0c9d8af168e1511296cef9a4850dab349d063807958ba346",
+      "files": "74dab4a9c3b78f9e67895924a07eae4d97fc8d6febc7eef6675f71f22d97a936",
+      "checks": "9b5263aa92ee0e3c53e0abcc305ce82b86fb0509716d63ea665daa0ca34ca427",
+      "rubric": "c09aee6849c63746e3ac23aa1e131407cffb0a9487a8e3e85ccd5336b11a2db5",
+      "assistant": "4c87d2d375658c8c46fc1a3dd6210b2797b4368d2b4331ae56984c29b361c05f",
+      "runtime": "e33c14368364f33bcab0041355cb16d87f55b120c2d35945cbca7278ef6c8738",
+      "preview": "f35ce9ff35af3ee8e9a79930b65f56cee78717e865d7c458931f4cea55d6250c",
+      "sealed": "0db2df269f802bae2e8b72a17f29145fec4f89445c162f1351ff37e93a8f927e",
+      "sealedPaths": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "design": {
+      "header": "d0349bf15e8c5a82476f174a18353dc5122a93666a965a2a1f4885bd7545faa1",
+      "files": "758d3dba3f357bdcc335feaeb00b7cb526d84cb8a0f2f62b7a2a2fccadcfc85a",
+      "checks": "db721ff64aaa9ad697bddbebc7cd0137683794b43bda23d2789fab3e386ce46e",
+      "rubric": "c89aa52a41ada976ef5c971e79bef3918c99448836913fb24d5593ec5b4bf471",
+      "assistant": "3113b2049359f2543824fa9224b781c3e4f9ba4cf527f852c9bc333e906db32d",
+      "runtime": "e33c14368364f33bcab0041355cb16d87f55b120c2d35945cbca7278ef6c8738",
+      "preview": "f35ce9ff35af3ee8e9a79930b65f56cee78717e865d7c458931f4cea55d6250c",
+      "sealed": "0db2df269f802bae2e8b72a17f29145fec4f89445c162f1351ff37e93a8f927e",
+      "sealedPaths": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "implementation": {
+      "header": "0d5a87a9c4fe434994367466babd58170d530c51370c1b166923621a56a22150",
+      "files": "6f1435a4f1829782e5ca5c896c04ac70960aa870c95228c520d7831cb900ca40",
+      "checks": "3216389730bf237ee4811190c6be015a725bf658c45d7b603999698bf9368a08",
+      "rubric": "c7021a4275ce2d452163af97e5bf7af9f6ac1f333a7be159bb623cd2db8a9c98",
+      "assistant": "92b1da407f8fe6bcfeebfdc2e7706cafb0e850d417e81e3344342198ce7ab4ae",
+      "runtime": "89da007969658cb0e822e265e42ed989df9e62204050d8015e2573f08f68e5f8",
+      "preview": "f35ce9ff35af3ee8e9a79930b65f56cee78717e865d7c458931f4cea55d6250c",
+      "sealed": "70172f67ae67dec4624491ffccb3bb84a2810aee4b4ecfd139429858f7696f13",
+      "sealedPaths": "cc820e8016c30b3916cb03aad480747f25c3960ca080f1dee7aed64f68fbf881"
+    },
+    "testing": {
+      "header": "d01a8f8a36340dcf4b67baff78647809cc5dd4a55ec0574adc1c59cc79584917",
+      "files": "76657c268e22987abdc329a061265b45ae3403fc4244c8cb5f4ccd9fefb6a0ac",
+      "checks": "c6c4179d3b80872d2a96579a24d08e69e6b10f229d2d127e3f0a6eeee571181b",
+      "rubric": "ab5d6fb4f4f58b670513610b8757e2f5ab573e1078cd79ff79cf1b49b6522402",
+      "assistant": "ef431d6ee542ec6fa0387cc48cd47b790a5b2d8ec65540dd8083189100005795",
+      "runtime": "84229770aeb4505a0ec95d5eda0051d9f240f9c270a836f8302fcb4a03bfac9c",
+      "preview": "f35ce9ff35af3ee8e9a79930b65f56cee78717e865d7c458931f4cea55d6250c",
+      "sealed": "73267f98dc28301f4f988b74d010b2b78856f6075143519b698768e3a16435f4",
+      "sealedPaths": "f569fdbd0801a607a0111e90f897f3c0157097c9d8932e7559db5d3d43cc972e"
+    },
+    "deployment": {
+      "header": "58f999754723c99266f9daf1ce7c600ee9c5cc4fdcc69dfaf6519d7b38527bba",
+      "files": "b54b6f2581aa9db3759bcb15748119a62ce75ad62ddc9d69fa88dea57981c5fd",
+      "checks": "de4097afdbc97a5c7dbc4b7e4cf8f6f3dbd67870f793edf2dbf9626dc59fdf33",
+      "rubric": "9d088e91c45a94f252648ef4e4da5f22925a87b50d73f9d741b1366250f3b1ba",
+      "assistant": "5a4b972b5d9a3d24313f398c9b61d68fbbb40f8cce87023f74ee5709e0fa9f6e",
+      "runtime": "20bfd331ac403aa6730795280a0d600ee8796d4f161f7928b99260dd8e0e8e12",
+      "preview": "f35ce9ff35af3ee8e9a79930b65f56cee78717e865d7c458931f4cea55d6250c",
+      "sealed": "643ede96939565796b361d866dff1212ec7d2c4a3f02bd9407ee7c7dab30f82c",
+      "sealedPaths": "f0e08aebd88507d73e834ad850f46bb6a8b5377c32e4fb68be2925263c83fec5"
+    },
+    "maintenance": {
+      "header": "0ba134783c80edfef1f0bfe102d20b2b3790043ecdaaeb7f5a6d166b69cd7f68",
+      "files": "5e10ba4465a71d478964d7ba8011ec14aca97f5e197f8f2dd75b1c91060b2d64",
+      "checks": "63a1fdc5797a3f8a2a0f427dba3b0a877ff1e8fe014386e448e678c837350911",
+      "rubric": "33a5fec54c2032e72694906602c64a734bf8d9d0ef7cc49c43f6445d015ebc44",
+      "assistant": "d781207d03ae587b9585f9eaac89e36a22c2f6f4e78c65ee8da95c85881b51c0",
+      "runtime": "baf6176470437eed856388e10bc15228ea902c57f407938ef943c8fcd48113c6",
+      "preview": "f35ce9ff35af3ee8e9a79930b65f56cee78717e865d7c458931f4cea55d6250c",
+      "sealed": "5bb3528c015f9fa8c06dffb2b5d4b7e10476c730997df5f889ec6deb6fd60498",
+      "sealedPaths": "39087b2793a28bf2f246b7f95901e3c5865c60a46383c678bfe1c18d1dbd650b"
+    }
+  }
+}

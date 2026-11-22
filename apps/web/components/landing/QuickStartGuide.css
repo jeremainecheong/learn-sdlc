@@ -1,0 +1,21 @@
+.marketing .lh-start-guide{max-width:1272px;margin:0 auto 76px;padding:0 36px;scroll-margin-top:28px;color:var(--lh-ink)}
+.marketing .lh-start-heading{display:flex;align-items:end;justify-content:space-between;gap:32px;margin-bottom:24px}
+.marketing .lh-start-heading h2{font:500 clamp(29px,3.5vw,45px)/1.15 var(--lh-font);letter-spacing:-.035em;margin-top:12px}
+.marketing .lh-start-heading>p{max-width:310px;color:var(--lh-muted);font-size:13px;line-height:1.9}
+.marketing .lh-start-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;list-style:none;padding:0;margin:0}
+.marketing .lh-start-steps>li{min-width:0;border-radius:20px;padding:24px;transition:border-color 180ms ease,box-shadow 180ms ease}
+.marketing .lh-start-step-label{display:flex;align-items:center;justify-content:space-between;color:var(--lh-accent);font-size:12px;margin-bottom:25px}
+.marketing .lh-start-steps h3,.marketing .lh-start-help h3{font:500 23px/1.3 var(--lh-font);letter-spacing:-.025em}
+@media(min-width:521px){.marketing .lh-start-steps h3{min-height:2.6em}}
+.marketing .lh-start-steps p,.marketing .lh-start-help p{color:var(--lh-muted);font-size:13px;line-height:1.85;margin-top:12px}
+.marketing .lh-start-help{display:grid;grid-template-columns:1fr 1fr;gap:32px;border-radius:20px;padding:26px;margin-top:20px}
+.marketing .lh-start-help>div{min-width:0}.marketing .lh-start-help svg{color:var(--lh-accent);margin-bottom:12px}
+.marketing .lh-start-links{display:flex;align-items:center;flex-wrap:wrap;gap:12px 28px;margin-top:20px}
+.marketing .lh-start-links a{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--lh-accent);font-size:13px;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:5px;transition:text-decoration-color 160ms ease}
+.marketing .lh-start-links a:is(:hover,:focus-visible){text-decoration-color:currentColor}
+.marketing .lh-start-links a:focus-visible{outline:2px solid var(--lh-accent);outline-offset:4px;border-radius:3px}
+@media(hover:hover) and (pointer:fine){.marketing .lh-start-steps>li:hover{border-color:var(--lh-accent);box-shadow:inset 0 1px 0 var(--lh-highlight),0 8px 24px var(--lh-shadow)}}
+@media(max-width:1050px){.marketing .lh-start-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.marketing .lh-start-heading{align-items:start;flex-direction:column;gap:14px}.marketing .lh-start-heading>p{max-width:100%}.marketing .lh-start-help{grid-template-columns:1fr;gap:26px}}
+@media(max-width:520px){.marketing .lh-start-guide{padding:0 18px;margin-bottom:48px}.marketing .lh-start-steps{grid-template-columns:1fr;gap:12px}.marketing .lh-start-steps>li{padding:20px}.marketing .lh-start-step-label{margin-bottom:14px}.marketing .lh-start-help{padding:20px}.marketing .lh-start-links{align-items:start;flex-direction:column;gap:4px}}
+@media(prefers-reduced-motion:reduce){.marketing .lh-start-steps>li,.marketing .lh-start-links a{transition:none}}

@@ -1,0 +1,1011 @@
+{
+  "slug": "tasktrackr",
+  "version": "6.0.0",
+  "phases": {
+    "requirements": {
+      "report": "63bbe03d55983269aacc169d95eab8c42f7dd8116000d29f84c8feb2c6dc92cc",
+      "sandboxBudget": 0,
+      "checks": [
+        {
+          "id": "story.record",
+          "status": "passed"
+        },
+        {
+          "id": "story.sentence",
+          "status": "failed"
+        },
+        {
+          "id": "story.criteria.min",
+          "status": "failed"
+        },
+        {
+          "id": "story.criteria.tags",
+          "status": "failed"
+        },
+        {
+          "id": "story.scope.min",
+          "status": "failed"
+        }
+      ],
+      "jobs": []
+    },
+    "design": {
+      "report": "af13e0c8d0c92374ade69b7b2e9d81ac7a848fca3cdf13da609ca86c09823567",
+      "sandboxBudget": 0,
+      "checks": [
+        {
+          "id": "design.record",
+          "status": "passed"
+        },
+        {
+          "id": "design.entities.min",
+          "status": "failed"
+        },
+        {
+          "id": "design.relations.min",
+          "status": "failed"
+        },
+        {
+          "id": "design.operations.min",
+          "status": "passed"
+        },
+        {
+          "id": "design.operations.shape",
+          "status": "failed"
+        },
+        {
+          "id": "design.decisions.min",
+          "status": "passed"
+        },
+        {
+          "id": "design.decisions.shape",
+          "status": "failed"
+        },
+        {
+          "id": "design.trace",
+          "status": "failed"
+        },
+        {
+          "id": "design.api.min",
+          "status": "passed"
+        },
+        {
+          "id": "design.api.errors",
+          "status": "failed"
+        },
+        {
+          "id": "design.screens.min",
+          "status": "passed"
+        },
+        {
+          "id": "design.screens.shape",
+          "status": "failed"
+        },
+        {
+          "id": "design.sequence",
+          "status": "failed"
+        }
+      ],
+      "jobs": []
+    },
+    "implementation": {
+      "report": "92c2550bccf0ce7626d62b1d34f3e5123baf066c0ab81d2c567a625a5fa560ee",
+      "sandboxBudget": 4,
+      "checks": [
+        {
+          "id": "visible-tests",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests-api",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests-web",
+          "status": "passed"
+        },
+        {
+          "id": "static-analysis",
+          "status": "passed"
+        },
+        {
+          "id": "ran-before-submit",
+          "status": "passed"
+        }
+      ],
+      "jobs": [
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests/test_tasks_api.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "ops/seed.py",
+            "shared/contract/accepted-screen-copy.json",
+            "shared/contract/api.json",
+            "shared/contract/screens.json",
+            "tests/conftest.py",
+            "tests/test_tasks_api.py",
+            "web/index.html",
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/NewTaskForm.tsx",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useLists.ts",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.test.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/main.tsx",
+            "web/src/pages/ListsPage.tsx",
+            "web/src/pages/OverduePage.tsx",
+            "web/src/pages/TasksPage.tsx",
+            "web/src/router.tsx"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/lib/overdue.test.ts"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "ops/seed.py",
+            "shared/contract/accepted-screen-copy.json",
+            "shared/contract/api.json",
+            "shared/contract/screens.json",
+            "tests/conftest.py",
+            "tests/test_tasks_api.py",
+            "web/index.html",
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/NewTaskForm.tsx",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useLists.ts",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.test.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/main.tsx",
+            "web/src/pages/ListsPage.tsx",
+            "web/src/pages/OverduePage.tsx",
+            "web/src/pages/TasksPage.tsx",
+            "web/src/router.tsx"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "unittest",
+          "testPaths": [
+            "tests/test_hidden_tasks.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "ops/seed.py",
+            "shared/contract/accepted-screen-copy.json",
+            "shared/contract/api.json",
+            "shared/contract/screens.json",
+            "tests/conftest.py",
+            "tests/test_hidden_tasks.py",
+            "tests/test_tasks_api.py",
+            "web/index.html",
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/NewTaskForm.tsx",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useLists.ts",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.test.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/main.tsx",
+            "web/src/pages/ListsPage.tsx",
+            "web/src/pages/OverduePage.tsx",
+            "web/src/pages/TasksPage.tsx",
+            "web/src/router.tsx"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/overdue.hidden.test.tsx"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "ops/seed.py",
+            "shared/contract/accepted-screen-copy.json",
+            "shared/contract/api.json",
+            "shared/contract/screens.json",
+            "tests/conftest.py",
+            "tests/test_tasks_api.py",
+            "web/index.html",
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/NewTaskForm.tsx",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useLists.ts",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.test.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/main.tsx",
+            "web/src/overdue.hidden.test.tsx",
+            "web/src/pages/ListsPage.tsx",
+            "web/src/pages/OverduePage.tsx",
+            "web/src/pages/TasksPage.tsx",
+            "web/src/router.tsx"
+          ],
+          "gradedPaths": []
+        }
+      ]
+    },
+    "testing": {
+      "report": "c165c307597f8400fd2089303f20d02c4e12b4d08366a142a18734ea415a8099",
+      "sandboxBudget": 10,
+      "checks": [
+        {
+          "id": "tests-on-correct",
+          "status": "passed"
+        },
+        {
+          "id": "tests-on-correct-api",
+          "status": "passed"
+        },
+        {
+          "id": "tests-on-correct-web",
+          "status": "passed"
+        },
+        {
+          "id": "enough-tests",
+          "status": "failed"
+        },
+        {
+          "id": "mutation",
+          "status": "failed"
+        },
+        {
+          "id": "coverage-us-2-complete",
+          "status": "failed"
+        },
+        {
+          "id": "coverage-us-3-filter",
+          "status": "failed"
+        },
+        {
+          "id": "coverage-us-4-overdue",
+          "status": "failed"
+        },
+        {
+          "id": "coverage-us-5-late-marker",
+          "status": "failed"
+        }
+      ],
+      "jobs": [
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/schema.sql",
+            "tests/clock.py",
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "shared/contract/accepted-screen-copy.json",
+            "web/src/acceptance.test.tsx",
+            "web/src/testing/clock.ts",
+            "web/src/testing/fixtures.ts"
+          ],
+          "gradedPaths": [
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/pages/OverduePage.tsx"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "shared/contract/accepted-screen-copy.json",
+            "web/src/acceptance.test.tsx",
+            "web/src/testing/clock.ts",
+            "web/src/testing/fixtures.ts"
+          ],
+          "gradedPaths": [
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/pages/OverduePage.tsx"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/schema.sql",
+            "tests/clock.py",
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/schema.sql",
+            "tests/clock.py",
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/schema.sql",
+            "tests/clock.py",
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "shared/contract/accepted-screen-copy.json",
+            "web/src/acceptance.test.tsx",
+            "web/src/testing/clock.ts",
+            "web/src/testing/fixtures.ts"
+          ],
+          "gradedPaths": [
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/pages/OverduePage.tsx"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/schema.sql",
+            "tests/clock.py",
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/schema.sql",
+            "tests/clock.py",
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/schema.sql",
+            "tests/clock.py",
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py"
+          ]
+        }
+      ]
+    },
+    "deployment": {
+      "report": "29c0d7d6fc28c3f2135009e4af6aa08bbc8a7a4272def9e51e43196412226db9",
+      "sandboxBudget": 2,
+      "checks": [
+        {
+          "id": "docker-workdir",
+          "status": "passed"
+        },
+        {
+          "id": "docker-copy",
+          "status": "passed"
+        },
+        {
+          "id": "docker-entrypoint",
+          "status": "passed"
+        },
+        {
+          "id": "docker-no-todo",
+          "status": "passed"
+        },
+        {
+          "id": "compose-healthcheck",
+          "status": "failed"
+        },
+        {
+          "id": "compose-api-url",
+          "status": "failed"
+        },
+        {
+          "id": "compose-no-todo",
+          "status": "failed"
+        },
+        {
+          "id": "ci-test-step",
+          "status": "failed"
+        },
+        {
+          "id": "ci-web-step",
+          "status": "failed"
+        },
+        {
+          "id": "ci-build-step",
+          "status": "failed"
+        },
+        {
+          "id": "runbook.record",
+          "status": "passed"
+        },
+        {
+          "id": "runbook.environment.min",
+          "status": "failed"
+        },
+        {
+          "id": "runbook.health.min",
+          "status": "failed"
+        },
+        {
+          "id": "runbook.rollback.min",
+          "status": "failed"
+        },
+        {
+          "id": "runbook.data.min",
+          "status": "failed"
+        },
+        {
+          "id": "runbook.incident",
+          "status": "failed"
+        },
+        {
+          "id": "runbook.named",
+          "status": "passed"
+        },
+        {
+          "id": "execution-scope",
+          "status": "info"
+        },
+        {
+          "id": "build-smoke",
+          "status": "passed"
+        }
+      ],
+      "jobs": [
+        {
+          "kind": "smoke",
+          "runId": null,
+          "harness": null,
+          "testPaths": [],
+          "smokeCommands": [
+            [
+              "python3",
+              "api/main.py",
+              "--selfcheck"
+            ]
+          ],
+          "filePaths": [
+            ".github/workflows/ci.yml",
+            "api/Dockerfile",
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "deployment/runbook.json",
+            "docker-compose.yml",
+            "ops/selfcheck.py",
+            "requirements.txt",
+            "shared/contract/accepted-screen-copy.json",
+            "web/Dockerfile",
+            "web/serve.js"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "smoke",
+          "runId": null,
+          "harness": null,
+          "testPaths": [],
+          "smokeCommands": [
+            [
+              "python3",
+              "api/main.py",
+              "--selfcheck"
+            ]
+          ],
+          "filePaths": [
+            ".github/workflows/ci.yml",
+            "api/Dockerfile",
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "deployment/runbook.json",
+            "docker-compose.yml",
+            "ops/selfcheck.py",
+            "requirements.txt",
+            "shared/contract/accepted-screen-copy.json",
+            "web/Dockerfile",
+            "web/serve.js"
+          ],
+          "gradedPaths": []
+        }
+      ]
+    },
+    "maintenance": {
+      "report": "7eb833ce9ae314e0064633f80191a4aca31e301ca912b130435dfa34a2216d31",
+      "sandboxBudget": 4,
+      "checks": [
+        {
+          "id": "visible-tests",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests-api",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests-web",
+          "status": "passed"
+        },
+        {
+          "id": "static-analysis",
+          "status": "passed"
+        },
+        {
+          "id": "ran-before-submit",
+          "status": "passed"
+        },
+        {
+          "id": "change.record",
+          "status": "passed"
+        },
+        {
+          "id": "change.impact.min",
+          "status": "failed"
+        },
+        {
+          "id": "change.contract.min",
+          "status": "failed"
+        },
+        {
+          "id": "change.tests.min",
+          "status": "failed"
+        },
+        {
+          "id": "change.release",
+          "status": "failed"
+        },
+        {
+          "id": "change.trace",
+          "status": "failed"
+        },
+        {
+          "id": "change.named",
+          "status": "passed"
+        }
+      ],
+      "jobs": [
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests/test_comments_api.py",
+            "tests/test_lists_api.py",
+            "tests/test_tasks_api.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "design/contracts.json",
+            "maintenance/change-request.json",
+            "ops/seed.py",
+            "shared/contract/accepted-screen-copy.json",
+            "shared/contract/api.json",
+            "tests/conftest.py",
+            "tests/test_comments_api.py",
+            "tests/test_lists_api.py",
+            "tests/test_tasks_api.py",
+            "web/index.html",
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/NewTaskForm.tsx",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.test.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useLists.ts",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/main.tsx",
+            "web/src/pages/ListsPage.tsx",
+            "web/src/pages/OverduePage.tsx",
+            "web/src/pages/TasksPage.tsx",
+            "web/src/router.tsx"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/components/TaskRow.test.tsx"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "design/contracts.json",
+            "maintenance/change-request.json",
+            "ops/seed.py",
+            "shared/contract/accepted-screen-copy.json",
+            "shared/contract/api.json",
+            "tests/conftest.py",
+            "tests/test_comments_api.py",
+            "tests/test_lists_api.py",
+            "tests/test_tasks_api.py",
+            "web/index.html",
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/NewTaskForm.tsx",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.test.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useLists.ts",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/main.tsx",
+            "web/src/pages/ListsPage.tsx",
+            "web/src/pages/OverduePage.tsx",
+            "web/src/pages/TasksPage.tsx",
+            "web/src/router.tsx"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "unittest",
+          "testPaths": [
+            "tests/test_change.py",
+            "tests/test_regression.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "design/contracts.json",
+            "maintenance/change-request.json",
+            "ops/seed.py",
+            "shared/contract/accepted-screen-copy.json",
+            "shared/contract/api.json",
+            "tests/conftest.py",
+            "tests/test_change.py",
+            "tests/test_comments_api.py",
+            "tests/test_lists_api.py",
+            "tests/test_regression.py",
+            "tests/test_tasks_api.py",
+            "web/index.html",
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/NewTaskForm.tsx",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.test.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/hooks/useLists.ts",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/main.tsx",
+            "web/src/pages/ListsPage.tsx",
+            "web/src/pages/OverduePage.tsx",
+            "web/src/pages/TasksPage.tsx",
+            "web/src/router.tsx"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/components/change.test.tsx"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/db.py",
+            "api/errors.py",
+            "api/main.py",
+            "api/repository/comments.py",
+            "api/repository/lists.py",
+            "api/repository/tasks.py",
+            "api/routes/comments.py",
+            "api/routes/lists.py",
+            "api/routes/tasks.py",
+            "api/schema.sql",
+            "design/contracts.json",
+            "maintenance/change-request.json",
+            "ops/seed.py",
+            "shared/contract/accepted-screen-copy.json",
+            "shared/contract/api.json",
+            "tests/conftest.py",
+            "tests/test_comments_api.py",
+            "tests/test_lists_api.py",
+            "tests/test_tasks_api.py",
+            "web/index.html",
+            "web/src/api/client.ts",
+            "web/src/api/types.ts",
+            "web/src/components/NewTaskForm.tsx",
+            "web/src/components/OverdueBadge.tsx",
+            "web/src/components/TaskFilters.tsx",
+            "web/src/components/TaskRow.test.tsx",
+            "web/src/components/TaskRow.tsx",
+            "web/src/components/change.test.tsx",
+            "web/src/hooks/useLists.ts",
+            "web/src/hooks/useTasks.ts",
+            "web/src/lib/overdue.ts",
+            "web/src/main.tsx",
+            "web/src/pages/ListsPage.tsx",
+            "web/src/pages/OverduePage.tsx",
+            "web/src/pages/TasksPage.tsx",
+            "web/src/router.tsx"
+          ],
+          "gradedPaths": []
+        }
+      ]
+    }
+  }
+}

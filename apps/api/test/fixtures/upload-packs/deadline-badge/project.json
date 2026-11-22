@@ -1,0 +1,12 @@
+{
+  "slug": "deadline-badge",
+  "version": "1.0.0",
+  "title": "Deadline badge",
+  "tagline": "One small feature, an overdue badge, carried through all six phases.",
+  "description": "A team's task list shows a badge on a task that is past its due date. You write the story, design the rule, write the helper, test its boundary, fix one deployment setting and ship one change.",
+  "language": "typescript",
+  "languages": [
+    "typescript",
+    "python"
+  ]
+}

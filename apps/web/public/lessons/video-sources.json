@@ -1,0 +1,110 @@
+[
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=FzRo35jRw7c",
+    "title": "How to create an epic in Jira Cloud",
+    "publisher": "Atlassian",
+    "publisherUrl": "https://www.youtube.com/@Atlassian",
+    "thumbnailUrl": "https://i.ytimg.com/vi/FzRo35jRw7c/hqdefault.jpg",
+    "retrieved": "2026-09-10",
+    "localThumbnail": "video-FzRo35jRw7c.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=1eSvoPUg2-g",
+    "title": "Creating an issue in Jira | Atlassian",
+    "publisher": "Atlassian",
+    "publisherUrl": "https://www.youtube.com/@Atlassian",
+    "thumbnailUrl": "https://i.ytimg.com/vi/1eSvoPUg2-g/hqdefault.jpg",
+    "retrieved": "2026-09-10",
+    "localThumbnail": "video-1eSvoPUg2-g.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=10jYq_d8fks",
+    "title": "Write tests. Not too many. Mostly integration. Talk Practice at UtahJS",
+    "publisher": "Kent C. Dodds",
+    "publisherUrl": "https://www.youtube.com/@kentcdodds-vids",
+    "thumbnailUrl": "https://i.ytimg.com/vi/10jYq_d8fks/hqdefault.jpg",
+    "retrieved": "2026-09-10",
+    "localThumbnail": "video-10jYq_d8fks.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=w2VI8YAFMcw",
+    "title": "Mutation Testing with Stryker (with Adrianne Mallett) | Some Antics",
+    "publisher": "Ben Myers",
+    "publisherUrl": "https://www.youtube.com/@BenDMyers",
+    "thumbnailUrl": "https://i.ytimg.com/vi/w2VI8YAFMcw/hqdefault.jpg",
+    "retrieved": "2026-09-10",
+    "localThumbnail": "video-w2VI8YAFMcw.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=lsMQRaeKNDk",
+    "title": "What is a REST API?",
+    "publisher": "IBM Technology",
+    "publisherUrl": "https://www.youtube.com/@IBMTechnology",
+    "thumbnailUrl": "https://i.ytimg.com/vi/lsMQRaeKNDk/hqdefault.jpg",
+    "retrieved": "2026-11-18",
+    "localThumbnail": "video-lsMQRaeKNDk.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=xsg9BDiwiJE",
+    "title": "Entity Relationship Diagram (ERD) Tutorial - Part 1",
+    "publisher": "Lucid Software",
+    "publisherUrl": "https://www.youtube.com/@LucidSoftware",
+    "thumbnailUrl": "https://i.ytimg.com/vi/xsg9BDiwiJE/hqdefault.jpg",
+    "retrieved": "2026-11-18",
+    "localThumbnail": "video-xsg9BDiwiJE.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=_jKylhJtPmI",
+    "title": "Hacking Websites with SQL Injection - Computerphile",
+    "publisher": "Computerphile",
+    "publisherUrl": "https://www.youtube.com/@Computerphile",
+    "thumbnailUrl": "https://i.ytimg.com/vi/_jKylhJtPmI/hqdefault.jpg",
+    "retrieved": "2026-11-18",
+    "localThumbnail": "video-_jKylhJtPmI.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=DTBta08fXGU",
+    "title": "Full React Tutorial #19 - Handling Fetch Errors",
+    "publisher": "Net Ninja",
+    "publisherUrl": "https://www.youtube.com/@NetNinja",
+    "thumbnailUrl": "https://i.ytimg.com/vi/DTBta08fXGU/hqdefault.jpg",
+    "retrieved": "2026-11-18",
+    "localThumbnail": "video-DTBta08fXGU.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=Gjnup-PuquQ",
+    "title": "Docker in 100 Seconds",
+    "publisher": "Fireship",
+    "publisherUrl": "https://www.youtube.com/@Fireship",
+    "thumbnailUrl": "https://i.ytimg.com/vi/Gjnup-PuquQ/hqdefault.jpg",
+    "retrieved": "2026-11-18",
+    "localThumbnail": "video-Gjnup-PuquQ.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=f3xb7kt_dH4",
+    "title": "What is Docker Compose? | Docker Concepts",
+    "publisher": "Docker",
+    "publisherUrl": "https://www.youtube.com/@DockerInc",
+    "thumbnailUrl": "https://i.ytimg.com/vi/f3xb7kt_dH4/hqdefault.jpg",
+    "retrieved": "2026-11-18",
+    "localThumbnail": "video-f3xb7kt_dH4.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=pznFqp8bIjs",
+    "title": "Respectful and inclusive code reviews",
+    "publisher": "Google Workspace",
+    "publisherUrl": "https://www.youtube.com/@googleworkspace",
+    "thumbnailUrl": "https://i.ytimg.com/vi/pznFqp8bIjs/hqdefault.jpg",
+    "retrieved": "2026-11-18",
+    "localThumbnail": "video-pznFqp8bIjs.jpg"
+  },
+  {
+    "videoUrl": "https://www.youtube.com/watch?v=9yeOJ0ZMUYw",
+    "title": "SQL Joins Explained |¦| Joins in SQL |¦| SQL Tutorial",
+    "publisher": "Socratica",
+    "publisherUrl": "https://www.youtube.com/@Socratica",
+    "thumbnailUrl": "https://i.ytimg.com/vi/9yeOJ0ZMUYw/hqdefault.jpg",
+    "retrieved": "2026-11-18",
+    "localThumbnail": "video-9yeOJ0ZMUYw.jpg"
+  }
+]

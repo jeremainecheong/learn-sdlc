@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Native form POST needs a same-origin Origin header. Only the origin may
+     be sent as Referer; invitation redirects retain HTTP no-referrer. -->
+<meta name="referrer" content="strict-origin">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Private preview · LearnSDLC</title>
+<style>
+:root{color-scheme:dark;--ink:#edf7fc;--muted:#afc5d3;--accent:#75e4f4;--edge:#304b5d}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 15% 15%,#12394e 0,transparent 55%),radial-gradient(ellipse at 90% 90%,#122d49 0,transparent 50%),#081520;color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{width:min(100%,480px);padding:clamp(24px,6vw,44px);border:1px solid var(--edge);border-radius:24px;background:linear-gradient(145deg,#142b3aee,#0d1e2dee);box-shadow:0 24px 72px #0005,inset 0 1px #ffffff0c}.brand{font-weight:750;letter-spacing:-.03em;font-size:22px}.brand span{color:var(--accent)}.tag{display:inline-block;margin:26px 0 8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}h1{font-size:clamp(28px,6vw,36px);line-height:1.15;letter-spacing:-.035em;margin:0 0 18px}p{color:var(--muted);margin:0 0 24px}label{display:block;font-size:14px;font-weight:650;margin-bottom:8px}input,button{width:100%;min-height:48px;font:inherit;border-radius:12px}input{padding:12px 14px;border:1px solid #537083;background:#091b29;color:var(--ink);letter-spacing:.02em}input:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:4px}button{cursor:pointer;margin-top:14px;border:1px solid #92edfa;background:var(--accent);color:#062732;font-weight:700;transition:transform 120ms ease,background 160ms ease,box-shadow 160ms ease}button:hover{background:#a4f0fa;box-shadow:0 6px 20px #75e4f420}button:active{transform:translateY(1px)}.note{font-size:13px;margin:22px 0 0;color:var(--muted)}@media(prefers-reduced-motion:reduce){button{transition:none;transform:none!important}}
+</style>
+<main>
+<div class="brand">Learn<span>SDLC</span></div>
+<div class="tag">Private preview</div>
+<h1>A space to try<br>the whole journey.</h1>
+<p id="access-help" role="status">{{MESSAGE}}</p>
+<form method="post" action="/_preview/access" autocomplete="off">
+<label for="code">Access code</label>
+<input id="code" name="code" type="password" required minlength="43" maxlength="128" autocomplete="off" spellcheck="false" autocapitalize="none" aria-describedby="access-help">
+<button type="submit">Enter the preview</button>
+</form>
+<p class="note">Your invitation opens this preview. Your LearnSDLC account still controls access to your learning and class records.</p>
+</main>
+</html>

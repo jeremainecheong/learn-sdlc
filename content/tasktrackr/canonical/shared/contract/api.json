@@ -1,0 +1,218 @@
+{
+  "$comment": "The HTTP contract. Both halves of the application are written against this file: the routes in api/routes/ publish it, and web/src/api/types.ts mirrors it. entities are the tables, dtos are the shapes that go over the wire, operations are one row per method and path.",
+  "version": "2.0.0",
+  "base": "/api",
+
+  "entities": {
+    "lists": {
+      "table": "lists",
+      "description": "A named list. Deleting one cascades to its tasks.",
+      "fields": [
+        { "name": "id", "type": "integer", "required": true, "primaryKey": true },
+        { "name": "name", "type": "string", "required": true, "unique": true },
+        { "name": "created_at", "type": "timestamp", "required": true }
+      ]
+    },
+    "tasks": {
+      "table": "tasks",
+      "description": "One thing to do, in exactly one list.",
+      "fields": [
+        { "name": "id", "type": "integer", "required": true, "primaryKey": true },
+        { "name": "list_id", "type": "integer", "required": true, "references": "lists.id" },
+        { "name": "title", "type": "string", "required": true },
+        { "name": "priority", "type": "string", "required": true, "default": "medium", "enum": ["low", "medium", "high"] },
+        { "name": "due_date", "type": "date", "required": false, "description": "ISO date, or null. A task with no due date is never overdue." },
+        { "name": "status", "type": "string", "required": true, "default": "open", "enum": ["open", "done"] },
+        { "name": "created_at", "type": "timestamp", "required": true },
+        { "name": "completed_at", "type": "timestamp", "required": false }
+      ]
+    },
+    "tags": {
+      "table": "tags",
+      "description": "A label, named once and attached to many tasks.",
+      "fields": [
+        { "name": "id", "type": "integer", "required": true, "primaryKey": true },
+        { "name": "name", "type": "string", "required": true, "unique": true }
+      ]
+    },
+    "task_tags": {
+      "table": "task_tags",
+      "description": "Which tags are on which task. The join table, with no identity of its own.",
+      "fields": [
+        { "name": "task_id", "type": "integer", "required": true, "references": "tasks.id" },
+        { "name": "tag_id", "type": "integer", "required": true, "references": "tags.id" }
+      ]
+    },
+    "comments": {
+      "table": "comments",
+      "description": "Something somebody said about a task.",
+      "fields": [
+        { "name": "id", "type": "integer", "required": true, "primaryKey": true },
+        { "name": "task_id", "type": "integer", "required": true, "references": "tasks.id" },
+        { "name": "author", "type": "string", "required": true },
+        { "name": "body", "type": "string", "required": true },
+        { "name": "created_at", "type": "timestamp", "required": true }
+      ]
+    }
+  },
+
+  "dtos": {
+    "Task": {
+      "$comment": "The tasks row, plus two things the client would otherwise have to ask for separately.",
+      "from": "tasks",
+      "adds": [
+        { "name": "tags", "type": "string[]", "description": "Tag names, sorted." },
+        { "name": "comment_count", "type": "integer", "description": "How many comments the task has." }
+      ]
+    },
+    "TaskList": {
+      "from": "lists",
+      "adds": [
+        { "name": "task_count", "type": "integer" },
+        { "name": "open_count", "type": "integer" }
+      ]
+    },
+    "Comment": { "from": "comments", "adds": [] }
+  },
+
+  "operations": [
+    {
+      "id": "health",
+      "method": "GET",
+      "path": "/api/health",
+      "summary": "Is the API up.",
+      "success": { "status": 200, "body": { "status": "ok", "version": "2.0.0" } },
+      "errors": []
+    },
+    {
+      "id": "listLists",
+      "method": "GET",
+      "path": "/api/lists",
+      "summary": "Every list, oldest first, each with its counts.",
+      "satisfies": "US-1",
+      "success": { "status": 200, "body": "TaskList[]" },
+      "errors": []
+    },
+    {
+      "id": "createList",
+      "method": "POST",
+      "path": "/api/lists",
+      "summary": "Make a list.",
+      "satisfies": "US-1",
+      "body": { "name": "string" },
+      "success": { "status": 201, "body": "TaskList" },
+      "errors": ["invalid_name", "duplicate_list"]
+    },
+    {
+      "id": "listTasks",
+      "method": "GET",
+      "path": "/api/lists/{id}/tasks",
+      "summary": "The tasks in one list, filtered and ordered. Highest priority first, ties by ascending id.",
+      "satisfies": "US-3",
+      "query": [
+        { "name": "status", "type": "string", "enum": ["all", "open", "done"], "default": "all" },
+        { "name": "q", "type": "string", "description": "Matches part of the title, case-insensitively." },
+        { "name": "tag", "type": "string", "description": "One tag name." }
+      ],
+      "success": { "status": 200, "body": "Task[]" },
+      "errors": ["list_not_found", "invalid_status"]
+    },
+    {
+      "id": "createTask",
+      "method": "POST",
+      "path": "/api/lists/{id}/tasks",
+      "summary": "Add a task to a list.",
+      "satisfies": "US-1",
+      "body": { "title": "string", "priority": "string?", "due_date": "date?", "tags": "string[]?" },
+      "success": { "status": 201, "body": "Task" },
+      "errors": ["invalid_title", "invalid_priority", "invalid_due_date", "invalid_tags", "list_not_found"]
+    },
+    {
+      "id": "getOverdue",
+      "method": "GET",
+      "path": "/api/tasks/overdue",
+      "summary": "Open tasks whose due date is strictly before today, most overdue first, then higher priority, then id.",
+      "satisfies": "US-4",
+      "query": [
+        { "name": "today", "type": "date", "required": true, "description": "The day to report on. Required, so the report is the same report tomorrow." }
+      ],
+      "success": { "status": 200, "body": "Task[]" },
+      "errors": ["invalid_date"]
+    },
+    {
+      "id": "getTask",
+      "method": "GET",
+      "path": "/api/tasks/{id}",
+      "summary": "One task.",
+      "success": { "status": 200, "body": "Task" },
+      "errors": ["task_not_found"]
+    },
+    {
+      "id": "updateTask",
+      "method": "PATCH",
+      "path": "/api/tasks/{id}",
+      "summary": "Change any of a task's fields.",
+      "body": { "title": "string?", "priority": "string?", "due_date": "date?", "status": "string?" },
+      "success": { "status": 200, "body": "Task" },
+      "errors": ["invalid_title", "invalid_priority", "invalid_due_date", "invalid_status", "task_not_found"]
+    },
+    {
+      "id": "completeTask",
+      "method": "POST",
+      "path": "/api/tasks/{id}/complete",
+      "summary": "Mark a task done. Completing a done task changes nothing and returns it.",
+      "satisfies": "US-2",
+      "success": { "status": 200, "body": "Task" },
+      "errors": ["task_not_found"]
+    },
+    {
+      "id": "reopenTask",
+      "method": "POST",
+      "path": "/api/tasks/{id}/reopen",
+      "summary": "Put a done task back on the pile.",
+      "satisfies": "US-2",
+      "success": { "status": 200, "body": "Task" },
+      "errors": ["task_not_found"]
+    },
+    {
+      "id": "deleteTask",
+      "method": "DELETE",
+      "path": "/api/tasks/{id}",
+      "summary": "Delete a task, and its tags and comments with it.",
+      "success": { "status": 204 },
+      "errors": ["task_not_found"]
+    },
+    {
+      "id": "listComments",
+      "method": "GET",
+      "path": "/api/tasks/{id}/comments",
+      "summary": "A task's comments, newest first.",
+      "success": { "status": 200, "body": "Comment[]" },
+      "errors": ["task_not_found"]
+    },
+    {
+      "id": "addComment",
+      "method": "POST",
+      "path": "/api/tasks/{id}/comments",
+      "summary": "Say something about a task.",
+      "body": { "author": "string", "body": "string" },
+      "success": { "status": 201, "body": "Comment" },
+      "errors": ["invalid_comment", "task_not_found"]
+    }
+  ],
+
+  "errors": {
+    "$comment": "Every error is {\"error\": {\"code\", \"message\"}} with a real status code, built in one place: api/errors.py.",
+    "invalid_name": { "status": 400, "meaning": "A list needs a name." },
+    "duplicate_list": { "status": 409, "meaning": "A list with that name already exists." },
+    "list_not_found": { "status": 404, "meaning": "No list has that id." },
+    "invalid_status": { "status": 400, "meaning": "status must be a value the contract names." },
+    "invalid_title": { "status": 400, "meaning": "A task needs a title." },
+    "invalid_priority": { "status": 400, "meaning": "priority must be low, medium or high." },
+    "invalid_due_date": { "status": 400, "meaning": "due_date must be an ISO date." },
+    "invalid_tags": { "status": 400, "meaning": "tags must be a list of names." },
+    "invalid_date": { "status": 400, "meaning": "today must be an ISO date." },
+    "task_not_found": { "status": 404, "meaning": "No task has that id." },
+    "invalid_comment": { "status": 400, "meaning": "A comment needs an author and a body." }
+  }
+}

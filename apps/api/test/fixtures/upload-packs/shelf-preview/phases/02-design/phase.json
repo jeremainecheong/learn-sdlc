@@ -1,0 +1,118 @@
+{
+  "title": "Design",
+  "intro": "Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision.",
+  "artifactKind": "design",
+  "canRun": false,
+  "taskPanel": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence with because in it.\n",
+  "objectives": [
+    "List every operation the API answers",
+    "Name the status and error code of every refusal",
+    "Record one decision, the alternative and the reason"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "contract",
+        "title": "Contract",
+        "weight": 0.5,
+        "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+      },
+      {
+        "key": "decisions",
+        "title": "Decision",
+        "weight": 0.3,
+        "description": "A decision, the alternative it beat and the reason."
+      },
+      {
+        "key": "completeness",
+        "title": "Completeness",
+        "weight": 0.2,
+        "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "design",
+    "contracts": {
+      "api": true,
+      "screens": false
+    },
+    "sequence": false,
+    "stories": [
+      {
+        "id": "SH-1",
+        "title": "Browse the shelf",
+        "line": "As a member, I want to see every book in shelf order, so that I can find one without asking."
+      },
+      {
+        "id": "SH-2",
+        "title": "Lend a book",
+        "line": "As a librarian, I want to record who has borrowed a book, so that I know where it is."
+      },
+      {
+        "id": "SH-3",
+        "title": "Return a book",
+        "line": "As a librarian, I want to put a returned book back, so that the next member can borrow it."
+      }
+    ],
+    "floor": {
+      "minEntities": 1,
+      "minRelations": 0,
+      "minOperations": 3,
+      "operationShape": true,
+      "minDecisions": 1,
+      "decisionShape": true,
+      "traceEveryStory": true,
+      "minEndpoints": 4,
+      "requireErrorCatalogue": true,
+      "minScreens": 0,
+      "screenShape": true
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the DESIGN phase of Shelf, a teacher's own application: a Python Flask API that keeps books in memory and a TypeScript React page that lists them. The learner fills the design record and the API contract in the Design room's forms. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "operation",
+          "endpoint",
+          "route",
+          "table"
+        ],
+        "hints": [
+          "Which stories need the API to answer something, and what does each ask for?",
+          "What does a client have to send, and what does it get back?"
+        ]
+      },
+      {
+        "keywords": [
+          "error",
+          "404",
+          "409",
+          "refuse"
+        ],
+        "hints": [
+          "Which requests can fail, and how would a client tell the failures apart?",
+          "Is a book nobody has the same failure as a book already lent?"
+        ]
+      },
+      {
+        "keywords": [
+          "decision",
+          "because",
+          "alternative"
+        ],
+        "hints": [
+          "What did you choose that someone else might have chosen differently?",
+          "What would the alternative have cost?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with the table: one row per thing a story needs.",
+      "Then the refusals: status and error code for each.",
+      "Finish with one decision and its reason."
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <title>LearnSDLC — laptop and thinking cap</title>
+  <rect x="10" y="24" width="44" height="28" rx="5" fill="#DDF4FA" stroke="#123F4D" stroke-width="3.5"/>
+  <path d="M8 51H56L60 57C60.8 58.4 59.8 60 58.2 60H5.8C4.2 60 3.2 58.4 4 57L8 51Z" fill="#123F4D"/>
+  <path d="M25 51H39L37 54H27L25 51Z" fill="#76CDE1"/>
+  <path d="M25 36L21 40L25 44M39 36L43 40L39 44" stroke="#237E99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18 20V27C25 32.3 39 32.3 46 27V20L32 25L18 20Z" fill="#65C6DF" stroke="#123F4D" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M7 15.5L32 6L57 15.5L32 25L7 15.5Z" fill="#123F4D" stroke="#123F4D" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M32 15.5L55 17V30" stroke="#65C6DF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M55 29L52.5 35H57.5L55 29Z" fill="#123F4D"/>
+</svg>

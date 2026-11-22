@@ -1,0 +1,92 @@
+{
+  "persona": {
+    "name": "Team Lead",
+    "role": "plans the team's week and asked for the badge"
+  },
+  "opening": "Team Lead here. Ask me what you need to know about the overdue badge.",
+  "unknownReply": "I have not decided that yet. What would you suggest, and why?",
+  "refusal": "The wording is your job. I can tell you what I need.",
+  "maxTurns": 10,
+  "factsExpected": 5,
+  "facts": [
+    {
+      "id": "f1",
+      "topic": "US-1: who it is for",
+      "keywords": [
+        "who",
+        "team",
+        "see",
+        "user"
+      ],
+      "answer": "Everyone on the team who reads the task list."
+    },
+    {
+      "id": "f2",
+      "topic": "US-1: what they need",
+      "keywords": [
+        "badge",
+        "show",
+        "want",
+        "need"
+      ],
+      "answer": "I want a badge on any task that is past its due date."
+    },
+    {
+      "id": "f3",
+      "topic": "US-1: why",
+      "keywords": [
+        "why",
+        "matter",
+        "late",
+        "miss"
+      ],
+      "answer": "So we spot late work before the weekly meeting, not after it."
+    },
+    {
+      "id": "f4",
+      "topic": "US-1/AC-1: a task due yesterday",
+      "keywords": [
+        "yesterday",
+        "past",
+        "before",
+        "overdue"
+      ],
+      "answer": "A task due yesterday is overdue, so it shows the badge."
+    },
+    {
+      "id": "f5",
+      "topic": "US-1/AC-2: a task due today",
+      "keywords": [
+        "today",
+        "boundary",
+        "same",
+        "day"
+      ],
+      "answer": "A task due today is not overdue yet. It gets the badge tomorrow."
+    },
+    {
+      "id": "f6",
+      "topic": "US-1: a task with no due date",
+      "keywords": [
+        "no due date",
+        "without",
+        "empty",
+        "missing"
+      ],
+      "answer": "A task with no due date never shows the badge."
+    },
+    {
+      "id": "f7",
+      "topic": "US-1: what is out of scope",
+      "keywords": [
+        "scope",
+        "reminder",
+        "email",
+        "notification",
+        "left out",
+        "include"
+      ],
+      "answer": "Out of scope: reminders and notifications. Just the badge for now."
+    }
+  ]
+}

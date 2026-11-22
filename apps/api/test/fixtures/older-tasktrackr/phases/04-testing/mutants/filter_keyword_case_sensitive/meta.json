@@ -1,0 +1,6 @@
+{
+  "name": "filter_keyword_case_sensitive",
+  "description": "The keyword clause matches with GLOB, which compares case exactly, so searching for \"rent\" misses \"Pay Rent\".",
+  "covers": "US-3/AC-2",
+  "run": "api"
+}

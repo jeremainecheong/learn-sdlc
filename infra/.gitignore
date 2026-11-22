@@ -1,0 +1,7 @@
+# Run receipts written by the operator's verification tools (for example
+# microvm/controller/verify_real.py --report). Each records one machine's run
+# against a real deployment, so none is kept in the repository.
+microvm/controller/real-*.json
+microvm/guest/*-verification.json
+microvm/guest/*-diagnostic.json
+preview/cognito/offline-verification.json

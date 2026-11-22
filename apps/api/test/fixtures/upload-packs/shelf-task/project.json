@@ -1,0 +1,12 @@
+{
+  "slug": "shelf-task",
+  "version": "1.0.0",
+  "title": "Shelf — one story, its task named in phase.json",
+  "tagline": "The smallest teacher pack: one written phase whose task block names the task.",
+  "description": "One requirements phase of Shelf, a small library application. Its phase.json carries a task block, so the learner's task has its own title, brief and objectives beside the phase's own.",
+  "language": "python",
+  "languages": ["python"],
+  "phases": [
+    "phases/01-requirements"
+  ]
+}

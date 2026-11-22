@@ -1,0 +1,157 @@
+{
+  "title": "Maintenance",
+  "intro": "Change request CHG-1 arrives on a shelf that already works: shelve by surname. Ship it in both layers without breaking anything.",
+  "artifactKind": "code",
+  "canRun": true,
+  "runLabel": "Run regression tests",
+  "taskPanel": "Change request CHG-1. The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.\n\nWhat good looks like: the API and the page agree on the new order. Lending, returning and the author filter behave exactly as before. The visible regression cases pass before you submit.\n\nRecord the change in the change request as you go: in the Request tab, what the change touches; in the Checks tab, the tests and the acceptance items each covers; in the Release tab, the release, its change lines and how to roll it back.\n\nUsing the AI mentor well: ask the mentor which existing behaviour your change could break, then run the regression cases to find out.",
+  "objectives": [
+    "Order the shelf by surname, then title, then id, in the API (CHG-1)",
+    "Make the page agree with the API's new order",
+    "Keep lending, returning and the author filter exactly as they were"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "correctness_hidden",
+        "title": "Correctness (hidden tests)",
+        "weight": 0.4,
+        "description": "The sealed suites, one per layer, ask the same rules many more questions."
+      },
+      {
+        "key": "visible_tests",
+        "title": "Visible tests",
+        "weight": 0.1,
+        "description": "The suites you can see pass, and you can run them before submitting."
+      },
+      {
+        "key": "code_quality",
+        "title": "Code quality",
+        "weight": 0.2,
+        "description": "No TODO left behind, reasonable complexity, docstrings kept."
+      },
+      {
+        "key": "process",
+        "title": "Process",
+        "weight": 0.15,
+        "description": "You ran the tests before submitting and used the mentor in moderation."
+      },
+      {
+        "key": "change_request",
+        "title": "Change request",
+        "weight": 0.15,
+        "description": "The record names what the change touched, the tests that cover each acceptance item and the release."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "code",
+    "editableTargets": [
+      "api/shelf.py",
+      "web/src/lib/shelf.ts"
+    ],
+    "runs": [
+      {
+        "id": "api",
+        "language": "python",
+        "harness": "pytest",
+        "hiddenHarness": "unittest",
+        "label": "API tests",
+        "visibleTests": [
+          "tests/test_shelf_order.py"
+        ],
+        "supportFiles": [
+          "tests/conftest.py"
+        ]
+      },
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "hiddenHarness": "js",
+        "label": "Front end",
+        "transform": true,
+        "visibleTests": [
+          "web/src/lib/shelf.test.ts"
+        ],
+        "supportFiles": []
+      }
+    ],
+    "ticket": {
+      "id": "CHG-1",
+      "title": "Shelve by surname",
+      "summary": "The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.",
+      "acceptance": [
+        {
+          "id": "AC-1",
+          "line": "Order the shelf by surname, then title, then id, in the API (CHG-1)"
+        },
+        {
+          "id": "AC-2",
+          "line": "Make the page agree with the API's new order"
+        },
+        {
+          "id": "AC-3",
+          "line": "Keep lending, returning and the author filter exactly as they were"
+        }
+      ]
+    },
+    "change": {
+      "record": "maintenance/change-request.json",
+      "contract": false,
+      "floor": {
+        "minImpact": 1,
+        "minContract": 1,
+        "minTests": 1,
+        "requireRelease": true,
+        "traceEveryAcceptance": true
+      }
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the MAINTENANCE phase of Shelf, a teacher's own application: a Python Flask API that keeps books in memory and a TypeScript React page that lists them. The learner ships change request CHG-1 (shelve by surname) in api/shelf.py and web/src/lib/shelf.ts without regressions. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "surname",
+          "order",
+          "sort",
+          "chg-1"
+        ],
+        "hints": [
+          "Where does the author's surname come from, and what if the name has three words?",
+          "Which sort key comes first now, and which come after it?"
+        ]
+      },
+      {
+        "keywords": [
+          "regression",
+          "break",
+          "lend",
+          "filter"
+        ],
+        "hints": [
+          "Which behaviours did the shelf have before CHG-1, and which test proves each still holds?",
+          "Did the author filter's order change too? Should it?"
+        ]
+      },
+      {
+        "keywords": [
+          "page",
+          "typescript",
+          "sortforshelf"
+        ],
+        "hints": [
+          "Why must the page and the API agree on the order?",
+          "Can the two layers share the rule without sharing code?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Read CHG-1 and the regression cases first.",
+      "Change the API's order, then the page's, the same way.",
+      "Run the regression tests in both layers before you submit."
+    ]
+  }
+}

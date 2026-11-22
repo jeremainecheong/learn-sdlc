@@ -1,0 +1,96 @@
+name: Bug report
+description: Something in LearnSDLC does not work as its documents say.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report this.
+
+        **A security problem is not a bug report.** Do not describe it here; follow SECURITY.md at the root of the repository instead.
+
+        Leave out any real learner's name, work or account, and any key, password or token.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you saw, including any message word for word.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: What should have happened instead, and where the documents say so if they do.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The smallest set of steps that shows it, starting from a fresh start of the product if you can.
+      placeholder: |
+        1. npm run demo
+        2. Sign in as ...
+        3. Open ...
+    validations:
+      required: true
+  - type: dropdown
+    id: how-it-runs
+    attributes:
+      label: How LearnSDLC was running
+      options:
+        - npm run demo (on this machine, SQLite)
+        - npm run demo -- --docker (the local Docker stack)
+        - npm run host (hosting a class from one machine)
+        - The production Compose file (docker-compose.yml)
+        - The reference AWS deployment
+        - Something else (say below)
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Linux
+        - macOS
+        - Windows
+        - Other (say below)
+    validations:
+      required: true
+  - type: dropdown
+    id: ai
+    attributes:
+      label: AI provider
+      description: Which AI answered, if the problem involves the mentor, the interview, the Agentic assistant or grading.
+      options:
+        - Not relevant to this problem
+        - The canned test mentor (--ai-stub)
+        - OpenAI
+        - Another OpenAI-compatible provider (say below)
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: The output of `git rev-parse --short HEAD`.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: The relevant lines from the terminal or from data/demo.log. Remove anything secret or personal first.
+      render: shell
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else
+      description: Versions of Node, Python or Docker if they matter, screenshots, or anything you tried.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched the open and closed issues for this problem.
+          required: true
+        - label: I removed keys, passwords, tokens and any learner's personal data from what I pasted.
+          required: true

@@ -1,0 +1,89 @@
+{
+  "key": "requirements",
+  "order": 1,
+  "title": "Requirements",
+  "intro": "A member asked for one more story. Write it, with criteria a tester could check.",
+  "artifactKind": "markdown",
+  "canRun": false,
+  "taskFile": "task.md",
+  "objectives": [
+    "Write SH-5"
+  ],
+  "files": [
+    {
+      "path": "requirements/my-story.md",
+      "source": "files/my-story.md",
+      "editable": true,
+      "language": "markdown"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "story_quality",
+        "title": "Story",
+        "weight": 0.5,
+        "description": "Who wants it, what they want, and why."
+      },
+      {
+        "key": "acceptance_criteria",
+        "title": "Acceptance criteria",
+        "weight": 0.3,
+        "description": "Given / When / Then criteria a tester could check, including a book on loan."
+      },
+      {
+        "key": "completeness",
+        "title": "Completeness",
+        "weight": 0.2,
+        "description": "Enough words to say it all."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "markdown",
+    "targets": [
+      "requirements/my-story.md"
+    ],
+    "minWords": 50,
+    "minWordsCriterion": "completeness",
+    "rules": [
+      {
+        "id": "story-form",
+        "label": "SH-5 is one As a / I want / so that sentence",
+        "criterion": "story_quality",
+        "pattern": "\\bAs an? [A-Za-z][^\\n]{2,}?I want [^\\n]{6,}?so that [^\\n]{6,}",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Write the story as one sentence: As a <who>, I want <what>, so that <why>."
+      },
+      {
+        "id": "acceptance-on-loan",
+        "label": "A criterion covers a book already on loan",
+        "criterion": "acceptance_criteria",
+        "pattern": "\\b(on loan|lent|borrowed)\\b",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Add a criterion about a book somebody has already borrowed: what should the member see?"
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the REQUIREMENTS phase of Shelf, a teacher's own small library application. The learner writes story SH-5 in requirements/my-story.md. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [],
+    "progressive": [
+      "Start with the sentence: who, what, and why.",
+      "Then the criteria: one ordinary case and one about a book already on loan."
+    ]
+  },
+  "task": {
+    "key": "main",
+    "title": "Write SH-5, the free-to-borrow story",
+    "brief": "# Write SH-5\n\nA member wants to see which of an author's books are free to borrow right now. Write SH-5 in `requirements/my-story.md`: one *As a … I want … so that …* sentence, then at least two *Given … When … Then …* criteria, one of them about a book already on loan.",
+    "objectives": [
+      "Write SH-5 in the As a / I want / so that form",
+      "Give it at least two Given / When / Then acceptance criteria",
+      "Cover the case of a book that is already on loan"
+    ]
+  }
+}

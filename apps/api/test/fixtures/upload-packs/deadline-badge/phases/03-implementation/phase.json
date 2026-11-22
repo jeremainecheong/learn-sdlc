@@ -1,0 +1,82 @@
+{
+  "title": "Implementation",
+  "intro": "Fill one TODO in the overdue helper so the failing test passes.",
+  "artifactKind": "code",
+  "canRun": true,
+  "runLabel": "Run tests",
+  "taskPanel": "Make the overdue badge rule work in web/src/lib/overdue.ts.\n\nisOverdue(task, today) has one TODO line. Replace it with the rule: a task is overdue when its due date is before today. A task due today is not overdue. Keep the rest of the file as it is.\n\nRun the tests first: the one test in web/src/lib/overdue.test.ts fails. Run them again after your change. When you submit, hidden tests check the same rule on more cases.\n\nPage preview shows three sample tasks drawn by your helper. Its two page files are supplied and locked.",
+  "objectives": [
+    "Fill the TODO in isOverdue (US-1)",
+    "Make the visible test pass",
+    "Keep the no-due-date check as it is"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "correctness_hidden",
+        "title": "Hidden tests",
+        "weight": 0.5,
+        "description": "The hidden tests check the rule on more dates."
+      },
+      {
+        "key": "visible_tests",
+        "title": "Visible test",
+        "weight": 0.2,
+        "description": "The test you can see passes."
+      },
+      {
+        "key": "code_quality",
+        "title": "Code quality",
+        "weight": 0.15,
+        "description": "No TODO left, and the helper stays short."
+      },
+      {
+        "key": "process",
+        "title": "Process",
+        "weight": 0.15,
+        "description": "You ran the tests before submitting."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "code",
+    "editableTargets": [
+      "web/src/lib/overdue.ts"
+    ],
+    "runs": [
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "hiddenHarness": "js",
+        "label": "Overdue tests",
+        "transform": true,
+        "visibleTests": [
+          "web/src/lib/overdue.test.ts"
+        ],
+        "supportFiles": []
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the IMPLEMENTATION phase of Deadline badge. The learner fills one TODO in isOverdue in web/src/lib/overdue.ts. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 80 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "today",
+          "compare",
+          "date"
+        ],
+        "hints": [
+          "Two ISO dates compare as text. Which comparison leaves a task due today out?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Run the tests and read the failing one.",
+      "Fill the TODO with the date rule.",
+      "Run the tests again."
+    ]
+  }
+}

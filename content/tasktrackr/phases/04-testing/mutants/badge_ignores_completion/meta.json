@@ -1,0 +1,6 @@
+{
+  "name": "badge_ignores_completion",
+  "description": "The client-side rule reads only the due date, so a task that was finished long after it was due still wears the late marker on its row.",
+  "covers": "US-5/AC-2",
+  "run": "web"
+}

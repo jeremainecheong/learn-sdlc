@@ -1,0 +1,6 @@
+{
+  "name": "complete_does_not_persist",
+  "description": "complete_task builds the answer with status \"done\" but never writes the row, so the task is open again on the very next request.",
+  "covers": "US-2/AC-1",
+  "run": "api"
+}

@@ -1,0 +1,142 @@
+/* Public interactions keep their footprint fixed: only paint and transforms
+   change, so the aurora, copy and surrounding layout stay steady. */
+.marketing[data-public-page] {
+  --lh-interaction-ease: var(--ease-out, cubic-bezier(.2, .8, .2, 1));
+}
+.marketing[data-public-page] .lh-primary {
+  background-image: linear-gradient(180deg, #ffffff16, transparent 70%);
+  box-shadow: inset 0 1px 0 light-dark(#ffffff38, #ffffff),
+    0 2px 4px var(--lh-shadow), 0 7px 16px var(--lh-shadow);
+}
+.marketing[data-public-page] .lh-secondary {
+  border: 1px solid light-dark(#6595a86b, #a5d5e078);
+  background: var(--lh-chip);
+  box-shadow: inset 0 1px 0 var(--lh-highlight);
+}
+.marketing[data-public-page] :is(.lh-primary, .lh-secondary, .lh-create-account-cta, .lh-phase, .lh-text-link, .lh-footer-link, .lh-back-top):focus-visible {
+  outline: 2px solid var(--lh-accent);
+  outline-offset: 4px;
+}
+.marketing[data-public-page] :is(.lh-primary, .lh-secondary, .lh-create-account-cta) {
+  transition: transform var(--motion-control, 180ms) var(--lh-interaction-ease),
+    background-color var(--motion-control, 180ms) ease, border-color var(--motion-control, 180ms) ease,
+    box-shadow var(--motion-control, 180ms) ease, filter var(--motion-control, 180ms) ease;
+}
+.marketing[data-public-page] :is(.lh-primary, .lh-secondary, .lh-create-account-cta, .lh-text-link, .lh-footer-link, .lh-back-top) > svg {
+  transition: transform var(--motion-control, 180ms) var(--lh-interaction-ease);
+}
+.marketing[data-public-page] .lh-primary:focus-visible {
+  filter: brightness(1.04);
+  box-shadow: inset 0 1px 0 light-dark(#ffffff52, #ffffff), 0 3px 6px var(--lh-shadow), 0 12px 26px var(--lh-shadow);
+}
+.marketing[data-public-page] :is(.lh-secondary, .lh-create-account-cta):focus-visible {
+  background-color: light-dark(#f2fdffbd, #204250c9);
+  border-color: light-dark(#65b8cd9c, #a5ecffa3);
+  box-shadow: inset 0 1px 0 var(--lh-highlight), 0 10px 24px #17627c20;
+}
+.marketing[data-public-page] :is(.lh-primary, .lh-secondary, .lh-create-account-cta, .lh-text-link, .lh-footer-link):focus-visible > svg {
+  transform: translateX(3px);
+}
+.marketing[data-public-page] .lh-phase {
+  transition: transform var(--motion-surface, 260ms) var(--lh-interaction-ease),
+    border-color var(--motion-surface, 260ms) ease, background-color var(--motion-surface, 260ms) ease, box-shadow var(--motion-surface, 260ms) ease;
+}
+.marketing[data-public-page] .lh-phase .lh-object {
+  transition: transform var(--motion-surface, 260ms) var(--lh-interaction-ease), filter var(--motion-surface, 260ms) ease;
+  transform-origin: 50% 75%;
+}
+.marketing[data-public-page] .lh-phase-top {
+  align-items: center;
+}
+.marketing[data-public-page] .lh-phase-top > svg {
+  opacity: .45;
+  transition: opacity var(--motion-control, 180ms) ease, transform var(--motion-surface, 260ms) var(--lh-interaction-ease);
+}
+.marketing[data-public-page] .lh-phase:focus-visible {
+  transform: translateY(-6px);
+  border-color: light-dark(#67bed6b3, #a5ecffad);
+  background-color: light-dark(#e6faffc9, #264c60ad);
+  box-shadow: inset 0 1px 0 var(--lh-highlight), 0 18px 34px #17627c26;
+}
+.marketing[data-public-page] .lh-phase:focus-visible .lh-object {
+  transform: translateY(-4px) rotate(-3deg) scale(1.05);
+  filter: drop-shadow(0 9px 6px #14546a20);
+}
+.marketing[data-public-page] .lh-phase:focus-visible .lh-phase-top > svg {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+.marketing[data-public-page] :is(.lh-text-link, .lh-footer-link, .lh-back-top) {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 0 1px;
+  transition: color var(--motion-control, 180ms) ease, background-size var(--motion-surface, 260ms) var(--lh-interaction-ease);
+}
+.marketing[data-public-page] :is(.lh-text-link, .lh-footer-link, .lh-back-top):focus-visible {
+  color: var(--lh-accent);
+  background-size: 100% 1px;
+}
+.marketing[data-public-page] .lh-back-top:focus-visible > svg {
+  transform: translateY(-3px);
+}
+@media (hover: hover) and (pointer: fine) {
+  .marketing[data-public-page] .lh-primary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+    box-shadow: inset 0 1px 0 light-dark(#ffffff52, #ffffff), 0 3px 6px var(--lh-shadow), 0 12px 26px var(--lh-shadow);
+  }
+  .marketing[data-public-page] :is(.lh-secondary, .lh-create-account-cta):hover {
+    transform: translateY(-2px);
+    background-color: light-dark(#f2fdffbd, #204250c9);
+    border-color: light-dark(#65b8cd9c, #a5ecffa3);
+    box-shadow: inset 0 1px 0 var(--lh-highlight), 0 10px 24px #17627c20;
+  }
+  .marketing[data-public-page] :is(.lh-primary, .lh-secondary, .lh-create-account-cta, .lh-text-link, .lh-footer-link):hover > svg {
+    transform: translateX(3px);
+  }
+  .marketing[data-public-page] .lh-phase:hover {
+    transform: translateY(-6px);
+    border-color: light-dark(#67bed6b3, #a5ecffad);
+    background-color: light-dark(#e6faffc9, #264c60ad);
+    box-shadow: inset 0 1px 0 var(--lh-highlight), 0 18px 34px #17627c26;
+  }
+  .marketing[data-public-page] .lh-phase:hover .lh-object {
+    transform: translateY(-4px) rotate(-3deg) scale(1.05);
+    filter: drop-shadow(0 9px 6px #14546a20);
+  }
+  .marketing[data-public-page] .lh-phase:hover .lh-phase-top > svg {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+  .marketing[data-public-page] :is(.lh-text-link, .lh-footer-link, .lh-back-top):hover {
+    color: var(--lh-accent);
+    text-decoration: none;
+    background-size: 100% 1px;
+  }
+  .marketing[data-public-page] .lh-back-top:hover > svg {
+    transform: translateY(-3px);
+  }
+}
+.marketing[data-public-page] :is(.lh-primary, .lh-secondary, .lh-create-account-cta, .lh-phase):active {
+  transform: translateY(1px) scale(.99);
+  transition-duration: var(--motion-fast, 120ms);
+  transition-timing-function: var(--ease-press, cubic-bezier(.4, 0, 1, 1));
+}
+.marketing[data-public-page] :is(.lh-primary, .lh-secondary, .lh-create-account-cta):active {
+  box-shadow: inset 0 2px 4px var(--lh-shadow), 0 1px 2px var(--lh-shadow);
+  filter: none;
+}
+.marketing[data-public-page] :is(.lh-primary, .lh-secondary, .lh-create-account-cta):disabled {
+  transform: none;
+  filter: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marketing[data-public-page] :is(.lh-primary, .lh-secondary, .lh-create-account-cta, .lh-create-account-cta > svg, .lh-text-link, .lh-footer-link, .lh-back-top, .lh-phase, .lh-object, .lh-phase-top > svg, .lh-primary > svg, .lh-secondary > svg, .lh-text-link > svg, .lh-footer-link > svg, .lh-back-top > svg) {
+    transform: none !important;
+    transition: none !important;
+  }
+}

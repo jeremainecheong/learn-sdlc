@@ -1,0 +1,70 @@
+{
+  "persona": { "name": "Dana Osei", "role": "product owner for TaskTrackr" },
+  "opening": "I have ten minutes. Ask me what you need, and I will tell you what I actually want.",
+  "unknownReply": "I have not decided that. What would you suggest, and what would it cost me?",
+  "refusal": "I am the customer, not the author. I can tell you what I need; the wording is your job.",
+  "maxTurns": 12,
+  "factsExpected": 6,
+  "facts": [
+    {
+      "id": "F1",
+      "topic": "who the report is for",
+      "keywords": ["who", "for whom", "persona", "user", "audience", "reads"],
+      "answer": "It is for the person who opens TaskTrackr first thing in the morning and wants to know what they have already missed, before they plan the day."
+    },
+    {
+      "id": "F2",
+      "topic": "whether a task due today is overdue",
+      "keywords": ["today", "due today", "boundary", "edge", "midnight"],
+      "answer": "A task due today is not overdue. It is late tomorrow morning, not this morning."
+    },
+    {
+      "id": "F3",
+      "topic": "whether completed tasks appear",
+      "keywords": ["completed", "done", "finished", "closed"],
+      "answer": "If I finished it, I do not want to see it, even if I finished it late. The report is a list of things still owed."
+    },
+    {
+      "id": "F4",
+      "topic": "what order the report is in",
+      "keywords": ["order", "sort", "priority", "first"],
+      "answer": "Most overdue first. If two are equally late, the higher priority one goes on top."
+    },
+    {
+      "id": "F5",
+      "topic": "tasks with no due date",
+      "keywords": ["no due", "without a date", "undated", "missing date", "null"],
+      "answer": "A task with no due date is never overdue. I use the date field when I mean it."
+    },
+    {
+      "id": "F6",
+      "topic": "what is out of scope",
+      "keywords": ["scope", "out of scope", "notification", "email", "reminder", "not include"],
+      "answer": "No reminders, no emails, no notifications. I will look at the report when I want it."
+    },
+    {
+      "id": "F7",
+      "topic": "what an empty report should say",
+      "keywords": ["empty", "nothing", "none", "no overdue"],
+      "answer": "If nothing is overdue, say so in a sentence. An empty list with no words looks like a bug."
+    },
+    {
+      "id": "F8",
+      "topic": "where the report lives",
+      "keywords": ["where", "page", "screen", "view", "tab", "filter", "its own", "separate"],
+      "answer": "I want it as its own page, not a filter on the list. I open it once in the morning and then I go away."
+    },
+    {
+      "id": "F9",
+      "topic": "what a row of the report shows",
+      "keywords": ["row", "shows", "columns", "title", "days", "how late", "which list", "fields"],
+      "answer": "The title, how late it is in days, and the list it came from. If I have to click through to find out which list, it is not a report."
+    },
+    {
+      "id": "F10",
+      "topic": "whether it is a new screen or a new endpoint",
+      "keywords": ["endpoint", "api", "front end", "back end", "route", "new screen", "how should i build", "design it"],
+      "answer": "That is your problem. I want one place to look."
+    }
+  ]
+}

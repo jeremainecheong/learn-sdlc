@@ -1,0 +1,154 @@
+/*
+ * The Requirements builder in the teacher's editor (`RequirementsBuilder`).
+ *
+ * The `.tre-*` rules of the agreed mockup (10-requirements-builder.html),
+ * with its colours read from the app's own tokens so the builder follows the
+ * theme the rest of the editor is drawn in. The backlog rows are the
+ * learner's `.jira-issue-row`, restyled here inside `.tre-row-wrap` so they
+ * read the same on a page that does not load the learner room's stylesheet,
+ * and so the room's desk layout cannot reach into the editor where it does.
+ */
+.tre-panel {
+  --tre-ink: rgb(var(--c-ink));
+  --tre-ink2: rgb(var(--c-ink2));
+  --tre-muted: rgb(var(--c-muted));
+  --tre-accent: rgb(var(--c-accent));
+  --tre-tint: rgb(var(--c-tint));
+  --tre-line: rgb(var(--c-edge));
+  --tre-line2: rgb(var(--c-edge2));
+  --tre-surface: rgb(var(--c-surface));
+  --tre-soft: rgb(var(--c-raised));
+  --tre-ok: rgb(var(--c-pass));
+  --tre-ok-tint: rgb(var(--c-passtint));
+  --tre-on-ok: rgb(var(--c-onstatus));
+}
+
+.tre-hero{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:14px 16px;border:1.5px solid var(--tre-line);border-radius:12px;background:var(--tre-surface)}
+.tre-hero-art{object-fit:contain}
+.tre-hero-title{margin:2px 0 4px;font-size:17px;font-weight:700;color:var(--tre-ink);text-wrap:balance}
+.tre-hero-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.tre-hero-actions{display:flex;align-items:center;gap:8px}
+
+.tre-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.tre-step{border-radius:10px;border:1.5px solid var(--tre-line);background:var(--tre-surface);font-size:12.5px;color:var(--tre-ink2);min-width:0}
+.tre-step-link{display:flex;align-items:center;gap:8px;padding:8px 10px;color:inherit;text-decoration:none;min-width:0}
+.tre-step-link:focus-visible{outline:2px solid var(--tre-accent);outline-offset:2px;border-radius:9px}
+.tre-step-l{min-width:0;overflow-wrap:anywhere}
+.tre-step-n{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;border:1.5px solid var(--tre-line2);flex:none}
+.tre-step-done{border-color:var(--tre-ok);background:var(--tre-ok-tint);color:var(--tre-ok)}
+.tre-step-done .tre-step-n{background:var(--tre-ok);border-color:var(--tre-ok);color:var(--tre-on-ok)}
+.tre-step-current{border-color:var(--tre-ink);color:var(--tre-ink);font-weight:600;box-shadow:inset 0 -3px 0 var(--tre-ink)}
+.tre-step-current:not(.tre-step-done) .tre-step-n{background:var(--tre-ink);border-color:var(--tre-ink);color:var(--tre-surface)}
+/* The Sign-off entry after the steps: under the row's right end, one grid gap below it. */
+.tre-step-jump{display:flex;justify-content:flex-end;margin:-10px 0 0}
+.tre-step-jump-link{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:10px;border:1.5px solid var(--tre-line);background:var(--tre-surface);font-size:12.5px;color:var(--tre-ink2);text-decoration:none}
+.tre-step-jump-link:hover{color:var(--tre-ink);border-color:var(--tre-line2)}
+.tre-step-jump-link:focus-visible{outline:2px solid var(--tre-accent);outline-offset:2px}
+/* The box's row a Sign-off press landed on, marked for a moment (StepBar's markLanded): a pointer press draws no focus ring. No animation: it appears and goes. */
+[data-signoff-landed]{outline:2px solid rgb(var(--c-accent));outline-offset:3px;border-radius:6px;background:rgb(var(--c-tint))}
+
+/* A step link lands the card's head below the sticky tab bar: its measured height (`--editor-bar-h`, set by the editor) and a gap, as BELOW_BAR does. */
+.tre-card{border:1.5px solid var(--tre-line);border-radius:12px;background:var(--tre-surface);overflow:hidden;scroll-margin-top:calc(var(--editor-bar-h,64px) + 16px)}
+.tre-card-current{border-color:var(--tre-ink);box-shadow:0 0 0 3px var(--tre-tint)}
+.tre-card-head{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1.5px solid var(--tre-line);background:var(--tre-soft)}
+.tre-card-n{width:28px;height:28px;border-radius:50%;background:var(--tre-ink);color:var(--tre-surface);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.tre-card-todo .tre-card-n{background:var(--tre-surface);color:var(--tre-ink2);border:1.5px solid var(--tre-line2)}
+.tre-card-titles{display:flex;flex-direction:column;gap:2px;min-width:0}
+.tre-card-titles h3{margin:0}
+.tre-card-art{object-fit:contain;margin:-8px 0}
+.tre-chip-done{background:var(--tre-ok-tint);color:var(--tre-ok);border-color:var(--tre-ok)}
+.tre-card-body{display:flex;flex-direction:column;gap:12px;padding:14px 16px;min-width:0}
+
+.tre-ta{font-size:13.5px;line-height:1.45;width:100%;resize:vertical}
+.tre-in{font-size:13px;padding:6px 9px;min-width:0}
+.tre-in-wide{flex:1;width:100%}
+.tre-id{width:96px;flex:none;font-family:var(--font-mono,ui-monospace),monospace}
+.tre-value{display:block;font-size:13px;color:var(--tre-ink);overflow-wrap:anywhere}
+.tre-inline-note{display:flex;align-items:center;gap:6px;margin:0;font-size:12px;color:var(--tre-muted)}
+.tre-save-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tre-legacy{margin:0;padding:8px 10px;border:1.5px dashed var(--tre-line2);border-radius:8px;color:var(--tre-ink2)}
+.tre-check{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--tre-ink2)}
+.tre-labelled{display:flex;flex-direction:column;gap:4px;min-width:0}
+
+.tre-persona{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.tre-portrait{border-radius:50%;object-fit:cover;background:var(--tre-tint)}
+.tre-facts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.tre-fact-topic{padding:7px 10px;border:1.5px solid var(--tre-line);border-radius:8px;font-size:13px;color:var(--tre-ink);overflow-wrap:anywhere}
+
+.tre-backlog{border:1.5px solid var(--tre-line);border-radius:10px;overflow:hidden}
+.tre-backlog.jira-issue-desk{display:block;min-height:0;overflow:hidden}
+.tre-backlog .jira-backlog-body{display:block;border-top:0;overflow:visible;min-height:0}
+.tre-backlog .jira-issue-list{padding:0;overflow:visible;background:var(--tre-surface)}
+.tre-backlog-head{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1.5px solid var(--tre-line);background:var(--tre-soft);font-size:13px}
+.tre-row-wrap{display:grid;grid-template-columns:1fr auto;align-items:center;border-bottom:1.5px solid var(--tre-line)}
+.tre-row-wrap .jira-issue-row{width:100%;min-height:0;display:grid;grid-template-columns:18px auto 1fr auto auto;align-items:center;gap:10px;padding:11px 14px;border:0;background:var(--tre-surface);text-align:left;font:inherit;font-size:13px;color:var(--tre-ink);cursor:pointer;box-shadow:none}
+.tre-row-wrap .jira-issue-row:hover{background:var(--tre-soft)}
+.tre-row-wrap .jira-issue-row:focus-visible{outline:2px solid var(--tre-accent);outline-offset:-3px}
+.tre-row-wrap div.jira-issue-row{cursor:default;grid-template-columns:18px auto 1fr auto}
+.tre-row-wrap .jira-type-story{width:18px;height:18px;border-radius:4px;background:var(--tre-ok);color:var(--tre-on-ok);display:inline-flex;align-items:center;justify-content:center}
+.tre-row-wrap .jira-issue-row code{font-size:11px;letter-spacing:.04em;color:var(--tre-muted)}
+.tre-row-wrap .jira-issue-row small{font-size:9px;letter-spacing:.05em;text-transform:uppercase;padding:3px 7px;border-radius:4px;border:1px solid var(--tre-line);background:var(--tre-soft);color:var(--tre-muted);margin:0}
+.tre-row-wrap .jira-issue-row > svg:last-child{color:var(--tre-muted)}
+.tre-row-actions{display:inline-flex;gap:2px;padding-right:8px}
+.tre-row-open{grid-column:1 / -1;padding:0 12px 12px}
+.tre-row-learner{background:var(--tre-tint)}
+.tre-row-learner .jira-issue-row{background:var(--tre-tint)}
+.tre-row-learner small{color:var(--tre-accent)}
+.tre-add-row{width:100%;border:0;border-top:1.5px dashed var(--tre-line2);background:var(--tre-surface);padding:9px 12px;text-align:left;font:inherit;font-size:13px;color:var(--tre-accent);cursor:pointer}
+.tre-add-row:disabled{color:var(--tre-muted);cursor:not-allowed}
+
+.tre-story{display:flex;flex-direction:column;gap:8px;padding:12px;border:1.5px solid var(--tre-line);border-radius:10px;background:var(--tre-surface)}
+.tre-story-head{display:flex;align-items:center;gap:8px;min-width:0}
+.tre-story-head code{font-size:12px;color:var(--tre-ink2)}
+.tre-sentence{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tre-sentence > div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.tre-criteria{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.tre-criterion{display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr)) auto auto;gap:6px;align-items:center}
+.tre-criterion code{font-size:11px;color:var(--tre-ink2)}
+
+.tre-floor{display:flex;flex-direction:column;gap:10px;padding:12px;border:1.5px solid var(--tre-ok);border-radius:10px;background:var(--tre-ok-tint)}
+.tre-floor-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.tre-floor-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tre-floor-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1.5px solid var(--tre-line);border-radius:8px;background:var(--tre-surface);font-size:13px;min-width:0}
+.tre-floor-pills{flex-wrap:wrap}
+.tre-pills{display:inline-flex;gap:6px;flex-wrap:wrap}
+.tre-pill{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--tre-line2);border-radius:999px;padding:4px 10px;background:var(--tre-surface);font:inherit;font-size:12.5px;cursor:pointer;color:var(--tre-ink2)}
+.tre-pill:focus-visible{outline:2px solid var(--tre-accent);outline-offset:2px}
+.tre-pill-on{background:var(--tre-ok);border-color:var(--tre-ok);color:var(--tre-on-ok)}
+.tre-floor-sentence{margin:0;font-size:13px;color:var(--tre-ink)}
+
+.tre-stepper{display:inline-flex;align-items:center;gap:4px;flex:none}
+.tre-stepper button{width:24px;height:24px;border:1.5px solid var(--tre-line2);border-radius:6px;background:var(--tre-surface);font:inherit;cursor:pointer;color:var(--tre-ink)}
+.tre-stepper button:disabled{color:var(--tre-muted);cursor:not-allowed}
+.tre-num{width:56px;text-align:center;padding:3px 4px;font-size:13px}
+
+.tre-crits{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tre-crit{display:flex;flex-direction:column;gap:8px;padding:12px;border:1.5px solid var(--tre-line);border-radius:10px;min-width:0}
+.tre-crit-head{display:flex;flex-direction:column;gap:4px}
+.tre-crit-head code{font-size:11px;color:var(--tre-muted);overflow-wrap:anywhere}
+.tre-crit-title{font-weight:600}
+.tre-weight{display:flex;align-items:center;gap:8px}
+.tre-weight-bar{flex:1;height:6px;border-radius:999px;background:var(--tre-soft);overflow:hidden;min-width:24px}
+.tre-weight-bar span{display:block;height:100%;background:var(--tre-accent)}
+.tre-crit-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tre-sum{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--tre-ok);font-weight:600}
+.tre-sum-off{color:var(--tre-ink2);font-weight:500}
+.tre-passmark{display:inline-flex;align-items:center;gap:8px;margin-left:auto}
+
+/* A phone: the rows stack, and nothing scrolls sideways (WCAG 1.4.10). */
+@media (max-width: 767px) {
+  .tre-hero{grid-template-columns:1fr}
+  .tre-hero-art{display:none}
+  .tre-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tre-card-head{grid-template-columns:auto 1fr auto}
+  .tre-card-art{display:none}
+  .tre-persona{grid-template-columns:1fr}
+  .tre-portrait{display:none}
+  .tre-sentence,.tre-floor-grid,.tre-crits{grid-template-columns:1fr}
+  .tre-criterion{grid-template-columns:1fr}
+  .tre-row-wrap{grid-template-columns:1fr}
+  .tre-row-wrap .jira-issue-row,.tre-row-wrap div.jira-issue-row{grid-template-columns:18px auto 1fr}
+  .tre-row-wrap .jira-issue-row small{grid-column:2 / -1;justify-self:start}
+  .tre-row-actions{padding:0 10px 8px}
+  .tre-passmark{margin-left:0}
+}

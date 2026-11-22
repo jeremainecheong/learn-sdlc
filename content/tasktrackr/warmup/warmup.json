@@ -1,0 +1,31 @@
+{
+  "title": "Warm-up",
+  "runLabel": "Run the check",
+  "brief": "Warm up first\n\nFive minutes, before Requirements. Nothing here is scored and nothing here gates anything: it exists so that the first time you press Run on work that counts, you already know what happens.\n\nThere are two files, both from TaskTrackr's front end. web/src/lib/greeting.ts is yours to change. web/src/lib/greeting.test.ts is the check, and it is locked — that is how every phase of this project works, and it is worth meeting the rule here rather than in phase 3.\n\nWhat to do\n\n1. Open web/src/lib/greeting.ts. It returns the wrong word. Change it.\n2. Press Run. The check runs in the same sandbox that grades the real phases, and the Tests tab tells you which case failed and where.\n3. Press Submit. That records the result and finishes the warm-up.\n\nWhat just happened, in one paragraph\n\nTaskTrackr is a Python API with a TypeScript front end, so half the code you will write runs in a browser. TypeScript does not run anywhere by itself: the sandbox compiles it first and then runs the compiled file under a small test harness, where test and assert are already there and nothing has to be imported. When a case fails, the message names the line of the file you opened, not the compiled one.\n\nWhat you have learned when it passes\n\nEdit, run, submit. Requirements is next, and it works the same way — with a brief on the right, an editor in the middle, and a reviewer who reads what you hand in.\n",
+  "steps": [
+    "Open greeting.ts and change the word it returns",
+    "Press Run to see the check fail or pass",
+    "Press Submit to record it"
+  ],
+  "files": [
+    {
+      "path": "web/src/lib/greeting.ts",
+      "source": "files/greeting.ts",
+      "editable": true,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/lib/greeting.test.ts",
+      "source": "files/greeting.test.ts",
+      "editable": false,
+      "language": "typescript"
+    }
+  ],
+  "check": {
+    "kind": "tests",
+    "testPaths": ["web/src/lib/greeting.test.ts"],
+    "language": "typescript",
+    "harness": "js",
+    "transform": true
+  }
+}

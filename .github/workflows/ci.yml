@@ -1,0 +1,963 @@
+# Continuous integration for the repository. Every path is read from the
+# repository root.
+name: learnsdlc-ci
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+# Every job only reads the repository and uploads artifacts.
+permissions:
+  contents: read
+
+# One version of each toolchain for every job. The application runs on
+# CI_APP_NODE_VERSION. Learner code runs on CI_LEARNER_NODE_VERSION, a separate
+# Node binary a job installs first and names as NODE_BIN, so learner tools stay
+# apart from the application's native ABI.
+env:
+  CI_APP_NODE_VERSION: '24.21.0'
+  CI_LEARNER_NODE_VERSION: '22.23.2'
+  CI_PYTHON_VERSION: '3.11'
+
+jobs:
+  test:
+    name: Typecheck & unit/integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      # Every node:test file under scripts/ (root package.json's test:scripts,
+      # which builds packages/shared first).
+      - run: npm run test:scripts
+      - run: npm run build -w @learnsdlc/shared
+      # Every workspace, web included, so the web app is typechecked here and
+      # not only as a side effect of next build in the e2e job; most of the
+      # repository's code is web.
+      - run: npm run typecheck
+      # src/jobs/bull.queue.spec.ts drives BullMQ's stall and give-up paths
+      # against a real Redis it starts itself on a free port, because what it
+      # tests is BullMQ's own behaviour. ubuntu-latest ships no
+      # redis-server, so without this the two cases time out waiting for a
+      # server that was never going to start.
+      - name: Make sure redis-server is installed
+        run: |
+          command -v redis-server >/dev/null ||
+            (sudo apt-get update && sudo apt-get install -y redis-server)
+      # Some content checks execute code under the pre-baked layer (pytest under
+      # its Flask, the DOM harness under its jsdom and esbuild), so it is built
+      # first.
+      - name: Read the pre-bake digest
+        id: prebake
+        run: echo "digest=$(node scripts/prebake.mjs print)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: apps/api/runner/runtime
+          key: prebake-${{ runner.os }}-${{ steps.prebake.outputs.digest }}
+      - name: Build the pre-baked sandbox layer
+        run: npm run prebake
+      # Exit 1 is a pack that is wrong, exit 2 a checker that could not tell (a
+      # runner that never answered, a pack that would not load); both fail the
+      # job and the log says which. The report path is absolute on purpose: the
+      # script runs in the api workspace, so a relative one lands in apps/api
+      # and the upload below finds nothing.
+      - name: Check the content packs
+        env:
+          RUNNER_MODE: local
+        run: npm run content:check -- --json "$PWD/content-report.json"
+      - name: Upload the content report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: content-report
+          path: content-report.json
+      # Runs in band on V8's default heap; apps/api/test/environment.js keeps
+      # the heap flat from file to file (see apps/api/jest.config.js).
+      - name: API unit and integration tests (in band)
+        run: npm run test -w @learnsdlc/api
+
+  web-unit:
+    name: 'Web unit tests (the derivations, the caches, the session: vitest)'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      # No build, no server and no browser: unit tests over the web app's pure
+      # derivation: the project map, the home tiles, the record cache, the
+      # session, the poll, the exit save. Left to the browser suite alone, a
+      # bug such as a duration label reading "23 h 60" can pass a green build
+      # because no journey happens to reach it. `npm run test` at the root runs
+      # the same command, so a laptop and this job agree.
+      - name: vitest over apps/web
+        run: npm run test:web
+      # The copy rules the product writes to, over app/ and components/. It
+      # parses the .tsx with the typescript package that is already installed,
+      # so it belongs in the cheap job rather than a browser one.
+      - name: The copy reads the way the product writes
+        run: npm run lint:copy -w @learnsdlc/web
+
+  runner-unit:
+    name: Runner unit tests (the sandbox and analyzer contract, pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      # scripts/prebake.mjs print is the digest of what the packs ask for and
+      # nothing else, so the cache key moves when a pinned version does and
+      # stays put when nothing did.
+      - name: Read the pre-bake digest
+        id: prebake
+        run: echo "digest=$(node scripts/prebake.mjs print)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: apps/api/runner/runtime
+          key: prebake-${{ runner.os }}-${{ steps.prebake.outputs.digest }}
+      - name: Build the pre-baked sandbox layer
+        run: npm run prebake
+      # No node, no services and no ports: pure unit tests over the runner's
+      # Python (sandbox_runner.py, analyzer.py, serve.py and the rest, including
+      # test_serve.py's slot gate). Nothing else runs them, since jest.config.js
+      # matches TypeScript only. The directory, not named files, so a new test
+      # module is collected without anyone adding it here; it is the same
+      # command as root package.json's test:runner, so a laptop and this job
+      # agree.
+      - name: pytest over apps/api/runner
+        run: |
+          python3 -m pip install --disable-pip-version-check --quiet pytest
+          python3 -m pytest apps/api/runner -q
+
+  infra-unit:
+    name: Infrastructure unit tests (MicroVM controller and guest, preview gate, Cognito trigger, unittest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+      # The guest packaging test packs the real sandbox manifest, and nothing
+      # else of the pre-baked layer. The manifest command uses only Node's
+      # built-in modules, so no npm ci and no install of the layer.
+      - name: Write the sandbox manifest
+        run: node scripts/prebake.mjs manifest
+      # No Docker, no cloud account and no network: the standard-library
+      # unittest suites under infra/. scripts/test-infra.sh names the modules
+      # it leaves to a person (the Docker and Terraform checks). The same
+      # command as root package.json's test:infra, so a laptop and this job
+      # agree.
+      - name: unittest over infra/
+        run: npm run test:infra
+
+  dependency-audit:
+    name: Dependency advisories (npm audit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - name: Audit gate regression tests
+        run: npm run audit:gate:test
+      # No framework exemptions. Registry failures and malformed reports also fail.
+      - name: Reject high and critical dependency advisories
+        run: npm run audit:gate
+
+  e2e:
+    name: Playwright acceptance suite (full SDLC journey)
+    runs-on: ubuntu-latest
+    # Non-blocking: the browser suite's timing (the learner rooms and the upload
+    # limit) is not reliable on the hosted runner, so a failure here is reported
+    # but does not fail the workflow; the other jobs stay required.
+    continue-on-error: true
+    # next build and next start report usage to Vercel otherwise. CI should
+    # make no request the repository did not ask for; the web image sets the
+    # same variable in both of its stages.
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - run: npm run build
+      # The sandbox dependency layer. The pack runs pytest and a
+      # TypeScript DOM harness, so without this every run in journey.spec.ts,
+      # slices.spec.ts and preview.spec.ts comes back with the runner's
+      # "Run npm run prebake." sentence rather than a result. Keyed by the
+      # manifest's own digest, like the unit jobs.
+      - name: Read the pre-bake digest
+        id: prebake
+        run: echo "digest=$(node scripts/prebake.mjs print)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: apps/api/runner/runtime
+          key: prebake-${{ runner.os }}-${{ steps.prebake.outputs.digest }}
+      - name: Build the pre-baked sandbox layer
+        run: npm run prebake
+      - run: npx playwright install --with-deps chromium
+      # dossier.spec.ts reads the exported PDF's text back with pdftotext
+      # (poppler-utils), which ubuntu-latest does not ship.
+      - name: Make sure pdftotext is installed
+        run: command -v pdftotext >/dev/null || (sudo apt-get update && sudo apt-get install -y poppler-utils)
+      - run: npx playwright test
+      # e2e/preview-unsupported.spec.ts is its own Playwright project because it
+      # is the one spec that needs the API started differently. Against the
+      # stack the step above starts it skips itself with a sentence, so without
+      # this step it proves nothing: the deployment that cannot preview would
+      # only be checked by reading the code.
+      - name: The deployment that cannot preview says so
+        env:
+          PREVIEW_ENABLED: 'false'
+        run: npx playwright test --project=preview-off
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  journey:
+    name: The full six-phase journey end to end (Python API + TypeScript front end)
+    runs-on: ubuntu-latest
+    # Every AI request this job causes goes to the canned, loopback stub the
+    # Playwright suite grades against (e2e/ai-stub.cjs), started below: no
+    # real provider is called and no model runs, and the product's provider
+    # rules are untouched. E2E_AI_STUB tells scripts/passing-work.mjs to mark
+    # passing work the way the suite marks it for that stub.
+    env:
+      OPENAI_BASE_URL: http://127.0.0.1:4199/v1
+      OPENAI_API_KEY: e2e-stub-not-a-secret
+      AI_MAX_CONCURRENCY: '1'
+      E2E_AI_STUB: 'true'
+      # The API refuses to start without a session secret; this test-only one
+      # is published, so it works on this loopback bind and nowhere else.
+      JWT_SECRET: local-test-only-jwt-secret-refused-in-production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - run: npm ci
+      - run: npm run build -w @learnsdlc/shared -w @learnsdlc/api
+      - name: Build the pre-baked sandbox layer
+        run: npm run prebake
+      # RUNNER_MODE is named because an unset one resolves to socket (there is
+      # no implicit local runner, config.ts resolveRunnerMode), and no runner
+      # service is started in this job. SEED_DEMO_ACCOUNTS is what creates the
+      # instructor the journey signs in as at the end; scripts/start.sh sets it
+      # for a laptop, and it is loopback-only, which this runner is.
+      #
+      # One pack, the one with both languages in it: every code
+      # phase is graded twice, once per layer, and the journey asserts the run
+      # came back with both groups by their labels.
+      - name: Start the canned AI the suite grades against
+        run: |
+          node e2e/ai-stub.cjs > ai-stub.log 2>&1 &
+          for i in $(seq 1 20); do curl -sf 127.0.0.1:4199/__stub/counts >/dev/null && break; sleep 1; done
+          curl -sf 127.0.0.1:4199/__stub/counts
+      - name: Boot API (local runner) and walk the six phases
+        run: |
+          DB_PATH=data/ci.sqlite RUN_TIMEOUT_SECONDS=30 RUNNER_MODE=local \
+            SEED_DEMO_ACCOUNTS=true node apps/api/dist/main.js > api.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf localhost:4000/api/v1/health >/dev/null && break; sleep 1; done
+          node scripts/journey.mjs
+      - name: API log on failure
+        if: failure()
+        run: tail -120 api.log || true
+
+  socket-runner:
+    name: Full journey through the runner service (RUNNER_MODE=socket)
+    runs-on: ubuntu-latest
+    # Every AI request this job causes goes to the canned, loopback stub the
+    # Playwright suite grades against (e2e/ai-stub.cjs), started below: no
+    # real provider is called and no model runs, and the product's provider
+    # rules are untouched. E2E_AI_STUB tells scripts/passing-work.mjs to mark
+    # passing work the way the suite marks it for that stub.
+    env:
+      OPENAI_BASE_URL: http://127.0.0.1:4199/v1
+      OPENAI_API_KEY: e2e-stub-not-a-secret
+      AI_MAX_CONCURRENCY: '1'
+      E2E_AI_STUB: 'true'
+      # The API refuses to start without a session secret; this test-only one
+      # is published, so it works on this loopback bind and nowhere else.
+      JWT_SECRET: local-test-only-jwt-secret-refused-in-production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - run: npm ci
+      - run: npm run build -w @learnsdlc/shared -w @learnsdlc/api
+      - name: Build the pre-baked sandbox layer
+        run: npm run prebake
+      # serve.py as a plain process: no docker daemon is needed to prove the
+      # transport. The container hardening around it is checked by the
+      # `docker` job below.
+      - name: Start the runner service on a UNIX socket
+        run: |
+          RUNNER_SOCKET=/tmp/runner.sock python3 apps/api/runner/serve.py > runner.log 2>&1 &
+          for i in $(seq 1 20); do
+            RUNNER_SOCKET=/tmp/runner.sock python3 apps/api/runner/serve.py --check && break; sleep 1
+          done
+      # The preview beat is why this job is the one that proves the whole
+      # design: the runner is a separate process, the only channel is the UNIX
+      # socket, and a browser-shaped request for the learner's own app comes
+      # back through it. JOURNEY_REQUIRE_PREVIEW makes a skipped preview a
+      # failure here, where a laptop without one may skip it.
+      - name: Start the canned AI the suite grades against
+        run: |
+          node e2e/ai-stub.cjs > ai-stub.log 2>&1 &
+          for i in $(seq 1 20); do curl -sf 127.0.0.1:4199/__stub/counts >/dev/null && break; sleep 1; done
+          curl -sf 127.0.0.1:4199/__stub/counts
+      - name: The journey with every execution over the socket
+        run: |
+          RUNNER_MODE=socket RUNNER_SOCKET=/tmp/runner.sock DB_PATH=data/ci-socket.sqlite \
+            SEED_DEMO_ACCOUNTS=true node apps/api/dist/main.js > api-socket.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf localhost:4000/api/v1/health >/dev/null && break; sleep 1; done
+          JOURNEY_REQUIRE_PREVIEW=true node scripts/journey.mjs
+          echo "--- jobs served by the runner ---"
+          grep -c 'POST /execute' runner.log
+          echo "--- previews served by the runner ---"
+          test "$(grep -c 'POST /app/start' runner.log)" -ge 1
+      - name: Logs on failure
+        if: failure()
+        run: |
+          tail -120 api-socket.log || true
+          tail -60 runner.log || true
+
+  production-stack:
+    name: Production stack (PostgreSQL + Redis + migrations, durable queue)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine@sha256:cf78e76683b9ca8c5733cbbdce6c9262b45b6767934dd0a95e671f9a0fc20685
+        env:
+          POSTGRES_DB: learnsdlc
+          POSTGRES_USER: learnsdlc
+          POSTGRES_PASSWORD: learnsdlc
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U learnsdlc" --health-interval 5s
+          --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7-alpine@sha256:ff02b58f971e7d7d156a1267e283fcbbeee91773b6aa36c49dac28ecfe28eadf
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping" --health-interval 5s
+          --health-timeout 5s --health-retries 10
+    # NODE_ENV is deliberately NOT set here: `npm ci` treats NODE_ENV=production
+    # as --omit=dev, which strips @types/* and ts-node and breaks both the build
+    # and the migration step. It is set per-step on the steps that actually run
+    # the server, which is where production behaviour is under test.
+    # JWT_SECRET and ADMIN_PASSWORD are generated by the job's first step, so
+    # this file publishes no value that a production boot would accept.
+    env:
+      ADMIN_EMAIL: ops@learnsdlc.test
+      DATABASE_URL: postgres://learnsdlc:learnsdlc@127.0.0.1:5432/learnsdlc
+      REDIS_URL: redis://127.0.0.1:6379
+      RUN_MIGRATIONS: 'true'
+      # Production refuses RUNNER_MODE=local; the runner service is started
+      # as a plain process below, exactly as the socket-runner job does.
+      RUNNER_MODE: socket
+      RUNNER_SOCKET: /tmp/runner.sock
+      # The canned, loopback AI (e2e/ai-stub.cjs), as in the journey job: no
+      # real provider is called.
+      OPENAI_BASE_URL: http://127.0.0.1:4199/v1
+      OPENAI_API_KEY: e2e-stub-not-a-secret
+      AI_MAX_CONCURRENCY: '1'
+      E2E_AI_STUB: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      # 64 hex characters: above the 32-byte floor config.ts enforces off a
+      # production boot, so no step below fails on the wrong sentence.
+      - name: Generate this run's signing secret and administrator password
+        run: |
+          jwt="$(openssl rand -hex 32)"
+          admin="$(openssl rand -hex 24)"
+          echo "::add-mask::$jwt"
+          echo "::add-mask::$admin"
+          { echo "JWT_SECRET=$jwt"; echo "ADMIN_PASSWORD=$admin"; } >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - run: npm ci
+      - run: npm run build -w @learnsdlc/shared -w @learnsdlc/api
+      - name: Apply migrations to a clean database
+        working-directory: apps/api
+        run: npx typeorm-ts-node-commonjs migration:run -d src/db/data-source.ts
+      # TypeORM validates nothing at connect, so an entity column that no
+      # migration creates surfaces only on a query that happens to read it.
+      # Generating against the just-migrated database is the
+      # exact check: one emitted statement means they have diverged, and the
+      # diff is printed so the missing migration is obvious.
+      - name: The entities and the migrations agree (no schema drift)
+        working-directory: apps/api
+        run: |
+          set +e
+          out=$(npx typeorm-ts-node-commonjs migration:generate -d src/db/data-source.ts "$RUNNER_TEMP/drift" 2>&1)
+          code=$?
+          set -e
+          echo "$out"
+          if [ $code -eq 0 ]; then
+            # typeorm names the file <timestamp>-drift.ts, so glob it.
+            echo "::error::schema drift: the entities need DDL that no migration applies"
+            cat "$RUNNER_TEMP"/*-drift.ts || true
+            exit 1
+          fi
+          # Exit 1 is also how a connection failure ends, and a check that
+          # passes when it could not run is worse than no check at all.
+          echo "$out" | grep -q 'No changes in database schema were found' || {
+            echo "::error::migration:generate did not run; this proved nothing"
+            exit 1
+          }
+      # The two journey scripts below are learner journeys: they never open the
+      # instructor console, so the console's own reads (the newest submission
+      # per phase, and the audit trail's keyset paging) get their Postgres
+      # coverage from this spec. Some query shapes are valid on sqlite and
+      # invalid here (an unquoted subquery alias, MAX() over a uuid, a uuid
+      # column compared with a varchar one). This spec skips itself without
+      # DATABASE_URL, so it runs here and nowhere else.
+      - name: The instructor console reads on PostgreSQL
+        working-directory: apps/api
+        # The suite's own command (apps/api package.json "test"): Nest 12 is
+        # ESM, and Jest loads it only under --experimental-vm-modules.
+        run: npm run test -- test/postgres-console.e2e-spec.ts
+      - name: Build the pre-baked sandbox layer
+        run: npm run prebake
+      - name: Start the runner service on a UNIX socket
+        run: |
+          python3 apps/api/runner/serve.py > runner.log 2>&1 &
+          for i in $(seq 1 20); do python3 apps/api/runner/serve.py --check && break; sleep 1; done
+      - name: Production mode refuses the local runner
+        env:
+          NODE_ENV: production
+        run: |
+          if RUNNER_MODE=local node apps/api/dist/main.js > refuse.log 2>&1; then
+            echo "API started with RUNNER_MODE=local in production"; exit 1
+          fi
+          grep -q 'RUNNER_MODE=local' refuse.log
+      - name: Start the canned AI the suite grades against
+        run: |
+          node e2e/ai-stub.cjs > ai-stub.log 2>&1 &
+          for i in $(seq 1 20); do curl -sf 127.0.0.1:4199/__stub/counts >/dev/null && break; sleep 1; done
+          curl -sf 127.0.0.1:4199/__stub/counts
+      - name: Boot in production mode and walk the six phases
+        env:
+          NODE_ENV: production
+        run: |
+          node apps/api/dist/main.js > prod.log 2>&1 &
+          for i in $(seq 1 40); do curl -sf localhost:4000/api/v1/health/ready >/dev/null && break; sleep 1; done
+          echo "--- readiness (must report postgres + redis) ---"
+          curl -sf localhost:4000/api/v1/health/ready
+          node scripts/journey.mjs
+      - name: "Durability: a job survives its worker being killed"
+        env:
+          NODE_ENV: production
+        run: node scripts/durability-check.mjs
+      - name: Logs on failure
+        if: failure()
+        run: |
+          tail -150 prod.log || true
+          tail -60 runner.log || true
+
+  stress:
+    name: Stress battery (sandbox + lambda under adversarial load)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - run: npm ci
+      - run: npm run build -w @learnsdlc/shared -w @learnsdlc/api
+      - name: Sandbox adversarial battery
+        run: node scripts/stress/sandbox.mjs
+      - name: Lambda transport under concurrency
+        run: node scripts/stress/lambda.mjs
+
+  stress-api:
+    name: API battery (auth, RBAC, gating, a cohort submitting at once)
+    runs-on: ubuntu-latest
+    # Every AI request this job causes goes to the canned, loopback stub the
+    # Playwright suite grades against (e2e/ai-stub.cjs), started below: no
+    # real provider is called and no model runs, and the product's provider
+    # rules are untouched. E2E_AI_STUB tells scripts/passing-work.mjs to mark
+    # passing work the way the suite marks it for that stub.
+    env:
+      OPENAI_BASE_URL: http://127.0.0.1:4199/v1
+      OPENAI_API_KEY: e2e-stub-not-a-secret
+      AI_MAX_CONCURRENCY: '1'
+      E2E_AI_STUB: 'true'
+      # The API refuses to start without a session secret; this test-only one
+      # is published, so it works on this loopback bind and nowhere else.
+      JWT_SECRET: local-test-only-jwt-secret-refused-in-production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - run: npm ci
+      - run: npm run build -w @learnsdlc/shared -w @learnsdlc/api
+      # The repository's only multi-learner cases live in this script.
+      # SEED_DEMO_ACCOUNTS creates the demo administrator and instructor that
+      # the unknown-project and cohort cases sign in as, and it is
+      # loopback-only, which this runner is.
+      - name: Start the canned AI the suite grades against
+        run: |
+          node e2e/ai-stub.cjs > ai-stub.log 2>&1 &
+          for i in $(seq 1 20); do curl -sf 127.0.0.1:4199/__stub/counts >/dev/null && break; sleep 1; done
+          curl -sf 127.0.0.1:4199/__stub/counts
+      - name: Boot the API and run the battery
+        run: |
+          DB_PATH=data/stress.sqlite RUNNER_MODE=local SEED_DEMO_ACCOUNTS=true \
+            RUN_TIMEOUT_SECONDS=15 node apps/api/dist/main.js > api-stress.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf localhost:4000/api/v1/health >/dev/null && break; sleep 1; done
+          node scripts/stress/api.mjs
+      - name: API log on failure
+        if: failure()
+        run: tail -150 api-stress.log || true
+
+  docker:
+    name: Docker images build + runner isolation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - name: Compose file resolves with the production variables
+        env:
+          JWT_SECRET: ci
+          ADMIN_EMAIL: ops@learnsdlc.test
+          ADMIN_PASSWORD: ci-admin-password
+          POSTGRES_PASSWORD: ci-postgres-password
+          SITE_HOST: learn.example.edu
+          API_HOST: api.example.edu
+        run: docker compose config --quiet
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      # The runner image builds the layer for its own architecture rather than
+      # copying the host's (esbuild is a native binary and some wheels are
+      # platform-specific), but it needs runtime/manifest.json in the build
+      # context to know what to build, so the pre-bake runs first.
+      - name: Build the pre-baked sandbox layer
+        run: npm run prebake
+      - run: docker build -f apps/api/Dockerfile -t learnsdlc-api .
+      - run: docker build -f apps/web/Dockerfile -t learnsdlc-web .
+      - run: docker build -f infra/runner.Dockerfile -t learnsdlc-runner .
+      # The runtime stage copies node_modules wholesale, so a missing prune
+      # ships the test toolchain to production. typescript and ts-node survive
+      # the prune because typeorm names them as optional peers; the runbook's
+      # typeorm CLI calls run compiled JavaScript and use neither. The CLI
+      # itself must ship.
+      - name: The API image ships no test toolchain
+        run: |
+          for pkg in jest ts-jest supertest @types/jest @types/supertest; do
+            if docker run --rm learnsdlc-api sh -c "test -e node_modules/$pkg"; then
+              echo "api image ships $pkg"; exit 1
+            fi
+          done
+          docker run --rm learnsdlc-api sh -c 'test -f node_modules/typeorm/cli.js'
+      # The runner image under the same constraints compose applies: it must
+      # come up healthy with no network, a read-only rootfs, no capabilities,
+      # and it must ship no curl and no application secrets.
+      - name: Runner container starts healthy under the compose constraints
+        run: |
+          docker run -d --name runner --network none --read-only --tmpfs /tmp \
+            --cap-drop ALL --security-opt no-new-privileges:true --pids-limit 64 \
+            --memory 1g --user 65534:65534 -v runnersock:/run/learnsdlc learnsdlc-runner
+          for i in $(seq 1 20); do
+            docker exec runner python3 /runner/serve.py --check && break; sleep 1
+          done
+          docker exec runner python3 /runner/serve.py --check
+          if docker exec runner sh -c 'command -v curl || command -v wget'; then
+            echo "runner image ships a network client"; exit 1
+          fi
+          if docker exec runner sh -c 'env | grep -Eq "JWT_SECRET|DATABASE_URL|OPENAI"'; then
+            echo "runner environment carries application secrets"; exit 1
+          fi
+          docker exec runner id -u | grep -qx 65534
+          # The pre-bake install runs at build time and npm must not survive it.
+          if docker exec runner sh -c 'command -v npm'; then
+            echo "runner image ships npm"; exit 1
+          fi
+          docker exec runner /runner/runtime/bin/esbuild --version
+      - name: A job executes inside the isolated container
+        run: |
+          docker exec -i runner python3 - <<'EOF'
+          import json, sys
+          sys.path.insert(0, '/runner')
+          from serve import _UnixHTTPConnection
+          job = {"files": {"tests/test_x.py": "import unittest\nclass T(unittest.TestCase):\n    def test_ok(self):\n        self.assertEqual(1+1, 2)\n    def test_net(self):\n        import urllib.request\n        urllib.request.urlopen('http://example.com', timeout=3)\n"}, "mode": "tests", "testPaths": ["tests/test_x.py"], "timeoutSeconds": 10, "memoryMb": 128}
+          c = _UnixHTTPConnection('/run/learnsdlc/runner.sock', timeout=60)
+          body = json.dumps(job)
+          c.request('POST', '/execute', body=body, headers={'Content-Type': 'application/json', 'Content-Length': str(len(body))})
+          r = json.loads(c.getresponse().read())
+          print(json.dumps(r, indent=1))
+          cases = {x['name']: x['status'] for x in r['tests']['cases']}
+          assert cases['T.test_ok'] == 'passed', cases
+          assert cases['T.test_net'] != 'passed', cases
+          EOF
+      # PREVIEW_BOOTSTRAP relaxes the socket block for loopback and nothing
+      # else, and `network_mode: none` is what actually holds. Both halves are
+      # asserted from inside the app child itself: it binds the loopback port
+      # the runner gave it and answers, and its own attempt to reach the
+      # internet fails, which it reports on its own health route.
+      - name: A preview app reaches loopback and never the internet
+        run: |
+          docker exec -i runner python3 - <<'EOF'
+          import json, sys, time, base64
+          sys.path.insert(0, '/runner')
+          from serve import _UnixHTTPConnection
+
+          APP = """
+          import http.server, json, os, urllib.request
+
+          def egress():
+              try:
+                  urllib.request.urlopen('http://example.com', timeout=3)
+                  return 'reached'
+              except Exception as exc:
+                  return type(exc).__name__
+
+          VERDICT = egress()
+
+          class H(http.server.BaseHTTPRequestHandler):
+              def do_GET(self):
+                  body = json.dumps({'egress': VERDICT}).encode()
+                  self.send_response(200)
+                  self.send_header('content-type', 'application/json')
+                  self.send_header('content-length', str(len(body)))
+                  self.end_headers()
+                  self.wfile.write(body)
+              def log_message(self, *a):
+                  pass
+
+          http.server.HTTPServer(('127.0.0.1', int(os.environ['PORT'])), H).serve_forever()
+          """
+
+          def post(path, payload):
+              c = _UnixHTTPConnection('/run/learnsdlc/runner.sock', timeout=120)
+              body = json.dumps(payload)
+              c.request('POST', path, body=body,
+                        headers={'Content-Type': 'application/json', 'Content-Length': str(len(body))})
+              return json.loads(c.getresponse().read())
+
+          started = post('/app/start', {
+              'mode': 'preview',
+              'files': {'app.py': APP, 'web/index.html': '<html><body>preview</body></html>'},
+              'service': {'command': ['python3', 'app.py'], 'portEnv': 'PORT', 'health': '/'},
+              'web': {'root': 'web', 'html': 'web/index.html'},
+              'ttlSeconds': 120, 'idleSeconds': 120, 'memoryMb': 256,
+          })
+          print(json.dumps(started, indent=1))
+          assert 'id' in started, started
+          session = started['id']
+
+          for _ in range(60):
+              status = post('/app/status', {'id': session, 'cursor': 0})
+              if status['status'] in ('ready', 'failed'):
+                  break
+              time.sleep(1)
+          assert status['status'] == 'ready', status
+
+          answer = post('/app/proxy', {'id': session, 'method': 'GET', 'path': '/', 'headers': {}, 'body': ''})
+          verdict = json.loads(base64.b64decode(answer['body']))
+          print('the app says:', verdict)
+          # The loopback half: the child bound the port and the proxy reached it.
+          assert answer['status'] == 200, answer
+          # The egress half: it could not reach the internet, and the reason is
+          # the block rather than a DNS accident nobody would notice.
+          assert verdict['egress'] != 'reached', verdict
+
+          asset = post('/app/asset', {'id': session, 'path': '/'})
+          assert asset['status'] == 200 and b'preview' in base64.b64decode(asset['body']), asset
+
+          stopped = post('/app/stop', {'id': session})
+          assert stopped['status'] == 'stopped', stopped
+          print('preview started, reached loopback, refused the internet, stopped')
+          EOF
+      - name: Runner logs on failure
+        if: failure()
+        run: docker logs runner 2>&1 | tail -60 || true
+
+  lambda-runner:
+    name: Full journey through LocalStack Lambda execution
+    runs-on: ubuntu-latest
+    env:
+      AWS_ENDPOINT_URL: http://localhost:4566
+      AWS_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      # The canned, loopback AI (e2e/ai-stub.cjs), as in the journey job: no
+      # real provider is called.
+      OPENAI_BASE_URL: http://127.0.0.1:4199/v1
+      OPENAI_API_KEY: e2e-stub-not-a-secret
+      AI_MAX_CONCURRENCY: '1'
+      E2E_AI_STUB: 'true'
+      # The API refuses to start without a session secret; this test-only one
+      # is published, so it works on this loopback bind and nowhere else.
+      JWT_SECRET: local-test-only-jwt-secret-refused-in-production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - name: Start LocalStack (Lambda)
+        run: |
+          docker run -d --name localstack -p 4566:4566 \
+            -e SERVICES=lambda \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            localstack/localstack:3
+      - run: npm ci
+      - run: npm run build -w @learnsdlc/shared -w @learnsdlc/api
+      # The package carries the baked Python tree, so it has to be built by the
+      # same interpreter the function runs: python3.11, both here and there.
+      - name: Build the pre-baked sandbox layer
+        run: npm run prebake
+      - name: Deploy the runner Lambda to LocalStack
+        run: bash scripts/localstack-lambda.sh
+      # The function is a python3.11 zip with no node in it (the packaging
+      # script says so), so the front-end half of a code phase cannot execute
+      # on this transport. The product's answer is not a lower score: the run
+      # comes back `unavailable` with a sentence naming the limit, the merge
+      # drops the totals so nobody is graded on half a pack, and the gate stays
+      # shut. JOURNEY_WEB_UNAVAILABLE makes the journey assert exactly that at
+      # phase 3 instead of expecting six passed phases from a transport that
+      # can only run the Python half. Phases 1 and 2, the mentor and the
+      # Python execution in phase 3 are still walked end to end through Lambda.
+      - name: Start the canned AI the suite grades against
+        run: |
+          node e2e/ai-stub.cjs > ai-stub.log 2>&1 &
+          for i in $(seq 1 20); do curl -sf 127.0.0.1:4199/__stub/counts >/dev/null && break; sleep 1; done
+          curl -sf 127.0.0.1:4199/__stub/counts
+      - name: The journey through Lambda, as far as the transport honestly goes
+        env:
+          JOURNEY_WEB_UNAVAILABLE: 'true'
+        run: |
+          RUNNER_MODE=lambda DB_PATH=apps/api/.e2e-data/lambda.sqlite \
+            SEED_DEMO_ACCOUNTS=true node apps/api/dist/main.js > api-lambda.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf localhost:4000/api/v1/health >/dev/null && break; sleep 1
+          done
+          node scripts/journey.mjs
+      # An app has nowhere to keep running on Lambda, so the transport says so
+      # in an envelope rather than raising, and a tests job still runs. Both
+      # halves, because a guard that refuses everything would pass the first.
+      # scripts/localstack-lambda.sh asserts the refusal too; this is the
+      # second half, that a suite still comes back with a verdict.
+      - name: Lambda refuses a preview and still runs a suite
+        run: |
+          FUNCTION="${RUNNER_LAMBDA_FUNCTION:-learnsdlc-code-runner}"
+          aws --endpoint-url "$AWS_ENDPOINT_URL" lambda invoke \
+            --function-name "$FUNCTION" --cli-binary-format raw-in-base64-out \
+            --payload '{"mode":"preview","files":{},"ttlSeconds":60}' preview.json >/dev/null
+          grep -q 'not available on this transport' preview.json
+          aws --endpoint-url "$AWS_ENDPOINT_URL" lambda invoke \
+            --function-name "$FUNCTION" --cli-binary-format raw-in-base64-out \
+            --payload '{"mode":"tests","timeoutSeconds":10,"memoryMb":128,"testPaths":["tests/test_x.py"],"files":{"tests/test_x.py":"import unittest\nclass T(unittest.TestCase):\n    def test_ok(self):\n        self.assertEqual(1 + 1, 2)\n"}}' suite.json >/dev/null
+          grep -q '"passed": *1' suite.json
+      - name: Logs on failure
+        if: failure()
+        run: |
+          tail -120 api-lambda.log || true
+          docker logs localstack 2>&1 | tail -80 || true
+
+  demo-command:
+    # The one command a class starts the product with. Kept
+    # apart from the suite because it fails for different reasons (a script or
+    # a version, not code) and because it is the slow one.
+    name: npm run demo on a clean machine
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_LEARNER_NODE_VERSION }}
+      - name: Select the learner Node binary
+        run: echo "NODE_BIN=$(command -v node)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      # scripts/demo.sh names the process holding a port it needs, and
+      # scripts/demo-selftest.sh asserts both ports are free after the
+      # interrupt. Both ask lsof, so a runner without it would pass the second
+      # assertion without checking anything.
+      - name: Make sure lsof is installed
+        run: command -v lsof >/dev/null || (sudo apt-get update && sudo apt-get install -y lsof)
+      # Deliberately no npm ci before this: the first run is the clean-clone
+      # path, install and build included, and it is the one that catches a
+      # setup.sh step that has stopped being idempotent. --ai-stub starts the
+      # Playwright suite's canned mentor on loopback, so the demo reports a
+      # working AI without a provider key; this runner has Landlock, so the
+      # self-test also asserts the runner says it confines learner code.
+      - name: The clean clone
+        run: npm run demo:check -- --ai-stub
+      # And again, which is the path everyone takes from their second day on:
+      # --expect-fast asserts it reinstalled nothing and rebuilt nothing.
+      - name: The install that is already there
+        run: npm run demo:check -- --expect-fast --ai-stub
+      # The AI key is required: with no key and no --ai-stub the demo has to
+      # refuse at once, exit non-zero and say where the key goes.
+      - name: Without an AI key it refuses to start
+        run: npm run demo:check
+
+  fresh-clone-stack:
+    # A stranger's machine: a fresh clone, Docker, Node 24 and Python 3.11, and
+    # nothing else installed. It starts the whole stack with the one command
+    # the README gives (the test mentor, so no key), then proves every feature
+    # a learner and a teacher use against it: scripts/prove-local.sh runs the
+    # same journey, runner, preview and durability checks as the jobs above,
+    # here through the containers, plus the Agentic round trip and a teacher's
+    # upload with deep validation. Its second start of the stack is the
+    # idempotent path (images and volumes reused). Kept apart from the jobs
+    # above, which it does not replace.
+    name: Fresh clone, Docker stack, every feature
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.CI_APP_NODE_VERSION }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.CI_PYTHON_VERSION }}
+      - name: Start the stack the way the README says
+        run: npm run demo -- --docker --ai-stub --detach
+      - name: Prove every feature
+        run: bash scripts/prove-local.sh
+      - name: Upload the receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prove-local-receipt
+          path: tmp/prove-local-*
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Stack logs on failure
+        if: failure()
+        run: bash scripts/stack.sh compose logs --no-color --tail 300 || true
+      - name: Remove the stack
+        if: always()
+        run: bash scripts/stack.sh down --fresh || true

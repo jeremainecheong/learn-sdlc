@@ -1,0 +1,8 @@
+{
+  "/api/books": [
+    { "id": 1, "title": "Kindred", "author": "Octavia E. Butler", "year": 1979, "on_loan_to": null },
+    { "id": 2, "title": "Persuasion", "author": "Jane Austen", "year": 1817, "on_loan_to": "Ade" },
+    { "id": 3, "title": "Middlemarch", "author": "George Eliot", "year": 1871, "on_loan_to": null },
+    { "id": 4, "title": "Emma", "author": "Jane Austen", "year": 1815, "on_loan_to": null }
+  ]
+}

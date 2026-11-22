@@ -1,0 +1,15 @@
+{
+  "impact": {
+    "operations": [],
+    "screens": [],
+    "files": []
+  },
+  "contract": [],
+  "tests": [],
+  "release": {
+    "version": "",
+    "summary": "",
+    "changes": [],
+    "rollback": ""
+  }
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deadline badge</title>
+<style>
+  body { margin: 0; padding: 16px; background: #fff; color: #183344; font: 14px/1.5 system-ui, sans-serif; }
+  h1 { margin: 0 0 4px; font-size: 18px; }
+  .demo-date { margin: 0 0 12px; color: #526c7c; }
+  ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid #d3e2ea; }
+  li { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #d3e2ea; }
+  .title { min-width: 7em; font-weight: 600; }
+  .due { flex: 1; color: #526c7c; }
+  .badge { padding: 1px 8px; border-radius: 4px; background: #b91c1c; color: #fff; font-size: 12px; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Deadline badge</h1>
+<p class="demo-date" data-testid="preview-demo-date">Demo date: 13 November 2026 (fixed, the same day the tests use)</p>
+<ul id="tasks" data-testid="preview-task-list"></ul>
+<script type="module" src="./src/main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!-- one finding -->
+<div class="flex flex-col gap-3.5 px-3.5 py-3" data-testid="health-panel">
+<p class="purpose" data-testid="health-source">From submission 2. The analyzer reads the Python and JavaScript files you can edit.</p>
+<div class="flex flex-wrap items-start gap-x-8 gap-y-4">
+<div class="flex min-w-0 flex-col gap-1">
+<div class="flex min-w-0 flex-col gap-1 " data-testid="health-quality">
+<span class="flex items-baseline gap-1.5">
+<span class="readout leading-none text-pass" style="font-size:30px">90</span>
+<span class="mono text-[12.5px] text-muted">of 100</span>
+</span>
+<span class="label-sm">Code quality</span>
+</div>
+<p class="purpose">Each error costs 25, each warning 10, each note 2.</p>
+</div>
+<div class="flex min-w-0 flex-col gap-1">
+<div class="flex min-w-0 flex-col gap-1 " data-testid="health-complexity">
+<span class="flex items-baseline gap-1.5">
+<span class="readout leading-none text-ink" style="font-size:30px">4</span>
+</span>
+<span class="label-sm">Highest complexity</span>
+</div>
+</div>
+<div class="flex min-w-0 flex-col gap-1">
+<div class="flex min-w-0 flex-col gap-1 " data-testid="health-docstrings">
+<span class="flex items-baseline gap-1.5">
+<span class="readout leading-none text-ink" style="font-size:30px">60%</span>
+</span>
+<span class="label-sm">Docstrings</span>
+</div>
+</div>
+<div class="flex min-w-0 flex-col gap-1">
+<div class="flex min-w-0 flex-col gap-1 " data-testid="health-todos">
+<span class="flex items-baseline gap-1.5">
+<span class="readout leading-none text-ink" style="font-size:30px">1</span>
+</span>
+<span class="label-sm">TODOs left</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2" data-testid="health-findings">
+<div class="min-w-0 overflow-x-auto ">
+<div role="table" aria-rowcount="2" aria-colcount="2" class="grid" style="grid-template-columns:minmax(0,1fr) auto;min-width:340px;align-items:stretch">
+<div role="row" style="display:contents">
+<span role="columnheader" class="label-sm wrap min-w-0 border-b-1.5 border-edge2 pb-1.5 pr-3 ">Finding</span>
+<span role="columnheader" class="label-sm wrap min-w-0 border-b-1.5 border-edge2 pb-1.5  text-right">Rule</span>
+</div>
+<div role="row" style="display:contents">
+<span role="cell" class="wrap flex min-w-0 items-start gap-2 border-b-1.5 border-edge py-2.5 text-[13px] leading-[1.4] pr-3   text-ink">
+<button type="button" class="min-w-0 flex-1 text-left hover:underline" data-testid="health-finding-todo-left-12">
+<span class="flex min-w-0 items-start gap-2 ">
+<span class="mt-[3px]" style="width:11px;height:11px;border-radius:3px;box-sizing:border-box;flex:none;display:inline-block;background:rgb(var(--c-warn))" aria-hidden="true" data-state="warn">
+</span>
+<span class="flex min-w-0 flex-col gap-0.5">
+<span class="wrap font-semibold text-ink">A TODO is still in the code.</span>
+<span class="wrap text-[12px] text-muted">
+<span class="mono">api/tasks.py, line 12</span>
+</span>
+</span>
+</span>
+</button>
+</span>
+<span role="cell" class="wrap flex min-w-0 items-start gap-2 border-b-1.5 border-edge py-2.5 text-[13px] leading-[1.4]  justify-end text-right  text-ink">
+<span class="chip chip-warn ">Warning</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+<p class="purpose" data-testid="health-trend-sentence">The trend needs a second revision.</p>
+</div>
+
+<!-- clean -->
+<div class="flex flex-col gap-3.5 px-3.5 py-3" data-testid="health-panel">
+<p class="purpose" data-testid="health-source">From submission 2. The analyzer reads the Python and JavaScript files you can edit.</p>
+<div class="flex flex-wrap items-start gap-x-8 gap-y-4">
+<div class="flex min-w-0 flex-col gap-1">
+<div class="flex min-w-0 flex-col gap-1 " data-testid="health-quality">
+<span class="flex items-baseline gap-1.5">
+<span class="readout leading-none text-pass" style="font-size:30px">100</span>
+<span class="mono text-[12.5px] text-muted">of 100</span>
+</span>
+<span class="label-sm">Code quality</span>
+</div>
+<p class="purpose">Each error costs 25, each warning 10, each note 2.</p>
+</div>
+<div class="flex min-w-0 flex-col gap-1">
+<div class="flex min-w-0 flex-col gap-1 " data-testid="health-complexity">
+<span class="flex items-baseline gap-1.5">
+<span class="readout leading-none text-ink" style="font-size:30px">3</span>
+</span>
+<span class="label-sm">Highest complexity</span>
+</div>
+</div>
+<div class="flex min-w-0 flex-col gap-1">
+<div class="flex min-w-0 flex-col gap-1 " data-testid="health-docstrings">
+<span class="flex items-baseline gap-1.5">
+<span class="readout leading-none text-ink" style="font-size:30px">100%</span>
+</span>
+<span class="label-sm">Docstrings</span>
+</div>
+</div>
+<div class="flex min-w-0 flex-col gap-1">
+<div class="flex min-w-0 flex-col gap-1 " data-testid="health-todos">
+<span class="flex items-baseline gap-1.5">
+<span class="readout leading-none text-ink" style="font-size:30px">0</span>
+</span>
+<span class="label-sm">TODOs left</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2" data-testid="health-findings">
+<p class="label">Nothing to fix. The analyzer found no findings in your files.</p>
+</div>
+<p class="purpose" data-testid="health-trend-sentence">The trend needs a second revision.</p>
+</div>

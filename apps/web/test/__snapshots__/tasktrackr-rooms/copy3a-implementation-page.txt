@@ -1,0 +1,74 @@
+TEXT ImplementationPhase 3 of 6In progressRun tests⌘⇧↵Run app⌘⇧AMore Phase 3 of 6Fill the marked gaps, across the API and the front endget_list_tasks not reviewedpost_list_task not reviewedcomplete_task not started+12 moreReplay tutorialOptional phase guideBriefOpen the pull requestSubmit PR-3⌘↵BriefFilesCodeMentorPreviewYour taskFilesYour task1 of 5Choose a task01: complete_task02: list_tasks03: overdue_tasks04: isOverdue05: useTasksBriefContractExamplesUS-2 / PYTHONComplete a task through the APIComplete a task through POST /api/tasks/{id}/complete. The response and stored task must agree that the work is done.Follow the change1Find task2Persist completion3Return stateExpected result ExampleUnknown task: 404 response shape{ "error": { "code": "task_not_found", "message": "Task not found" } }These examples describe the contract. Run your saved work to collect execution evidence.Explore the five gapsPhase requirements and reviewThe briefTaskTrackr is built and it runs. The lists, the comments, the schema, the error envelope, the router, the pages and every route and component around yours are written and locked. What is missing is the code behind the five sentences your design phase wrote — three in the Python API and two in the TypeScript front end — and each one is marked TODO(learner).1. list_tasks in api/repository/tasks.py (US-3) — the tasks in one list, narrowed by status, q and tag, highest priority first with ties by ascending id. A status the contract does not know is a ValueError, which the route already turns into a 400.2. overdue_tasks in api/repository/tasks.py (US-4) — open tasks whose due date is strictly before the day passed in. No due date is never overdue; already done is never overdue. Most overdue first, then higher priority, then id.3. complete_task in api/routes/tasks.py (US-2) — mark a task done and answer with it. An id nobody has is a 404 carrying the code task_not_found.4. isOverdue in web/src/lib/overdue.ts (US-4, US-5) — the same boundary rule, in TypeScript, over data the browser already has. web/src/components/TaskRow.tsx is locked and calls it: write the rule once and a badge appears in a component you did not write.5. useTasks in web/src/hooks/useTasks.ts (US-3) — ask the API for one list's tasks, send only the filters that are set, and hand the screen { tasks, loading, error, reload }. A request that failed is an error, not an empty list.PRIORITY_ORDER, TASK_SELECT, get_task and fail are already written above and beside the Python stubs; daysLate, byMostOverdue and queryFor are written above the TypeScript ones. Use them. The phase is about the five rules, not about SQLite row factories or query strings.WorkflowPress Run visible tests any time. Two suites run one after the other and the report groups them: tests/test_tasks_api.py, four cases through Flask's own test client, and web/src/lib/overdue.test.ts, two cases on the boundary. All six fail right now, because the stubs raise NotImplementedError and throw Error. Press Run app to start your own API and your own front end and use them in the Preview tab. The database is seeded, so there is something to look at. Before you start, the lists page works and a list's tasks do not — that is the gap you are about to fill. The fixtures the API suite uses — client, make_list, make_task — are in tests/conftest.py, which is locked but open to read. They drive the API through Flask's test client, so a test reads exactly like the request it stands for. Submit PR-3 runs both visible suites, two hidden suites of fourteen and eight cases over the same five contracts, and static analysis (leftover TODOs, banned constructs, complexity). Run before you submit. The rubric's process criterion notices.What good looks like- Each gap is a few lines that lean on what the module already offers. list_tasks collects the conditions it was actually given; overdue_tasks is one SELECT with three conditions; complete_task is the same three lines as the four routes around it; isOverdue is three comparisons; useTasks is state, an effect and an answer for the failure. - Every sentence of the docstring is true, not only the six assertions you can see. The hidden suites ask about an unknown id, a keyword in the middle of a title, two filters at once, a task due today, a task that was late but is finished, a badge on a row, a filter that should not have been sent, and a request that failed. - The two overdue rules agree. You are writing the same boundary twice, once in SQL and once in TypeScript, and the day they disagree is the day a task is late in the report and on time on the row. The testing phase will ask you to prove it in both languages. - The contract in shared/contract/api.json is the same one you completed in design. When your code and that file disagree, one of them is wrong and it is worth knowing which.Using the AI mentor wellAsk it to read a traceback with you, to point you at the SQL, the Flask construct or the React hook the codebase already uses, or to talk through a boundary case. It will not write a function body, and pasting a finished answer from anywhere defeats the phase — the hidden suites are only interesting if the code is yours.When you are ready, press Submit PR-3. Every required criterion and its evidence must pass review before the next phase opens.Your accepted screen copyThe read-only overdue page uses the title and empty-state sentence from the retained Design submission that passed when Implementation opened. Its source submission is recorded in shared/contract/accepted-screen-copy.json; the read-only screen contract shows the same text. Later draft edits do not change this accepted handoff. Older work without a retained accepted source uses an explicitly labelled reference copy.Mission and review criteriaYour missionMake the code true to the contracts you wrote in Design. The hidden suite and the analyzer supply execution evidence; the senior engineer reviews the pull request.The application is built and running except for five marked gaps — three in the Python API, two in the TypeScript front end. Your design named the contracts; make them true, then run the app and watch it work.Implement list_tasks with the status, keyword and tag filters and the priority order (US-3)Implement overdue_tasks with the exact boundary rule from your design (US-4)Wire the complete route to the repository and to the error envelope (US-2)Write the same boundary rule again as isOverdue, in TypeScript, so the badge on a row agrees with the report (US-4, US-5)Implement the useTasks hook so the filters reach the API and a failed request reaches the screen (US-3)Open the phase guide (optional)What you will produceapi/repository/tasks.pyapi/routes/tasks.pyweb/src/hooks/useTasks.tsweb/src/lib/overdue.tsReview criteriaPass or Needs revision. Every required criterion needs correct, complete evidence.Correctness (hidden tests): Two hidden suites, one per layer, exercise the contract including edge cases you were not shown. The score is pooled over all twenty-two cases.Visible tests: The visible suites pass — six cases across the two layers, and you can and should run them before submitting.Code quality: No TODOs left behind, no banned constructs, reasonable complexity, docstrings kept.Process: You ran the tests before submitting and used AI assistance in moderation.Explorerapirepositorycomments.pylists.pytasks.pyroutescomments.pylists.pytasks.pydb.pyerrors.pymain.pyschema.sqlopsshared/contracttestswebsrcapicomponentshooksuseLists.tsuseTasks.tsliboverdue.test.tsoverdue.tspagesmain.tsxrouter.tsxindex.htmlYour changesPR-3repository/tasks.pyroutes/tasks.pyuseTasks.tsProblems0 openCodeSplitApp previewPull requestSaved workspaceHide briefHide mentorrepository/tasks.pyroutes/tasks.pyuseTasks.tsoverdue.tstest_tasks_api.pyoverdue.test.tsapiroutestasks.py_Invalid"""The task routes: the tasks inside a list, and everything under /api/tasks. The routes are the only place that knows about HTTP. They read the request, refuse what the contract refuses, call the repository, and turn its KeyError and ValueError into the codes shared/contract/api.json publishes. """ from datetime import date from flask import Blueprint, jsonify, request from api.db import connect from api.errors import fail from api.repository import lists, tasks bp = Blueprint("tasks", __name__) class _Invalid(Exception): """A field the contract refuses, carrying the code it is refused under.""" def __init__(self, code, message): super().__init__(message) self.code = code self.message = message def _title(value): if not isinstance(value, str) or not value.strip(): raise _Invalid("invalid_title", "A task needs a title.") return value.strip() def _priority(value): if value not in tasks.PRIORITIES: raise _Invalid( "invalid_priority", 'priority must be "low", "medium" or "high".' ) return value def _due_date(value): if value is None or value == "": return None try: return date.fromisoformat(value).isoformat() except (TypeError, ValueError) as bad: raise _Invalid( "invalid_due_date", 'due_date must be an ISO date, like "2026-03-14".' ) from bad def _status(value): if value not in tasks.STATUSES: raise _Invalid("invalid_status", 'status must be "open" or "done".') return value def _tags(value): if value is None: return [] if not isinstance(value, list) or not all(isinstance(tag, str) for tag in value): raise _Invalid("invalid_tags", "tags must be a list of names.") return value @bp.get("/api/lists/<int:list_id>/tasks") def get_list_tasks(list_id): """The tasks in one list, narrowed by status, keyword and tag (US-3).""" conn = connect() try: lists.get_list(conn, list_id) except KeyError: return fail("list_not_found", f"No list has id {list_id}.", 404) try: found = tasks.list_tasks( conn, list_id, status=request.args.get("status", "all"), q=request.args.get("q"), tag=request.args.get("tag"), ) except ValueError: return fail("invalid_status", 'status must be "all", "open" or "done".', 400) return jsonify(found), 200 @bp.post("/api/lists/<int:list_id>/tasks") def post_list_task(list_id): """Add a task to a list (US-1).""" payload = request.get_json(silent=True) or {} try: title = _title(payload.get("title")) priority = _priority(payload.get("priority", "medium")) due_date = _due_date(payload.get("due_date")) tag_names = _tags(payload.get("tags")) except _Invalid as refused: return fail(refused.code, refused.message, 400) try: created = tasks.create_task( connect(), list_id, title, priority, due_date, tag_names ) except KeyError: return fail("list_not_found", f"No list has id {list_id}.", 404) return jsonify(created), 201 @bp.get("/api/tasks/overdue") def get_overdue_tasks(): """The overdue report (US-4). The day is a required query parameter. A report that asked the machine what day it is would be a different report tomorrow, and could not be tested at all. """ today = request.args.get("today") try: today = date.fromisoformat(today or "").isoformat() except ValueError: return fail( "invalid_date", 'today must be an ISO date, like "2026-03-14".', 400 ) return jsonify(tasks.overdue_tasks(connect(), today)), 200 @bp.get("/api/tasks/<int:task_id>") def get_task(task_id): """One task, with its tags and how many comments it carries.""" try: return jsonify(tasks.get_task(connect(), task_id)), 200 except KeyError: return fail("task_not_found", f"No task has id {task_id}.", 404) @bp.patch("/api/tasks/<int:task_id>") def patch_task(task_id): """Change a task's title, priority, due date or status.""" payload = request.get_json(silent=True) or {} changes = {} try: if "title" in payload: changes["title"] = _title(payload["title"]) if "priority" in payload: changes["priority"] = _priority(payload["priority"]) if "due_date" in payload: changes["due_date"] = _due_date(payload["due_date"]) if "status" in payload: changes["status"] = _status(payload["status"]) except _Invalid as refused: return fail(refused.code, refused.message, 400) try: return jsonify(tasks.update_task(connect(), task_id, changes)), 200 except KeyError: return fail("task_not_found", f"No task has id {task_id}.", 404) @bp.post("/api/tasks/<int:task_id>/complete") def complete_task(task_id): """Mark a task done and return it (US-2). 404 with code "task_not_found" when no task has that id. Completing an already-done task is a no-op that returns it unchanged. """ # TODO(learner): implement to the US-2 contract. repository.tasks has a # helper that already raises for an unknown id, and errors.py has the one # function that builds the 404 envelope. raise NotImplementedError("complete_task is not implemented yet") @bp.post("/api/tasks/<int:task_id>/reopen") def reopen_task(task_id): """Put a task back on the list.""" try: return jsonify(tasks.reopen_task(connect(), task_id)), 200 except KeyError: return fail("task_not_found", f"No task has id {task_id}.", 404) @bp.delete("/api/tasks/<int:task_id>") def delete_task(task_id): """Remove a task, its tags and its comments.""" try: tasks.delete_task(connect(), task_id) except KeyError: return fail("task_not_found", f"No task has id {task_id}.", 404) return "", 204 Running application from your saved workspace ConsoleYour app is not runningThe app is not running. Run app builds your front end, starts your API and shows it here. It runs in your own preview session for up to ten minutes.Run appThe preview is for you. It is not marked.No tests run this visitConsoleRun testsmainPython 3.11Ln 1, Col 10 problemsSaved22:28
+CONTROLS
+button:Run tests⌘⇧↵
+button:Run app⌘⇧A
+button:Replay tutorial
+a[/learn/implementation]:Optional phase guide
+a[/workspace/phase-room/brief]:Read the brief
+a[/workspace/phase-room/pr]:Open the pull request
+button:Submit PR-3⌘↵
+button:Brief
+button:Files
+button:Code
+button:Mentor
+button:Preview
+button:Files
+button:Problems
+button:Ask the senior engineer
+button:Preview
+button:Your task
+button:Files
+select:01: complete_task02: list_tasks03: overdue_tasks04: isOverdue05: useTasks
+button:Brief
+button:Contract
+button:Examples
+button:Previous implementation task
+button:Next implementation task
+a[/learn/implementation]:Open the phase guide
+button:api
+button:repository
+button:comments.py
+button:lists.py
+button:tasks.py
+button:routes
+button:comments.py
+button:lists.py
+button:tasks.py
+button:db.py
+button:errors.py
+button:main.py
+button:schema.sql
+button:ops
+button:shared/contract
+button:tests
+button:web
+button:src
+button:api
+button:components
+button:hooks
+button:useLists.ts
+button:useTasks.ts
+button:lib
+button:overdue.test.ts
+button:overdue.ts
+button:pages
+button:main.tsx
+button:router.tsx
+button:index.html
+button:Code
+button:Split
+button:App preview
+a[/workspace/phase-room/pr]:Pull request
+button:Hide brief
+button:Hide mentor
+button:repository/tasks.py
+button:routes/tasks.py
+button:useTasks.ts
+button:overdue.ts
+button:test_tasks_api.py
+button:overdue.test.ts
+textarea:Code
+button:Console
+button:Run app
+button:Console
+button:Run tests

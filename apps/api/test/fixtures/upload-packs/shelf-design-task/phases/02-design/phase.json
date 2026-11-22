@@ -1,0 +1,133 @@
+{
+  "key": "design",
+  "order": 2,
+  "title": "Design",
+  "intro": "Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision.",
+  "artifactKind": "markdown",
+  "canRun": false,
+  "taskFile": "task.md",
+  "objectives": [
+    "List every operation the API answers",
+    "Name the status and error code of every refusal",
+    "Record one decision, the alternative and the reason"
+  ],
+  "files": [
+    {
+      "path": "design/my-design.md",
+      "source": "files/my-design.md",
+      "editable": true,
+      "language": "markdown"
+    },
+    {
+      "path": "requirements/provided-stories.md",
+      "source": "files/provided-stories.md",
+      "editable": false,
+      "language": "markdown"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "contract",
+        "title": "Contract",
+        "weight": 0.5,
+        "description": "Every operation and every refusal, as a client would need them."
+      },
+      {
+        "key": "decisions",
+        "title": "Decision",
+        "weight": 0.3,
+        "description": "A decision, the alternative and the reason."
+      },
+      {
+        "key": "completeness",
+        "title": "Completeness",
+        "weight": 0.2,
+        "description": "Enough words to say it all."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "markdown",
+    "targets": [
+      "design/my-design.md"
+    ],
+    "minWords": 60,
+    "minWordsCriterion": "completeness",
+    "rules": [
+      {
+        "id": "operation-rows",
+        "label": "The table lists operations",
+        "criterion": "contract",
+        "pattern": "^\\|\\s*(GET|POST)\\s*\\|\\s*/api/[^|\\n]+\\|[^|\\n]*[A-Za-z]{3,}[^|\\n]*\\|",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Add a row per operation: | GET | /api/books | every book, in shelf order |."
+      },
+      {
+        "id": "error-codes",
+        "label": "Refusals name a status and an error code",
+        "criterion": "contract",
+        "pattern": "\\b(404|409)\\b[^\\n]*\\b(book_not_found|cannot_lend|not_on_loan)\\b",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Name each refusal's status and the error code in its body, e.g. 404 with book_not_found."
+      },
+      {
+        "id": "decision-because",
+        "label": "A decision says why",
+        "criterion": "decisions",
+        "pattern": "\\bbecause\\b[^\\n]{8,}",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Write the decision with its reason: we chose X rather than Y because ..."
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the DESIGN phase of Shelf, a teacher's own application: a Python Flask API that keeps books in memory and a TypeScript React page that lists them. The learner writes the API contract in design/my-design.md. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "operation",
+          "endpoint",
+          "route",
+          "table"
+        ],
+        "hints": [
+          "Which stories need the API to answer something, and what does each ask for?",
+          "What does a client have to send, and what does it get back?"
+        ]
+      },
+      {
+        "keywords": [
+          "error",
+          "404",
+          "409",
+          "refuse"
+        ],
+        "hints": [
+          "Which requests can fail, and how would a client tell the failures apart?",
+          "Is a book nobody has the same failure as a book already lent?"
+        ]
+      },
+      {
+        "keywords": [
+          "decision",
+          "because",
+          "alternative"
+        ],
+        "hints": [
+          "What did you choose that someone else might have chosen differently?",
+          "What would the alternative have cost?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with the table: one row per thing a story needs.",
+      "Then the refusals: status and error code for each.",
+      "Finish with one decision and its reason."
+    ]
+  }
+}

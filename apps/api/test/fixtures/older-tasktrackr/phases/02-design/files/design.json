@@ -1,0 +1,59 @@
+{
+  "entities": [
+    {
+      "id": "E1",
+      "name": "Model",
+      "kind": "class",
+      "attributes": [
+        {
+          "name": "id",
+          "type": "integer",
+          "note": "required, assigned by the database"
+        }
+      ],
+      "responsibilities": [],
+      "satisfies": [
+        "US-1"
+      ]
+    }
+  ],
+  "relations": [],
+  "operations": [
+    {
+      "id": "O1",
+      "name": "completeTask(id)",
+      "inputs": [],
+      "returns": "",
+      "errors": [],
+      "satisfies": []
+    },
+    {
+      "id": "O2",
+      "name": "listTasks(listId, filters)",
+      "inputs": [],
+      "returns": "",
+      "errors": [],
+      "satisfies": []
+    },
+    {
+      "id": "O3",
+      "name": "getOverdue(today)",
+      "inputs": [],
+      "returns": "",
+      "errors": [],
+      "satisfies": []
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "title": "",
+      "choice": "",
+      "alternative": "",
+      "rationale": "",
+      "tradeOff": "",
+      "status": "proposed",
+      "satisfies": []
+    }
+  ]
+}

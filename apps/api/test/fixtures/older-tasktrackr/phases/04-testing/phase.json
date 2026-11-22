@@ -1,0 +1,484 @@
+{
+  "key": "testing",
+  "order": 4,
+  "title": "Testing",
+  "intro": "Write the acceptance suites that prove US-2, US-3, US-4 and US-5 on both sides of the contract, and catch the bugs we planted in the API and in the front end.",
+  "artifactKind": "tests",
+  "canRun": true,
+  "runLabel": "Run my tests",
+  "canPreview": true,
+  "taskFile": "task.md",
+  "objectives": [
+    "Turn the acceptance criteria of US-2, US-3 and US-4 into tests over the HTTP contract",
+    "Prove the late marker and the search on the front end, in the supplied jsdom DOM harness",
+    "Make every test pass against an application that is behaving",
+    "Write assertions sharp enough to fail on every secretly broken copy of it"
+  ],
+  "files": [
+    {
+      "path": "api/main.py",
+      "source": "../../canonical/api/main.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/db.py",
+      "source": "../../canonical/api/db.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/schema.sql",
+      "source": "../../canonical/api/schema.sql",
+      "editable": false,
+      "language": "sql"
+    },
+    {
+      "path": "api/errors.py",
+      "source": "../../canonical/api/errors.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/repository/lists.py",
+      "source": "../../canonical/api/repository/lists.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/repository/tasks.py",
+      "source": "../../canonical/api/repository/tasks.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/repository/comments.py",
+      "source": "../../canonical/api/repository/comments.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/routes/lists.py",
+      "source": "../../canonical/api/routes/lists.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/routes/tasks.py",
+      "source": "../../canonical/api/routes/tasks.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/routes/comments.py",
+      "source": "../../canonical/api/routes/comments.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "ops/seed.py",
+      "source": "../../canonical/ops/seed.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "shared/contract/api.json",
+      "source": "../../canonical/shared/contract/api.json",
+      "editable": false,
+      "language": "json"
+    },
+    {
+      "path": "tests/conftest.py",
+      "source": "../../canonical/tests/conftest.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "tests/clock.py",
+      "source": "../../canonical/tests/clock.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "tests/test_acceptance.py",
+      "source": "files/test_acceptance.py",
+      "editable": true,
+      "language": "python"
+    },
+    {
+      "path": "web/index.html",
+      "source": "../../canonical/web/index.html",
+      "editable": false,
+      "language": "html"
+    },
+    {
+      "path": "web/src/main.tsx",
+      "source": "../../canonical/web/src/main.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/router.tsx",
+      "source": "../../canonical/web/src/router.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/api/client.ts",
+      "source": "../../canonical/web/src/api/client.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/api/types.ts",
+      "source": "../../canonical/web/src/api/types.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/lib/overdue.ts",
+      "source": "../../canonical/web/src/lib/overdue.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/hooks/useTasks.ts",
+      "source": "../../canonical/web/src/hooks/useTasks.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/hooks/useLists.ts",
+      "source": "../../canonical/web/src/hooks/useLists.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/pages/ListsPage.tsx",
+      "source": "../../canonical/web/src/pages/ListsPage.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/pages/TasksPage.tsx",
+      "source": "../../canonical/web/src/pages/TasksPage.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/pages/OverduePage.tsx",
+      "source": "../../canonical/web/src/pages/OverduePage.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/components/TaskRow.tsx",
+      "source": "../../canonical/web/src/components/TaskRow.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/components/TaskFilters.tsx",
+      "source": "../../canonical/web/src/components/TaskFilters.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/components/OverdueBadge.tsx",
+      "source": "../../canonical/web/src/components/OverdueBadge.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/components/NewTaskForm.tsx",
+      "source": "../../canonical/web/src/components/NewTaskForm.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/testing/clock.ts",
+      "source": "../../canonical/web/src/testing/clock.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/testing/fixtures.ts",
+      "source": "files/fixtures.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/acceptance.test.tsx",
+      "source": "files/acceptance.test.tsx",
+      "editable": true,
+      "language": "typescript"
+    },
+    {
+      "path": "shared/contract/accepted-screen-copy.json",
+      "source": "../../canonical/shared/contract/accepted-screen-copy.json",
+      "editable": false,
+      "language": "json"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "tests_pass",
+        "title": "Tests pass against a healthy application",
+        "weight": 0.3,
+        "description": "A test that fails on correct code is a bug in the test. Both suites have to be green."
+      },
+      {
+        "key": "mutants_killed",
+        "title": "Bug-detection power (mutants killed)",
+        "weight": 0.45,
+        "description": "Your suites run against eight secretly broken copies of the application, six of the API and two of the front end; a good suite fails on every one."
+      },
+      {
+        "key": "coverage_mapping",
+        "title": "Criteria coverage",
+        "weight": 0.25,
+        "description": "US-2, US-3, US-4 and US-5 behaviours (complete, filter, overdue, the late marker) each have at least one test."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "tests",
+    "learnerTestFiles": [
+      "tests/test_acceptance.py",
+      "web/src/acceptance.test.tsx"
+    ],
+    "referenceDir": "reference",
+    "mutantsDir": "mutants",
+    "implFiles": {
+      "api/main.py": "../../canonical/api/main.py",
+      "api/db.py": "../../canonical/api/db.py",
+      "api/schema.sql": "../../canonical/api/schema.sql",
+      "api/errors.py": "../../canonical/api/errors.py",
+      "api/repository/lists.py": "../../canonical/api/repository/lists.py",
+      "api/repository/tasks.py": "../../canonical/api/repository/tasks.py",
+      "api/repository/comments.py": "../../canonical/api/repository/comments.py",
+      "api/routes/lists.py": "../../canonical/api/routes/lists.py",
+      "api/routes/tasks.py": "../../canonical/api/routes/tasks.py",
+      "api/routes/comments.py": "../../canonical/api/routes/comments.py",
+      "web/src/api/client.ts": "../../canonical/web/src/api/client.ts",
+      "web/src/api/types.ts": "../../canonical/web/src/api/types.ts",
+      "web/src/lib/overdue.ts": "../../canonical/web/src/lib/overdue.ts",
+      "web/src/hooks/useTasks.ts": "../../canonical/web/src/hooks/useTasks.ts",
+      "web/src/components/OverdueBadge.tsx": "../../canonical/web/src/components/OverdueBadge.tsx",
+      "web/src/components/TaskRow.tsx": "../../canonical/web/src/components/TaskRow.tsx",
+      "web/src/components/TaskFilters.tsx": "../../canonical/web/src/components/TaskFilters.tsx",
+      "web/src/pages/OverduePage.tsx": "../../canonical/web/src/pages/OverduePage.tsx"
+    },
+    "supportFiles": {
+      "tests/conftest.py": "../../canonical/tests/conftest.py",
+      "tests/clock.py": "../../canonical/tests/clock.py",
+      "api/db.py": "../../canonical/api/db.py",
+      "api/schema.sql": "../../canonical/api/schema.sql",
+      "web/src/testing/clock.ts": "../../canonical/web/src/testing/clock.ts",
+      "web/src/testing/fixtures.ts": "files/fixtures.ts",
+      "shared/contract/accepted-screen-copy.json": "../../canonical/shared/contract/accepted-screen-copy.json"
+    },
+    "runs": [
+      {
+        "id": "api",
+        "language": "python",
+        "harness": "pytest",
+        "label": "API tests",
+        "learnerTestFiles": [
+          "tests/test_acceptance.py"
+        ],
+        "implFiles": [
+          "api/main.py",
+          "api/errors.py",
+          "api/repository/lists.py",
+          "api/repository/tasks.py",
+          "api/repository/comments.py",
+          "api/routes/lists.py",
+          "api/routes/tasks.py",
+          "api/routes/comments.py"
+        ],
+        "supportFiles": [
+          "tests/conftest.py",
+          "tests/clock.py",
+          "api/db.py",
+          "api/schema.sql"
+        ],
+        "testPaths": [
+          "tests"
+        ]
+      },
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "label": "Front end",
+        "transform": true,
+        "learnerTestFiles": [
+          "web/src/acceptance.test.tsx"
+        ],
+        "implFiles": [
+          "web/src/api/client.ts",
+          "web/src/api/types.ts",
+          "web/src/lib/overdue.ts",
+          "web/src/hooks/useTasks.ts",
+          "web/src/components/OverdueBadge.tsx",
+          "web/src/components/TaskRow.tsx",
+          "web/src/components/TaskFilters.tsx",
+          "web/src/pages/OverduePage.tsx"
+        ],
+        "supportFiles": [
+          "web/src/testing/clock.ts",
+          "web/src/testing/fixtures.ts",
+          "shared/contract/accepted-screen-copy.json"
+        ],
+        "testPaths": [
+          "web/src"
+        ]
+      }
+    ],
+    "coverageKeywords": [
+      {
+        "criterion": "US-2 complete",
+        "criterionId": "US-2/AC-1",
+        "keywords": [
+          "complete"
+        ]
+      },
+      {
+        "criterion": "US-3 filter",
+        "criterionId": "US-3/AC-1",
+        "keywords": [
+          "filter"
+        ]
+      },
+      {
+        "criterion": "US-4 overdue",
+        "criterionId": "US-4/AC-1",
+        "keywords": [
+          "overdue"
+        ]
+      },
+      {
+        "criterion": "US-5 late marker",
+        "criterionId": "US-5/AC-1",
+        "keywords": [
+          "badge"
+        ]
+      }
+    ],
+    "minTests": 6
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the TESTING phase of the TaskTrackr project. The learner writes two acceptance suites. The first is pytest over the HTTP API \u2014 completing a task, listing and filtering tasks, and the overdue report \u2014 through Flask's test client, using the client, make_list and make_task fixtures and the today() function from tests/clock.py. The second is a front-end suite in web/src/acceptance.test.tsx, run in the supplied jsdom DOM harness with render, screen, renderHook, waitFor and node's assert, using aTask and answerWith from web/src/testing/fixtures.ts and daysAgo from web/src/testing/clock.ts, covering the late marker on a row and the query string the screen asks the API for. There is no expect and no matcher library, and an unstubbed network call is refused on purpose. Coach on test design: arrange-act-assert, asserting stored state rather than only the response body, asserting the URL rather than only the rendered list, boundary values, the absent case, error paths by status code and error code, and building dates from today() and daysAgo() rather than typing them in. Never write their test functions and never reveal what the secretly broken copies of the application change. Keep replies under 120 words, end with one guiding question, and stay on testing topics.",
+    "topics": [
+      {
+        "keywords": [
+          "boundary",
+          "edge",
+          "today",
+          "overdue",
+          "date",
+          "clock"
+        ],
+        "hints": [
+          "Boundary bugs live exactly on the line. For the overdue rule three dates matter: clearly before today, exactly today, and after today. Which of those three does your suite pin down?",
+          "A suite that only checks 'due last month is overdue' passes even if the query used <= where < belongs. What extra task would tell those two apart?",
+          "Build every date from day(-3), day(0), day(2) rather than typing one in. today() reads the run clock, so the same suite gives the same verdict tomorrow."
+        ]
+      },
+      {
+        "keywords": [
+          "status code",
+          "404",
+          "error",
+          "unknown",
+          "missing",
+          "code"
+        ],
+        "hints": [
+          "Error paths need tests too. The contract says completing an id no task has is 404 with the error code task_not_found, so a test asserts both: response.status_code, and response.get_json()['error']['code'].",
+          "A route that answered 200 with a null body would pass a test that only checked the happy path. What id would you use to be sure no task can ever have it?"
+        ]
+      },
+      {
+        "keywords": [
+          "filter",
+          "keyword",
+          "search",
+          "order",
+          "priority",
+          "list"
+        ],
+        "hints": [
+          "Test one axis at a time before you combine them: status alone, keyword alone, then both. And the order is part of the contract \u2014 high before medium before low, ties by id. What fixture of tasks makes a wrong order visible?",
+          "Case-insensitivity is one line: add 'Pay Rent', filter for 'rent'. If the query compared case exactly, what would come back?"
+        ]
+      },
+      {
+        "keywords": [
+          "stored",
+          "persist",
+          "state",
+          "again",
+          "response"
+        ],
+        "hints": [
+          "The response is what the handler says. The next request is what the database holds. Which of the two does your completion test read?",
+          "Try completing a task and then asking for it again with GET /api/tasks/{id}. A handler that answers 'done' and writes nothing survives every test that stops at the first response."
+        ]
+      },
+      {
+        "keywords": [
+          "mutant",
+          "kill",
+          "variant",
+          "bug",
+          "power",
+          "broken"
+        ],
+        "hints": [
+          "The graders run your suite against secretly broken copies of the API. A copy dies when at least one of your tests fails on it. Weak assertions survive \u2014 which of your tests would still pass if completing a task changed nothing?"
+        ]
+      },
+      {
+        "keywords": [
+          "structure",
+          "arrange",
+          "fixture",
+          "client",
+          "start",
+          "write",
+          "how"
+        ],
+        "hints": [
+          "Follow arrange-act-assert: build a small starting state through the API, make one request, assert one observable outcome. The worked example at the top of the file shows the shape.",
+          "client is Flask's test client and it speaks HTTP: client.post('/api/tasks/3/complete') is the request a browser would make. make_list and make_task set the scene for you."
+        ]
+      },
+      {
+        "keywords": [
+          "render",
+          "screen",
+          "dom",
+          "component",
+          "row",
+          "marker",
+          "hook",
+          "front end"
+        ],
+        "hints": [
+          "A front-end test asks the screen a question, not the code. render the row, then use screen.getByTestId for the thing that should be there and screen.queryByTestId for the thing that should not \u2014 the second one answers null instead of throwing, which is what makes an absence assertable. Which absence is the interesting one on a row?",
+          "The marker is a fact about two things, the date and whether the work is finished. A suite that only renders a row that is late proves half of it. What second row would tell the two halves apart?",
+          "There is no server behind these tests. answerWith(...) answers every request with one canned response and hands you the URLs that were asked for, so the question a hook test can answer is 'what did the screen actually ask for'. What would you have to assert for a dropped parameter to fail the test?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Map before you write: list the acceptance criteria of US-2, US-3, US-4 and US-5 and give each one a test name in whichever of the two files it belongs to. The worked example at the top of each file shows the arrange-act-assert shape.",
+      "Now sharpen the assertions: completion should read the task back with a second request, filtering should check exact ids and the promised order, the error paths should assert the status code and the error code, and the front-end cases should read the URL that was asked for rather than the list that came back.",
+      "Finish with boundaries and absences: due yesterday against due today, a task with no due date, a task that was finished late, and the row that carries no marker at all. If your suites would catch <= where < belongs, in either language, you are ready to submit."
+    ]
+  }
+}

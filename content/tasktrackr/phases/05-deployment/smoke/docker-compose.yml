@@ -1,0 +1,34 @@
+# Two services, one network, one volume.
+#
+# The browser only ever talks to web. web serves the bundle and proxies /api to
+# api by its service name, which is why there is no CORS anywhere in this
+# application and why API_URL is the line that matters most in this file.
+
+services:
+  api:
+    # The build context is the project root, not api/, because api/Dockerfile
+    # copies requirements.txt, ops/ and this file.
+    build: { context: ., dockerfile: api/Dockerfile }
+    environment:
+      TASKTRACKR_DB: /data/tasktrackr.db
+      PORT: "8000"
+    expose: ["8000"]
+    volumes: ["tasktrackr-data:/data"]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: "5s"
+      timeout: "3s"
+      retries: 10
+      start_period: "5s"
+
+  web:
+    build: { context: ., dockerfile: web/Dockerfile }
+    ports: ["5173:5173"]
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  tasktrackr-data: {}

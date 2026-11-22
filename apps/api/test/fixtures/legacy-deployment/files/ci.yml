@@ -1,0 +1,55 @@
+# The pipeline. Three jobs, because this application has two suites and two
+# images: the API tests, the front-end tests, then the images that ship.
+#
+# Nothing here deploys. A pipeline earns its keep by refusing to turn a broken
+# commit into an image, which is why build waits on both suites and not on one.
+
+name: tasktrackr-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: API tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install the API dependencies
+        run: pip install --no-cache-dir -r requirements.txt pytest
+      # TODO(learner): add a step that RUNS the API suite. Installing the test
+      # runner is not running it. package.json's test:api script is the command
+      # this job should execute, and tests/ is where the suite lives.
+
+  web:
+    name: Front-end tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install the front-end dependencies
+        run: npm install --no-audit --no-fund
+      # TODO(learner): add a step that runs the front-end suite. It is a node
+      # script rather than a framework, and package.json names it under
+      # test:web. A suite that only ever runs on somebody's laptop is not a
+      # suite the next person can trust.
+
+  build:
+    name: Images
+    needs: [test, web]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # TODO(learner): add a step that builds BOTH images. This application
+      # ships two services, so a job that builds one of them proves half a
+      # deployment. Either one build per Dockerfile (each needs -f, because
+      # both are built from the project root) or one compose build for the
+      # pair. This job already needs both suites, so a red test never reaches
+      # it — that ordering is the whole point of a pipeline.

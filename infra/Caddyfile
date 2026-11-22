@@ -1,0 +1,34 @@
+# TLS edge for the docker-compose deployment.
+#
+# Caddy obtains and renews certificates itself (Let's Encrypt / ZeroSSL) for
+# the two public hostnames, which is why api and web publish no host ports
+# in docker-compose.yml: the only way in is through here, over HTTPS, and
+# HTTP is redirected. Both hosts must resolve to this machine before the
+# stack starts or issuance fails. For a local trial, SITE_HOST=localhost and
+# API_HOST=api.localhost are served with Caddy's internal CA instead.
+
+{
+	email {$ACME_EMAIL}
+}
+
+(hardened) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		# Caddy's default Server header advertises the proxy for no benefit.
+		-Server
+	}
+	encode gzip zstd
+}
+
+{$SITE_HOST} {
+	import hardened
+	reverse_proxy web:3000
+}
+
+{$API_HOST} {
+	import hardened
+	# Socket.IO upgrades to a WebSocket; reverse_proxy passes upgrades through
+	# without configuration. X-Forwarded-For is set by Caddy, and the API
+	# trusts exactly this one hop (TRUSTED_PROXIES=1).
+	reverse_proxy api:4000
+}

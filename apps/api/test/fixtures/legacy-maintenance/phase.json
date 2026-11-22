@@ -1,0 +1,401 @@
+{
+  "key": "maintenance",
+  "order": 6,
+  "title": "Maintenance",
+  "intro": "A change request arrives on a system that already works. Ship it without breaking anything.",
+  "artifactKind": "code",
+  "canRun": true,
+  "canPreview": true,
+  "runLabel": "Run regression tests",
+  "taskFile": "task.md",
+  "objectives": [
+    "Implement change request CR-2: comments on a task, and the count on the task row",
+    "Keep every behaviour the earlier phases shipped \u2014 the regression suite is yours to run",
+    "Reach for the count without changing how many rows the task query returns",
+    "Put the count on the task row, and nothing on a task that has none",
+    "Publish the two new operations in shared/contract/api.json and record them in design/contracts.json",
+    "Write the 2.1.0 entry in CHANGELOG.md for the person who upgrades"
+  ],
+  "files": [
+    {
+      "path": "api/main.py",
+      "source": "../../canonical/api/main.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/db.py",
+      "source": "../../canonical/api/db.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/schema.sql",
+      "source": "../../canonical/api/schema.sql",
+      "editable": false,
+      "language": "sql"
+    },
+    {
+      "path": "api/errors.py",
+      "source": "../../canonical/api/errors.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/repository/lists.py",
+      "source": "../../canonical/api/repository/lists.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/repository/tasks.py",
+      "source": "files/api/repository/tasks.py",
+      "editable": true,
+      "language": "python"
+    },
+    {
+      "path": "api/repository/comments.py",
+      "source": "files/api/repository/comments.py",
+      "editable": true,
+      "language": "python"
+    },
+    {
+      "path": "api/routes/lists.py",
+      "source": "../../canonical/api/routes/lists.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/routes/tasks.py",
+      "source": "../../canonical/api/routes/tasks.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/routes/comments.py",
+      "source": "files/api/routes/comments.py",
+      "editable": true,
+      "language": "python"
+    },
+    {
+      "path": "ops/seed.py",
+      "source": "../../canonical/ops/seed.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "tests/conftest.py",
+      "source": "../../canonical/tests/conftest.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "tests/test_comments_api.py",
+      "source": "files/tests/test_comments_api.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "tests/test_lists_api.py",
+      "source": "../../canonical/tests/test_lists_api.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "tests/test_tasks_api.py",
+      "source": "../../canonical/tests/test_tasks_api.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "web/index.html",
+      "source": "../../canonical/web/index.html",
+      "editable": false,
+      "language": "html"
+    },
+    {
+      "path": "web/src/main.tsx",
+      "source": "../../canonical/web/src/main.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/router.tsx",
+      "source": "../../canonical/web/src/router.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/api/client.ts",
+      "source": "../../canonical/web/src/api/client.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/api/types.ts",
+      "source": "../../canonical/web/src/api/types.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/lib/overdue.ts",
+      "source": "../../canonical/web/src/lib/overdue.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/hooks/useLists.ts",
+      "source": "../../canonical/web/src/hooks/useLists.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/hooks/useTasks.ts",
+      "source": "../../canonical/web/src/hooks/useTasks.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/components/TaskRow.tsx",
+      "source": "files/web/src/components/TaskRow.tsx",
+      "editable": true,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/components/TaskRow.test.tsx",
+      "source": "../../canonical/web/src/components/TaskRow.test.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/components/OverdueBadge.tsx",
+      "source": "../../canonical/web/src/components/OverdueBadge.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/components/TaskFilters.tsx",
+      "source": "../../canonical/web/src/components/TaskFilters.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/components/NewTaskForm.tsx",
+      "source": "../../canonical/web/src/components/NewTaskForm.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/pages/ListsPage.tsx",
+      "source": "../../canonical/web/src/pages/ListsPage.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/pages/TasksPage.tsx",
+      "source": "../../canonical/web/src/pages/TasksPage.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/pages/OverduePage.tsx",
+      "source": "../../canonical/web/src/pages/OverduePage.tsx",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "shared/contract/api.json",
+      "source": "files/shared/contract/api.json",
+      "editable": true,
+      "language": "json"
+    },
+    {
+      "path": "design/contracts.json",
+      "source": "files/contracts.json",
+      "editable": true,
+      "language": "json"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "source": "files/CHANGELOG.md",
+      "editable": true,
+      "language": "markdown"
+    },
+    {
+      "path": "shared/contract/accepted-screen-copy.json",
+      "source": "../../canonical/shared/contract/accepted-screen-copy.json",
+      "editable": false,
+      "language": "json"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "correctness_hidden",
+        "title": "Change and regression (hidden tests)",
+        "weight": 0.5,
+        "description": "The change works AND every behaviour the earlier phases shipped still passes. The two suites are pooled, so a change that costs a regression scores less than no change at all."
+      },
+      {
+        "key": "visible_tests",
+        "title": "Visible tests",
+        "weight": 0.15,
+        "description": "Both runs are green: the API smoke and the two regression suites, and the front-end suite over the row."
+      },
+      {
+        "key": "code_quality",
+        "title": "Maintainability",
+        "weight": 0.2,
+        "description": "No TODO markers left, no banned constructs, and the change stays as small and as local as the request."
+      },
+      {
+        "key": "process",
+        "title": "Process",
+        "weight": 0.15,
+        "description": "You ran the regression suite before submitting and used the mentor in moderation."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "code",
+    "editableTargets": [
+      "api/repository/tasks.py",
+      "api/repository/comments.py",
+      "api/routes/comments.py",
+      "web/src/components/TaskRow.tsx"
+    ],
+    "solutionDir": "solution",
+    "runs": [
+      {
+        "id": "api",
+        "language": "python",
+        "harness": "pytest",
+        "hiddenHarness": "unittest",
+        "label": "API tests",
+        "visibleTests": [
+          "tests/test_comments_api.py",
+          "tests/test_lists_api.py",
+          "tests/test_tasks_api.py"
+        ],
+        "hiddenTestDir": "hidden_tests/api",
+        "supportFiles": [
+          "tests/conftest.py"
+        ]
+      },
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "hiddenHarness": "js",
+        "label": "Front end",
+        "transform": true,
+        "visibleTests": [
+          "web/src/components/TaskRow.test.tsx"
+        ],
+        "hiddenTestDir": "hidden_tests/web",
+        "supportFiles": []
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the MAINTENANCE phase of the TaskTrackr project. The learner implements change request CR-2: comments on a task, and a count of them on the task row. They write list_comments and add_comment in api/repository/comments.py, the two routes in api/routes/comments.py, the comment_count column in api/repository/tasks.py and the count badge in web/src/components/TaskRow.tsx, then publish the two operations in shared/contract/api.json and write the 2.1.0 entry in CHANGELOG.md. Coach on scoping a change, on regression risk, and on why a count belongs in a subquery rather than a join in a query every screen reads. Point at the worked examples already in the tree. NEVER write the SQL, the routes or the JSX for them. Keep replies under 120 words, end with one guiding question, stay on maintenance topics. Scope facts: TaskTrackr has no learner accounts, authentication, authorization roles or session contract. Those belong to the surrounding LearnSDLC platform, not this reference project. The comment author is submitted text, not an authenticated account identity. CR-2 asks for comment storage and reading, task-row counts, the published contracts and changelog while preserving prior behavior. Do not invent authentication or notification requirements, unrelated security work, or a new architecture. Discuss the actual task-not-found and empty-author/body cases, ordering and regression risks instead, without filling in the learner code. Query ownership facts: TASK_SELECT in api/repository/tasks.py controls returned task rows and the new per-task comment_count. LIST_SELECT in the separate read-only api/repository/lists.py computes task_count and open_count independently from the stored tasks table. A row-multiplying read in TASK_SELECT does not itself change those separate list totals or stored task records. For a comments-only query change, distinguish returned task-row cardinality and comment_count from unchanged task_count/open_count; only actual relevant task data changes can alter those list totals. Ask the learner to predict these observations separately, without writing the query for them.",
+    "topics": [
+      {
+        "keywords": [
+          "comment",
+          "change request",
+          "cr-2",
+          "add_comment",
+          "list_comments"
+        ],
+        "hints": [
+          "The comments table already exists in api/schema.sql, and count_for_task in the same repository file is finished. Read it: it shows you the query shape the count needs.",
+          "list_comments calls tasks.get_task first. That is not a formality: it is what raises KeyError for an unknown task, which is what lets the route answer 404 instead of an empty list."
+        ]
+      },
+      {
+        "keywords": [
+          "route",
+          "404",
+          "400",
+          "blueprint",
+          "flask"
+        ],
+        "hints": [
+          "api/routes/tasks.py is the worked example. Look at how it turns KeyError into a 404 and ValueError into a 400, and at how every error goes through fail() so the shape never varies.",
+          "A route with no handler still answers, because api/errors.py registers a 404 for addresses nothing claims \u2014 but the code in that body is not_found, not task_not_found. The tests read the code, not the status."
+        ]
+      },
+      {
+        "keywords": [
+          "count",
+          "comment_count",
+          "join",
+          "subquery",
+          "query"
+        ],
+        "hints": [
+          "TASK_SELECT is concatenated with a WHERE and an ORDER BY by three different callers. What does that tell you about where a GROUP BY could possibly go?",
+          "Look at how tag_names is built in the same SELECT. It reaches into another table for this task and still returns one value per task. A count needs exactly that shape."
+        ]
+      },
+      {
+        "keywords": [
+          "regression",
+          "break",
+          "existing",
+          "backward",
+          "compatible"
+        ],
+        "hints": [
+          "A maintenance change is judged as much on what it does not break as on what it adds. tests/test_lists_api.py and tests/test_tasks_api.py are the regression suite and you can run them. Run them before you submit, not after.",
+          "If a filter or the overdue report suddenly returns the wrong number of tasks, the change is in the task query and not in the filter. Ask what you added to it."
+        ]
+      },
+      {
+        "keywords": [
+          "row",
+          "badge",
+          "taskrow",
+          "front end",
+          "tsx",
+          "component"
+        ],
+        "hints": [
+          "The overdue badge a few lines above is the same shape: a conditional span with a className and a data-testid. Read it and ask what is different about a count.",
+          "A task with no comments shows nothing, not a zero. An empty badge on every row is noise, and the row is on every screen in the application."
+        ]
+      },
+      {
+        "keywords": [
+          "changelog",
+          "release",
+          "2.1.0",
+          "api.json",
+          "version"
+        ],
+        "hints": [
+          "shared/contract/api.json is what the front end and anybody else is written against. An operation that works and is not in it is an operation nobody outside this repository knows exists.",
+          "The 2.1.0 entry is for the person who upgrades. What can they do now that they could not do before, and does anything they already depend on read differently?"
+        ]
+      },
+      {
+        "keywords": [
+          "contract",
+          "contracts.json",
+          "design"
+        ],
+        "hints": [
+          "design/contracts.json is seeded from the operations you wrote in the design phase. Amending a contract when a change request lands is the exercise; retyping it is not."
+        ]
+      }
+    ],
+    "progressive": [
+      "Scope the change first. CR-2 asks for three things: store a comment, read a task's comments newest first, and put a count on every task. Two of them are the repository file, one of them is the task query. Which of the three is the one that can break something that already works?",
+      "Now the count. TASK_SELECT is used by get_task, list_tasks and overdue_tasks, and each of them adds its own WHERE and ORDER BY afterwards. Read how tag_names is built in that same SELECT \u2014 one value per task, no extra rows \u2014 and ask what a join in the FROM clause would do to the three callers instead.",
+      "Now the routes and the row. Both routes exist in api/routes/tasks.py in miniature: catch KeyError for the 404, catch ValueError for the 400, build both with fail(). The badge in web/src/components/TaskRow.tsx is the overdue badge with a different question in front of it. Run both suites before you go on.",
+      "Finally the record. Three files travel with the change: the two operations and their error code in shared/contract/api.json, the same two in design/contracts.json, and the 2.1.0 entry in CHANGELOG.md. Then run the regression suites once more and submit."
+    ]
+  }
+}

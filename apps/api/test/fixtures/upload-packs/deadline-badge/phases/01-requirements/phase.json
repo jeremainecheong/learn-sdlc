@@ -1,0 +1,72 @@
+{
+  "title": "Requirements",
+  "intro": "Write one story for the overdue badge, with two acceptance criteria a tester can check.",
+  "artifactKind": "story",
+  "canRun": false,
+  "taskPanel": "Write the story for the overdue badge, US-1, in the story form.\n\nAsk the Team Lead first: who sees the badge, when a task is overdue, and what is left out.\n\nWhat good looks like\n\n- One sentence: As a ..., I want ..., so that ....\n- Two acceptance criteria: a task due yesterday is overdue (happy), and a task due today is not (boundary).\n- One line on what is out of scope.",
+  "objectives": [
+    "Write US-1 as one sentence: As a ..., I want ..., so that ...",
+    "Give two criteria: due yesterday is overdue, due today is not",
+    "Name one thing that is out of scope"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "story_quality",
+        "title": "Story",
+        "weight": 0.4,
+        "description": "Who wants the badge, what it shows and why."
+      },
+      {
+        "key": "acceptance_criteria",
+        "title": "Acceptance criteria",
+        "weight": 0.4,
+        "description": "A tester can check each one: due yesterday is overdue, due today is not."
+      },
+      {
+        "key": "completeness",
+        "title": "Scope",
+        "weight": 0.2,
+        "description": "One clear line on what the story leaves out."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "story",
+    "record": "requirements/story.json",
+    "providedStories": [],
+    "learnerStory": {
+      "id": "US-1",
+      "hints": {}
+    },
+    "floor": {
+      "minCriteria": 2,
+      "requiredTags": [
+        "happy",
+        "boundary"
+      ],
+      "minExclusions": 1,
+      "requireSentence": true
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the REQUIREMENTS phase of Deadline badge, a team's task list. The learner writes one story, US-1: a badge on a task that is past its due date. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 80 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "boundary",
+          "today"
+        ],
+        "hints": [
+          "What should the list show for a task due today, and how would a tester check it?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Ask the Team Lead who sees the badge and why.",
+      "Write one happy criterion and one boundary criterion.",
+      "Name one thing the story leaves out."
+    ]
+  }
+}

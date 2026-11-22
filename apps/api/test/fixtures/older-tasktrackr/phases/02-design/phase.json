@@ -1,0 +1,234 @@
+{
+  "key": "design",
+  "order": 2,
+  "title": "Design",
+  "intro": "TaskTrackr runs as two services on one origin. The web service is web/serve.js. It serves the built front end and forwards every /api request to the API, so the browser talks to one origin and there is no CORS. API_URL tells the web service where the API is, and in Deployment it is the line that breaks the deployment.\n\nThe API is Flask over SQLite, in three layers with one direction of dependency. The routes are the only code that knows about HTTP: they parse the query string, call the repository and return JSON, with no SQL and no rules. The repository is the only code that knows SQL: filtering, ordering and the overdue rule live there, so they can be tested without a request. One errors module builds every error: an object with a code and a message, sent with a real status code.\n\nThe front end mirrors that split: one client module is the only code that fetches, hooks hold the data, lib/overdue.ts holds the one rule the front end owns, and pages and components render. Nothing in the front end filters a list that came back from the API, because a filter has to be right about rows that were never downloaded.\n\nBoth halves are written against the shared contracts: the API contract, which the routes publish and the front end mirrors, and the screen contract, which says which screens exist, what each one shows and which operation feeds it. Implementation and Testing hold you to both.\n\nCompleting a task shows the path every request takes. The browser posts to /api/tasks/7/complete on its own origin, web/serve.js forwards it to API_URL, the route reads the id and calls the repository, and the repository writes the status and the completion time in one statement and reads the row back. An unknown id becomes task_not_found, sent as a 404. The same path runs in the preview, in development and in Docker Compose; only API_URL changes.\n\nThe architecture is settled: two services, the proxy, SQLite, hash routing and the three-layer split on each side. It is not yours to reopen.",
+  "artifactKind": "design",
+  "canRun": false,
+  "runLabel": "",
+  "taskPanel": "The architecture is settled, and the Background describes it: two services, a proxy, a SQLite database and three layers on each side. What is not settled is the design of the feature you specified in Requirements, and the contract the next three phases will hold you to.\n\nYou work in the Design room's tabs: UML model, API contract, Screens, Sequence diagram, Decisions and Review. Everything you write there is graded together.\n\nIn the UML model, complete the data model with every entity and field the stories to design for force. US-3 filters by status and searches the title. US-4 cannot work until the model can say when a task was due. A tag belongs to more than one task and a task carries more than one tag, so say how that is stored. Then add the operations, each naming the story it satisfies: completeTask for US-2, with what it returns and what an unknown id does; listTasks for US-3, with the legal status values, how the keyword matches and the order the rows come back in; and getOverdue for US-4, with the boundary rule your own criteria decided.\n\nIn the API contract, fill the four gaps the starting point leaves: the rest of the tasks entity and the tables it needs, the query and the failures of listTasks, the two empty operation rows, and the error catalogue. Every code an operation names is declared in the catalogue with its status and its meaning, and at least one of them is a 404.\n\nIn Screens, the overdue report has a row and it is empty. Name the component, the story it satisfies, the operation it reads, the components it renders, and the sentence it shows when nothing is overdue. Dana was clear about that last one in the interview: an empty list with no words looks like a bug.\n\nIn the Sequence diagram, trace the overdue request from the browser to the database and back, and name at least one of your operations on it.\n\nIn Decisions, record one decision with the alternative it beat and the trade-off you weighed.\n\nWhat good looks like: every operation carries the id of the story it satisfies, so nothing in the backlog lands nowhere and nothing in the contract serves no one. The contract answers inputs, outputs and failures as sentences, not as empty labels. The screen contract names one operation per screen; a screen that reads no operation shows nothing. The decision reads like something a reviewer could challenge, and you could defend.\n\nCheck the design runs the floor before you submit. It asks for at least three entities and two relations; at least three operations, each with an input and a return; every story traced to an operation or an entity that names it; at least three endpoints and an error catalogue in the API contract; at least one screen, each with its component, the operation it reads, the components it renders and an empty-state sentence; a sequence diagram that names an operation; and at least one decision with its rationale and its trade-off.\n\nAsk the AI mentor to compare options, to poke holes in a contract, or to say what a reviewer would want from a decision. It proposes and critiques. The design stays yours.\n\nMaintenance opens its change request against the operations you name here. Implementation inherits these exact operations, and Testing tests them. When you are ready, press Submit for review. Every required criterion and its evidence must pass review before the next phase opens.",
+  "objectives": [
+    "Complete the data model the approved stories force, including what US-3 and US-4 need",
+    "Fill the four gaps in the HTTP contract: the tasks entity, the list query, the two empty operations and the error catalogue",
+    "Specify the overdue screen: its component, the operation it reads and what it shows when nothing is late",
+    "Record one design decision with the trade-off you weighed"
+  ],
+  "files": [
+    {
+      "path": "design/design.json",
+      "source": "files/design.json",
+      "editable": true,
+      "language": "json"
+    },
+    {
+      "path": "shared/contract/api.json",
+      "source": "files/api.json",
+      "editable": true,
+      "language": "json"
+    },
+    {
+      "path": "shared/contract/screens.json",
+      "source": "files/screens.json",
+      "editable": true,
+      "language": "json"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "traceability",
+        "title": "Traceability to the backlog",
+        "weight": 0.25,
+        "description": "Every story the design lists (US-2, US-3 and US-4) is served by an operation or an entity that names it in satisfies, so nothing in the backlog lands nowhere."
+      },
+      {
+        "key": "data_model",
+        "title": "Data model completeness",
+        "weight": 0.25,
+        "description": "The tasks entity carries a due date and a status, a task belongs to exactly one list, and tags are joined to tasks through a join table rather than stored on the task."
+      },
+      {
+        "key": "api_contract",
+        "title": "API contract precision",
+        "weight": 0.25,
+        "description": "completeTask, the list query and the overdue report each say what they answer with and what they refuse, and every error code an operation names is declared in the catalogue with its status."
+      },
+      {
+        "key": "screen_contract",
+        "title": "Screen contract precision",
+        "weight": 0.15,
+        "description": "The overdue screen names its component, the operation that feeds it, the components it renders, and the sentence it shows when nothing is overdue."
+      },
+      {
+        "key": "decision_justification",
+        "title": "Justified decisions",
+        "weight": 0.1,
+        "description": "At least one decision says why it was chosen rather than the alternative, and names the trade-off that was weighed."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "design",
+    "record": "design/design.json",
+    "contracts": {
+      "api": true,
+      "screens": true
+    },
+    "sequence": true,
+    "stories": [
+      {
+        "id": "US-2",
+        "title": "Complete a task",
+        "line": "As a busy learner, I want to mark a task as completed by its id, so that my lists reflect what is actually left to do; completing an id no task has answers 404 with the code task_not_found and changes nothing."
+      },
+      {
+        "id": "US-3",
+        "title": "Filter, search and order a list",
+        "line": "As a busy learner, I want to narrow a list by status, tag and keyword and read it in priority order, high tasks before medium and medium before low, so that I can see the right work without scrolling past the rest."
+      },
+      {
+        "id": "US-4",
+        "title": "Overdue report",
+        "line": "As a person who runs TaskTrackr every morning, I want a report of the tasks that are overdue, so that I catch what I missed before the day starts."
+      }
+    ],
+    "floor": {
+      "minEntities": 3,
+      "minRelations": 2,
+      "minOperations": 3,
+      "operationShape": true,
+      "minDecisions": 1,
+      "decisionShape": true,
+      "traceEveryStory": true,
+      "minEndpoints": 3,
+      "requireErrorCatalogue": true,
+      "minScreens": 1,
+      "screenShape": true
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the DESIGN phase of TaskTrackr, a two-service web application: a Python API over SQLite behind a Node proxy, and a TypeScript React front end. The learner must complete the data model, the HTTP contract in the API contract tab, the screen contract in the Screens tab, and one justified decision, all in the Design room's forms. The architecture and existing contracts are settled and are not theirs to reopen. TaskTrackr has no accounts or task-to-user relationship. Each task belongs to exactly one list through required list_id (snake_case), and tasks and tags use the declared join table. US-4 requires source-list information on every report row; do not suggest omitting it as a design option. Guide the learner to compare representations and trade-offs while preserving these fixed requirements, rather than asking them to decide whether the known relationship or required information should exist. Propose options and trade-offs; never fill in their design. Keep replies under 120 words, end with one guiding question, and stay on design topics: data modelling, contracts, cohesion, trade-offs, traceability.",
+    "topics": [
+      {
+        "keywords": [
+          "data model",
+          "entity",
+          "field",
+          "type",
+          "table",
+          "schema",
+          "column"
+        ],
+        "hints": [
+          "Walk through each approved story and ask what it forces the model to store. US-3 filters by status and searches the title. US-4 has to know when a task was due. What falls out of each one, and what type is it?",
+          "For every field, decide whether it is required and what it means when it is absent. Does every task have a due date? What should the report do with a task that has none?"
+        ]
+      },
+      {
+        "keywords": [
+          "tag",
+          "tags",
+          "join",
+          "many",
+          "relationship",
+          "foreign key",
+          "reference"
+        ],
+        "hints": [
+          "A tag belongs to more than one task and a task carries more than one tag. A column on the task can hold one value cleanly; what happens when you want every task carrying a given tag? Which shape answers that in one query?",
+          "A task lives in exactly one list. That is a different kind of relationship from tags, and the model should say so. Which entity holds the pointer, and what happens to the tasks when the list is deleted?"
+        ]
+      },
+      {
+        "keywords": [
+          "contract",
+          "api",
+          "operation",
+          "endpoint",
+          "route",
+          "response",
+          "request",
+          "signature"
+        ],
+        "hints": [
+          "A useful operation answers three questions: what goes in, what comes out, and what happens when it goes wrong. Write completeTask as one line for each. What should completing an already-completed task do?",
+          "For listTasks, the contract has to pin down the legal status values, how the keyword matches, and the order the rows come back in. Your US-3 criteria already decided most of it. Which ones?"
+        ]
+      },
+      {
+        "keywords": [
+          "error",
+          "errors",
+          "404",
+          "status",
+          "code",
+          "failure",
+          "refuse"
+        ],
+        "hints": [
+          "Every code an operation names has to be declared once, with a status and a meaning, so two operations cannot mean different things by the same word. Which of your operations can fail because the thing asked for is not there, and which because what was sent was wrong?",
+          "A 400 says the caller sent something the contract does not allow; a 404 says the thing does not exist. Read your operations and decide which each failure is."
+        ]
+      },
+      {
+        "keywords": [
+          "overdue",
+          "boundary",
+          "today",
+          "date",
+          "late"
+        ],
+        "hints": [
+          "Your own US-4 criteria settled the due-today boundary. The summary of getOverdue should restate it precisely: strictly before today, or on or before? And why does the operation take today as a parameter instead of reading the clock itself?",
+          "A report that reads its own clock cannot be tested at its boundary. What does making today a required parameter cost, and who pays it?"
+        ]
+      },
+      {
+        "keywords": [
+          "screen",
+          "screens",
+          "page",
+          "route",
+          "component",
+          "ui",
+          "empty"
+        ],
+        "hints": [
+          "The screen contract answers what a screen shows, which operation feeds it and what it looks like with nothing in it. Dana said an empty list with no words looks like a bug. What sentence does the report show when nothing is overdue?",
+          "Which components does the report share with the tasks screen? A component you have already got is a design decision you do not have to make twice."
+        ]
+      },
+      {
+        "keywords": [
+          "decision",
+          "trade-off",
+          "tradeoff",
+          "justify",
+          "alternative"
+        ],
+        "hints": [
+          "Pick a real fork. The API filtering versus the browser filtering, today as a parameter versus the server clock, a report page versus a filter on the list. Write what you gain and what you give up. Which of these would a reviewer challenge first?"
+        ]
+      },
+      {
+        "keywords": [
+          "traceability",
+          "trace",
+          "story",
+          "requirement",
+          "satisfies"
+        ],
+        "hints": [
+          "Traceability runs both ways: every story lands somewhere in the design, and everything in the design serves a story. Annotate each operation and each screen with the story id it satisfies. Is anything left unclaimed, and is anything claimed by nothing?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with the data model. Read the backlog and list the fields each story forces the tasks entity to have, then give each one a type and decide whether it is required. Do the same for the tables tasks depends on.",
+      "Now the HTTP contract. For completeTask, listTasks and getOverdue, write the summary, what the operation answers with and every way it can fail, then declare each of those codes once under errors with its status.",
+      "Then the screen contract: name the component behind #/overdue, the operation it reads, the components it renders and the sentence it shows when nothing is overdue.",
+      "Finish with the decision log. Pick one choice you could defend in review and record the alternative it beat and what you gave up."
+    ]
+  }
+}

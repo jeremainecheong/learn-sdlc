@@ -1,0 +1,179 @@
+{
+ "recordedBy": "apps/api/test/deep-validation-contract-wiring.e2e-spec.ts",
+ "redaction": "ids <uuid:n>, emails <email:n>, tokens <jwt>, digests <sha256:n> (one digest, one placeholder), named values <label>, times as ordinal instants from 2026-01-01T00:00:00Z",
+ "facts": {
+  "projectId": "<uuid:1>",
+  "versionId": "<uuid:2>",
+  "microVMs": 16,
+  "settledStatus": "passed"
+ },
+ "exchanges": [
+  {
+   "name": "readNotRun",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/deep-validation",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "versionId": "<uuid:2>",
+    "status": "not-run",
+    "current": false,
+    "contentDigest": null,
+    "checks": [
+     {
+      "id": "solution-passes-hidden",
+      "status": "pending",
+      "sentence": "This check has not run on this draft yet.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "starter-fails-hidden",
+      "status": "pending",
+      "sentence": "This check has not run on this draft yet.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "mutants-killed",
+      "status": "pending",
+      "sentence": "This check has not run on this draft yet.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "smoke-passes",
+      "status": "pending",
+      "sentence": "This check has not run on this draft yet.",
+      "phaseKey": null,
+      "taskKey": null
+     }
+    ],
+    "costWarning": {
+     "microVMs": 16,
+     "sentence": "Deep validation boots 16 microVMs in the sandbox, one at a time, and asks no AI model. You can run one deep validation at a time."
+    },
+    "startedAt": null,
+    "finishedAt": null
+   }
+  },
+  {
+   "name": "startStale",
+   "method": "POST",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/deep-validation",
+   "query": {},
+   "requestBody": {
+    "acknowledgedMicroVMs": 15
+   },
+   "status": 409,
+   "body": {
+    "message": "This draft now needs 16 microVMs for deep validation, not the count you were shown. Read the new count and start again.",
+    "error": "Conflict",
+    "statusCode": 409
+   }
+  },
+  {
+   "name": "start",
+   "method": "POST",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/deep-validation",
+   "query": {},
+   "requestBody": {
+    "acknowledgedMicroVMs": 16
+   },
+   "status": 202,
+   "body": {
+    "versionId": "<uuid:2>",
+    "status": "running",
+    "current": false,
+    "contentDigest": "<sha256:1>",
+    "checks": [
+     {
+      "id": "solution-passes-hidden",
+      "status": "pending",
+      "sentence": "This check is waiting for its turn in the sandbox.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "starter-fails-hidden",
+      "status": "pending",
+      "sentence": "This check is waiting for its turn in the sandbox.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "mutants-killed",
+      "status": "pending",
+      "sentence": "This check is waiting for its turn in the sandbox.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "smoke-passes",
+      "status": "pending",
+      "sentence": "This check is waiting for its turn in the sandbox.",
+      "phaseKey": null,
+      "taskKey": null
+     }
+    ],
+    "costWarning": {
+     "microVMs": 16,
+     "sentence": "Deep validation boots 16 microVMs in the sandbox, one at a time, and asks no AI model. You can run one deep validation at a time."
+    },
+    "startedAt": "2026-01-01T00:00:01.000Z",
+    "finishedAt": null
+   }
+  },
+  {
+   "name": "readSettled",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/deep-validation",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "versionId": "<uuid:2>",
+    "status": "passed",
+    "current": true,
+    "contentDigest": "<sha256:1>",
+    "checks": [
+     {
+      "id": "solution-passes-hidden",
+      "status": "passed",
+      "sentence": "The reference solution passes its hidden suite on every run (4 runs).",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "starter-fails-hidden",
+      "status": "passed",
+      "sentence": "The starter fails the hidden suite on every run (4 runs), so the suite has teeth.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "mutants-killed",
+      "status": "passed",
+      "sentence": "The reference tests pass the reference implementation and kill all 4 mutants.",
+      "phaseKey": "testing",
+      "taskKey": ""
+     },
+     {
+      "id": "smoke-passes",
+      "status": "passed",
+      "sentence": "The deployment smoke run passes on a working container, and the drill breaks it.",
+      "phaseKey": "deployment",
+      "taskKey": ""
+     }
+    ],
+    "costWarning": {
+     "microVMs": 16,
+     "sentence": "Deep validation boots 16 microVMs in the sandbox, one at a time, and asks no AI model. You can run one deep validation at a time."
+    },
+    "startedAt": "2026-01-01T00:00:01.000Z",
+    "finishedAt": "2026-01-01T00:00:02.000Z"
+   }
+  }
+ ]
+}

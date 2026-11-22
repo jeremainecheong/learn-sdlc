@@ -1,0 +1,53 @@
+# The deterministic test mentor inside the local Compose stack.
+#
+#   bash scripts/stack.sh up --ai-stub        (npm run demo -- --docker --ai-stub)
+#
+# Layered over docker-compose.yml and docker-compose.verify.yml, and only by
+# scripts/stack.sh. It runs e2e/ai-stub.cjs, the canned, OpenAI-compatible
+# endpoint the Playwright suite and CI grade against, as one more service on
+# the project's private network, and points the API at it. No provider key is
+# needed and no request leaves this machine. It is a harness, not a model: it
+# passes only work marked E2E-PASS (scripts/passing-work.mjs marks it when
+# E2E_AI_STUB=true), so a learner's unmarked work comes back Needs revision.
+#
+# The key below is the stub's own literal, published in e2e/ai-stub.cjs. It is
+# not a secret and opens nothing else. A real OPENAI_API_KEY in .env is
+# ignored while this file is in the stack, and used again as soon as the
+# stack starts without it.
+services:
+  ai-stub:
+    profiles: ['ai-stub']
+    # The API image's own base, so a machine that built the stack has it.
+    image: node:24.21.0-slim
+    user: 'node'
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    mem_limit: 128m
+    cpus: 0.5
+    environment:
+      # 0.0.0.0 inside this container only: no port is published, so the stub
+      # answers the API on the project network and nothing on the host.
+      PW_AI_HOST: 0.0.0.0
+      # The stub's port inside the project network. The health check below and
+      # the API's OPENAI_BASE_URL name the same 4199.
+      PW_AI_PORT: '4199'
+    command: ['node', '/stub/ai-stub.cjs']
+    volumes:
+      - ./e2e/ai-stub.cjs:/stub/ai-stub.cjs:ro
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:4199/__stub/counts').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    environment:
+      OPENAI_BASE_URL: http://ai-stub:4199/v1
+      OPENAI_API_KEY: e2e-stub-not-a-secret
+    depends_on:
+      ai-stub:
+        condition: service_healthy

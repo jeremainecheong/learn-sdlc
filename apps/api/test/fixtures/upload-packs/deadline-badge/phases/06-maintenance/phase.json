@@ -1,0 +1,114 @@
+{
+  "title": "Maintenance",
+  "intro": "Change request CR-1: a completed task is never overdue. Change the helper and keep the rest.",
+  "artifactKind": "code",
+  "canRun": true,
+  "runLabel": "Run regression tests",
+  "taskPanel": "Change request CR-1: completed tasks are not overdue.\n\nThe team ticks a task off when it is done, but a done task still shows the overdue badge.\n\n1. In web/src/lib/overdue.ts, make isOverdue return false for a completed task (done is true). Keep the date rule for open tasks as it is.\n2. In web/src/lib/overdue.test.ts, add one regression test: a completed task due yesterday is not overdue. Keep the two tests already there.\n3. Run the regression tests.\n4. Fill the change request: the file you changed (Request tab), your test and the acceptance lines it covers (Checks tab), and the release: a version and one change line (Release tab).",
+  "objectives": [
+    "Make isOverdue return false for a completed task (CR-1)",
+    "Add one regression test for a completed task",
+    "Keep the date rule for open tasks"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "correctness_hidden",
+        "title": "Hidden tests",
+        "weight": 0.4,
+        "description": "The hidden tests check the new rule and the old one."
+      },
+      {
+        "key": "visible_tests",
+        "title": "Regression tests",
+        "weight": 0.15,
+        "description": "The tests you can see pass."
+      },
+      {
+        "key": "code_quality",
+        "title": "Code quality",
+        "weight": 0.15,
+        "description": "No TODO left, and the helper stays short."
+      },
+      {
+        "key": "process",
+        "title": "Process",
+        "weight": 0.1,
+        "description": "You ran the tests before submitting."
+      },
+      {
+        "key": "change_request",
+        "title": "Change request",
+        "weight": 0.2,
+        "description": "It names the file changed, the test and the lines it covers, and the release."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "code",
+    "editableTargets": [
+      "web/src/lib/overdue.ts"
+    ],
+    "runs": [
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "hiddenHarness": "js",
+        "label": "Regression tests",
+        "transform": true,
+        "visibleTests": [
+          "web/src/lib/overdue.test.ts"
+        ],
+        "supportFiles": []
+      }
+    ],
+    "ticket": {
+      "id": "CR-1",
+      "title": "Completed tasks are not overdue",
+      "summary": "A task that is done never shows the overdue badge, whatever its due date. Open tasks keep the version 1 rule.",
+      "acceptance": [
+        {
+          "id": "AC-1",
+          "line": "A completed task is never overdue, whatever its due date."
+        },
+        {
+          "id": "AC-2",
+          "line": "An open task is overdue only when its due date is before today, as before."
+        }
+      ]
+    },
+    "change": {
+      "record": "maintenance/change-request.json",
+      "contract": false,
+      "floor": {
+        "minImpact": 1,
+        "minContract": 0,
+        "minTests": 1,
+        "requireRelease": true,
+        "traceEveryAcceptance": true
+      }
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the MAINTENANCE phase of Deadline badge. Change request CR-1: isOverdue in web/src/lib/overdue.ts returns false for a completed task; the learner adds one regression test and fills the change request. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 80 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "done",
+          "completed",
+          "regression"
+        ],
+        "hints": [
+          "Which check should come before the date comparison?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Change the helper for a completed task.",
+      "Add the regression test and run the tests.",
+      "Fill the change request."
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "author_filter_case_sensitive",
+  "description": "The author filter compares names exactly, so an author typed in lower case finds nothing.",
+  "covers": "SH-1/AC-2",
+  "run": "api"
+}

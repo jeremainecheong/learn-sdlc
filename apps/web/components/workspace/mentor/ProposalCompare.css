@@ -1,0 +1,153 @@
+/* The Agentic before/after overlay for a story proposal (ProposalCompare.tsx).
+   The agreed mockup's `.apv-*` rules, on the tool chrome's tokens so the
+   overlay follows the paper and graphite themes like the issue dialogs it sits
+   beside: BEFORE in the tool's greys, AFTER and every change mark in the pass
+   green. The chrome tokens are declared on `.jira-issue-dialog` itself. */
+
+.jira-issue-dialog.apv-dialog { width: min(1180px, calc(100vw - 32px)); max-width: calc(100vw - 32px); height: min(1100px, calc(100dvh - 32px)); max-height: calc(100dvh - 32px); }
+.apv-dialog { --apv-green: rgb(var(--c-pass)); --apv-green-tint: rgb(var(--c-pass) / .1); --apv-green-line: rgb(var(--c-pass) / .45); }
+.apv-dialog > header { gap: 12px; }
+.apv-dialog > header > span:first-child { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.apv-seg { display: inline-flex; flex: none; border: 1.5px solid var(--tool-line); border-radius: 8px; overflow: hidden; }
+.apv-seg button { border: 0; background: transparent; padding: 5px 11px; font: inherit; font-size: 12.5px; font-weight: 500; cursor: pointer; color: var(--tool-muted); }
+.apv-seg .apv-seg-on { background: var(--tool-ink); color: var(--tool-surface); }
+.apv-unchanged { flex: none; font-size: 12.5px; color: var(--tool-muted); padding: 7px 18px; border-bottom: 1.5px solid var(--tool-line); background: var(--tool-raised); }
+.apv-unchanged strong { color: var(--tool-ink); font-weight: 600; }
+/* The AI's summary of what the proposal changes, above the diff, in the kept line's quiet band. */
+.apv-summary { flex: none; font-size: 12.5px; color: var(--tool-muted); padding: 7px 18px; border-bottom: 1.5px solid var(--tool-line); background: var(--tool-raised); overflow-wrap: anywhere; }
+.apv-summary strong { display: block; color: var(--tool-ink); font-weight: 600; }
+.apv-summary p { margin-top: 2px; color: var(--tool-ink); }
+.apv-summary small { display: block; margin-top: 2px; font-size: 12px; }
+.apv-link { border: 0; background: none; padding: 0; font: inherit; color: var(--tool-accent); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+
+.apv-shell { display: grid; grid-template-columns: 210px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); min-height: 0; flex: 1; }
+.apv-body { display: flex; flex-direction: column; min-height: 0; min-width: 0; flex: 1; }
+.apv-main { display: flex; flex-direction: column; min-height: 0; min-width: 0; flex: 1; }
+/* The summary, the file list and the columns scroll as one body, so BEFORE and AFTER move together;
+   the column heads stay at the top of it while their fields scroll under them. A file's diff and its saved
+   copy drop the mentor column's 340 px height and overscroll containment here: nested in the body
+   they kept the wheel, and the rows under the fold could not be reached from over them. They scroll only
+   sideways, so a long line stays inside its box instead of moving the whole body sideways, and the box stays
+   a scrollable region for its tab stop. Its `overflow-y: visible` computes to `auto`, but with no max-height
+   it has no vertical range, so a vertical wheel over it scrolls the body. */
+.apv-scroll { overflow-y: auto; overscroll-behavior: contain; }
+.apv-dialog .apv-scroll > *, .apv-scroll .apv-view, .apv-scroll .apv-flip-stage { flex: none; min-height: auto; }
+.apv-scroll .apv-col-body { flex: 1 0 auto; overflow: visible; }
+.apv-scroll .apv-file { flex: none; overflow: visible; }
+.apv-scroll .agentic-diff-scroll, .apv-scroll .agentic-complete-copy pre { max-height: none; overflow-x: auto; overflow-y: visible; overscroll-behavior: auto; }
+.apv-scroll .apv-col-head { position: sticky; top: 0; z-index: 1; }
+.apv-inventory ul { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.apv-inventory li { overflow-wrap: anywhere; }
+.apv-inventory li > small { display: block; font-size: 12px; }
+.apv-inventory li[data-inventory-status="missing"] > span { color: var(--tool-ink); font-weight: 600; }
+.apv-view { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+.apv-cols { display: grid; grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr); min-height: 0; flex: 1; }
+.apv-arrow { display: flex; align-items: flex-start; justify-content: center; padding-top: 14px; background: var(--tool-raised); border-left: 1.5px solid var(--tool-line); border-right: 1.5px solid var(--tool-line); }
+.apv-arrow span { width: 28px; height: 28px; border-radius: 50%; background: var(--tool-ink); color: var(--tool-surface); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+
+.apv-col { display: flex; flex-direction: column; min-height: 0; min-width: 0; flex: 1; }
+.apv-col-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 18px; border-bottom: 1.5px solid var(--tool-line); }
+.apv-col-title { display: block; font-weight: 800; letter-spacing: .08em; font-size: 12px; }
+.apv-col-sub { display: block; font-size: 12.5px; }
+.apv-before .apv-col-head { background: var(--tool-canvas); color: var(--tool-muted); }
+/* The head is sticky inside the one scrolling body, so its tint sits on an opaque base (the AFTER body's own surface), or the rows show through it while the learner scrolls. */
+.apv-after .apv-col-head { background: linear-gradient(var(--apv-green-tint), var(--apv-green-tint)), var(--tool-surface); color: var(--apv-green); border-bottom-color: var(--apv-green-line); }
+.apv-col-body { display: flex; flex-direction: column; gap: 12px; padding: 12px 18px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; flex: 1; }
+.apv-before .apv-col-body { background: var(--tool-raised); }
+.apv-after .apv-col-body { background: var(--tool-surface); }
+.apv-before .field { background: var(--tool-surface); }
+
+.apv-section { display: flex; flex-direction: column; gap: 6px; }
+.apv-sec-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.apv-ro { white-space: pre-wrap; overflow-wrap: anywhere; padding: 7px 10px; font-size: 13.5px; line-height: 1.45; min-height: 40px; }
+.apv-muted { color: var(--tool-muted); font-style: italic; font-size: 13px; }
+.apv-changed { background: var(--apv-green-tint); border-color: var(--apv-green-line); box-shadow: inset 3px 0 0 var(--apv-green); }
+/* The before side of a change: the field that will be replaced, in grey. */
+.apv-was { border-color: var(--tool-selected-line); box-shadow: inset 3px 0 0 var(--tool-muted); }
+
+.apv-crits { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.apv-crit { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 4px 10px; align-items: start; padding: 6px 10px; border: 1.5px solid var(--tool-line); border-radius: 8px; background: var(--tool-surface); }
+.apv-crit.apv-new, .apv-crit.apv-changed { border-color: var(--apv-green-line); background: var(--apv-green-tint); box-shadow: inset 3px 0 0 var(--apv-green); }
+.apv-crit.apv-ghost { grid-template-columns: 40px 1fr; border-style: dashed; background: transparent; }
+.apv-ac { font-size: 11.5px; font-weight: 700; color: var(--tool-muted); padding-top: 2px; }
+.apv-gwt-rows { display: flex; flex-direction: column; gap: 2px; font-size: 13px; min-width: 0; overflow-wrap: anywhere; }
+.apv-gwt { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; }
+.apv-gwt-changed > span:last-child { font-weight: 600; }
+.apv-crit-side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.apv-excl-box { display: flex; flex-direction: column; gap: 4px; padding: 6px 8px; }
+.apv-excl { display: flex; align-items: center; gap: 6px; padding: 3px 6px; border-radius: 6px; font-size: 13px; overflow-wrap: anywhere; }
+.apv-excl.apv-new { background: var(--apv-green-tint); box-shadow: inset 3px 0 0 var(--apv-green); }
+.apv-excl.apv-was { border: 0; box-shadow: inset 3px 0 0 var(--tool-muted); }
+.apv-excl-ghost { border: 1.5px dashed var(--tool-line); }
+.apv-chip-new { background: var(--apv-green); color: var(--tool-surface); border-color: var(--apv-green); }
+.apv-chip-was { background: transparent; color: var(--tool-muted); border-color: var(--tool-line); }
+.apv-tag-changed { border-color: var(--apv-green); color: var(--apv-green); }
+
+.apv-rail { display: flex; flex-direction: column; gap: 4px; padding: 12px 10px; border-right: 1.5px solid var(--tool-line); background: var(--tool-raised); overflow-y: auto; min-height: 0; }
+.apv-rail-title { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--tool-muted); padding: 0 6px 6px; }
+.apv-rail-item { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 8px; align-items: center; text-align: left; border: 1.5px solid transparent; border-radius: 8px; padding: 7px 8px; background: transparent; font: inherit; cursor: pointer; color: inherit; }
+.apv-rail-item .mono { font-size: 11.5px; font-weight: 700; color: var(--tool-muted); }
+.apv-rail-item .apv-rail-path { grid-column: 1 / -1; overflow-wrap: anywhere; color: var(--tool-ink); }
+.apv-rail-name { font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+.apv-rail-count { grid-column: 2; font-size: 11.5px; color: var(--apv-green); font-weight: 600; }
+.apv-rail-path + .apv-rail-count { grid-column: 1 / -1; }
+.apv-rail-on { background: var(--tool-surface); border-color: var(--tool-line); box-shadow: inset 3px 0 0 var(--tool-ink); }
+.apv-file { display: flex; flex-direction: column; gap: 10px; padding: 12px 18px; overflow-y: auto; min-height: 0; flex: 1; }
+.apv-file h3 { margin: 0; font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+
+.apv-flip-bar { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1.5px solid var(--tool-line); }
+.apv-flip-btn { border: 0; font: inherit; padding: 10px 14px; cursor: pointer; font-weight: 800; letter-spacing: .08em; font-size: 12px; display: flex; align-items: baseline; gap: 8px; justify-content: center; opacity: .6; }
+.apv-flip-btn small { font-weight: 500; letter-spacing: 0; font-size: 12.5px; }
+.apv-flip-before { background: var(--tool-canvas); color: var(--tool-muted); }
+.apv-flip-after { background: var(--apv-green-tint); color: var(--apv-green); }
+.apv-flip-btn.apv-flip-on { opacity: 1; box-shadow: inset 0 -3px 0 currentColor; }
+.apv-flip-stage { display: flex; min-height: 0; flex: 1; }
+
+/* The footer holds the review and the explanation; it scrolls only when a short window leaves it too
+   little room, and its buttons stay at its foot while it does. */
+.apv-foot { flex: none; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 18px; padding: 10px 18px 0; max-height: 62%; overflow-y: auto; overscroll-behavior: contain; border-top: 1.5px solid var(--tool-line); background: var(--tool-surface); }
+.apv-feedback { flex-basis: 100%; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.apv-gate { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: min(300px, 100%); padding-bottom: 10px; }
+/* The explanation takes the footer's whole width and the buttons their own row under it, so the box no
+   longer changes width with the "Next: <file>" label beside it. */
+.apv-foot > .apv-gate { flex-basis: 100%; }
+.apv-gate textarea { min-height: 7.5em; max-height: 40dvh; line-height: 1.55; }
+/* The accepted explanation, read-only where the field was. */
+.apv-gate-accepted blockquote { margin: 0; padding: 6px 10px; border-left: 2px solid var(--apv-green-line); background: var(--tool-raised); white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; line-height: 1.55; color: var(--tool-ink); }
+.apv-foot-actions { position: sticky; bottom: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; margin-left: auto; padding-bottom: 10px; background: var(--tool-surface); }
+/* The four review dimensions in one row, each a plain toggle, and the open one's detail under it. */
+.apv-dims { flex-basis: 100%; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.apv-dims-row { margin: 0; color: var(--tool-muted); }
+.apv-dim { border: 0; background: none; padding: 0; font: inherit; color: var(--tool-ink); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.apv-dim-open { font-weight: 600; }
+.apv-dim[aria-expanded="true"] { text-decoration-thickness: 2px; }
+.apv-dim-detail { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 10px; border: 1.5px solid var(--tool-line); border-radius: 8px; background: var(--tool-raised); line-height: 1.55; }
+.apv-dim-detail p { margin: 0; }
+.apv-dim-detail blockquote { margin: 0; padding-left: 8px; border-left: 2px solid var(--tool-line); overflow-wrap: anywhere; white-space: pre-wrap; color: var(--tool-ink); }
+.apv-finding-label { display: inline-block; margin-left: 6px; padding: 0 6px; border: 1px solid var(--tool-line); border-radius: 4px; color: var(--tool-muted); font-size: 12px; }
+
+@media (max-width: 760px) {
+  .jira-issue-dialog.apv-dialog { width: calc(100vw - 16px); max-width: calc(100vw - 16px); height: calc(100dvh - 16px); max-height: calc(100dvh - 16px); }
+  .apv-dialog > header { flex-wrap: wrap; }
+  .apv-shell { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .apv-rail { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1.5px solid var(--tool-line); }
+  .apv-rail-title { flex-basis: 100%; }
+  .apv-cols { grid-template-columns: minmax(0, 1fr); overflow-y: auto; }
+  .apv-arrow { display: none; }
+  .apv-cols .apv-col { flex: none; }
+  .apv-cols .apv-col-body { overflow: visible; }
+  .apv-seg button, .apv-foot-actions button, .apv-flip-btn, .apv-dim-detail button { min-height: 44px; }
+  .apv-dim { min-height: 32px; }
+  .apv-gate textarea { font-size: 16px; }
+}
+
+/* A design proposal (DesignCompare.tsx): one row per changed field, and the
+   dashed place of a field one side does not have. The rail names documents,
+   not files, so its name and count share the full width. */
+.apv-row { display: flex; flex-direction: column; gap: 4px; }
+.apv-row-ghost { border-style: dashed; background: transparent; }
+.apv-rail-item .apv-rail-doc { grid-column: 1 / -1; }
+
+/* The record subject (RecordCompare.tsx): a runbook's or change request's changed fields, one row each. */
+.apv-fields { display: flex; flex-direction: column; gap: 12px; margin: 0; }
+.apv-fields dd { margin: 0; }

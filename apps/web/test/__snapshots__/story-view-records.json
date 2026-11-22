@@ -1,0 +1,325 @@
+[
+  {
+    "story": {
+      "id": "US-4",
+      "title": "",
+      "persona": "",
+      "capability": "",
+      "benefit": "",
+      "criteria": [],
+      "scopeExclusions": [],
+      "notes": ""
+    },
+    "results": [
+      {
+        "id": "story.record",
+        "label": "The story record",
+        "passed": true,
+        "detail": "The record is well formed"
+      },
+      {
+        "id": "story.sentence",
+        "label": "A full story sentence",
+        "passed": false,
+        "detail": "As a / I want / So that are not all filled"
+      },
+      {
+        "id": "story.criteria.min",
+        "label": "At least 2 acceptance criteria",
+        "passed": false,
+        "detail": "Story has fewer than 2 acceptance criteria"
+      },
+      {
+        "id": "story.criteria.tags",
+        "label": "The required cases",
+        "passed": false,
+        "detail": "No happy path case among the criteria"
+      },
+      {
+        "id": "story.scope.min",
+        "label": "At least 1 out-of-scope lines",
+        "passed": false,
+        "detail": "Fewer than 1 out-of-scope lines"
+      }
+    ],
+    "started": false,
+    "canRecord": true
+  },
+  {
+    "story": {
+      "id": "US-4",
+      "title": "Overdue",
+      "persona": "manager",
+      "capability": "a report",
+      "benefit": "I act",
+      "criteria": [
+        {
+          "id": "AC-1",
+          "given": "a",
+          "when": "b",
+          "then": "c",
+          "tag": "boundary"
+        }
+      ],
+      "scopeExclusions": [],
+      "notes": ""
+    },
+    "results": [
+      {
+        "id": "story.record",
+        "label": "The story record",
+        "passed": true,
+        "detail": "The record is well formed"
+      },
+      {
+        "id": "story.sentence",
+        "label": "A full story sentence",
+        "passed": true,
+        "detail": "As a, I want and So that are filled"
+      },
+      {
+        "id": "story.criteria.min",
+        "label": "At least 2 acceptance criteria",
+        "passed": false,
+        "detail": "Story has fewer than 2 acceptance criteria"
+      },
+      {
+        "id": "story.criteria.tags",
+        "label": "The required cases",
+        "passed": false,
+        "detail": "No happy path case among the criteria"
+      },
+      {
+        "id": "story.scope.min",
+        "label": "At least 1 out-of-scope lines",
+        "passed": false,
+        "detail": "Fewer than 1 out-of-scope lines"
+      }
+    ],
+    "started": true,
+    "canRecord": true
+  },
+  {
+    "story": {
+      "id": "SH-5",
+      "title": "Overdue",
+      "persona": "manager",
+      "capability": "a report",
+      "benefit": "I act",
+      "criteria": [
+        {
+          "id": "AC-1",
+          "given": "a",
+          "when": "b",
+          "then": "c",
+          "tag": "boundary"
+        }
+      ],
+      "scopeExclusions": [],
+      "notes": ""
+    },
+    "results": [
+      {
+        "id": "story.record",
+        "label": "The story record",
+        "passed": false,
+        "detail": "the story id must be SH-5"
+      },
+      {
+        "id": "story.sentence",
+        "label": "A full story sentence",
+        "passed": false,
+        "detail": "As a / I want / So that are not all filled"
+      },
+      {
+        "id": "story.criteria.min",
+        "label": "At least 2 acceptance criteria",
+        "passed": false,
+        "detail": "Story has fewer than 2 acceptance criteria"
+      },
+      {
+        "id": "story.criteria.tags",
+        "label": "The required cases",
+        "passed": false,
+        "detail": "No happy path case among the criteria"
+      },
+      {
+        "id": "story.scope.min",
+        "label": "At least 1 out-of-scope lines",
+        "passed": false,
+        "detail": "Fewer than 1 out-of-scope lines"
+      }
+    ],
+    "started": true,
+    "canRecord": true
+  },
+  {
+    "story": {
+      "id": "US-4",
+      "title": "",
+      "persona": "",
+      "capability": "",
+      "benefit": "",
+      "criteria": [],
+      "scopeExclusions": [],
+      "notes": ""
+    },
+    "results": [
+      {
+        "id": "story.record",
+        "label": "The story record",
+        "passed": false,
+        "detail": "The story record is not valid JSON"
+      },
+      {
+        "id": "story.sentence",
+        "label": "A full story sentence",
+        "passed": false,
+        "detail": "As a / I want / So that are not all filled"
+      },
+      {
+        "id": "story.criteria.min",
+        "label": "At least 2 acceptance criteria",
+        "passed": false,
+        "detail": "Story has fewer than 2 acceptance criteria"
+      },
+      {
+        "id": "story.criteria.tags",
+        "label": "The required cases",
+        "passed": false,
+        "detail": "No happy path case among the criteria"
+      },
+      {
+        "id": "story.scope.min",
+        "label": "At least 1 out-of-scope lines",
+        "passed": false,
+        "detail": "Fewer than 1 out-of-scope lines"
+      }
+    ],
+    "started": false,
+    "canRecord": true
+  },
+  {
+    "story": {
+      "id": "SH-5",
+      "title": "",
+      "persona": "",
+      "capability": "",
+      "benefit": "",
+      "criteria": [],
+      "scopeExclusions": [],
+      "notes": ""
+    },
+    "results": [
+      {
+        "id": "story.record",
+        "label": "The story record",
+        "passed": false,
+        "detail": "The story record is not valid JSON"
+      },
+      {
+        "id": "story.sentence",
+        "label": "A full story sentence",
+        "passed": false,
+        "detail": "As a / I want / So that are not all filled"
+      },
+      {
+        "id": "story.criteria.min",
+        "label": "At least 2 acceptance criteria",
+        "passed": false,
+        "detail": "Story has fewer than 2 acceptance criteria"
+      },
+      {
+        "id": "story.criteria.tags",
+        "label": "The required cases",
+        "passed": false,
+        "detail": "No happy path case among the criteria"
+      },
+      {
+        "id": "story.scope.min",
+        "label": "At least 1 out-of-scope lines",
+        "passed": false,
+        "detail": "Fewer than 1 out-of-scope lines"
+      }
+    ],
+    "started": false,
+    "canRecord": true
+  },
+  {
+    "story": {
+      "id": "US-4",
+      "title": "Overdue",
+      "persona": "manager",
+      "capability": "a report",
+      "benefit": "I act",
+      "criteria": [
+        {
+          "id": "AC-1",
+          "given": "a",
+          "when": "b",
+          "then": "c",
+          "tag": "boundary"
+        }
+      ],
+      "scopeExclusions": [],
+      "notes": ""
+    },
+    "results": [
+      {
+        "id": "story.record",
+        "label": "The story record",
+        "passed": true,
+        "detail": "The record is well formed"
+      },
+      {
+        "id": "story.sentence",
+        "label": "A full story sentence",
+        "passed": true,
+        "detail": "As a, I want and So that are filled"
+      },
+      {
+        "id": "story.criteria.min",
+        "label": "At least 2 acceptance criteria",
+        "passed": false,
+        "detail": "Story has fewer than 2 acceptance criteria"
+      },
+      {
+        "id": "story.criteria.tags",
+        "label": "The required cases",
+        "passed": false,
+        "detail": "No happy path case among the criteria"
+      },
+      {
+        "id": "story.scope.min",
+        "label": "At least 1 out-of-scope lines",
+        "passed": false,
+        "detail": "Fewer than 1 out-of-scope lines"
+      }
+    ],
+    "started": true,
+    "canRecord": true
+  },
+  {
+    "story": {
+      "id": "US-4",
+      "title": "Overdue",
+      "persona": "manager",
+      "capability": "a report",
+      "benefit": "I act",
+      "criteria": [
+        {
+          "id": "AC-1",
+          "given": "a",
+          "when": "b",
+          "then": "c",
+          "tag": "boundary"
+        }
+      ],
+      "scopeExclusions": [],
+      "notes": ""
+    },
+    "results": [],
+    "started": true,
+    "canRecord": false
+  }
+]

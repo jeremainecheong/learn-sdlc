@@ -1,0 +1,31 @@
+# The release that broke production.
+#
+# The api container is healthy, its logs are quiet, and every page in the
+# browser is empty.
+
+services:
+  api:
+    build: { context: ., dockerfile: api/Dockerfile }
+    environment:
+      TASKTRACKR_DB: /data/tasktrackr.db
+      PORT: "8000"
+    expose: ["8000"]
+    volumes: ["tasktrackr-data:/data"]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: "5s"
+      timeout: "3s"
+      retries: 10
+      start_period: "5s"
+
+  web:
+    build: { context: ., dockerfile: web/Dockerfile }
+    ports: ["5173:5173"]
+    environment:
+      API_URL: http://localhost:8000
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  tasktrackr-data: {}

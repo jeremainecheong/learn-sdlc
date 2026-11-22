@@ -1,0 +1,370 @@
+{
+ "recordedBy": "apps/api/test/upload-contract-wiring.e2e-spec.ts",
+ "redaction": "ids <uuid:n>, emails <email:n>, tokens <jwt>, digests <sha256:n> (one digest, one placeholder), named values <label>, times as ordinal instants from 2026-01-01T00:00:00Z",
+ "facts": {
+  "projectId": "<uuid:1>",
+  "versionId": "<uuid:2>",
+  "archiveBytes": {
+   "fix2:runtime-outside-allow-lists": 52571,
+   "fix2:run-timeout-above-limit": 52583,
+   "fix2:path-traversal": 52747,
+   "fix1:manifest-version-invalid": 60003,
+   "fix1": 60006
+  },
+  "uploadMaxBytes": 33554432
+ },
+ "exchanges": [
+  {
+   "name": "profile",
+   "method": "GET",
+   "path": "/instructor/runtime-profile",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "id": "baked",
+    "name": "Baked runtime",
+    "manifestSha256": "<sha256:1>",
+    "python": [
+     "blinker",
+     "click",
+     "flask",
+     "iniconfig",
+     "itsdangerous",
+     "jinja2",
+     "markupsafe",
+     "packaging",
+     "pluggy",
+     "pygments",
+     "pytest",
+     "werkzeug"
+    ],
+    "node": [
+     "<npm:testing-library/dom>",
+     "<npm:testing-library/react>",
+     "jsdom",
+     "react",
+     "react-dom",
+     "react-router-dom"
+    ],
+    "tools": [
+     "esbuild"
+    ],
+    "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change.",
+    "uploadMaxBytes": 33554432
+   }
+  },
+  {
+   "name": "refusedRuntime",
+   "method": "POST",
+   "path": "/instructor/projects/upload",
+   "query": {},
+   "requestBody": {
+    "title": "Books on a shelf",
+    "archiveBase64": "<archive:fix2:runtime-outside-allow-lists>"
+   },
+   "status": 400,
+   "body": {
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "This project asks for a library this deployment does not bake. This deployment runs Flask and React. Adding a library is a platform change, not a content change. Nothing was imported.",
+    "code": "RUNTIME_OUTSIDE_PROFILE",
+    "sentence": "This project asks for a library this deployment does not bake. This deployment runs Flask and React. Adding a library is a platform change, not a content change. Nothing was imported.",
+    "findings": [],
+    "detail": "project.runtime asks for requests, which is outside the runtime this deployment bakes. Use only the packages the runtime profile lists, and upload again."
+   }
+  },
+  {
+   "name": "refusedRunShape",
+   "method": "POST",
+   "path": "/instructor/projects/upload",
+   "query": {},
+   "requestBody": {
+    "title": "Books on a shelf",
+    "archiveBase64": "<archive:fix2:run-timeout-above-limit>"
+   },
+   "status": 400,
+   "body": {
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "A run in this project asks for more time or memory than a learner's run gets, and an upload can never raise those limits, so nothing was imported.",
+    "code": "RUN_LIMIT_ABOVE_LEARNER",
+    "sentence": "A run in this project asks for more time or memory than a learner's run gets, and an upload can never raise those limits, so nothing was imported.",
+    "findings": [
+     {
+      "code": "LIMIT_TIMEOUT",
+      "where": "phases[implementation].checks.runs[0].timeoutSeconds",
+      "sentence": "A run asks for more than the 15 seconds a learner's run gets. A project can never raise that limit."
+     }
+    ]
+   }
+  },
+  {
+   "name": "refusedPathClimb",
+   "method": "POST",
+   "path": "/instructor/projects/upload",
+   "query": {},
+   "requestBody": {
+    "title": "Books on a shelf",
+    "archiveBase64": "<archive:fix2:path-traversal>"
+   },
+   "status": 400,
+   "body": {
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "An entry in this archive climbs out of the project folder or starts at the root of the disk, so nothing was imported.",
+    "code": "PATH_CLIMB",
+    "sentence": "An entry in this archive climbs out of the project folder or starts at the root of the disk, so nothing was imported.",
+    "findings": []
+   }
+  },
+  {
+   "name": "refusedNotAPack",
+   "method": "POST",
+   "path": "/instructor/projects/upload",
+   "query": {},
+   "requestBody": {
+    "title": "Books on a shelf",
+    "archiveBase64": "<archive:fix1:manifest-version-invalid>"
+   },
+   "status": 400,
+   "body": {
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "This archive is not a project in the authoring format, so nothing was imported.",
+    "code": "NOT_A_PACK",
+    "sentence": "This archive is not a project in the authoring format, so nothing was imported.",
+    "findings": [],
+    "detail": "project.json: version (\"one\") must be MAJOR.MINOR.PATCH, optionally with a -prerelease or +build suffix."
+   }
+  },
+  {
+   "name": "accepted",
+   "method": "POST",
+   "path": "/instructor/projects/upload",
+   "query": {},
+   "requestBody": {
+    "title": "Books on a shelf",
+    "archiveBase64": "<archive:fix1>"
+   },
+   "status": 201,
+   "body": {
+    "projectId": "<uuid:1>",
+    "versionId": "<uuid:2>",
+    "slug": "books-on-a-shelf",
+    "version": "0.1.0",
+    "compile": {
+     "phases": 6,
+     "tasks": 6,
+     "files": 48,
+     "sandboxBudget": 16
+    },
+    "validation": {
+     "tier": "fast",
+     "ranAt": "2026-01-01T00:00:01.000Z",
+     "checks": [
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Requirements holds 1 task, which a learner can work on.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Design holds 1 task, which a learner can work on.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Implementation holds 1 task, which a learner can work on.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Testing holds 1 task, which a learner can work on.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Deployment holds 1 task, which a learner can work on.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Maintenance holds 1 task, which a learner can work on.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Requirements is gated on 1 required task.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Design is gated on 1 required task.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Implementation is gated on 1 required task.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Testing is gated on 1 required task.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Deployment is gated on 1 required task.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Maintenance is gated on 1 required task.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "artefact-paths-unique",
+       "label": "No two tasks write to one file",
+       "status": "passed",
+       "sentence": "No task in this version writes a file of its own, so no two can collide.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "runtime-is-supported",
+       "label": "The runner can import what this project needs",
+       "status": "passed",
+       "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Implementation has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Testing has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Deployment has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Maintenance has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "version-compiles",
+       "label": "The version compiles",
+       "status": "passed",
+       "sentence": "Every phase compiles: each task owns the files it is graded on, and no two tasks share what scores them.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "front-end-suite-runs",
+       "label": "The front end's own suite runs",
+       "status": "not-applicable",
+       "sentence": "This project has no front end to build, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "preview-starts",
+       "label": "The live preview starts",
+       "status": "not-applicable",
+       "sentence": "This project has no preview to start, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      }
+     ],
+     "passed": 19,
+     "failed": 0,
+     "notApplicable": 2,
+     "publishable": true,
+     "blocking": [],
+     "notApplicableLine": "2 checks do not apply to this project."
+    }
+   }
+  }
+ ]
+}

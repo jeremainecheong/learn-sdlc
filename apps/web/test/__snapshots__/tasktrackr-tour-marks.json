@@ -1,0 +1,634 @@
+{
+  "requirements:true": [
+    {
+      "target": "requirements-tutorial-interview",
+      "selector": "#requirements-interview-tab",
+      "title": "First, interview the stakeholder",
+      "body": "Open Stakeholder interview, marked Required: your story is built from it. Ask the stakeholder what they need and why, and clarify the topics in Interview evidence before you write your story. The mentor, marked Optional, is there if you get stuck."
+    },
+    {
+      "target": "requirements-tutorial-brief",
+      "selector": ".workspace-panel-controls[aria-label=\"Workspace panels\"]",
+      "title": "Use the brief and interview evidence",
+      "body": "Show brief opens the case file. Its Brief explains the task; Interview evidence keeps the topics settled by the conversation. Use what you learn to decide what the work must do."
+    },
+    {
+      "target": "requirements-tutorial-backlog",
+      "selector": "#requirements-backlog-tab",
+      "title": "Next, shape your backlog",
+      "body": "Open My backlog to write the story this phase asks for, beside any stories the project supplies. Write it and its acceptance criteria in its form, then choose Save story and check the save status."
+    },
+    {
+      "target": "requirements-tutorial-check",
+      "selector": "[data-testid=\"phase-requirements-render\"]",
+      "fallbackSelector": "#requirements-backlog-tab",
+      "title": "Check your saved story",
+      "body": "In My backlog, choose Check the story to inspect its structure. Resolve missing fields before you ask for a review. A structural check does not pass the phase."
+    },
+    {
+      "target": "requirements-tutorial-review",
+      "selector": "[data-testid=\"phase-requirements-submit\"]",
+      "fallbackSelector": "#requirements-backlog-tab",
+      "title": "Submit, read feedback, revise",
+      "body": "Submit sends the saved story. Open the backlog’s Review view for its actual feedback. Revise the story and resubmit when needed; only a recorded passing review opens the next phase."
+    },
+    {
+      "target": "requirements-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-strip-guide"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. Optional phase guide opens the lessons. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "requirements:false": [
+    {
+      "target": "requirements-tutorial-interview",
+      "selector": "#requirements-interview-tab",
+      "title": "First, interview the stakeholder",
+      "body": "Open Stakeholder interview, marked Required: your story is built from it. Ask the stakeholder what they need and why, and clarify the topics in Interview evidence before you write your story. The mentor, marked Optional, is there if you get stuck."
+    },
+    {
+      "target": "requirements-tutorial-brief",
+      "selector": ".workspace-panel-controls[aria-label=\"Workspace panels\"]",
+      "title": "Use the brief and interview evidence",
+      "body": "Show brief opens the case file. Its Brief explains the task; Interview evidence keeps the topics settled by the conversation. Use what you learn to decide what the work must do."
+    },
+    {
+      "target": "requirements-tutorial-backlog",
+      "selector": "#requirements-backlog-tab",
+      "title": "Next, shape your backlog",
+      "body": "Open My backlog to write the story this phase asks for, beside any stories the project supplies. Write it and its acceptance criteria in its form, then choose Save story and check the save status."
+    },
+    {
+      "target": "requirements-tutorial-check",
+      "selector": "[data-testid=\"phase-requirements-render\"]",
+      "fallbackSelector": "#requirements-backlog-tab",
+      "title": "Check your saved story",
+      "body": "In My backlog, choose Check the story to inspect its structure. Resolve missing fields before you ask for a review. A structural check does not pass the phase."
+    },
+    {
+      "target": "requirements-tutorial-review",
+      "selector": "[data-testid=\"phase-requirements-submit\"]",
+      "fallbackSelector": "#requirements-backlog-tab",
+      "title": "Submit, read feedback, revise",
+      "body": "Submit sends the saved story. Open the backlog’s Review view for its actual feedback. Revise the story and resubmit when needed; only a recorded passing review opens the next phase."
+    },
+    {
+      "target": "requirements-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        "[data-testid=\"phase-title\"]"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "design:true": [
+    {
+      "target": "design-tutorial-model",
+      "selector": "[aria-label=\"Design working area\"] > :nth-child(1)",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Start with the UML model",
+      "body": "Open UML model to inspect and edit the model’s fields and operations. Use the accepted requirements and phase brief to decide what the model must represent."
+    },
+    {
+      "target": "design-tutorial-contracts",
+      "selector": "[aria-label=\"Design working area\"] > :nth-child(2)",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Define the API contracts",
+      "body": "Open API contracts. Record each operation’s inputs, outputs and error cases, and finish any open contract form before leaving it."
+    },
+    {
+      "target": "design-tutorial-sequence",
+      "selector": "[aria-label=\"Design working area\"] > :nth-child(3)",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Trace a sequence",
+      "body": "Open Sequence diagram to describe how the parts interact. Check that the messages match your contracts and model."
+    },
+    {
+      "target": "design-tutorial-decisions",
+      "selector": "[aria-label=\"Design working area\"] > :nth-child(4)",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Explain your design decisions",
+      "body": "Use Decisions to record why you chose this design and what tradeoffs it makes. Keep the explanation consistent with the model and contracts."
+    },
+    {
+      "target": "design-tutorial-review",
+      "selector": "[data-testid=\"design-submit\"]",
+      "fallbackSelector": "[aria-label=\"Design working area\"] > :nth-child(5), .phase-room-nav",
+      "title": "Review the design as a whole",
+      "body": "Open Review to inspect inconsistencies, check the saved design, then choose Submit. Use the returned evidence to revise any gaps before trying again."
+    },
+    {
+      "target": "design-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-strip-guide"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. Optional phase guide opens the lessons. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "design:false": [
+    {
+      "target": "design-tutorial-model",
+      "selector": "[aria-label=\"Design working area\"] > :nth-child(1)",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Start with the UML model",
+      "body": "Open UML model to inspect and edit the model’s fields and operations. Use the accepted requirements and phase brief to decide what the model must represent."
+    },
+    {
+      "target": "design-tutorial-contracts",
+      "selector": "[aria-label=\"Design working area\"] > :nth-child(2)",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Define the API contracts",
+      "body": "Open API contracts. Record each operation’s inputs, outputs and error cases, and finish any open contract form before leaving it."
+    },
+    {
+      "target": "design-tutorial-sequence",
+      "selector": "[aria-label=\"Design working area\"] > :nth-child(3)",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Trace a sequence",
+      "body": "Open Sequence diagram to describe how the parts interact. Check that the messages match your contracts and model."
+    },
+    {
+      "target": "design-tutorial-decisions",
+      "selector": "[aria-label=\"Design working area\"] > :nth-child(4)",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Explain your design decisions",
+      "body": "Use Decisions to record why you chose this design and what tradeoffs it makes. Keep the explanation consistent with the model and contracts."
+    },
+    {
+      "target": "design-tutorial-review",
+      "selector": "[data-testid=\"design-submit\"]",
+      "fallbackSelector": "[aria-label=\"Design working area\"] > :nth-child(5), .phase-room-nav",
+      "title": "Review the design as a whole",
+      "body": "Open Review to inspect inconsistencies, check the saved design, then choose Submit. Use the returned evidence to revise any gaps before trying again."
+    },
+    {
+      "target": "design-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        "[data-testid=\"phase-title\"]"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "implementation:true": [
+    {
+      "target": "implementation-tutorial-code",
+      "selector": "[aria-label=\"Implementation working area\"] > [data-view=\"code\"]",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Implement the agreed contracts",
+      "body": "Open Code and use Files to inspect the supplied project. Work in the editable files for this task, using the contracts and brief to guide your changes. Watch the save status as you edit."
+    },
+    {
+      "target": "implementation-tutorial-run",
+      "selector": "[data-testid=\"header-run\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Implementation working area\"] > [data-view=\"code\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Run the tests",
+      "body": "Choose Run tests when you are ready to check your work. Read the actual output and failures. If execution is unavailable, it provides no successful result; keep that limitation visible."
+    },
+    {
+      "target": "implementation-tutorial-preview",
+      "selector": "[aria-label=\"Implementation working area\"] > [data-view=\"preview\"]",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Inspect the app preview",
+      "body": "App preview shows the app when a supported runtime is available. Use the preview’s run control to start it yourself. An idle, failed or unavailable preview is not evidence that the app works."
+    },
+    {
+      "target": "implementation-tutorial-panels",
+      "selector": ".workspace-panel-controls[aria-label=\"Workspace panels\"]",
+      "fallbackSelector": "[role=\"tablist\"][aria-label=\"Workspace pane\"]",
+      "title": "Keep the brief close",
+      "body": "Show brief to revisit the task and review criteria. Show mentor opens optional guidance. You can hide either panel to make space; your work and conversations stay in their own phase."
+    },
+    {
+      "target": "implementation-tutorial-review",
+      "selector": "[data-testid=\"header-submit\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        "[aria-label=\"Implementation working area\"] > a[href$=\"/pr\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Submit the saved implementation",
+      "body": "Submit your saved version for review. Open its feedback and exact submitted files, revise the identified behavior, then run and submit again as needed. Running tests alone does not pass the phase."
+    },
+    {
+      "target": "implementation-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-header--doc > details.phase-strip-details > summary",
+        ".phase-strip-guide"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. Optional phase guide opens the lessons. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "implementation:false": [
+    {
+      "target": "implementation-tutorial-code",
+      "selector": "[aria-label=\"Implementation working area\"] > [data-view=\"code\"]",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Implement the agreed contracts",
+      "body": "Open Code and use Files to inspect the supplied project. Work in the editable files for this task, using the contracts and brief to guide your changes. Watch the save status as you edit."
+    },
+    {
+      "target": "implementation-tutorial-run",
+      "selector": "[data-testid=\"header-run\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Implementation working area\"] > [data-view=\"code\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Run the tests",
+      "body": "Choose Run tests when you are ready to check your work. Read the actual output and failures. If execution is unavailable, it provides no successful result; keep that limitation visible."
+    },
+    {
+      "target": "implementation-tutorial-preview",
+      "selector": "[aria-label=\"Implementation working area\"] > [data-view=\"preview\"]",
+      "fallbackSelector": ".phase-room-nav",
+      "title": "Inspect the app preview",
+      "body": "App preview shows the app when a supported runtime is available. Use the preview’s run control to start it yourself. An idle, failed or unavailable preview is not evidence that the app works."
+    },
+    {
+      "target": "implementation-tutorial-panels",
+      "selector": ".workspace-panel-controls[aria-label=\"Workspace panels\"]",
+      "fallbackSelector": "[role=\"tablist\"][aria-label=\"Workspace pane\"]",
+      "title": "Keep the brief close",
+      "body": "Show brief to revisit the task and review criteria. Show mentor opens optional guidance. You can hide either panel to make space; your work and conversations stay in their own phase."
+    },
+    {
+      "target": "implementation-tutorial-review",
+      "selector": "[data-testid=\"header-submit\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        "[aria-label=\"Implementation working area\"] > a[href$=\"/pr\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Submit the saved implementation",
+      "body": "Submit your saved version for review. Open its feedback and exact submitted files, revise the identified behavior, then run and submit again as needed. Running tests alone does not pass the phase."
+    },
+    {
+      "target": "implementation-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-header--doc > details.phase-strip-details > summary",
+        "[data-testid=\"phase-title\"]"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "testing:true": [
+    {
+      "target": "testing-tutorial-suite",
+      "selector": "[aria-label=\"Phase working area\"] > [data-view=\"code\"]",
+      "fallbackSelector": ".phase-room-nav > :first-child",
+      "title": "Write the test suite",
+      "body": "Open Write tests and choose an editable test file. Cover the required behavior and edge cases from the brief, then check that your work has saved."
+    },
+    {
+      "target": "testing-tutorial-run",
+      "selector": "[data-testid=\"header-run\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Phase working area\"] > [data-view=\"code\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Run and inspect the tests",
+      "body": "Run tests executes the suite when the runner is available. Open Execution evidence to read the actual output. A failed or unavailable run needs attention before it can support your review."
+    },
+    {
+      "target": "testing-tutorial-mutations",
+      "selector": "[aria-label=\"Phase working area\"] > a[href$=\"/matrix\"]",
+      "fallbackSelector": ".phase-room-nav a[href$=\"/matrix\"]",
+      "title": "Challenge your tests with planted bugs",
+      "body": "Open Test coverage to inspect which planted bugs the suite detects. Use the available run control when you choose to test it; a surviving bug points to behavior your assertions may not cover."
+    },
+    {
+      "target": "testing-tutorial-panels",
+      "selector": ".workspace-panel-controls[aria-label=\"Workspace panels\"]",
+      "fallbackSelector": "[role=\"tablist\"][aria-label=\"Workspace pane\"]",
+      "title": "Keep the brief close",
+      "body": "Show brief to revisit the task and review criteria. Show mentor opens optional guidance. You can hide either panel to make space; your work and conversations stay in their own phase."
+    },
+    {
+      "target": "testing-tutorial-review",
+      "selector": "[data-testid=\"header-submit\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        "[data-testid=\"phase-testing-submit\"]",
+        "[aria-label=\"Phase working area\"] > a[href$=\"/pr\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Submit tests with their evidence",
+      "body": "Submit your saved tests for review and read the recorded feedback. Strengthen assertions that miss behavior, then check and submit again. An empty evidence view is not a passing result."
+    },
+    {
+      "target": "testing-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-header--doc > details.phase-strip-details > summary",
+        ".phase-strip-guide"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. Optional phase guide opens the lessons. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "testing:false": [
+    {
+      "target": "testing-tutorial-suite",
+      "selector": "[aria-label=\"Phase working area\"] > [data-view=\"code\"]",
+      "fallbackSelector": ".phase-room-nav > :first-child",
+      "title": "Write the test suite",
+      "body": "Open Write tests and choose an editable test file. Cover the required behavior and edge cases from the brief, then check that your work has saved."
+    },
+    {
+      "target": "testing-tutorial-run",
+      "selector": "[data-testid=\"header-run\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Phase working area\"] > [data-view=\"code\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Run and inspect the tests",
+      "body": "Run tests executes the suite when the runner is available. Open Execution evidence to read the actual output. A failed or unavailable run needs attention before it can support your review."
+    },
+    {
+      "target": "testing-tutorial-mutations",
+      "selector": "[aria-label=\"Phase working area\"] > a[href$=\"/matrix\"]",
+      "fallbackSelector": ".phase-room-nav a[href$=\"/matrix\"]",
+      "title": "Challenge your tests with planted bugs",
+      "body": "Open Test coverage to inspect which planted bugs the suite detects. Use the available run control when you choose to test it; a surviving bug points to behavior your assertions may not cover."
+    },
+    {
+      "target": "testing-tutorial-panels",
+      "selector": ".workspace-panel-controls[aria-label=\"Workspace panels\"]",
+      "fallbackSelector": "[role=\"tablist\"][aria-label=\"Workspace pane\"]",
+      "title": "Keep the brief close",
+      "body": "Show brief to revisit the task and review criteria. Show mentor opens optional guidance. You can hide either panel to make space; your work and conversations stay in their own phase."
+    },
+    {
+      "target": "testing-tutorial-review",
+      "selector": "[data-testid=\"header-submit\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        "[data-testid=\"phase-testing-submit\"]",
+        "[aria-label=\"Phase working area\"] > a[href$=\"/pr\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Submit tests with their evidence",
+      "body": "Submit your saved tests for review and read the recorded feedback. Strengthen assertions that miss behavior, then check and submit again. An empty evidence view is not a passing result."
+    },
+    {
+      "target": "testing-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-header--doc > details.phase-strip-details > summary",
+        "[data-testid=\"phase-title\"]"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "deployment:true": [
+    {
+      "target": "deployment-tutorial-config",
+      "selector": "[aria-label=\"Phase working area\"] > [data-view=\"code\"]",
+      "fallbackSelector": ".phase-room-nav > :first-child",
+      "title": "Inspect the release configuration",
+      "body": "Open Configuration to work through the pipeline and configuration files. Use the brief to understand what this isolated deployment exercise checks."
+    },
+    {
+      "target": "deployment-tutorial-selfcheck",
+      "selector": "[data-testid=\"header-run\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Phase working area\"] > [data-view=\"code\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Run the configuration selfcheck",
+      "body": "Run selfcheck checks the saved configuration when its runner is available. It does not demonstrate Docker builds, CI execution, Compose startup or live HTTP health probes."
+    },
+    {
+      "target": "deployment-tutorial-evidence",
+      "selector": "[aria-label=\"Phase working area\"] > [data-view=\"evidence\"]",
+      "fallbackSelector": ".phase-room-nav > :first-child",
+      "title": "Read the pipeline evidence",
+      "body": "Open Pipeline for the actual check output. Use failures to revise the configuration. If the runner is unavailable, no successful execution can be claimed."
+    },
+    {
+      "target": "deployment-tutorial-drill",
+      "selector": "[aria-label=\"Phase working area\"] > a[href$=\"/drill\"]",
+      "fallbackSelector": ".phase-room-nav a[href$=\"/drill\"]",
+      "title": "Work through the incident drill",
+      "body": "Open Incident drill to inspect its evidence, choose an investigation action and explain your response. The drill stays separate from a real deployment."
+    },
+    {
+      "target": "deployment-tutorial-review",
+      "selector": "[data-testid=\"header-submit\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        "[aria-label=\"Phase working area\"] > a[href$=\"/pr\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Submit the saved release work",
+      "body": "Submit the saved configuration and required evidence for review. Revisit specific feedback before resubmitting; only a valid passing review completes the phase."
+    },
+    {
+      "target": "deployment-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-header--doc > details.phase-strip-details > summary",
+        ".phase-strip-guide"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. Optional phase guide opens the lessons. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "deployment:false": [
+    {
+      "target": "deployment-tutorial-config",
+      "selector": "[aria-label=\"Phase working area\"] > [data-view=\"code\"]",
+      "fallbackSelector": ".phase-room-nav > :first-child",
+      "title": "Inspect the release configuration",
+      "body": "Open Configuration to work through the pipeline and configuration files. Use the brief to understand what this isolated deployment exercise checks."
+    },
+    {
+      "target": "deployment-tutorial-selfcheck",
+      "selector": "[data-testid=\"header-run\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Phase working area\"] > [data-view=\"code\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Run the configuration selfcheck",
+      "body": "Run selfcheck checks the saved configuration when its runner is available. It does not demonstrate Docker builds, CI execution, Compose startup or live HTTP health probes."
+    },
+    {
+      "target": "deployment-tutorial-evidence",
+      "selector": "[aria-label=\"Phase working area\"] > [data-view=\"evidence\"]",
+      "fallbackSelector": ".phase-room-nav > :first-child",
+      "title": "Read the pipeline evidence",
+      "body": "Open Pipeline for the actual check output. Use failures to revise the configuration. If the runner is unavailable, no successful execution can be claimed."
+    },
+    {
+      "target": "deployment-tutorial-drill",
+      "selector": "[aria-label=\"Phase working area\"] > a[href$=\"/drill\"]",
+      "fallbackSelector": ".phase-room-nav a[href$=\"/drill\"]",
+      "title": "Work through the incident drill",
+      "body": "Open Incident drill to inspect its evidence, choose an investigation action and explain your response. The drill stays separate from a real deployment."
+    },
+    {
+      "target": "deployment-tutorial-review",
+      "selector": "[data-testid=\"header-submit\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        "[aria-label=\"Phase working area\"] > a[href$=\"/pr\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Submit the saved release work",
+      "body": "Submit the saved configuration and required evidence for review. Revisit specific feedback before resubmitting; only a valid passing review completes the phase."
+    },
+    {
+      "target": "deployment-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-header--doc > details.phase-strip-details > summary",
+        "[data-testid=\"phase-title\"]"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "maintenance:true": [
+    {
+      "target": "maintenance-tutorial-change",
+      "selector": "[data-testid=\"change-title\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Phase working area\"] a[href$=\"/change\"]",
+        ".phase-document-view-change .phase-room-nav > :first-child",
+        ".phase-room-nav a[href$=\"/change\"]"
+      ],
+      "title": "Understand the change request",
+      "body": "Read the change request: the behavior that must change, its constraints, and the existing behavior that must keep working."
+    },
+    {
+      "target": "maintenance-tutorial-files",
+      "selector": "[aria-label=\"Phase working area\"] > button:first-of-type, [aria-label=\"Phase working area\"] > a[data-view=\"code\"]",
+      "fallbackSelector": ".phase-room-nav > :nth-child(2)",
+      "title": "Make a focused change",
+      "body": "From Change request, open Edit files. It holds the editable files for this request. Keep the change small enough to explain and check the save status before testing."
+    },
+    {
+      "target": "maintenance-tutorial-check",
+      "selector": "[data-testid=\"header-run\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Phase working area\"] > a[data-view=\"code\"]",
+        ".phase-document-view-change .phase-room-nav > :nth-child(2)",
+        ".phase-room-nav"
+      ],
+      "title": "Check for regressions",
+      "body": "Open Edit files to run tests when the runner is available, then inspect Execution evidence. Use failures to revise the change; an unavailable run supplies no regression evidence."
+    },
+    {
+      "target": "maintenance-tutorial-pr",
+      "selector": "[aria-label=\"Phase working area\"] a[href$=\"/pr\"]",
+      "fallbackSelector": ".phase-room-nav a[href$=\"/pr\"]",
+      "title": "Explain the pull request",
+      "body": "Open Pull request to review saved changes and their evidence. Explain the intended effect, compatibility risks and checks so the change can be assessed."
+    },
+    {
+      "target": "maintenance-tutorial-review",
+      "selector": "[data-testid=\"header-submit\"], [data-testid=\"phase-maintenance-submit\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Use the review to finish the change",
+      "body": "Submit your saved work when ready. Read the recorded feedback and revise any gaps before submitting again. A documentation edit or successful test run alone does not complete the phase."
+    },
+    {
+      "target": "maintenance-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-header--doc > details.phase-strip-details > summary",
+        ".phase-strip-guide"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. Optional phase guide opens the lessons. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ],
+  "maintenance:false": [
+    {
+      "target": "maintenance-tutorial-change",
+      "selector": "[data-testid=\"change-title\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Phase working area\"] a[href$=\"/change\"]",
+        ".phase-document-view-change .phase-room-nav > :first-child",
+        ".phase-room-nav a[href$=\"/change\"]"
+      ],
+      "title": "Understand the change request",
+      "body": "Read the change request: the behavior that must change, its constraints, and the existing behavior that must keep working."
+    },
+    {
+      "target": "maintenance-tutorial-files",
+      "selector": "[aria-label=\"Phase working area\"] > button:first-of-type, [aria-label=\"Phase working area\"] > a[data-view=\"code\"]",
+      "fallbackSelector": ".phase-room-nav > :nth-child(2)",
+      "title": "Make a focused change",
+      "body": "From Change request, open Edit files. It holds the editable files for this request. Keep the change small enough to explain and check the save status before testing."
+    },
+    {
+      "target": "maintenance-tutorial-check",
+      "selector": "[data-testid=\"header-run\"]",
+      "fallbackSelector": [
+        "[aria-label=\"Phase working area\"] > a[data-view=\"code\"]",
+        ".phase-document-view-change .phase-room-nav > :nth-child(2)",
+        ".phase-room-nav"
+      ],
+      "title": "Check for regressions",
+      "body": "Open Edit files to run tests when the runner is available, then inspect Execution evidence. Use failures to revise the change; an unavailable run supplies no regression evidence."
+    },
+    {
+      "target": "maintenance-tutorial-pr",
+      "selector": "[aria-label=\"Phase working area\"] a[href$=\"/pr\"]",
+      "fallbackSelector": ".phase-room-nav a[href$=\"/pr\"]",
+      "title": "Explain the pull request",
+      "body": "Open Pull request to review saved changes and their evidence. Explain the intended effect, compatibility risks and checks so the change can be assessed."
+    },
+    {
+      "target": "maintenance-tutorial-review",
+      "selector": "[data-testid=\"header-submit\"], [data-testid=\"phase-maintenance-submit\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-room-nav"
+      ],
+      "title": "Use the review to finish the change",
+      "body": "Submit your saved work when ready. Read the recorded feedback and revise any gaps before submitting again. A documentation edit or successful test run alone does not complete the phase."
+    },
+    {
+      "target": "maintenance-tutorial-help",
+      "selector": "[data-testid=\"phase-tutorial-replay\"]",
+      "fallbackSelector": [
+        "[data-testid=\"phase-more-toggle\"]",
+        ".phase-header--doc > details.phase-strip-details > summary",
+        "[data-testid=\"phase-title\"]"
+      ],
+      "title": "Return whenever you need help",
+      "body": "Replay tutorial brings these steps back. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation."
+    }
+  ]
+}

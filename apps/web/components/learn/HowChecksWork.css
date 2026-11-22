@@ -1,0 +1,17 @@
+/* "How LearnSDLC checks your work" on the Learn catalogue.
+ * The section sits in the catalogue's column; its figure is the house frame. */
+.how-checks { margin: 0; }
+.how-checks > p { margin: 0 0 4px; max-width: 62ch; font-size: 14.5px; color: #4f6470; }
+.how-checks-headline { font-size: 14px; }
+.how-checks .fig-card[data-tone="warn"] .how-checks-headline { color: var(--fig-warn); }
+.how-checks .fig-card[data-tone="pass"] .how-checks-headline { color: var(--fig-pass); }
+/* The room's Apply, drawn as words: a lock while the
+ * explanation is not accepted, a tick once it is; no outline, no pill, so it
+ * never reads as a button. The state's colour always comes with its word. */
+.how-checks .fig-apply { align-items: baseline; }
+.how-checks .fig-apply-glyph { width: 15px; height: 15px; flex: none; align-self: center; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; color: var(--fig-muted); }
+.how-checks .fig-apply[data-state="open"] .fig-apply-glyph { color: var(--fig-pass); stroke-width: 1.8; }
+.how-checks .fig-apply-words { font-size: 13.5px; color: var(--fig-ink); }
+.how-checks .fig-apply .fig-apply-label { display: inline; min-height: 0; padding: 0; border: 0; border-radius: 0; font-size: inherit; font-weight: 600; }
+.how-checks .fig-apply-state { font-weight: 600; color: var(--fig-muted); }
+.how-checks .fig-apply[data-state="open"] .fig-apply-state { color: var(--fig-pass); }

@@ -1,0 +1,69 @@
+/* Equal outer tracks keep the page links centred independently of the actions. */
+.marketing .lh-top .lh-nav {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  gap:16px;
+  padding-inline:20px;
+}
+.marketing .lh-top .lh-nav>.lh-brand {grid-column:1;justify-self:start;margin:0;min-width:0}
+.marketing .lh-top .lh-nav>.lh-navlinks {grid-column:2;justify-self:center;order:0;flex:none;width:auto;margin:0;gap:4px}
+.marketing .lh-top .lh-nav>.lh-auth-actions {grid-column:3;justify-self:end;min-width:0}
+.marketing .lh-top .lh-navlink {
+  position:relative;
+  min-height:44px;
+  justify-content:center;
+  color:var(--lh-muted);
+  transition:background-color var(--motion-control,180ms) ease,color var(--motion-control,180ms) ease,box-shadow var(--motion-control,180ms) ease,transform var(--motion-control,180ms) var(--ease-out,cubic-bezier(.2,.8,.2,1));
+}
+.marketing .lh-top .lh-navlink:hover {
+  color:var(--lh-ink);
+  background:var(--lh-chip);
+  box-shadow:inset 0 1px 0 var(--lh-highlight),0 4px 12px var(--lh-shadow);
+  transform:translateY(-1px);
+}
+.marketing .lh-top .lh-navlink[aria-current=page] {
+  color:var(--lh-ink);
+  background:var(--lh-chip);
+  box-shadow:inset 0 1px 0 var(--lh-highlight),inset 0 -2px 0 var(--lh-accent),0 2px 7px var(--lh-shadow);
+  font-weight:650;
+}
+.marketing .lh-top .lh-auth-actions :is(.lh-primary,.lh-signin) {min-height:44px}
+.marketing .lh-top .lh-signin {border-radius:99px;transition:background-color var(--motion-control,180ms) ease,color var(--motion-control,180ms) ease}
+.marketing .lh-top .lh-signin:is(:hover,:focus-visible) {background:var(--lh-chip);color:var(--lh-ink)}
+.marketing .lh-top .lh-navlink:active {transform:translateY(0);box-shadow:inset 0 1px 3px var(--lh-shadow)}
+.marketing .lh-top .lh-nav :is(a,button):focus-visible {outline:2px solid var(--lh-accent);outline-offset:4px}
+.marketing .lh-top .lh-brand-mark {transform-origin:50% 70%;will-change:auto}
+.marketing .lh-top .lh-brand:hover .lh-brand-mark,
+.marketing .lh-top .lh-brand:focus-visible .lh-brand-mark {animation:learnsdlc-logo-greeting .62s ease-in-out 1}
+@keyframes learnsdlc-logo-greeting {
+  0%,100%{transform:rotate(0) translateY(0)}
+  22%{transform:rotate(-7deg) translateY(-1px)}
+  46%{transform:rotate(6deg) translateY(-1px)}
+  68%{transform:rotate(-3deg)}
+  84%{transform:rotate(2deg)}
+}
+@container (max-width:980px) {
+  .marketing .lh-top .lh-nav {grid-template-columns:minmax(0,1fr) auto;gap:9px 14px}
+  .marketing .lh-top .lh-nav>.lh-brand {grid-column:1;grid-row:1}
+  .marketing .lh-top .lh-nav>.lh-auth-actions {grid-column:2;grid-row:1}
+  .marketing .lh-top .lh-nav>.lh-navlinks {grid-column:1/-1;grid-row:2;justify-self:center}
+}
+@container (max-width:520px) {
+  .marketing .lh-top .lh-nav {padding:11px;gap:8px}
+  .marketing .lh-top .lh-nav>.lh-navlinks {width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+  .marketing .lh-top .lh-navlink {padding:9px 4px;font-size:11px;white-space:normal;text-align:center;line-height:1.4}
+  .marketing .lh-top .lh-auth-actions {gap:0}
+  .marketing .lh-top .lh-auth-actions .lh-primary {padding:9px 10px;font-size:10px;white-space:nowrap}
+  .marketing .lh-top .lh-auth-actions .lh-signin {padding:9px 8px;font-size:11px;white-space:nowrap}
+}
+@container (max-width:370px) {
+  .marketing .lh-top .lh-nav>.lh-auth-actions {display:contents}
+  .marketing .lh-top .lh-auth-actions>.lh-signin {grid-column:2;grid-row:1;justify-self:end}
+  .marketing .lh-top .lh-auth-actions>.lh-primary {grid-column:1/-1;grid-row:3;justify-self:center;min-height:44px}
+}
+@media (prefers-reduced-motion:reduce) {
+  .marketing .lh-top :is(.lh-navlink,.lh-signin) {transition:none}
+  .marketing .lh-top .lh-navlink:hover {transform:none}
+  .marketing .lh-top .lh-brand .lh-brand-mark {animation:none!important}
+}

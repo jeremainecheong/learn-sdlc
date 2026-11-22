@@ -1,0 +1,33 @@
+WEBVTT
+
+NOTE Actual full-workspace tutorial recording. Prepared starter QA account; five later phases explicitly opened. No earned passes, AI, execution, edits or submissions. Normal speed; no added holds.
+
+1
+00:00:00.200 --> 00:00:07.320
+1 of 6. Write the test suite
+Open Write tests and choose an editable test file. Cover the required behavior and edge cases from the brief, then check that your work has saved.
+
+2
+00:00:07.320 --> 00:00:13.440
+2 of 6. Run and inspect the tests
+Run tests executes the suite when the runner is available. Open Execution evidence to read the actual output. A failed or unavailable run needs attention before it can support your review.
+
+3
+00:00:13.440 --> 00:00:19.640
+3 of 6. Challenge your tests with planted bugs
+Open Test coverage to inspect which planted bugs the suite detects. Use the available run control when you choose to test it; a surviving bug points to behavior your assertions may not cover.
+
+4
+00:00:19.640 --> 00:00:25.840
+4 of 6. Keep the brief close
+Show brief to revisit the task and review criteria. Show mentor opens optional guidance. You can hide either panel to make space; your work and conversations stay in their own phase.
+
+5
+00:00:25.840 --> 00:00:31.800
+5 of 6. Submit tests with their evidence
+Submit your saved tests for review and read the recorded feedback. Strengthen assertions that miss behavior, then check and submit again. An empty evidence view is not a passing result.
+
+6
+00:00:31.800 --> 00:00:37.640
+6 of 6. Return whenever you need help
+Replay tutorial brings these steps back. Optional phase guide opens the lessons. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation.

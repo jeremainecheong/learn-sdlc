@@ -1,0 +1,1562 @@
+.learn-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: rgb(var(--c-muted));
+}
+.learn-library-hero {
+  background: linear-gradient(115deg, #d9f7fb66, #dce8ff44);
+  border: 1px solid rgb(var(--c-edge));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 25px 35px;
+  gap: 30px;
+}
+.learn-library-hero h2 {
+  font-size: 35px;
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+  margin: 10px 0;
+}
+.learn-library-hero p {
+  max-width: 570px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgb(var(--c-muted));
+}
+.learn-library-hero img {
+  width: 260px;
+  height: 175px;
+  object-fit: contain;
+  margin-left: auto;
+}
+.learn-catalogue {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 8px 0;
+}
+.lesson-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+.lesson-actions > span {
+  font-size: 11px;
+  color: rgb(var(--c-muted));
+}
+.lesson-chapters > button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.4;
+  border-radius: 9px;
+  padding: 12px 10px;
+  min-height: 46px;
+  transition:
+    background-color var(--motion-control, 180ms) var(--ease-out, ease-out),
+    box-shadow var(--motion-control, 180ms) var(--ease-out, ease-out),
+    color var(--motion-control, 180ms) var(--ease-out, ease-out);
+}
+.lesson-chapters > button > span {
+  font-size: 10px;
+  opacity: 1;
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: #ffffff80;
+}
+.lesson-chapters > button[aria-current="step"] {
+  background: color-mix(in srgb, rgb(var(--c-accent)) 10%, transparent);
+  font-weight: 650;
+  color: rgb(var(--c-ink));
+}
+.lesson-outcomes h3 {
+  font-size: 12px;
+  font-weight: 650;
+}
+.lesson-outcomes ul {
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 9px 0 0 12px;
+  list-style: disc;
+  color: rgb(var(--c-muted));
+}
+.lesson-article {
+  background: rgb(var(--c-surface));
+  border: 1px solid rgb(var(--c-edge));
+  border-radius: 16px;
+  padding: 28px;
+  min-width: 0;
+}
+.lesson-article > h2 {
+  font-size: 27px;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  margin: 10px 0 20px;
+}
+.lesson-article > p {
+  font-size: 14px;
+  line-height: 1.85;
+  margin-bottom: 15px;
+  max-width: 850px;
+  color: rgb(var(--c-ink2));
+}
+.lesson-flow {
+  padding: 15px;
+  border: 1px solid rgb(var(--c-edge));
+  border-radius: 12px;
+  background: rgb(var(--c-ground));
+  margin: 22px 0;
+}
+.lesson-flow figcaption {
+  font-size: 11px;
+  font-weight: 650;
+  margin-bottom: 12px;
+}
+.lesson-flow ol {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.lesson-flow li {
+  font-size: 11px;
+  padding: 8px 10px;
+  border: 1px solid rgb(var(--c-edge));
+  background: rgb(var(--c-surface));
+  border-radius: 7px;
+}
+.lesson-flow li + li::before {
+  content: "→";
+  margin-right: 7px;
+  color: rgb(var(--c-accent));
+}
+.lesson-worked-example {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+  border: 1px solid rgb(var(--c-edge));
+  border-radius: 12px;
+  padding: 19px;
+  margin: 24px 0;
+  background: linear-gradient(100deg, #d9f7fb25, transparent);
+}
+.lesson-worked-example > div {
+  min-width: 0;
+}
+.lesson-worked-example h3 {
+  font-size: 17px;
+  margin: 5px 0 12px;
+  font-weight: 600;
+}
+.lesson-worked-example pre {
+  font: 12px/1.7 monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.lesson-worked-example img {
+  object-fit: contain;
+  width: 145px;
+  height: 140px;
+}
+.lesson-practice {
+  padding: 20px;
+  border: 1px solid rgb(var(--c-edge));
+  border-radius: 12px;
+}
+.lesson-practice h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 8px 0 15px;
+}
+.lesson-practice fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+.lesson-practice label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid rgb(var(--c-edge));
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.lesson-practice label:has(input:checked) {
+  border-color: rgb(var(--c-accent));
+  background: color-mix(in srgb, rgb(var(--c-accent)) 6%, transparent);
+  box-shadow: inset 3px 0 0 rgb(var(--c-accent));
+}
+.lesson-practice small {
+  display: block;
+  font-size: 10px;
+  color: rgb(var(--c-muted));
+  margin-top: 14px;
+}
+.lesson-practice-feedback {
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 12px;
+  background: rgb(var(--c-ground));
+  margin-top: 12px;
+  border-radius: 7px;
+}
+.lesson-chapter-footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 28px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid rgb(var(--c-edge));
+  gap: 12px;
+  flex-wrap: wrap;
+}
+/* The forward button stays at the row's end when chapter 1 draws no Previous. */
+.lesson-chapter-footer > :last-child { margin-left: auto; }
+.lesson-sources,
+.lesson-videos {
+  border-top: 1px solid rgb(var(--c-edge));
+  padding-top: 22px;
+  margin-top: 24px;
+}
+.lesson-sources h3,
+.lesson-videos h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.lesson-sources p {
+  font-size: 12px;
+  color: rgb(var(--c-muted));
+  margin-bottom: 10px;
+}
+.lesson-sources > a {
+  display: block;
+  font-size: 12px;
+  color: rgb(var(--c-accent));
+  padding: 5px 0;
+}
+.lesson-videos > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.lesson-videos a {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+}
+.lesson-videos small {
+  color: rgb(var(--c-muted));
+  font-size: 10px;
+}
+.lesson-video-poster {
+  background: linear-gradient(135deg, #0d465d, #117886);
+  aspect-ratio: 16/9;
+  border-radius: 10px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.lesson-video-poster > span {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #ffffff70;
+  border-radius: 50%;
+  background: #ffffff15;
+}
+.lesson-reader-shell {
+  --lesson-accent: #176b86;
+  --lesson-chapter-surface: #ffffffa8;
+  --lesson-chapter-edge: #dce7ed;
+  --lesson-surface-highlight: #ffffffb0;
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.lesson-study-objective {
+  padding: 15px 18px;
+  border-left: 3px solid #2c92ae;
+  border-radius: 0 10px 10px 0;
+  background: #e8f5f9;
+}
+.lesson-study-preparation,
+.lesson-study-why {
+  padding: 17px 20px;
+  border: 1px solid #d5e5ed;
+  border-radius: 12px;
+  background: #f6fafc;
+  margin: 20px 0;
+}
+.lesson-study-walkthrough { margin-top: 24px; }
+.lesson-study-walkthrough > ol,
+.lesson-study-recap > ol { list-style: decimal; padding-left: 23px; line-height: 1.85; }
+.lesson-study-walkthrough > h3,
+.lesson-study-recap > h3 { margin: 8px 0 18px; font: 550 21px/1.35 var(--font-display,Outfit),sans-serif; letter-spacing: -.025em; }
+.lesson-study-walkthrough > ol > li,
+.lesson-study-recap > ol > li { padding-left: 5px; margin: 13px 0; }
+.lesson-study-walkthrough > ol > li::marker,
+.lesson-study-recap > ol > li::marker { color: var(--lesson-accent); font-weight: 650; }
+.lesson-study-walkthrough h4,
+.lesson-study-recap h4 { margin: 0 0 10px; font-size: 16px; color: #18364d; }
+.lesson-study-why > p,
+.lesson-study-preparation > p { margin-bottom: 0; }
+.lesson-study-walkthrough > .experience-scroll-region { margin: 24px 0; }
+.lesson-study-table { overflow-x: auto; border: 1px solid #d6e4ec; border-radius: 12px; }
+.lesson-study-table table { width: 100%; min-width: 410px; border-collapse: collapse; font-size: 12px; line-height: 1.7; }
+.lesson-study-table caption { padding: 15px; font-size: 13px; font-weight: 650; color: #23485e; text-align: left; background: #eef6fa; }
+.lesson-study-table :is(th, td) { padding: 13px 15px; text-align: left; vertical-align: top; border-bottom: 1px solid #dbe6ed; }
+.lesson-study-table thead th { color: #33556c; background: #f8fbfd; font-weight: 650; }
+.lesson-study-table tbody th { font-weight: 550; }
+.lesson-study-table tr:last-child :is(th, td) { border-bottom: 0; }
+.lesson-transfer-practice { margin: 24px 0; padding: 22px; border: 1px solid #cde2eb; border-radius: 13px; background: linear-gradient(135deg,#f4fbfd,#eef7fa); }
+.lesson-transfer-practice h4 { margin-top: 12px; }
+.lesson-transfer-practice details { border-top: 1px solid #cddfe8; padding-top: 15px; margin-top: 15px; }
+.lesson-transfer-practice summary { cursor: pointer; color: #176780; font-size: 13px; font-weight: 600; padding: 4px 0; }
+.lesson-transfer-practice details > p { margin-top: 15px; }
+.lesson-transfer-practice > small { display: block; color: #527185; font-size: 11px; line-height: 1.7; margin-top: 15px; }
+.lesson-chapter-takeaway { border-left: 3px solid #85bcae; padding-left: 17px; margin: 25px 0; }
+.lesson-study-recap { margin-top: 30px; padding: 24px; border: 1px solid #cce0e9; border-radius: 14px; background: #f5fafc; }
+.lesson-study-optional { font-size: 12px; color: #527185; }
+.lesson-study-table:focus-visible,
+.lesson-transfer-practice summary:focus-visible { outline: 3px solid #2185a4; outline-offset: 4px; }
+[data-theme="graphite"] :is(.lesson-study-objective,.lesson-study-preparation,.lesson-study-why,.lesson-transfer-practice,.lesson-study-recap) { background: #192d3c; border-color: #3a5a6e; }
+[data-theme="graphite"] :is(.lesson-study-walkthrough h4,.lesson-study-recap h4,.lesson-transfer-practice summary) { color: #c5e4ee; }
+[data-theme="graphite"] :is(.lesson-transfer-practice > small,.lesson-study-optional) { color: #a8c0d0; }
+[data-theme="graphite"] .lesson-study-table :is(caption,thead th) { background: #213a4b; color: #d8e8f0; }
+[data-theme="graphite"] .lesson-study-table :is(th,td),
+[data-theme="graphite"] .lesson-study-table { border-color: #3a5a6e; }
+.lesson-mentor {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  min-height: 0;
+  width: 340px;
+  border-left: 1px solid rgb(var(--c-edge));
+  background: rgb(var(--c-surface));
+}
+.lesson-mentor > button { flex-shrink: 0; }
+.lesson-mentor > [data-testid="persona-panel"] { flex: 1; min-height: 0; width: 100%; overflow: hidden; }
+.lesson-mentor .mentor-session { min-height: 0; }
+@media (max-width: 1200px) {
+  .learn-catalogue {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lesson-mentor {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 30;
+    box-shadow: -10px 0 30px #001b3333;
+    max-width: 100%;
+  }
+  .lesson-worked-example img {
+    width: 100px;
+    height: 110px;
+  }
+}
+@media (max-width: 767px) {
+  .learn-library-hero {
+    padding: 20px;
+    gap: 10px;
+  }
+  .learn-library-hero h2 {
+    font-size: 27px;
+  }
+  .learn-library-hero img {
+    width: 110px;
+    height: 130px;
+  }
+  .learn-catalogue {
+    grid-template-columns: 1fr;
+  }
+  .lesson-article {
+    padding: 18px;
+  }
+  .lesson-worked-example img {
+    display: none;
+  }
+  .lesson-videos > div {
+    grid-template-columns: 1fr;
+  }
+  .lesson-mentor {
+    width: 340px;
+  }
+  .lesson-chapter-footer .btn-primary {
+    white-space: normal;
+  }
+}
+.lesson-video-poster {
+  position: relative;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+}
+.lesson-video-poster > img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+}
+.lesson-video-poster > span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #102f49ba;
+  box-shadow: 0 2px 12px #0005;
+}
+.lesson-videos a:hover .lesson-video-poster > span {
+  background: #176880;
+}
+
+/* The learning library: featured first guide, then a compact phase list. */
+.learn-library {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  container: learning / inline-size;
+}
+.learn-library .learn-eyebrow {
+  color: var(--exp-cyan);
+  font-size: 11px;
+  font-weight: 650;
+}
+.learn-library-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(180px, 0.7fr);
+  align-items: center;
+  gap: 30px;
+  padding: 28px 35px;
+  background: linear-gradient(120deg, #e6f5fbbf, #f7fcffc7);
+  border: 1px solid var(--exp-line);
+  border-radius: 20px;
+  box-shadow:
+    0 5px 20px #25486809,
+    inset 0 1px 0 #ffffffb0;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+.learn-library-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 260px;
+  height: 260px;
+  right: -30px;
+  top: -60px;
+  border: 1px solid #fff9;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 46px #ffffff24,
+    0 0 0 92px #ffffff10;
+}
+.learn-library-hero h2 {
+  font:
+    500 clamp(34px, 4cqi, 44px)/1.1 Outfit,
+    sans-serif;
+  letter-spacing: -0.045em;
+  margin: 13px 0 15px;
+}
+.learn-library-hero p {
+  max-width: 460px;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.learn-library-hero img {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  justify-self: center;
+  margin: 0;
+  filter: drop-shadow(0 12px 15px #28537013);
+}
+.learn-welcome-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--exp-cyan);
+  margin-top: 19px;
+}
+.learn-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.learn-section-heading h2 {
+  font-size: 23px;
+}
+.learn-section-heading > span {
+  font-size: 11px;
+  color: var(--exp-muted);
+}
+/* The catalogue's guide cards: one card per offered guide, in phase
+ * order, all in the design the Requirements card had. lesson-hero.css sets
+ * the columns on narrower libraries. */
+.learn-phase-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.learn-feature {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 22px 22px 24px;
+  background: var(--exp-card);
+  border: 1px solid var(--exp-control-edge);
+  border-radius: 20px;
+  box-shadow:
+    0 8px 24px #25486810,
+    inset 0 1px 0 var(--exp-highlight);
+  backdrop-filter: blur(14px);
+}
+.learn-feature-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.learn-feature-top > img {
+  width: 92px;
+  height: 92px;
+  flex: none;
+  object-fit: contain;
+  filter: drop-shadow(0 7px 10px #28537015);
+}
+/* The phase label sits above the title on every card: as inline boxes a short
+   title (Design, Testing) ran on beside its label and a long one did not. */
+.learn-feature-top > div {
+  min-width: 0;
+  display: grid;
+  justify-items: start;
+}
+.learn-feature h3 {
+  font-size: 25px;
+  margin: 5px 0 0;
+  overflow-wrap: anywhere;
+}
+.learn-feature-promise {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 16px 0 6px;
+}
+.learn-guide-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  padding: 16px 0;
+  margin-top: 6px;
+  border-bottom: 1px solid #dce7ed;
+  font-size: 11px;
+  color: var(--exp-muted);
+}
+.learn-guide-meta > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.learn-guide-meta svg {
+  color: var(--exp-cyan);
+}
+.learn-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 16px 0 20px;
+}
+.learn-topics > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--exp-muted);
+  line-height: 1.8;
+}
+.learn-topics > span::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--exp-cyan);
+}
+/* Every card in a row is the same height: the button sits at the foot. */
+.learn-feature > a {
+  margin-top: auto;
+  align-self: flex-start;
+  min-width: 145px;
+}
+.learn-bottom-note {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px !important;
+  margin: 0 !important;
+}
+.learn-bottom-note svg {
+  flex: none;
+  color: var(--exp-cyan);
+}
+/* The lesson pages' framing follows each phase's guide shell. */
+main[data-testid^="lesson-"] {
+  font-family: Manrope, sans-serif;
+  color: #20394c;
+}
+main[data-testid^="lesson-"] > div {
+  padding: 30px;
+  gap: 25px;
+}
+main[data-testid^="lesson-"] :is(h1, h2, h3) {
+  font-family: Outfit, sans-serif;
+  font-weight: 500;
+}
+.lesson-page-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-size: 11px;
+  color: #536d7f;
+}
+.lesson-page-top > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--lesson-accent);
+  font-weight: 600;
+}
+/* The guide's banner: one navy look for all six guides; the words
+ * and the picture are each guide's own (hero.ts). */
+.lesson-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.9fr);
+  gap: 15px;
+  align-items: center;
+  padding: 31px 33px 28px;
+  border: 1px solid #213f5712;
+  border-radius: 20px;
+  background: linear-gradient(118deg, #122b48, #1d4560);
+  color: #f4fcff;
+  box-shadow:
+    inset 0 1px 0 #ffffff26,
+    0 9px 22px #14364a0b;
+  overflow: hidden;
+}
+.lesson-hero::after {
+  content: "";
+  position: absolute;
+  right: -120px;
+  top: -130px;
+  width: 440px;
+  height: 440px;
+  pointer-events: none;
+  border: 1px solid #bbeaff12;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 70px #a4e4ff04,
+    0 0 0 140px #a4e4ff03;
+}
+.lesson-hero > div,
+.lesson-hero > img {
+  z-index: 1;
+}
+.lesson-hero h1 {
+  font-size: clamp(29px, 3.4vw, 43px);
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+  max-width: 620px;
+  color: #f4fcff;
+  margin: 18px 0 15px;
+}
+.lesson-hero p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #c3dce8;
+  max-width: 440px;
+}
+.lesson-hero .learn-eyebrow,
+.lesson-hero .lesson-actions > span {
+  color: #b6e8f9;
+}
+/* One art box for every guide: 4:3, 365 px wide where the column allows.
+ * Each picture is drawn at its own shape (the width and height attributes
+ * give the browser its ratio), at the box's height times its scale
+ * (`--hero-art-scale`, from hero.ts, 1 for Requirements), so a square picture
+ * whose drawing fills less of its file has Requirements' weight. Never
+ * stretched or cropped. Its negative margins take back what the
+ * scale adds, so the banner is as tall on every guide, and it takes no
+ * pointer, so its transparent edge never covers a button. */
+.lesson-hero > img {
+  --hero-art-box: min(100%, 365px);
+  --hero-art-grow: calc(var(--hero-art-box) * 0.75 * (var(--hero-art-scale, 1) - 1) / 2);
+  width: calc(var(--hero-art-box) * 0.75 * var(--hero-art-scale, 1) * var(--hero-art-ratio, 1.3333));
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+  margin: calc(-14px - var(--hero-art-grow)) auto calc(-5px - var(--hero-art-grow));
+  pointer-events: none;
+  filter: drop-shadow(0 17px 19px #071b332b);
+}
+.lesson-actions > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lesson-actions :is(a, button),
+.lesson-chapter-footer :is(a, button),
+.lesson-practice > button {
+  border-radius: 9px;
+  padding: 10px 14px;
+  min-height: 40px;
+  font-size: 11px;
+}
+.lesson-learning-heading {
+  border-top: 1px solid #dce7ed;
+  padding-top: 25px;
+}
+.lesson-learning-heading h2 {
+  font-size: 23px;
+  margin-top: 6px;
+}
+.lesson-chapters > button {
+  color: #536d7f;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.lesson-chapters > button[aria-current="step"] {
+  color: #20394c;
+}
+.lesson-chapters > button[aria-current="step"] > span {
+  background: #227c96;
+  color: #fff;
+}
+.lesson-chapters > button:active {
+  box-shadow: inset 0 2px 4px #14394e25;
+  transition-duration: var(--motion-fast, 120ms);
+}
+.lesson-chapters > button:is(:hover, :focus-visible) {
+  background: #e7f5fa;
+}
+.lesson-outcomes summary {
+  cursor: pointer;
+  font-size: 12px;
+}
+/* The guide's layout: the four chapters as a row of cards, the chapter at
+ * full width beneath (lesson-hero.css narrows the row). */
+.lesson-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin: 0;
+}
+.lesson-layout .lesson-chapters {
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 0;
+  border: 0;
+  border-radius: 17px;
+  background: transparent;
+  gap: 9px;
+}
+.lesson-layout .lesson-chapters > .learn-eyebrow {
+  display: none;
+}
+.lesson-layout .lesson-chapters > button {
+  min-width: 0;
+  padding: 14px 13px;
+  border-radius: 14px;
+  border: 1px solid var(--lesson-chapter-edge);
+  background: var(--lesson-chapter-surface);
+  box-shadow: inset 0 1px 0 var(--lesson-surface-highlight);
+}
+.lesson-layout .lesson-chapters > button > span {
+  font:
+    500 17px/1 Outfit,
+    sans-serif;
+  min-width: 24px;
+}
+.lesson-layout .lesson-chapters > button[aria-current="step"] {
+  border-color: #a0d2e1;
+  background: #e7f5fa;
+  box-shadow:
+    0 4px 10px #1c455706,
+    inset 0 1px 0 #ffffffb0;
+}
+.lesson-layout .lesson-outcomes {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 6px 0 0;
+  border: 0;
+}
+.lesson-article {
+  padding: 34px;
+  border: 1px solid #213f5712;
+  border-radius: 20px;
+  background: #ffffffcf;
+  box-shadow: 0 4px 20px #25486809;
+  backdrop-filter: blur(14px);
+}
+.lesson-article > h2 {
+  font-size: 31px;
+  margin: 8px 0 22px;
+}
+.lesson-article > p {
+  font-size: 14px;
+  line-height: 1.85;
+  max-width: 78ch;
+  margin-bottom: 20px;
+  color: #536d7f;
+}
+.lesson-study-walkthrough > ol > li > p,
+.lesson-study-recap > ol > li > p {
+  max-width: 78ch;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.lesson-worked-example {
+  background: #f1f7fa9e;
+  border: 1px solid #dce7ed;
+  border-radius: 17px;
+  padding: 23px;
+  box-shadow: inset 3px 0 0 #80b7c9;
+}
+.lesson-practice {
+  background: linear-gradient(140deg, #eaf6fa, #f7fbfd);
+  border: 1px solid #bad7e3;
+  border-radius: 17px;
+  padding: 23px;
+}
+.lesson-practice label {
+  background: #ffffffcf;
+  border-color: #dce7ed;
+  transition:
+    background-color var(--motion-control, 180ms) var(--ease-out, ease-out),
+    border-color var(--motion-control, 180ms) var(--ease-out, ease-out),
+    box-shadow var(--motion-control, 180ms) var(--ease-out, ease-out);
+}
+.lesson-practice label:is(:hover, :focus-within) {
+  background: #e7f5fa;
+}
+.lesson-videos a {
+  transition:
+    transform var(--motion-surface, 260ms) var(--ease-out, ease-out),
+    box-shadow var(--motion-surface, 260ms) var(--ease-out, ease-out);
+  border-radius: 12px;
+}
+.lesson-videos a:is(:hover, :focus-visible) {
+  transform: translateY(-3px);
+}
+main[data-testid^="lesson-"] :is(button, a, summary, input):focus-visible,
+.learn-library :is(a, button):focus-visible {
+  outline: 3px solid #228fa8;
+  outline-offset: 4px;
+}
+[data-theme="graphite"] .learn-library-hero {
+  background: linear-gradient(120deg, #193d50, #224a5d);
+}
+[data-theme="graphite"] .lesson-reader-shell {
+  --lesson-accent: #9cd6e6;
+  --lesson-chapter-surface: #203d51;
+  --lesson-chapter-edge: #4c6c80;
+  --lesson-surface-highlight: #bfe9ff16;
+}
+[data-theme="graphite"] :is(.learn-feature, .lesson-article) {
+  background: #223c51ed;
+  border-color: #39596d;
+}
+[data-theme="graphite"] main[data-testid^="lesson-"] {
+  color: #e5f2f7;
+}
+[data-theme="graphite"]
+  :is(
+    .lesson-hero p,
+    .lesson-article > p,
+    .lesson-chapters > button,
+    .lesson-page-top
+  ) {
+  color: #bdd2df;
+}
+[data-theme="graphite"]
+  :is(
+    .lesson-chapters,
+    .lesson-worked-example,
+    .lesson-practice
+  ) {
+  background: #24465b;
+  border-color: #39596d;
+}
+[data-theme="graphite"]
+  :is(
+    .learn-guide-meta,
+    .lesson-learning-heading
+  ) {
+  border-color: #39596d;
+}
+[data-theme="graphite"] .lesson-practice label {
+  background: #223c51;
+  border-color: #39596d;
+}
+[data-theme="graphite"] .lesson-chapters > button > span {
+  background: #18394e;
+  color: #c4e5ef;
+}
+[data-theme="graphite"] .lesson-chapters > button[aria-current="step"] > span {
+  background: #8bcde0;
+  color: #143449;
+}
+[data-theme="graphite"] .lesson-chapters > button[aria-current="step"] {
+  box-shadow: inset 3px 0 0 #8bcde0, inset 0 0 0 1px #527d92;
+}
+[data-theme="graphite"] .lesson-chapters > button[aria-current="step"],
+[data-theme="graphite"] .lesson-chapters > button:is(:hover, :focus-visible),
+[data-theme="graphite"] .lesson-practice label:is(:hover, :focus-within) {
+  background: #285571;
+  color: #e5f2f7;
+}
+@media (max-width: 1050px) {
+  .lesson-layout {
+    gap: 20px;
+  }
+  .lesson-hero {
+    padding: 26px;
+    gap: 20px;
+    grid-template-columns: minmax(0, 1fr) 170px;
+  }
+  .lesson-hero > img {
+    --hero-art-box: 170px;
+  }
+}
+@media (max-width: 767px) {
+  main[data-testid^="lesson-"] > div {
+    padding: 20px;
+    gap: 22px;
+  }
+  .lesson-page-top {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .lesson-hero {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+  .lesson-hero h1 {
+    font-size: 31px;
+  }
+  .lesson-hero > img {
+    --hero-art-box: min(100%, 260px);
+    justify-self: center;
+  }
+  /* A drawing that reaches its file's top (hero.ts `fillsHeight`) keeps the
+   * unscaled top edge under the buttons and grows downward. */
+  .lesson-hero > img[data-fills-height="true"] {
+    margin-top: -14px;
+  }
+  .lesson-article {
+    padding: 22px;
+  }
+  .lesson-article > h2 {
+    font-size: 26px;
+  }
+  .learn-library-hero {
+    grid-template-columns: 1fr;
+    padding: 25px 22px;
+    gap: 10px;
+  }
+  .learn-library-hero::after {
+    /* The stacked mobile copy occupies the former decorative-ring region. */
+    content: none;
+  }
+  .learn-library-hero h2 {
+    font-size: 35px;
+  }
+  .learn-library-hero img {
+    max-width: 190px;
+  }
+  .learn-section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .learn-feature {
+    padding: 20px 18px 22px;
+  }
+  .learn-feature-top > img {
+    width: 72px;
+    height: 72px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learn-library *,
+  main[data-testid^="lesson-"] * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .lesson-videos a:is(:hover, :focus-visible) {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------------
+ * The chapter page and the phase map.
+ *
+ * One calm page for every chapter on a white ground: the chapter's aim and
+ * where it is used, the idea, the figures, TaskTrackr worked, check
+ * yourself, the takeaway. Flat 1.5 px rules, 8 px corners, no gradient,
+ * glow or blur; colour only where it means something (the phase accent as a
+ * small marker, pass green and warn amber on feedback, always with words).
+ * Paragraphs keep a reading width; nothing scrolls the page sideways at a
+ * phone's width.
+ * ---------------------------------------------------------------------- */
+.lesson-reader-shell,
+.learn-library {
+  --guide-ink: #17323f;
+  --guide-ink2: #3d5563;
+  --guide-muted: #4f6470;
+  --guide-line: #8094a2;
+  --guide-rule: #c9d3db;
+  --guide-tint: #f5f8fa;
+  --guide-pass: #2f7d32;
+  --guide-warn: #8a5a00;
+  --guide-focus: #1f6f8b;
+}
+.lesson-article {
+  background: #ffffff;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  box-shadow: none;
+  backdrop-filter: none;
+  color: var(--guide-ink);
+}
+.lesson-article > h2 { margin: 6px 0 10px; }
+.lesson-article p,
+.lesson-article li { max-width: 68ch; }
+.lesson-article :is(h3, h4) { color: var(--guide-ink); }
+
+/* The chapter's aim and where it is used. */
+.lesson-study-objective {
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--guide-ink2);
+}
+.lesson-study-objective > span {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--guide-muted);
+}
+.lesson-where {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 18px;
+  padding: 5px 11px;
+  border: 1.5px solid var(--guide-rule);
+  border-left: 3px solid var(--phase-accent, var(--guide-line));
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--guide-muted);
+}
+.lesson-where a,
+.lesson-where strong { color: var(--guide-ink); font-weight: 600; }
+.lesson-where a { text-decoration: underline; text-underline-offset: 3px; }
+/* The room link's tap target is 32 px tall at every width, not the line's
+ * 19 px; the negative margins give the height back, so the chip's line keeps
+ * its height. */
+.lesson-where a { display: inline-flex; align-items: center; min-height: 32px; margin-block: -6.5px; }
+
+/* Code type in the chapter's words: code, the worked
+ * example and every code fragment the reader marks (`code-fragment`,
+ * CodeText.tsx) keep each character its own glyph: no ligatures, no
+ * contextual alternates, so `--selfcheck` and `<=` read as typed. */
+:is(.lesson-reader-shell, .learn-library) :is(code, pre, kbd, samp, .code-fragment) { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
+
+/* Shared section titles inside a chapter. */
+.lesson-idea > h3,
+.lesson-part-title,
+.lesson-study-walkthrough > .learn-eyebrow {
+  display: block;
+  margin: 26px 0 8px;
+  font: 650 12px/1.4 Inter, sans-serif;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--guide-muted);
+}
+.lesson-idea p {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--guide-ink2);
+}
+.lesson-study-preparation,
+.lesson-study-why {
+  background: #ffffff;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+}
+
+/* The guide's path, once, under the hero. */
+.lesson-path {
+  margin: 0;
+  padding: 12px 16px;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  background: #ffffff;
+}
+.lesson-path figcaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--guide-ink);
+}
+.lesson-path figcaption svg { color: var(--phase-accent, var(--guide-line)); }
+.lesson-path li {
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--guide-ink);
+  font-size: 12px;
+}
+.lesson-path li + li::before { color: var(--guide-line); }
+
+/* TaskTrackr, worked: the artefact card beside the numbered steps. */
+.lesson-study-walkthrough { margin-top: 8px; }
+.lesson-study-walkthrough > h3 { margin: 0 0 14px; font-size: 19px; }
+.lesson-worked-grid { display: grid; gap: 16px; align-items: start; }
+@media (min-width: 1240px) {
+  .lesson-worked-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+}
+.lesson-worked-example {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid var(--guide-line);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: none;
+  overflow: hidden;
+}
+.lesson-worked-example figcaption {
+  padding: 7px 12px;
+  border-bottom: 1.5px solid var(--guide-rule);
+  background: var(--guide-tint);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--guide-muted);
+}
+.lesson-worked-example pre {
+  margin: 0;
+  padding: 12px 14px;
+  font: 12.5px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--guide-ink);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.lesson-worked-example pre:focus-visible { outline: 2px solid var(--guide-focus); outline-offset: -2px; }
+.lesson-worked-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: worked;
+}
+.lesson-worked-steps > li {
+  position: relative;
+  margin: 0 0 12px;
+  padding-left: 34px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--guide-ink2);
+  counter-increment: worked;
+}
+.lesson-worked-steps > li::before {
+  content: counter(worked);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--phase-accent, var(--guide-line));
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 19px;
+  text-align: center;
+  color: var(--guide-ink);
+}
+
+/* Check yourself: three option cards, feedback under the chosen card. */
+.lesson-check { margin-top: 8px; }
+.lesson-practice {
+  padding: 18px;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  background: #ffffff;
+}
+.lesson-practice h3 { margin: 4px 0 14px; color: var(--guide-ink); }
+.lesson-practice-option { display: grid; gap: 0; }
+.lesson-practice label {
+  align-items: flex-start;
+  padding: 12px 14px;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--guide-ink);
+  box-shadow: none;
+}
+.lesson-practice label:is(:hover, :focus-within) { background: var(--guide-tint); }
+.lesson-practice label:has(input:checked) {
+  border-color: var(--guide-ink);
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--guide-ink);
+}
+.lesson-practice label { position: relative; }
+.lesson-practice input[type="radio"] { position: absolute; left: 14px; top: 14px; opacity: 0; width: 1px; height: 1px; }
+.lesson-practice label:has(input:focus-visible) { outline: 2px solid var(--guide-focus); outline-offset: 2px; }
+.lesson-practice-letter {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--guide-line);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 21px;
+  text-align: center;
+}
+/* The chosen letter is white on ink (13.4:1); white on the six phase accents
+ * read 2.7 to 4.1:1. The chosen card is outlined in ink too: a selection has
+ * one neutral look on every guide, never the phase accent, which in
+ * Deployment is the green of a right answer. */
+.lesson-practice label:has(input:checked) .lesson-practice-letter {
+  border-color: var(--guide-ink);
+  background: var(--guide-ink);
+  color: #ffffff;
+}
+.lesson-practice-feedback {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1.5px solid var(--guide-rule);
+  border-top: 0;
+  border-left: 3px solid var(--guide-warn);
+  border-radius: 0 0 8px 8px;
+  background: #ffffff;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--guide-ink2);
+}
+.lesson-practice-feedback[data-fits="true"] { border-left-color: var(--guide-pass); }
+.lesson-practice-feedback[data-fits="true"] strong { color: var(--guide-pass); }
+.lesson-practice-feedback[data-fits="false"] strong { color: var(--guide-warn); }
+.lesson-practice-option:has(.lesson-practice-feedback) label { border-radius: 8px 8px 0 0; }
+.lesson-practice small { font-size: 11.5px; color: var(--guide-muted); }
+.lesson-transfer-practice {
+  margin: 14px 0 0;
+  padding: 18px;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  background: #ffffff;
+}
+.lesson-transfer-practice h4 { margin-top: 0; }
+.lesson-transfer-practice details { border-top: 1.5px solid var(--guide-rule); }
+.lesson-transfer-practice > small { color: var(--guide-muted); }
+.lesson-chapter-takeaway {
+  margin: 22px 0;
+  padding: 10px 0 10px 16px;
+  border-left: 3px solid var(--phase-accent, var(--guide-line));
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--guide-ink);
+}
+.lesson-study-recap { background: #ffffff; border: 1.5px solid var(--guide-rule); border-radius: 8px; }
+
+/* A guide term: dotted underline, a small card while hovered or focused. */
+.lesson-term { position: relative; display: inline; }
+.lesson-term-word {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: help;
+  text-decoration: underline dotted;
+  text-decoration-color: var(--guide-line);
+  text-underline-offset: 3px;
+  border-radius: 2px;
+}
+.lesson-term-word:focus-visible { outline: 2px solid var(--guide-focus); outline-offset: 2px; }
+.lesson-term-card {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 60;
+  display: grid;
+  gap: 2px;
+  width: 280px;
+  max-width: min(280px, calc(100vw - 32px));
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--guide-line);
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  color: var(--guide-ink2);
+  white-space: normal;
+}
+.lesson-term-card strong { color: var(--guide-ink); font-size: 13px; }
+
+/* The catalogue: glyphs, "You make", the phase map. */
+.learn-feature h3,
+.learn-phase-list h3 { display: inline-flex; align-items: center; gap: 8px; }
+.learn-makes { font-size: 12.5px; color: var(--guide-muted); }
+.learn-makes > span { font-weight: 650; color: var(--guide-ink); }
+.phase-map {
+  --fig-pass: var(--guide-pass);
+  --fig-muted: var(--guide-muted);
+  --fig-ink: var(--guide-ink);
+  --fig-accent: var(--guide-ink);
+  padding: 22px;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--guide-ink);
+}
+.phase-map .learn-section-heading { margin-bottom: 4px; }
+.phase-map-howto { margin: 0 0 16px; font-size: 13.5px; color: var(--guide-muted); }
+.phase-map-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.phase-map-item { position: relative; display: flex; align-items: stretch; min-width: 0; }
+.phase-map-node {
+  flex: 1;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 3px;
+  min-width: 0;
+  padding: 12px 6px;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--guide-ink);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+.phase-map-node:hover { background: var(--guide-tint); }
+.phase-map-node[aria-expanded="true"] { border-color: var(--guide-ink); box-shadow: inset 0 0 0 1px var(--guide-ink); background: var(--guide-tint); }
+.phase-map-glyph {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--guide-line);
+  border-radius: 50%;
+  color: var(--guide-ink);
+}
+.phase-map-item[data-state="passed"] .phase-map-glyph { border-color: var(--guide-pass); color: var(--guide-pass); }
+.phase-map-item[data-state="current"] .phase-map-glyph { border: 2.5px solid var(--guide-ink); }
+.phase-map-item:is([data-state="locked"], [data-state="not-held"], [data-state="not-offered"]) .phase-map-glyph { color: var(--guide-muted); border-color: var(--guide-rule); }
+.phase-map-item:is([data-state="not-held"], [data-state="not-offered"]) .phase-map-node { border-style: dashed; }
+.phase-map-number { font-size: 11px; color: var(--guide-muted); }
+.phase-map-node strong { font-size: 13.5px; overflow-wrap: anywhere; }
+.phase-map-mentor { font-size: 12px; color: var(--guide-muted); }
+.phase-map-state { font-size: 11.5px; white-space: normal; text-align: center; }
+.phase-map-state svg { width: 12px; height: 12px; }
+.phase-map-open { color: var(--guide-muted); }
+.phase-map-gate {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  gap: 1px;
+  width: 30px;
+  margin: 0 -2px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--guide-ink);
+  font: 650 10.5px/1 Inter, sans-serif;
+  cursor: pointer;
+}
+.phase-map-gate::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 1.5px solid var(--guide-line);
+}
+.phase-map-gate svg { width: 14px; height: 14px; fill: #ffffff; stroke: var(--guide-ink); stroke-width: 1.5; }
+.phase-map-gate[aria-expanded="true"] svg { fill: var(--guide-ink); }
+.phase-map :is(button, a, [tabindex="-1"]):focus-visible { outline: 2px solid var(--guide-focus); outline-offset: 2px; }
+.phase-map-panel {
+  position: relative;
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--guide-line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+.phase-map-panel h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 40px 10px 0; font-size: 18px; }
+.phase-map-panel dl { display: grid; gap: 0; margin: 0; }
+.phase-map-panel dl > div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--guide-rule); }
+.phase-map-panel dt { font-size: 12px; font-weight: 650; letter-spacing: .03em; text-transform: uppercase; color: var(--guide-muted); }
+.phase-map-panel dd { margin: 0; font-size: 14px; line-height: 1.6; color: var(--guide-ink2); }
+.phase-map-panel dd ul { margin: 0; padding-left: 18px; list-style: disc; }
+.phase-map-gate-row[data-focus="true"] { box-shadow: inset 3px 0 0 var(--guide-ink); padding-left: 10px; }
+.phase-map-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  background: #ffffff;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--guide-ink);
+  cursor: pointer;
+}
+/* "How LearnSDLC checks your work" sits in the same frame as the phase map
+ * above it: one kind of section on the Learn page. Its figure
+ * draws no second frame inside it. */
+.learn-how-checks {
+  display: grid;
+  gap: 10px;
+  padding: 22px;
+  border: 1.5px solid var(--guide-rule);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--guide-ink);
+}
+.learn-how-checks .learn-section-heading { margin-bottom: 4px; }
+.learn-how-checks .how-checks > p { color: var(--guide-muted); }
+.learn-how-checks .fig { margin: 8px 0 0; padding: 0; border: 0; }
+
+/* Tap targets at least 32 px tall at every width: the way
+ * back to the library, the two disclosures, the sources and the map's gates. */
+.lesson-page-top > a,
+.lesson-outcomes summary,
+.lesson-transfer-practice summary,
+.lesson-sources > a,
+.phase-map-gate { min-height: 32px; }
+.lesson-outcomes summary,
+.lesson-transfer-practice summary,
+.lesson-sources > a { padding-block: 7px; }
+@media (max-width: 900px) {
+  .phase-map-row { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 12px; }
+  .phase-map-item:nth-child(3) .phase-map-gate { visibility: hidden; }
+}
+@media (max-width: 520px) {
+  .lesson-article { padding: 18px 16px; }
+  .lesson-idea p { font-size: 14.5px; }
+  .phase-map,
+  .learn-how-checks { padding: 16px; }
+  .phase-map-row { grid-template-columns: 1fr; }
+  .phase-map-item { flex-direction: column; }
+  .phase-map-node { grid-template-columns: 40px auto 1fr; grid-template-areas: "glyph number name" "glyph mentor state"; justify-items: start; text-align: left; column-gap: 10px; }
+  .phase-map-glyph { grid-area: glyph; }
+  .phase-map-number { grid-area: number; }
+  .phase-map-node strong { grid-area: name; }
+  .phase-map-mentor { grid-area: mentor; }
+  .phase-map-state { grid-area: state; text-align: left; }
+  .phase-map-gate { width: auto; min-width: 44px; height: 32px; margin: -2px auto; grid-auto-flow: column; gap: 4px; }
+  .phase-map-gate::before { top: 0; bottom: 0; left: 50%; right: auto; border-top: 0; border-left: 1.5px solid var(--guide-line); }
+  .phase-map-item:nth-child(3) .phase-map-gate { visibility: visible; }
+  .phase-map-panel dl > div { grid-template-columns: 1fr; gap: 4px; }
+}
+/* The videos row: every chapter shows the guide's videos,
+ * each says the chapter it goes with, and the open chapter's video wears the
+ * neutral selected look (an ink outline) and the words "This chapter". */
+.lesson-video-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.lesson-video-chapter { font-size: 11.5px; font-weight: 600; color: var(--guide-ink2); }
+.lesson-video-here { padding: 1px 8px; border: 1.5px solid var(--guide-ink); border-radius: 8px; background: var(--guide-tint); font-size: 11px; font-weight: 650; color: var(--guide-ink); }
+.lesson-videos a[data-this-chapter] .lesson-video-poster { outline: 2px solid var(--guide-ink); outline-offset: 2px; }
+
+/* In the graphite theme the chapter stays a white page, as figures do. */
+[data-theme="graphite"] .lesson-article { background: #ffffff; border-color: var(--guide-rule); color: var(--guide-ink); }
+[data-theme="graphite"] .lesson-article :is(.lesson-study-objective, .lesson-study-preparation, .lesson-study-why, .lesson-transfer-practice, .lesson-study-recap, .lesson-practice, .lesson-practice label) { background: #ffffff; fill: #ffffff; border-color: var(--guide-rule); }
+/* Figures keep their own colours (a verdict's green or red word) on either shell. */
+[data-theme="graphite"] .lesson-article :is(h2, h3, h4, p, li, summary, small, .lesson-study-walkthrough h4, .lesson-study-recap h4, .lesson-transfer-practice summary):not(.fig *) { color: var(--guide-ink); fill: var(--guide-ink); }
+[data-theme="graphite"] .lesson-article .lesson-study-table :is(caption, thead th) { background: var(--guide-tint); color: var(--guide-ink); }
+[data-theme="graphite"] :is(.lesson-path, .phase-map, .learn-how-checks) { background: #ffffff; color: var(--guide-ink); }
+
+/* Graphite (dark) theme: every text colour the learn pages set, against the
+ * ground it sits on there. The catalogue's cards sit on
+ * dark grounds; the phase map, how-checks section, the chapter, the
+ * worked example and every figure stay white and keep the light inks. */
+[data-theme="graphite"] .learn-library-hero p { color: var(--exp-muted); }
+[data-theme="graphite"] .learn-makes { color: var(--exp-muted); }
+[data-theme="graphite"] .learn-makes > span { color: var(--exp-ink); }
+[data-theme="graphite"] .learn-how-checks .how-checks > p { color: var(--guide-muted); }
+[data-theme="graphite"] :is(.phase-map, .learn-how-checks) .learn-section-heading > span { color: var(--guide-muted); }
+[data-theme="graphite"] .lesson-outcomes ul { color: #bdd2df; }
+[data-theme="graphite"] .lesson-article .learn-eyebrow { color: var(--guide-muted); }
+[data-theme="graphite"] .lesson-article .lesson-worked-example { background: #ffffff; border-color: var(--guide-line); }
+[data-theme="graphite"] .lesson-article .lesson-practice label:is(:hover, :focus-within) { background: var(--guide-tint); color: var(--guide-ink); }
+[data-theme="graphite"] .lesson-article .lesson-sources > a { color: var(--guide-focus); }
+[data-theme="graphite"] :is(.lesson-article, .fig, .phase-map) .experience-scroll-controls > span { color: #4f6470; }
+[data-theme="graphite"] :is(.lesson-article, .fig, .phase-map) .experience-scroll-controls button { background: #ffffff; border-color: #c9d3db; color: #17323f; }

@@ -1,0 +1,14 @@
+output "instance_id" { value = aws_instance.core.id }
+output "aws_region" { value = var.aws_region }
+output "public_ip" { value = aws_eip.core.public_ip }
+output "data_volume_id" { value = aws_ebs_volume.data.id }
+output "data_device_name" { value = aws_volume_attachment.data.device_name }
+output "data_mount_path" { value = local.data_mount_path }
+output "bucket_name" { value = aws_s3_bucket.artifacts.bucket }
+output "backup_s3_uri" { value = local.backup_s3_uri }
+output "release_s3_uri" { value = local.release_s3_uri }
+output "cloudwatch_log_group_name" { value = aws_cloudwatch_log_group.core.name }
+output "cloudwatch_log_group_arn" { value = aws_cloudwatch_log_group.core.arn }
+output "app_secret_arn" { value = var.app_secret_arn }
+output "selected_ami_id" { value = local.selected_ami }
+output "application_status" { value = "managed-by-reviewed-host-bootstrap; inspect live application readiness separately" }

@@ -1,0 +1,119 @@
+<section class="diagram-studio" aria-label="Diagram studio">
+<div class="flex items-center justify-between gap-3">
+<h2 class="h3">Diagram studio</h2>
+<div class="mentor-mode-switch">
+<button type="button" aria-pressed="true">Sequence</button>
+<button type="button" aria-pressed="false">Class / UML</button>
+</div>
+</div>
+<p>Write a request path, one message per line. Use <code>Sender -&gt; Receiver: message</code> for a call and <code>Receiver --&gt; Sender: result</code> for a reply. Your source is saved in your design.</p>
+<label for="sequence-source">Sequence source</label>
+<textarea id="sequence-source" data-testid="design-sequence-source" spellcheck="false" placeholder="Browser -> Route: request
+Route -> Repository: query
+Repository --> Route: result
+Route --> Browser: response">Browser -&gt; OverduePage: open dedicated report
+OverduePage -&gt; ApiRoute: getOverdue(today) as GET /api/tasks/overdue
+ApiRoute -&gt; Repository: validated today
+Repository -&gt; SQLite: open tasks with due_date before today
+SQLite --&gt; Repository: rows in due-date priority id order
+Repository --&gt; ApiRoute: Task DTO array
+ApiRoute --&gt; OverduePage: 200 JSON
+OverduePage --&gt; Browser: title days late source list or explicit empty message</textarea>
+<div class="diagram-canvas" data-testid="design-sequence-canvas">
+<svg viewBox="0 0 560 620" role="img" aria-label="Sequence diagram of your authored messages" style="min-width: 448px; max-width: 672px;">
+<defs>
+<marker id="ARROW" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor">
+</path>
+</marker>
+<marker id="ARROW-reply" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="currentColor" stroke-width="1.5">
+</path>
+</marker>
+</defs>
+<g>
+<rect x="6" y="8" width="100" height="34" rx="7" fill="rgb(var(--c-surface))" stroke="rgb(var(--c-edge))">
+</rect>
+<text x="56" y="29" text-anchor="middle" font-size="12" fill="currentColor">Browser</text>
+<line x1="56" x2="56" y1="43" y2="608" stroke="rgb(var(--c-edge))" stroke-dasharray="5 5">
+</line>
+</g>
+<g>
+<rect x="118" y="8" width="100" height="34" rx="7" fill="rgb(var(--c-surface))" stroke="rgb(var(--c-edge))">
+</rect>
+<text x="168" y="29" text-anchor="middle" font-size="12" fill="currentColor">OverduePage</text>
+<line x1="168" x2="168" y1="43" y2="608" stroke="rgb(var(--c-edge))" stroke-dasharray="5 5">
+</line>
+</g>
+<g>
+<rect x="230" y="8" width="100" height="34" rx="7" fill="rgb(var(--c-surface))" stroke="rgb(var(--c-edge))">
+</rect>
+<text x="280" y="29" text-anchor="middle" font-size="12" fill="currentColor">ApiRoute</text>
+<line x1="280" x2="280" y1="43" y2="608" stroke="rgb(var(--c-edge))" stroke-dasharray="5 5">
+</line>
+</g>
+<g>
+<rect x="342" y="8" width="100" height="34" rx="7" fill="rgb(var(--c-surface))" stroke="rgb(var(--c-edge))">
+</rect>
+<text x="392" y="29" text-anchor="middle" font-size="12" fill="currentColor">Repository</text>
+<line x1="392" x2="392" y1="43" y2="608" stroke="rgb(var(--c-edge))" stroke-dasharray="5 5">
+</line>
+</g>
+<g>
+<rect x="454" y="8" width="100" height="34" rx="7" fill="rgb(var(--c-surface))" stroke="rgb(var(--c-edge))">
+</rect>
+<text x="504" y="29" text-anchor="middle" font-size="12" fill="currentColor">SQLite</text>
+<line x1="504" x2="504" y1="43" y2="608" stroke="rgb(var(--c-edge))" stroke-dasharray="5 5">
+</line>
+</g>
+<g>
+<line x1="56" x2="168" y1="85" y2="85" stroke="rgb(var(--c-accent))" stroke-width="1.5" marker-end="url(#ARROW)">
+</line>
+<text x="112" y="75" text-anchor="middle" font-size="11" fill="currentColor" stroke="rgb(var(--c-ground))" stroke-width="5" stroke-linejoin="round" paint-order="stroke">open dedicated report<title>open dedicated report</title>
+</text>
+</g>
+<g>
+<line x1="168" x2="280" y1="150" y2="150" stroke="rgb(var(--c-accent))" stroke-width="1.5" marker-end="url(#ARROW)">
+</line>
+<text x="224" y="140" text-anchor="middle" font-size="11" fill="currentColor" stroke="rgb(var(--c-ground))" stroke-width="5" stroke-linejoin="round" paint-order="stroke">getOverdue(today) as GET /api/tasks/overdue<title>getOverdue(today) as GET /api/tasks/overdue</title>
+</text>
+</g>
+<g>
+<line x1="280" x2="392" y1="215" y2="215" stroke="rgb(var(--c-accent))" stroke-width="1.5" marker-end="url(#ARROW)">
+</line>
+<text x="336" y="205" text-anchor="middle" font-size="11" fill="currentColor" stroke="rgb(var(--c-ground))" stroke-width="5" stroke-linejoin="round" paint-order="stroke">validated today<title>validated today</title>
+</text>
+</g>
+<g>
+<line x1="392" x2="504" y1="280" y2="280" stroke="rgb(var(--c-accent))" stroke-width="1.5" marker-end="url(#ARROW)">
+</line>
+<text x="447.21" y="270" text-anchor="middle" font-size="11" fill="currentColor" stroke="rgb(var(--c-ground))" stroke-width="5" stroke-linejoin="round" paint-order="stroke">open tasks with due_date before today<title>open tasks with due_date before today</title>
+</text>
+</g>
+<g data-reply="true">
+<line x1="504" x2="392" y1="345" y2="345" stroke="rgb(var(--c-accent))" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ARROW-reply)">
+</line>
+<text x="448" y="335" text-anchor="middle" font-size="11" fill="currentColor" stroke="rgb(var(--c-ground))" stroke-width="5" stroke-linejoin="round" paint-order="stroke">rows in due-date priority id order<title>rows in due-date priority id order</title>
+</text>
+</g>
+<g data-reply="true">
+<line x1="392" x2="280" y1="410" y2="410" stroke="rgb(var(--c-accent))" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ARROW-reply)">
+</line>
+<text x="336" y="400" text-anchor="middle" font-size="11" fill="currentColor" stroke="rgb(var(--c-ground))" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Task DTO array<title>Task DTO array</title>
+</text>
+</g>
+<g data-reply="true">
+<line x1="280" x2="168" y1="475" y2="475" stroke="rgb(var(--c-accent))" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ARROW-reply)">
+</line>
+<text x="224" y="465" text-anchor="middle" font-size="11" fill="currentColor" stroke="rgb(var(--c-ground))" stroke-width="5" stroke-linejoin="round" paint-order="stroke">200 JSON<title>200 JSON</title>
+</text>
+</g>
+<g data-reply="true">
+<line x1="168" x2="56" y1="540" y2="540" stroke="rgb(var(--c-accent))" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ARROW-reply)">
+</line>
+<text x="151.62" y="530" text-anchor="middle" font-size="11" fill="currentColor" stroke="rgb(var(--c-ground))" stroke-width="5" stroke-linejoin="round" paint-order="stroke">title days late source list or explicit empty message<title>title days late source list or explicit empty message</title>
+</text>
+</g>
+</svg>
+</div>
+</section>

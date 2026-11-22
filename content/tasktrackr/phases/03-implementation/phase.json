@@ -1,0 +1,217 @@
+{
+  "title": "Implementation",
+  "intro": "The application is built and running except for five marked gaps — three in the Python API, two in the TypeScript front end. Your design named the contracts; make them true, then run the app and watch it work.",
+  "artifactKind": "code",
+  "canRun": true,
+  "canPreview": true,
+  "runLabel": "Run visible tests",
+  "taskPanel": "TaskTrackr is built and it runs. The lists, the comments, the schema, the error envelope, the router, the pages and every route and component around yours are written and locked. What is missing is the code behind the five sentences your design phase wrote — three in the Python API and two in the TypeScript front end — and each one is marked TODO(learner).\n\n1. list_tasks in api/repository/tasks.py (US-3) — the tasks in one list, narrowed by status, q and tag, highest priority first with ties by ascending id. A status the contract does not know is a ValueError, which the route already turns into a 400.\n\n2. overdue_tasks in api/repository/tasks.py (US-4) — open tasks whose due date is strictly before the day passed in. No due date is never overdue; already done is never overdue. Most overdue first, then higher priority, then id.\n\n3. complete_task in api/routes/tasks.py (US-2) — mark a task done and answer with it. An id nobody has is a 404 carrying the code task_not_found.\n\n4. isOverdue in web/src/lib/overdue.ts (US-4, US-5) — the same boundary rule, in TypeScript, over data the browser already has. web/src/components/TaskRow.tsx is locked and calls it: write the rule once and a badge appears in a component you did not write.\n\n5. useTasks in web/src/hooks/useTasks.ts (US-3) — ask the API for one list's tasks, send only the filters that are set, and hand the screen { tasks, loading, error, reload }. A request that failed is an error, not an empty list.\n\nPRIORITY_ORDER, TASK_SELECT, get_task and fail are already written above and beside the Python stubs; daysLate, byMostOverdue and queryFor are written above the TypeScript ones. Use them. The phase is about the five rules, not about SQLite row factories or query strings.\n\nWorkflow\n\nPress Run visible tests any time. Two suites run one after the other and the report groups them: tests/test_tasks_api.py, four cases through Flask's own test client, and web/src/lib/overdue.test.ts, two cases on the boundary. All six fail right now, because the stubs raise NotImplementedError and throw Error. Press Run app to start your own API and your own front end and use them in the Preview tab. The database is seeded, so there is something to look at. Before you start, the lists page works and a list's tasks do not — that is the gap you are about to fill. The fixtures the API suite uses — client, make_list, make_task — are in tests/conftest.py, which is locked but open to read. They drive the API through Flask's test client, so a test reads exactly like the request it stands for. Submit PR-3 runs both visible suites, two hidden suites of fourteen and eight cases over the same five contracts, and static analysis (leftover TODOs, banned constructs, complexity). Run before you submit. The rubric's process criterion notices.\n\nWhat good looks like\n\n- Each gap is a few lines that lean on what the module already offers. list_tasks collects the conditions it was actually given; overdue_tasks is one SELECT with three conditions; complete_task is the same three lines as the four routes around it; isOverdue is three comparisons; useTasks is state, an effect and an answer for the failure.\n- Every sentence of the docstring is true, not only the six assertions you can see. The hidden suites ask about an unknown id, a keyword in the middle of a title, two filters at once, a task due today, a task that was late but is finished, a badge on a row, a filter that should not have been sent, and a request that failed.\n- The two overdue rules agree. You are writing the same boundary twice, once in SQL and once in TypeScript, and the day they disagree is the day a task is late in the report and on time on the row. The testing phase will ask you to prove it in both languages.\n- The contract in shared/contract/api.json is the same one you completed in design. When your code and that file disagree, one of them is wrong and it is worth knowing which.\n\nUsing the AI mentor well\n\nAsk it to read a traceback with you, to point you at the SQL, the Flask construct or the React hook the codebase already uses, or to talk through a boundary case. It will not write a function body, and pasting a finished answer from anywhere defeats the phase — the hidden suites are only interesting if the code is yours.\n\nWhen you are ready, press Submit PR-3. Every required criterion and its evidence must pass review before the next phase opens.\n\nYour accepted screen copy\n\nThe read-only overdue page uses the title and empty-state sentence from the retained Design submission that passed when Implementation opened. Its source submission is recorded in shared/contract/accepted-screen-copy.json; the read-only screen contract shows the same text. Later draft edits do not change this accepted handoff. Older work without a retained accepted source uses an explicitly labelled reference copy.\n",
+  "objectives": [
+    "Implement list_tasks with the status, keyword and tag filters and the priority order (US-3)",
+    "Implement overdue_tasks with the exact boundary rule from your design (US-4)",
+    "Wire the complete route to the repository and to the error envelope (US-2)",
+    "Write the same boundary rule again as isOverdue, in TypeScript, so the badge on a row agrees with the report (US-4, US-5)",
+    "Implement the useTasks hook so the filters reach the API and a failed request reaches the screen (US-3)"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "correctness_hidden",
+        "title": "Correctness (hidden tests)",
+        "weight": 0.45,
+        "description": "Two hidden suites, one per layer, exercise the contract including edge cases you were not shown. The score is pooled over all twenty-two cases."
+      },
+      {
+        "key": "visible_tests",
+        "title": "Visible tests",
+        "weight": 0.15,
+        "description": "The visible suites pass — six cases across the two layers, and you can and should run them before submitting."
+      },
+      {
+        "key": "code_quality",
+        "title": "Code quality",
+        "weight": 0.25,
+        "description": "No TODOs left behind, no banned constructs, reasonable complexity, docstrings kept."
+      },
+      {
+        "key": "process",
+        "title": "Process",
+        "weight": 0.15,
+        "description": "You ran the tests before submitting and used AI assistance in moderation."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "code",
+    "editableTargets": [
+      "api/repository/tasks.py",
+      "api/routes/tasks.py",
+      "web/src/lib/overdue.ts",
+      "web/src/hooks/useTasks.ts"
+    ],
+    "runs": [
+      {
+        "id": "api",
+        "language": "python",
+        "harness": "pytest",
+        "hiddenHarness": "unittest",
+        "label": "API tests",
+        "visibleTests": [
+          "tests/test_tasks_api.py"
+        ],
+        "supportFiles": [
+          "tests/conftest.py"
+        ]
+      },
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "hiddenHarness": "js",
+        "label": "Front end",
+        "transform": true,
+        "visibleTests": [
+          "web/src/lib/overdue.test.ts"
+        ],
+        "supportFiles": []
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the IMPLEMENTATION phase of TaskTrackr, a Python Flask API over SQLite with a TypeScript React front end. The learner completes marked TODO(learner) gaps in both layers: list_tasks and overdue_tasks in api/repository/tasks.py, the complete route in api/routes/tasks.py, isOverdue in web/src/lib/overdue.ts and the useTasks hook in web/src/hooks/useTasks.ts. Explain concepts, point at the SQL, the Flask constructs and the React hooks the codebase already uses, and help them read a traceback — but NEVER write a function body or paste a completed implementation. Keep replies under 120 words, end with one guiding question, and stay on implementation topics. Trusted TaskTrackr flow: OverduePage at web/src/pages/OverduePage.tsx fetches the report directly through getJson with the tasks/overdue path and today query parameter. The shared api/client.ts constructs the URL; web/serve.js proxies /api to the Python API. GET /api/tasks/overdue in api/routes/tasks.py validates today and calls overdue_tasks. The list-fetching useTasks hook serves US-3 at lists/{id}/tasks; it is not the overdue report fetch. The same hooks module separately exports completeTask and reopenTask helpers used for row actions. A completion POST changes task status; it is not the GET that reads the overdue report. Explain these distinct flows without supplying missing function bodies.",
+    "topics": [
+      {
+        "keywords": [
+          "list_tasks",
+          "filter",
+          "status",
+          "keyword",
+          "q",
+          "tag",
+          "where"
+        ],
+        "hints": [
+          "list_tasks is three decisions, not one: refuse a status the contract does not know, narrow, then order. Look at how the other filters would each add one clause and one parameter to two lists you build up — what does the WHERE clause look like when no filter was given at all?",
+          "The contract says an unknown status is a ValueError, and the route turns that into a 400. Which line has to come before any SQL is built for that to be true?",
+          "Both filters are optional, so the statement is assembled rather than written out. If you collect the conditions in one list and the values in another, what do you join the conditions with, and what has to be true about the two lists at the end?"
+        ]
+      },
+      {
+        "keywords": [
+          "order",
+          "priority",
+          "sort",
+          "ties",
+          "priority_order"
+        ],
+        "hints": [
+          "PRIORITY_ORDER is already written above the stub: a CASE expression that turns 'high' into 0, 'medium' into 1 and everything else into 2. SQL sorts ascending, so what does ORDER BY that expression give you, and what second column breaks the ties the contract asks about?",
+          "The contract says a list never reorders itself between two identical requests. Which column, added after the priority expression, makes that true?"
+        ]
+      },
+      {
+        "keywords": [
+          "overdue",
+          "overdue_tasks",
+          "boundary",
+          "today",
+          "due_date",
+          "date"
+        ],
+        "hints": [
+          "Your design already answers all three parts: which tasks are candidates, what disqualifies one, and where the boundary sits. Write the three as three conditions in one WHERE clause — which comparison operator encodes 'due today is not overdue yet'?",
+          "due_date is TEXT holding ISO dates, and ISO dates compare correctly as text: '2026-03-01' < '2026-03-02' is true in SQLite as it is in Python. Given that, what does the comparison against today look like, and what does IS NOT NULL protect you from?",
+          "The order is most overdue first, then higher priority, then id. That is three columns in one ORDER BY — which of them is the due date, and does it go up or down?"
+        ]
+      },
+      {
+        "keywords": [
+          "complete",
+          "complete_task",
+          "route",
+          "404",
+          "task_not_found",
+          "envelope"
+        ],
+        "hints": [
+          "The route is thin on purpose. api/repository/tasks.py already has complete_task, and it already raises KeyError for an id nobody has. Read get_task just above it — what does the route have to do with that KeyError to turn it into the contract's 404?",
+          "Every error in this API has one shape, built in one place. Open api/errors.py and read fail(). Which three arguments does the contract's task_not_found case want, and what does the route return on the happy path so the body is JSON and the status is 200?",
+          "Compare your route with the ones beside it — get_task, patch_task, reopen_task all follow the same three lines. What is the same in all of them, and why is it the same?"
+        ]
+      },
+      {
+        "keywords": [
+          "isoverdue",
+          "typescript",
+          "badge",
+          "overdue.ts",
+          "front end",
+          "client"
+        ],
+        "hints": [
+          "isOverdue answers the same question your SQL answers, on data the browser already has. Read the three sentences of its docstring: each one is a condition, and one of them is the boundary you argued about in design. Which of the three does a task with no due date fail?",
+          "TypeScript dates here are ISO strings, not Date objects, and ISO strings compare correctly with < and >. So the last line is a comparison, not a parse — which way round does it go for 'due today is not overdue yet'?",
+          "You did not write TaskRow.tsx, and you cannot edit it. It calls isOverdue and renders the badge when the answer is true. If the badge appears on the wrong rows, which file is wrong — and how would you find out without opening either?"
+        ]
+      },
+      {
+        "keywords": [
+          "usetasks",
+          "hook",
+          "react",
+          "useeffect",
+          "loading",
+          "error",
+          "fetch"
+        ],
+        "hints": [
+          "The hook owns three pieces of state and hands back four things. Read the UseTasks interface above the stub: tasks, loading, error and reload. Which of those does the effect set on the way in, and which two does the answer decide?",
+          "queryFor is written for you, just above: it drops a status of 'all' and an empty box. So the request is getJson('lists/<id>/tasks', queryFor(filters)) — what has to be in the effect's dependency array for a new filter to actually ask again?",
+          "getJson rejects with an ApiError when the API says no. If you only handle the resolved case, what does the screen render after a 500 — and is that the truth? The hidden suite asks exactly this question.",
+          "listId is null before a list has been chosen. What should the hook do then, and what would happen if it asked the API for 'lists/null/tasks' instead?"
+        ]
+      },
+      {
+        "keywords": [
+          "error",
+          "fail",
+          "traceback",
+          "notimplementederror",
+          "assert",
+          "500"
+        ],
+        "hints": [
+          "Read a traceback bottom-up: the last line names the exception and the frames above it say where. NotImplementedError means a TODO(learner) body is still in place — which of the five, and which sentence of the contract does the failing test encode?",
+          "On the front end the same thing reads as 'isOverdue is not implemented yet' thrown from the file you are meant to be writing. A thrown Error is the TypeScript half of NotImplementedError, and it is deliberate: a run before you start says a sentence rather than crashing."
+        ]
+      },
+      {
+        "keywords": [
+          "run",
+          "test",
+          "visible",
+          "hidden",
+          "pytest",
+          "conftest",
+          "client",
+          "preview",
+          "app"
+        ],
+        "hints": [
+          "Run visible tests early and often. There are two suites and they run one after the other: tests/test_tasks_api.py, four cases through Flask's own test client, and web/src/lib/overdue.test.ts, two cases on the boundary rule.",
+          "The fixtures the API suite uses — client, make_list, make_task — are in tests/conftest.py, which is locked but open to read. They drive the API through Flask's test client, so a test reads exactly like the request it stands for.",
+          "The visible suites have six cases between them and the hidden suites have twenty-two over the same five contracts. Make every sentence of each docstring true rather than just the six assertions you can see.",
+          "Run app starts your API and your front end and shows them in the Preview tab. It is the fastest way to find out whether the rule you just wrote is the rule you meant: seed data is loaded, so the overdue report has something to show."
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with the complete route: it is three lines once you have read what api/repository/tasks.py already does about an unknown id, and the routes either side of it are the pattern. Run the visible tests to confirm before moving on.",
+      "Then list_tasks. Validate the status first, build the WHERE clause from the filters that were actually given, and let SQL do the ordering with the PRIORITY_ORDER expression above the stub. Two of the four API cases turn green here.",
+      "Then overdue_tasks. Your design named the three conditions: still open, has a due date, due before today. Which comparison keeps 'due today' out? Then order by the due date first.",
+      "Now cross the boundary. isOverdue in web/src/lib/overdue.ts is the same rule in three lines of TypeScript, and TaskRow.tsx — which you cannot edit — puts a badge on the row when it says true. Press Run app and look at a list.",
+      "Finally useTasks. Ask the API through getJson, pass queryFor(filters), and decide what the screen shows when the request fails. Run both visible suites once more before you submit — the hidden suites add the edge cases, and one of them is that failed request."
+    ]
+  }
+}

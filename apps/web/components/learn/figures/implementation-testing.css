@@ -1,0 +1,155 @@
+/* The Implementation and Testing figures' own layout, on the
+ * tokens figures.css sets on `.fig`. White ground, flat 1.5 px strokes, colour
+ * only as meaning, every state also a word. */
+.fig-c-row { display: grid; gap: 12px; }
+.fig-c-label { display: block; margin-bottom: 6px; font-size: 12.5px; font-weight: 600; color: var(--fig-muted); }
+.fig-c-panel { margin: 12px 0 0; padding: 12px 14px; border: 1.5px solid var(--fig-rule); border-radius: 8px; background: var(--fig-ground); }
+.fig-c-panel dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; margin: 0; font-size: 13.5px; }
+.fig-c-panel dt { font-weight: 600; color: var(--fig-muted); }
+.fig-c-panel dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 520px) {
+  .fig-c-panel dl { grid-template-columns: 1fr; gap: 2px; }
+  .fig-c-panel dd + dt { margin-top: 6px; }
+}
+.fig-c-code { margin: 0; padding: 10px 12px; border: 1.5px solid var(--fig-rule); border-radius: 8px; background: var(--fig-ground); font: 12.5px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.fig-c-code mark { background: transparent; color: var(--fig-ink); border-bottom: 2px solid var(--fig-accent); }
+.fig-c-code mark[data-kind="injected"] { color: var(--fig-fail); border-bottom-color: var(--fig-fail); }
+.fig-c-code ins, .fig-c-code del { text-decoration: none; }
+.fig-c-returns { margin: 12px 0 0; font-size: 13.5px; }
+.fig-c-svg-box { fill: var(--fig-ground); stroke: var(--fig-line); }
+.fig-c-svg-box[data-on="true"] { fill: var(--fig-tint); stroke: var(--fig-accent); stroke-width: 2.5; }
+.fig-c-svg-box[data-tone="fail"] { stroke: var(--fig-fail); }
+.fig-c-svg-arrow { stroke: var(--fig-line); fill: none; }
+.fig-c-svg-arrow[data-on="true"] { stroke: var(--fig-accent); stroke-width: 2.5; }
+.fig-c-svg-strong { font-weight: 650; }
+.fig-c-pyramid-layer { fill: var(--fig-ground); stroke: var(--fig-line); }
+.fig-c-pyramid-layer[data-on="true"] { stroke: var(--fig-accent); stroke-width: 2.5; fill: var(--fig-selected); fill-opacity: 0.1; }
+.fig-c-table tr[data-on="true"] > * { background: var(--fig-tint); }
+.fig-c-table tr[data-on="true"] > :first-child { box-shadow: inset 3px 0 0 var(--fig-accent); }
+.fig-c-disagree { display: inline-block; margin-left: 6px; padding: 1px 8px; border: 1.5px solid var(--fig-warn); border-radius: 999px; color: var(--fig-warn); font-size: 11.5px; font-weight: 650; white-space: nowrap; }
+.fig-c-slider { display: grid; gap: 6px; margin-bottom: 12px; }
+.fig-c-slider input { width: 100%; max-width: 420px; accent-color: var(--fig-accent); }
+.fig-c-ticks { display: flex; justify-content: space-between; max-width: 420px; font-size: 11.5px; color: var(--fig-muted); }
+.fig-c-lanes { display: grid; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; font-size: 13px; }
+.fig-c-lanes li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+@media (min-width: 720px) {
+  .fig-c-row[data-cols="2"] { grid-template-columns: 1fr 1fr; align-items: start; }
+}
+
+/* Rules below the selected-state lines above. */
+
+/* Long names (test names, file paths) break inside a figure's own lines
+ * instead of widening the page at a phone's width. Table cells keep their
+ * names whole and scroll in their box. */
+.fig-c .fig-live,
+.fig-c :is(p, dd, li) code { overflow-wrap: anywhere; }
+
+/* SVG words: the page's font and size come from figures.css; a note is the
+ * same size in the muted ink. Arrowheads are drawn by the line's own stroke. */
+.fig-svg .fig-c-svg-note { fill: var(--fig-muted); }
+.fig-svg .fig-c-svg-arrow { stroke-linecap: round; stroke-linejoin: round; }
+
+/* Implementation 1: the file map. Two lanes; each file a box of its rows in
+ * file order; a gap is a dashed hole (a real button); an arrow points from
+ * the finished thing to read first to its gap. Selected things use the ink. */
+.fig-c-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 12px; padding: 0; list-style: none; font-size: 12.5px; color: var(--fig-muted); }
+.fig-c-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.fig-c-key { display: inline-flex; align-items: center; width: 28px; height: 16px; border-radius: 4px; }
+.fig-c-key[data-kind="given"] { border: 1px solid var(--fig-rule); background: var(--fig-tint); }
+.fig-c-key[data-kind="gap"] { border: 1.5px dashed var(--fig-line); background: var(--fig-ground); }
+.fig-c-key[data-kind="read"] { color: var(--fig-ink); }
+.fig-c-lanes-map { display: grid; gap: 12px; }
+.fig-c-lane { display: grid; gap: 10px; min-width: 0; padding: 12px; border: 1.5px solid var(--fig-rule); border-radius: 8px; }
+.fig-c-lane-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+.fig-c-lane-head strong { font-size: 14px; font-weight: 650; }
+.fig-c-lane-head span { font-size: 12.5px; color: var(--fig-muted); }
+.fig-c-lane-files { display: grid; gap: 10px; align-items: start; min-width: 0; }
+.fig-c-file { display: grid; gap: 6px; min-width: 0; padding: 10px 12px; border: 1.5px solid var(--fig-line); border-radius: 8px; background: var(--fig-ground); }
+.fig-c-file[data-locked="true"] { border-color: var(--fig-rule); background: var(--fig-tint); }
+.fig-c-file-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 8px; margin: 0; }
+.fig-c-file-head code { font-size: 12.5px; font-weight: 650; }
+.fig-c-file-tag { font-size: 11.5px; color: var(--fig-muted); }
+.fig-c-file-rows { display: grid; margin: 0; padding: 0; list-style: none; }
+.fig-c-given { display: grid; gap: 1px; margin: 3px 0; padding: 6px 10px; border: 1px solid var(--fig-rule); border-radius: 6px; background: var(--fig-tint); font-size: 13px; }
+.fig-c-given code { font-size: 12.5px; }
+.fig-c-given-note { font-size: 12px; color: var(--fig-muted); }
+.fig-c-given[data-on="true"] { border-color: var(--fig-ink); box-shadow: inset 0 0 0 1px var(--fig-ink); background: var(--fig-ground); }
+.fig-c-given[data-on="true"] .fig-c-given-note { color: var(--fig-ink); font-weight: 600; }
+.fig-c .fig-c-hole { display: grid; justify-items: start; gap: 2px; width: 100%; min-height: 52px; margin: 3px 0; padding: 8px 10px; border-style: dashed; }
+.fig-c-hole-name { display: inline-flex; align-items: center; gap: 6px; }
+.fig-c-hole code { font-size: 13px; }
+.fig-c-hole-note { font-size: 12px; font-weight: 500; color: var(--fig-muted); }
+.fig-c-link, .fig-c-cross { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--fig-muted); }
+.fig-c-link { padding-left: 12px; }
+.fig-c-link-arrow { flex: none; width: 16px; height: 22px; fill: none; stroke: var(--fig-line); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.fig-c-key .fig-c-link-arrow, .fig-c-cross .fig-c-link-arrow { width: 28px; height: 16px; }
+.fig-c-key .fig-c-link-arrow { stroke: var(--fig-ink); }
+.fig-c-link[data-on="true"], .fig-c-cross[data-on="true"] { color: var(--fig-ink); font-weight: 650; }
+:is(.fig-c-link, .fig-c-cross)[data-on="true"] .fig-c-link-arrow { stroke: var(--fig-ink); stroke-width: 2.5; }
+/* Stacked (a phone, a tablet): useLists sits under useTasks, so its arrow points up. */
+.fig-c-cross { justify-content: flex-start; padding-left: 12px; }
+.fig-c-cross .fig-c-link-arrow { transform: rotate(90deg); width: 22px; }
+@media (min-width: 720px) {
+  .fig-c-lane-files[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1100px) {
+  .fig-c-lane-files[data-count="3"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto minmax(0, 1fr); }
+  .fig-c-cross { flex-direction: column; align-self: center; justify-content: center; padding: 0; }
+  .fig-c-cross .fig-c-link-arrow { transform: none; width: 28px; }
+}
+@media (min-width: 1280px) {
+  .fig-c-lane { grid-template-columns: 140px minmax(0, 1fr); align-items: start; }
+  .fig-c-lane-head { flex-direction: column; gap: 4px; }
+}
+
+/* Testing 1: the pyramid. The wide drawing has a note beside each level; at a
+ * phone's width the compact drawing (names alone) takes its place. FigureSvg
+ * caps each at 1.2 times its plan's width, inline, so its words stay at about
+ * the page's size; no rule here sets a width. */
+.fig-c-pyramid-layout { display: grid; gap: 14px; margin-top: 12px; }
+.fig-c-pyramid-art { min-width: 0; }
+.fig-svg.fig-c-pyramid-compact { display: none; }
+.fig-c-pyramid-layer[data-room="none"] { stroke-dasharray: 6 4; }
+.fig-c-pyramid-leader { stroke-dasharray: 2 4; }
+.fig-c-pyramid-leader[data-on="true"] { stroke-dasharray: none; }
+.fig-c-pyramid-layout .fig-c-panel { margin: 0; }
+.fig-c-panel-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0 0 8px; }
+.fig-c-panel-head strong { font-size: 15px; font-weight: 650; }
+.fig-c-panel-head span { font-size: 12.5px; font-weight: 600; color: var(--fig-muted); }
+@media (max-width: 599px) {
+  .fig-svg.fig-c-pyramid-wide { display: none; }
+  .fig-svg.fig-c-pyramid-compact { display: block; }
+}
+@media (min-width: 1200px) {
+  .fig-c-pyramid-layout { grid-template-columns: minmax(0, 760px) minmax(260px, 1fr); align-items: center; }
+}
+
+/* Testing 4: at a phone's width each planted bug is a small card, its name
+ * and verdict on one line and what it changes below, instead of a table
+ * whose only fitting column is the first. */
+@media (max-width: 520px) {
+  .fig-c-mutants, .fig-c-mutants tbody, .fig-c-mutants caption { display: block; }
+  .fig-c-mutants thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .fig-c-mutants tbody tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; margin: 0 0 8px; padding: 10px 12px; border: 1.5px solid var(--fig-rule); border-radius: 8px; }
+  .fig-c-mutants tbody :is(th, td) { display: block; padding: 0; border: 0; }
+  /* The names carry a break after each underscore (wordBreaks in
+   * CodeText.tsx), so a name breaks there; anywhere stays the last resort. */
+  .fig-c-mutants tbody th code { overflow-wrap: anywhere; }
+  .fig-c-mutants td[data-col="change"] { grid-column: 1 / -1; grid-row: 2; }
+  .fig-c-mutants td[data-col="verdict"] { grid-column: 2; grid-row: 1; }
+}
+
+/* The chosen pyramid band above is filled with the selected
+ * ink at a tenth (about #e8ebec on white), so the choice reads as a filled
+ * shape, not an outline on the 4 percent tint; ink and muted words on it
+ * keep 4.5:1. */
+
+/* Implementation 4: the ledger's tally above the table, one square per
+ * claim in the toggles' order: filled green where a visible test backs it,
+ * a dashed grey outline where none is observed; the chosen claim's square
+ * is ringed in ink. The words beside it carry the counts. */
+.fig-c-tally { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 12px 0 0; }
+.fig-c-tally svg { width: 116px; height: 18px; flex: none; overflow: visible; }
+.fig-c-tally-backed { fill: var(--fig-pass); stroke: var(--fig-pass); }
+.fig-c-tally-open { fill: var(--fig-ground); stroke: var(--fig-muted); stroke-dasharray: 3 2; }
+.fig-c-tally rect[data-on="true"] { stroke: var(--fig-selected); stroke-width: 2.5; stroke-dasharray: none; }

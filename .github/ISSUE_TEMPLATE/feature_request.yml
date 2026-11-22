@@ -1,0 +1,62 @@
+name: Feature request
+description: Suggest something LearnSDLC could do for learners, teachers or the people who run it.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for the idea. Describe the problem first: a clear problem is easier to agree on than a finished design.
+  - type: dropdown
+    id: who
+    attributes:
+      label: Who is it for
+      multiple: true
+      options:
+        - Learners
+        - Teachers
+        - Administrators
+        - People who install and run LearnSDLC
+        - People who work on the code
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where in the product
+      multiple: true
+      options:
+        - Requirements
+        - Design
+        - Implementation
+        - Testing
+        - Deployment
+        - Maintenance
+        - The AI mentor or the Agentic assistant
+        - The instructor console
+        - A teacher's own project
+        - Sign-in and accounts
+        - Installing and running
+        - Somewhere else
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What is hard or impossible today, and who meets it.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you propose
+      description: What LearnSDLC would do, as the person using it would see it.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Other ways you considered
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else
+      description: Examples, sketches, or links to how other tools do it.

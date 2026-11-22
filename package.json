@@ -1,0 +1,79 @@
+{
+  "name": "learnsdlc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LearnSDLC: experiential, AI-integrated software development training for adult learners",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "demo": "bash scripts/demo.sh",
+    "host": "bash scripts/host.sh",
+    "demo:check": "bash scripts/demo-selftest.sh",
+    "stack": "bash scripts/stack.sh",
+    "prove": "bash scripts/prove-local.sh",
+    "content:check": "npm run content:check -w @learnsdlc/api --",
+    "seed:class": "node scripts/seed-class.mjs",
+    "journey": "node scripts/journey.mjs",
+    "prebake": "node scripts/prebake.mjs build",
+    "prebake:verify": "node scripts/prebake.mjs verify",
+    "backup": "node scripts/sqlite-backup.mjs",
+    "backup:list": "node scripts/sqlite-backup.mjs --list",
+    "backup:drill": "node scripts/sqlite-backup.mjs --drill",
+    "restore": "node scripts/sqlite-backup.mjs --restore",
+    "build": "npm run build -w @learnsdlc/shared && npm run build -w @learnsdlc/api && npm run build -w @learnsdlc/web",
+    "dev": "npm run build -w @learnsdlc/shared && node scripts/run-with-env.mjs concurrently -n api,web -c blue,magenta \"npm run start:dev -w @learnsdlc/api\" \"npm run dev -w @learnsdlc/web\"",
+    "start": "node scripts/run-with-env.mjs concurrently -n api,web -c blue,magenta \"npm run start:prod -w @learnsdlc/api\" \"npm run start -w @learnsdlc/web\"",
+    "test": "npm run test -w @learnsdlc/api && npm run test:web && npm run test:runner",
+    "test:web": "npm run test -w @learnsdlc/web",
+    "test:runner": "${PYTHON_BIN:-python3} -m pytest apps/api/runner -q",
+    "test:scripts": "npm run build -w @learnsdlc/shared && node --test scripts/*.test.mjs scripts/seed-class/*.test.mjs",
+    "test:infra": "bash scripts/test-infra.sh",
+    "typecheck": "npm run build -w @learnsdlc/shared && npm run typecheck --workspaces --if-present && npm run typecheck:e2e",
+    "typecheck:e2e": "tsc -p e2e --noEmit",
+    "audit": "npm run audit:gate",
+    "audit:gate": "node scripts/audit-gate.mjs",
+    "e2e": "playwright test",
+    "stress": "node scripts/stress/sandbox.mjs && node scripts/stress/lambda.mjs && node scripts/stress/api.mjs",
+    "stress:api": "node scripts/stress/api.mjs",
+    "audit:gate:test": "node --test scripts/audit-gate.test.mjs"
+  },
+  "//overrides": {
+    "qs": "Lifts the qs that express, body-parser and superagent accept (^6.14 and up) to the patched release the audit gate requires.",
+    "shell-quote": "concurrently pins shell-quote exactly at 1.9.0, a release the audit flags; this lifts it to the patched 1.12 minor.",
+    "@nestjs/platform-express": "Lifts the multer that @nestjs/platform-express pins exactly (2.2.0) to the patched 2.5 release; \".\" keeps the package itself on the range apps/api asks for.",
+    "react": "Holds every copy in the tree on the React apps/web depends on.",
+    "react-dom": "Holds every copy in the tree on the React DOM apps/web depends on.",
+    "@types/react": "Holds every copy in the tree on the React types apps/web depends on.",
+    "@types/react-dom": "Holds every copy in the tree on the React DOM types apps/web depends on.",
+    "@nestjs/common": "Holds every copy in the tree on the Nest version apps/api depends on.",
+    "handlebars": "ts-jest accepts handlebars 4.7.9, which the audit flags as critical; this lifts it to the patched 4.7.10."
+  },
+  "overrides": {
+    "qs": "^6.16.0",
+    "shell-quote": "^1.11.0",
+    "@nestjs/platform-express": {
+      ".": "^12.0.1",
+      "multer": "^2.5.0"
+    },
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@nestjs/common": "^12.0.1",
+    "handlebars": "^4.7.10"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "axe-core": "4.11.0",
+    "better-sqlite3": "^12.11.1",
+    "concurrently": "^9.1.0",
+    "socket.io": "4.8.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": "^24.9.0 || >=26.0.0"
+  }
+}

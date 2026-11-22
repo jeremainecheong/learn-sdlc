@@ -1,0 +1,12 @@
+{
+  // Type-checks the specs beside the sources. The build (tsconfig.json) leaves
+  // them out because they are not part of what the package publishes; the API's
+  // Jest config runs them.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node", "jest"]
+  },
+  "include": ["src"],
+  "exclude": []
+}

@@ -1,0 +1,710 @@
+.phase-artwork{object-fit:contain;flex-shrink:0}.mentor-character{display:block;width:88px;height:88px;flex:none;background-image:url('/artwork/phase-mentors-3d.webp');background-size:300% 200%;background-repeat:no-repeat;transform-origin:50% 82%}.mentor-character[data-speaking=true]{animation:mentor-reply .55s ease-in-out infinite alternate}@keyframes mentor-reply{from{transform:rotate(-2deg) translateY(0)}to{transform:rotate(2deg) translateY(-3px)}}
+.phase-mentor-identity{display:flex;gap:10px;align-items:center;padding:12px 15px;border-bottom:1px solid rgb(var(--c-edge));background:linear-gradient(120deg,color-mix(in srgb,var(--phase-accent,#168dab) 9%,transparent),transparent)}.phase-mentor-identity h2{font-size:23px;font-weight:650;line-height:1.2;letter-spacing:-.04em}.phase-mentor-identity small{display:block;font-size:11px;color:rgb(var(--c-muted))}.phase-mentor-identity p{font-size:12px;line-height:1.5;margin-top:4px}.mentor-presence{display:flex;gap:5px;align-items:center;margin-top:6px;color:rgb(var(--c-muted));font-size:10px}.mentor-presence::before{content:'';width:6px;height:6px;border-radius:100%;background:#3aaa86}.mentor-mode-switch{display:flex;gap:4px;margin:10px 12px;padding:3px;background:rgb(var(--c-ground));border:1px solid rgb(var(--c-edge));border-radius:10px}.mentor-mode-switch button{flex:1;padding:7px;font-size:12px;border-radius:7px}.mentor-mode-switch button[aria-pressed=true]{background:rgb(var(--c-surface));box-shadow:0 1px 5px #00192315;color:rgb(var(--c-ink));font-weight:650}.mentor-session{display:flex;flex:1;min-height:0;flex-direction:column;overflow:hidden}.agentic-panel{padding:0 12px 14px;overflow:auto;display:flex;flex-direction:column;gap:12px;font-size:12px}.agentic-panel label{display:flex;flex-direction:column;gap:5px;font-weight:600}.agentic-panel textarea,.agentic-panel select{font:inherit;line-height:1.5;background:rgb(var(--c-ground));color:rgb(var(--c-ink));border:1px solid rgb(var(--c-edge));border-radius:8px;padding:9px;min-width:0;width:100%;resize:vertical}.agentic-panel textarea:focus{outline:2px solid rgb(var(--c-accent));outline-offset:2px}.agentic-panel pre{font:11px/1.5 monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;background:rgb(var(--c-ground));padding:10px;border:1px solid rgb(var(--c-edge));border-radius:8px}.implementation-brief{width:278px;flex-shrink:0;overflow:auto;border-right:1px solid rgb(var(--c-edge));background:rgb(var(--c-surface))}.implementation-app{height:290px;min-height:200px;display:flex;flex-direction:column;flex-shrink:0;border-top:1px solid rgb(var(--c-edge))}.implementation-app>header{font-size:11px;padding:6px 12px;background:rgb(var(--c-surface));font-weight:600}.implementation-app>div{min-height:0;flex:1;display:flex;flex-direction:column}.design-workbench{border:1px solid rgb(var(--c-edge));border-radius:12px;overflow:hidden;background:rgb(var(--c-surface))}.design-workbench-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px;border-bottom:1px solid rgb(var(--c-edge))}.design-workbench-body{display:grid;grid-template-columns:165px minmax(0,1fr);min-width:0}.design-collection{border-right:1px solid rgb(var(--c-edge));padding:10px;background:rgb(var(--c-ground))}.design-collection button{display:block;font-size:12px;text-align:left;word-break:break-word;width:100%;padding:9px 6px;border-radius:6px}.design-collection button[aria-pressed=true]{background:color-mix(in srgb,rgb(var(--c-accent)) 13%,transparent);color:rgb(var(--c-ink));font-weight:600}.design-contract-editor{padding:14px;display:flex;gap:12px;flex-direction:column;min-width:0}.design-contract-editor label{display:flex;flex-direction:column;gap:5px;font-size:11px;color:rgb(var(--c-muted))}.design-contract-editor input,.design-contract-editor textarea,.design-contract-editor select{border:1px solid rgb(var(--c-edge));border-radius:7px;background:rgb(var(--c-ground));padding:8px;color:rgb(var(--c-ink));font:12px/1.5 monospace;width:100%;min-width:0}.design-request-line{display:flex;gap:8px}.design-request-line select{width:90px;flex-shrink:0}.design-contract-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:1279px){.implementation-brief{display:none}.implementation-app{height:240px}}@media(max-width:767px){.design-workbench-body{grid-template-columns:1fr}.design-collection{display:flex;overflow:auto;border-right:0;border-bottom:1px solid rgb(var(--c-edge))}.design-collection button{width:auto;flex-shrink:0}.design-contract-grid{grid-template-columns:1fr}.implementation-app{height:260px}.mentor-session{min-height:450px}}
+@media(prefers-reduced-motion:reduce){.mentor-character[data-speaking=true]{animation:none}}
+@media(min-width:1024px){.implementation-workspace>aside:last-child{display:flex!important;width:310px!important;min-width:0!important;flex:0 0 310px!important}.implementation-workspace>section{display:flex!important;min-width:320px}.implementation-workspace>aside:last-child .mentor-session{min-height:0}.implementation-workspace .implementation-brief{display:none!important}}
+@media(min-width:1280px){.implementation-workspace .implementation-brief{display:block!important}}
+.stakeholder-portrait{object-fit:contain;transform-origin:50% 90%;flex-shrink:0}.stakeholder-portrait[data-speaking=true]{animation:mentor-reply .55s ease-in-out infinite alternate}@media(prefers-reduced-motion:reduce){.stakeholder-portrait[data-speaking=true]{animation:none}}
+
+@media(max-width:1023px){
+  #main:is([data-testid=issue-page],[data-testid=design-page]){display:block;overflow-y:auto}
+  #main:is([data-testid=issue-page],[data-testid=design-page])>div:last-child{display:block;overflow:visible}
+  .design-room,.issue-desk{flex:none;min-height:auto}
+  .issue-desk>aside,.design-room>aside:first-child{overflow:visible}
+  .issue-desk>section,.design-room>section{flex:none;overflow:visible}
+  .issue-desk>section{order:-1}
+  .issue-desk>section>div,.design-room>section>div{flex:none;overflow:visible}
+  .design-room>[data-testid=persona-panel]{height:min(680px,85dvh);min-height:480px;flex:none}
+}
+
+/* Keep the code-panel tabs at readable widths; only their strip scrolls. */
+[data-testid=bottom-panel]>[role=tablist]>button{flex:0 0 auto}
+@media(max-width:767px){
+  [data-testid=bottom-panel]>[role=tablist]>button{min-height:44px}
+  .deployment-pipeline-section>header{display:grid;grid-template-columns:32px minmax(0,1fr)}
+  .deployment-pipeline-section>header>div:last-child{grid-column:2}
+}
+
+/* Phase labs: laid out for a 1440px three-column screen. */
+.phase-lab-workspace{background:#f2f5f8}
+/* On a phase with a task list the IDE row sits in a
+   scroll region under the list, and keeps a floor:
+   never less than the tabs, a usable editor and the bottom panel need
+   together. Without it the row would be the only flexible track in a page
+   that does not scroll, and the editor would shrink to 5 px. Above the floor the row takes the
+   space the list leaves (a zero basis that grows), not the
+   whole region: a row as tall as the region would put its console and preview
+   below the fold on arrival on every split phase. */
+.workspace-room-floor{min-height:560px;flex:1 0 0%}
+.phase-code-surface{--c-code:31 31 31;--c-surface:24 24 24;--c-ground:31 31 31;--c-raised:40 40 40;--c-ink:224 227 232;--c-ink2:204 207 211;--c-muted:166 173 182;--c-dim:143 150 158;--c-edge:49 49 49;--c-edge2:65 65 65;--c-accent:117 190 255;--c-tint:31 54 75;--c-codeline:40 40 40;--c-gutter:166 173 182;--c-onaccent:11 18 32;--c-onstatus:11 18 32;--c-pass:137 209 133;--c-fail:255 166 166;--c-warn:244 190 110;--c-passtint:27 47 38;--c-failtint:51 32 31;--c-warntint:42 29 2;--c-field-border:117 147 168;color:rgb(var(--c-ink));background:#1f1f1f}
+.phase-code-surface>[role=tablist]{background:#181818}
+.phase-code-surface [data-testid=bottom-panel]{background:#181818}
+.phase-code-surface .deployment-tool-evidence{--c-surface:255 255 255;--c-ground:246 248 250;--c-code:246 248 250;--c-raised:239 246 250;--c-ink:24 51 68;--c-ink2:45 70 87;--c-muted:82 108 124;--c-dim:94 116 131;--c-edge:211 226 234;--c-edge2:183 203 217;--c-accent:23 110 138;--c-tint:228 242 248;--c-codeline:239 246 250;--c-gutter:82 108 124;--c-onaccent:255 255 255;--c-onstatus:255 255 255;--c-pass:21 112 60;--c-fail:185 28 28;--c-warn:154 52 18;--c-passtint:223 243 230;--c-failtint:253 226 226;--c-warntint:255 232 217;--c-field-border:113 140 160;color:#183344;background:#fff}
+/* The Pipeline view's light page reaches the foot of the panel, not half way down a black one. */
+.phase-code-surface .deployment-tool-evidence{min-height:100%}
+.implementation-app{--c-surface:255 255 255;--c-ground:246 250 252;--c-ink:24 51 68;--c-ink2:45 70 87;--c-muted:82 108 124;--c-edge:211 226 234;--c-accent:23 110 138;color:rgb(var(--c-ink));background:white}
+.task-assignment{background:rgb(var(--c-surface))!important;color:rgb(var(--c-ink));display:flex;flex-direction:column;width:286px!important}
+.task-assignment>header{display:flex;gap:8px;align-items:center;min-height:42px;padding:0 18px;border-bottom:1px solid rgb(var(--c-edge));font-size:12px}.task-assignment>header>span{margin-left:auto;font-size:10px;color:rgb(var(--c-muted))}
+.task-picker{display:grid;gap:6px;margin:15px 17px 12px;font-size:10px;color:rgb(var(--c-muted))}.task-picker select{width:100%;font:500 12px/1.5 var(--font-body,Manrope),sans-serif;padding:9px;border:1px solid rgb(var(--c-field-border, var(--c-edge2)));border-radius:6px;background:rgb(var(--c-ground));color:rgb(var(--c-ink))}
+.task-assignment-tabs{display:flex;gap:18px;padding:0 17px;min-height:38px;border-bottom:1px solid rgb(var(--c-edge))}.task-assignment-tabs button{padding:9px 0;font-size:11px;color:rgb(var(--c-muted));border-bottom:2px solid transparent}.task-assignment-tabs button[aria-pressed=true]{color:rgb(var(--c-accent));border-color:rgb(var(--c-accent))}
+.task-assignment-content{padding:22px 19px;flex:1;min-height:0;overflow:auto;font-size:12px;line-height:1.9}.task-assignment-content>small{font-size:10px;letter-spacing:.06em;color:rgb(var(--c-accent))}.task-assignment-content h2{font:500 25px/1.2 var(--font-display,Outfit),sans-serif;letter-spacing:-.65px;margin:12px 0 17px}.task-assignment-content h3{display:flex;align-items:center;gap:8px;font-size:11px;margin:24px 0 13px;font-weight:600}.task-assignment-content h3>span{margin-left:auto;font-size:10px;color:rgb(var(--c-muted))}.task-assignment-content p{margin-bottom:16px}
+.task-flow{display:flex;align-items:start;list-style:none;padding:0;margin:20px 0 24px;gap:10px}.task-flow li{flex:1;position:relative;text-align:center;font-size:10px;line-height:1.6}.task-flow li>span{display:grid;place-items:center;width:34px;height:34px;background:linear-gradient(140deg,rgb(var(--c-surface)),rgb(var(--c-tint)));border:1px solid rgb(var(--c-edge2));border-radius:9px;margin:0 auto 8px;color:rgb(var(--c-accent));box-shadow:0 3px 0 rgb(var(--c-edge))}.task-flow li:not(:last-child)::after{content:'';position:absolute;top:17px;left:75%;width:65%;height:1px;background:rgb(var(--c-edge2))}
+.task-assignment pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.9 ui-monospace,monospace;background:#142b3b;color:#b3e6f5;border:1px solid #304c5e;border-radius:8px;padding:14px}.task-example-label,.task-evidence-note{font-size:10px!important;color:rgb(var(--c-muted));margin:7px 0!important}.task-assignment>footer{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;gap:10px;border-top:1px solid rgb(var(--c-edge));font-size:10px;color:rgb(var(--c-muted))}.task-assignment>footer button{border:1px solid rgb(var(--c-field-border, var(--c-edge2)));background:rgb(var(--c-surface));border-radius:5px;padding:7px}.task-assignment>footer button:disabled{opacity:.35}
+
+.phase-mentor-identity{min-height:88px;padding:7px 13px;background:linear-gradient(125deg,#edfbff,#e7edf9);border-color:#d3e2ea}.phase-mentor-identity .mentor-character{width:72px;height:72px}.phase-mentor-identity h2{font:500 24px/1.15 var(--font-display,Outfit),sans-serif;letter-spacing:-.03em}.phase-mentor-identity small{text-transform:uppercase;color:#176e8a;letter-spacing:.07em;font-size:10px}.phase-mentor-identity p{display:none}.mentor-presence{font-size:11px;margin-top:7px}
+.mentor-session>.mentor-mode-switch{display:grid;grid-template-columns:1fr 1fr;gap:7px;background:none;border:0;padding:0;margin:11px 13px}.mentor-session>.mentor-mode-switch>button{display:grid;grid-template-columns:17px 1fr;gap:4px 7px;padding:10px 9px;text-align:left;border-width:1px;border-style:solid;border-radius:8px;font-size:12px}.mentor-session>.mentor-mode-switch strong{font-size:12px;font-weight:600}.mentor-session>.mentor-mode-switch small{grid-column:2;font-size:10px;line-height:1.5}
+.mentor-welcome{padding:13px;background:#ffffffd9;border:1px solid #dce7ef;border-radius:3px 13px 13px;font-size:12px;line-height:1.85}.mentor-welcome>small{display:block;font-size:10px;letter-spacing:.07em;color:#176e8a;margin-bottom:9px}.mentor-session [data-testid=msg-assistant]{padding:13px;border-width:1px;border-style:solid;border-radius:3px 13px 13px}.mentor-session [data-testid=mentor-composer]{padding:10px 13px 12px}.mentor-session [data-testid=chat-input]{min-height:76px;font-size:14px;border-radius:9px}.mentor-session [data-testid=mentor-composer]>.label-sm{font-size:10px}.mentor-session [data-testid=chat-send]{height:38px;width:38px;border-radius:8px}
+@media(min-width:1024px){.phase-lab-workspace>aside:last-child{width:320px!important;flex:0 0 320px!important}.phase-lab-workspace>section{min-width:0!important}.implementation-workspace .task-assignment{display:flex!important}}
+@media(min-width:1280px){.phase-lab-workspace>aside:last-child{width:340px!important;flex-basis:340px!important}}
+@media(max-width:1023px){.task-assignment{display:none!important}}
+.phase-brief-intro{padding:10px 5px 20px;color:#183344;font-size:12px;line-height:1.85}.phase-brief-intro>small{color:#176e8a;font-size:10px;letter-spacing:.04em}.phase-brief-intro>div{display:flex;align-items:center;gap:5px;margin:12px 0 15px}.phase-brief-intro h2{font:500 25px/1.15 var(--font-display,Outfit),sans-serif;letter-spacing:-.65px;flex:1}.phase-brief-intro>div img{width:78px;height:88px;object-fit:contain}.phase-brief-intro h3{font-size:12px;font-weight:600;margin:23px 0 16px}.phase-brief-intro ol{display:grid;gap:14px;list-style:none;padding:0}.phase-brief-intro li{display:flex;gap:11px;align-items:center}.phase-brief-intro li>span{display:grid;place-items:center;height:32px;width:32px;flex:none;border:1px solid #cde2ec;border-radius:8px;background:linear-gradient(140deg,#fff,#dcf0f7);box-shadow:0 3px 0 #dbe9ef;color:#176e8a}.phase-brief-intro section{padding:14px;background:#ffffffb8;border:1px solid #dce7ef;border-radius:8px;margin-top:25px}.phase-brief-intro section p{font-size:11px;margin-top:7px;color:#526c7c}
+.design-room{background:#f2f5f8}.issue-desk>aside,.design-room>aside:first-child{background:#f8fcfe;width:286px!important;border-color:#d3e2ea;padding:17px}.issue-desk>section{background:#ffffffed}.issue-desk>section>header{background:#eef5fa;border-color:#d3e2ea}.issue-desk>section input,.issue-desk>section textarea{border-radius:7px}.design-tool-room{background:#fff}.design-tool-tabs{display:flex;align-items:center;gap:17px;min-height:46px;flex-shrink:0;padding:0 16px;background:#eef5fa;border-bottom:1px solid #d3e2ea;overflow-x:auto}.design-tool-tabs button{flex:none;font-size:11px;white-space:nowrap;padding:13px 0;border-bottom:2px solid transparent;color:#526c7c}.design-tool-tabs button[aria-pressed=true]{border-color:#258cad;color:#176e8a}.design-tool-room [data-testid=phase-design-editor]{padding:0!important;gap:0!important}.design-tool-room [data-testid=phase-design-editor]>div:not([hidden]){display:flex;flex-direction:column;gap:18px;padding:18px}.design-tool-room [data-testid=phase-design-editor]>div[hidden]{display:none!important}.design-tool-room .design-workbench{border-radius:5px;box-shadow:0 8px 24px #163f5910}.design-tool-room .design-workbench-top{background:#f7fafc}.design-tool-room .design-collection{background:#f5f8fa}.design-tool-room .design-collection button{padding:12px 8px;font-size:11px}.design-tool-room .design-collection small{color:#177954;font-weight:700}.design-tool-room .design-request-line{background:#f6f8fa;border:1px solid #d3e2ea;border-radius:6px;padding:5px}.design-tool-room .design-request-line input{border:0;background:transparent}.design-tool-room .design-contract-editor>.mentor-mode-switch{display:flex;gap:17px;overflow-x:auto;min-width:0;border:0;border-bottom:1px solid #d3e2ea;border-radius:0;padding:0;margin:0;background:none}.design-tool-room .design-contract-editor>.mentor-mode-switch button{border-radius:0;background:none;padding:8px 0;flex:none}.design-tool-room .design-contract-editor>.mentor-mode-switch button[aria-pressed=true]{border-bottom:2px solid #ef8839;box-shadow:none}
+@media(max-width:1023px){.issue-desk>aside,.design-room>aside:first-child{width:100%!important}.phase-brief-intro>div{max-width:380px}.phase-brief-intro ol{grid-template-columns:repeat(2,minmax(0,1fr))}.design-tool-tabs{gap:15px}.design-tool-room [data-testid=phase-design-editor]>div:not([hidden]){padding:12px}}
+/* The toolrooms share a compact brief/tool/mentor frame. */
+.phase-task-content{padding:17px;overflow:auto;min-height:0}.phase-room-nav{display:flex;gap:18px;padding:0 17px;min-height:46px;flex-shrink:0;align-items:center;border-bottom:1px solid #d3e2ea;background:#eef5fa;overflow:auto;font-size:11px;color:#526c7c}.phase-room-nav>a,.phase-room-nav>button{padding:13px 0;white-space:nowrap;border-bottom:2px solid transparent;flex:none}.phase-room-nav [aria-current=page],.phase-room-nav [aria-pressed=true]{color:#176e8a;border-bottom-color:#258cad}
+.implementation-view-tabs{display:flex;gap:5px;align-items:center;padding:7px 10px;min-height:46px;flex:none;background:#eef5fa;border-bottom:1px solid #d3e2ea;color:#526c7c;font-size:12px;overflow:auto}.implementation-view-tabs>button{display:flex;align-items:center;gap:6px;border:1px solid transparent;border-radius:4px;padding:6px 10px;flex:none}.implementation-view-tabs>button[aria-pressed=true]{background:#fff;color:#176e8a;border-color:#e4ebf0;box-shadow:0 1px 2px #23496310}.implementation-view-tabs>span{margin-left:auto;white-space:nowrap;font-size:10px}.implementation-console-bar{display:flex;gap:8px;align-items:center;min-height:46px;flex:none;padding:6px 12px;background:#f7fafd;color:#526c7c;font-size:10px;border-top:1px solid #d3e2ea}.implementation-console-bar>span{flex:1}.implementation-console-bar button{display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:5px;border:1px solid #d3e2ea;background:#fff;font-size:11px}.implementation-console-bar button:last-child{color:white;background:#225578;border-color:#225578}.implementation-console-bar button:disabled{opacity:.5}.phase-code-surface[data-workspace-view=code] .implementation-app{display:none}.phase-code-surface[data-workspace-view=preview]>[role=tablist],.phase-code-surface[data-workspace-view=preview]>.mono,.phase-code-surface[data-workspace-view=preview]>[data-testid=editor-host]{display:none}.phase-code-surface[data-workspace-view=preview] .implementation-app{height:auto;flex:1;min-height:0}.implementation-app{height:320px}.phase-code-surface[data-workspace-view=split] [data-testid=editor-host]{min-height:140px}
+.requirements-conversation{display:flex;flex-direction:column;flex:1;min-width:0;min-height:0}.requirements-conversation [data-testid=interview-persona]{align-items:center;min-height:166px;padding:10px 25px}.requirements-conversation .stakeholder-portrait{height:145px;width:145px}.requirements-conversation [data-testid=interview-persona] p:first-child{font:500 21px/1.25 var(--font-display,Outfit),sans-serif;letter-spacing:-.02em;margin-bottom:10px}.requirements-conversation [data-testid=interview-persona] .purpose{font-size:11px;line-height:1.8}.requirements-conversation [data-testid=interview-transcript]{padding:22px}.requirements-conversation [data-testid=interview-opening]>div{padding:14px;border-width:1px;border-style:solid;border-radius:3px 13px 13px}.requirements-conversation [data-testid=interview-opening] p:last-child{font-size:12px;line-height:1.85}.requirements-conversation [data-testid=interview-empty]{margin-top:15px;padding:18px;border-width:1px;border-style:solid}
+.mentor-presence::before{display:none}.mentor-waves{display:flex;gap:2px;align-items:center;justify-content:center;height:16px;width:14px}.mentor-waves i{width:2px;height:4px;border-radius:2px;background:#176e8a}.mentor-presence[data-active=true] .mentor-waves i{animation:mentor-wave .36s ease-in-out infinite alternate}.mentor-presence[data-active=true] .mentor-waves i:nth-child(2){animation-delay:.07s}.mentor-presence[data-active=true] .mentor-waves i:nth-child(3){animation-delay:.14s}.mentor-character[data-speaking=true],.stakeholder-portrait[data-speaking=true]{animation:mentor-reply .48s ease-in-out infinite}@keyframes mentor-reply{0%,100%{transform:rotate(0) translateY(0)}50%{transform:rotate(-1.4deg) translateY(-2px)}}@keyframes mentor-wave{from{height:4px}to{height:13px}}
+.phase-room-nav :is(a,button),.task-assignment-tabs button,.task-assignment>footer button,.implementation-view-tabs button,.implementation-console-bar button,.design-tool-tabs button,.mentor-mode-switch button,.design-collection button{transition:background-color .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease,transform .16s ease}.phase-room-nav :is(a,button):hover,.task-assignment-tabs button:hover,.design-tool-tabs button:hover{color:#176e8a;border-bottom-color:#7eb8cf}.implementation-view-tabs button:hover,.mentor-mode-switch button:hover,.design-collection button:hover{background:#e5f1f8}.task-assignment>footer button:not(:disabled):hover,.implementation-console-bar button:not(:disabled):hover{box-shadow:0 4px 10px #214e6519;transform:translateY(-1px)}.phase-brief-intro img{transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .35s ease}.phase-brief-intro:hover img{transform:translateY(-3px) rotate(-2deg);filter:drop-shadow(0 5px 7px #315b7524)}.task-assignment :focus-visible,.design-tool-room :focus-visible,.mentor-session :focus-visible,.implementation-view-tabs :focus-visible{outline:2px solid #258cad;outline-offset:3px}
+@media(min-width:1024px){.phase-lab-workspace>.phase-activity{display:none!important}}
+@media(max-width:1023px){.requirements-conversation{min-height:650px;height:calc(100dvh - 180px)}.requirements-conversation .stakeholder-portrait{width:98px;height:112px}.requirements-conversation [data-testid=interview-persona]{padding:10px;min-height:132px}.implementation-view-tabs>span{display:none}.implementation-console-bar{flex-wrap:wrap}.implementation-app{height:280px}}
+@media(prefers-reduced-motion:reduce){.mentor-character[data-speaking=true],.stakeholder-portrait[data-speaking=true],.mentor-presence[data-active=true] .mentor-waves i{animation:none!important}.phase-room-nav :is(a,button),.task-assignment-tabs button,.task-assignment>footer button,.implementation-view-tabs button,.implementation-console-bar button,.design-tool-tabs button,.mentor-mode-switch button,.design-collection button,.phase-brief-intro img{transition:none}.phase-brief-intro:hover img,.task-assignment>footer button:hover,.implementation-console-bar button:hover{transform:none}}
+.mentor-session [data-testid=mentor-composer]>.mb-2:first-child{margin-bottom:6px}.mentor-session [data-testid=mentor-composer] .label-sm{font-size:11px}.runtime-view-tabs>a{display:flex;gap:6px;align-items:center;white-space:nowrap;border:1px solid transparent;padding:6px 8px;border-radius:4px}.runtime-view-tabs>a:hover{background:#e5f1f8;color:#176e8a}.phase-code-surface[data-workspace-view=evidence]>[role=tablist],.phase-code-surface[data-workspace-view=evidence]>.mono,.phase-code-surface[data-workspace-view=evidence]>[data-testid=editor-host]{display:none}.phase-code-surface[data-workspace-view=evidence]>[data-testid=bottom-panel]{flex:1;height:auto!important;min-height:0}.phase-code-surface[data-workspace-view=evidence] .deployment-pipeline-section{--c-surface:255 255 255;--c-ground:246 248 250;--c-code:246 248 250;--c-codeline:239 246 250;--c-raised:239 246 250;--c-ink:24 51 68;--c-ink2:45 70 87;--c-muted:82 108 124;--c-dim:82 108 124;--c-gutter:82 108 124;--c-edge:211 226 234;--c-edge2:183 203 217;--c-accent:23 110 138;--c-tint:228 242 248;--c-onaccent:255 255 255;--c-onstatus:255 255 255;--c-pass:21 112 60;--c-fail:185 28 28;--c-warn:154 52 18;--c-passtint:223 243 230;--c-failtint:253 226 226;--c-warntint:255 232 217;--c-field-border:113 140 160;color:#183344;background:#fff}.phase-code-surface[data-workspace-view=evidence] .deployment-pipeline-section>header{background:#f6f8fa}
+/* Issue work as a real backlog, with focused transactional dialogs. */
+.jira-issue-desk{display:flex;min-width:0;min-height:0;flex:1;overflow:hidden}.jira-issue-desk>aside{flex:0 0 286px;overflow:auto;padding:17px;background:#f8fcfe;border-right:1px solid #d3e2ea}.jira-backlog-room{display:flex;flex:1;min-width:0;min-height:0;flex-direction:column;background:#fff}.jira-backlog-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:24px 22px 17px!important;background:#fff!important;border-bottom:0!important}.jira-backlog-heading small{font-size:9px;letter-spacing:.08em;color:#526c7c}.jira-backlog-heading h2{font:500 24px/1.3 var(--font-display,Outfit),sans-serif;letter-spacing:-.03em;margin:6px 0}.jira-backlog-heading p{font-size:11px;color:#526c7c}.jira-backlog-heading .btn{font-size:11px;border-radius:6px}.jira-backlog-filters{display:flex;gap:10px;padding:0 22px 20px}.jira-backlog-filters label{display:flex;align-items:center;gap:8px;border:1px solid #d3e2ea;border-radius:5px;padding:7px 9px;font-size:11px;color:#526c7c;min-width:0}.jira-backlog-filters input{border:0;background:transparent;outline:0;min-width:0;width:190px;font:inherit}.jira-backlog-filters select{border:1px solid #d3e2ea;border-radius:5px;background:#f7fafc;padding:5px 8px;font-size:11px;color:#526c7c;min-width:0}.jira-backlog-body{display:flex;flex:1;min-height:0;border-top:1px solid #d3e2ea;overflow:hidden}.jira-epic-list{width:180px;flex:0 0 180px;padding:15px 12px;background:#f8fafc;border-right:1px solid #d3e2ea;overflow:auto;font-size:11px}.jira-epic-list>header{display:flex;justify-content:space-between;align-items:center;padding:0 4px 13px}.jira-epic-list>header button{padding:4px}.jira-epic-list>button,.jira-epic-list>div>button:first-child{display:flex;width:100%;align-items:center;gap:7px;text-align:left;padding:9px 7px;border-radius:5px;font-size:11px;color:#526c7c}.jira-epic-list>div{position:relative}.jira-epic-list>div>button:first-child{padding-right:21px}.jira-epic-list small{display:block;font-size:9px;color:#738798;margin-top:3px}.jira-epic-list [aria-pressed=true]{background:#e3edf8;color:#225578}.jira-epic-list>button>span:last-child{margin-left:auto}.jira-epic-edit{position:absolute;right:2px;top:10px;padding:4px}.jira-epic-list>p{font-size:10px;line-height:1.8;color:#708494;padding:15px 7px}.jira-epic-list>p button{display:block;color:var(--tool-accent,#176e8a);text-align:left;margin-top:10px}.jira-type-epic,.jira-type-story{display:grid;place-items:center;flex:none;width:17px;height:17px;border-radius:3px;background:#8864d3;color:#fff}.jira-type-story{background:#51a58a}.jira-issue-list{flex:1;min-width:0;overflow:auto;padding:16px 14px;background:#fff}.jira-issue-list>header{display:flex;gap:10px;align-items:center;font-size:12px;margin:0 0 14px}.jira-issue-list>header span{font-size:10px;color:#738798;margin-left:auto}.jira-issue-row{display:flex;width:100%;align-items:center;gap:9px;min-height:51px;padding:10px;border:1px solid #dde6ed;border-bottom:0;text-align:left;font-size:11px;background:#fff;transition:background-color .15s ease,box-shadow .15s ease}.jira-issue-row:last-of-type{border-bottom:1px solid #dde6ed}.jira-issue-row:hover{background:#f1f7fc;box-shadow:inset 2px 0 #278baa}.jira-issue-row code{font-size:10px;color:#647c8d;flex:none}.jira-issue-row>span:nth-of-type(2){flex:1;min-width:0;line-height:1.6}.jira-issue-row small{font-size:8px;padding:3px 5px;border-radius:3px;background:#eef2f5;color:#607283;white-space:nowrap}.jira-own-story small{background:#dfedf9;color:#225578}.jira-issue-row em{display:block;width:fit-content;margin-top:5px;padding:1px 4px;background:#eee7fa;color:#795aaf;font-size:9px;font-style:normal}.jira-add-story{display:flex;align-items:center;gap:7px;font-size:11px;color:#526c7c;padding:13px 10px;width:100%;border:1px solid #dde6ed;border-top:0}.jira-add-story:hover{background:#f2f8fc}.jira-list-note{font-size:10px;color:#738798;line-height:1.7;margin:18px 10px}.jira-evidence-tip{display:flex;align-items:start;gap:8px;color:#526c7c;font-size:11px;line-height:1.85;margin-top:20px;padding-top:20px;border-top:1px solid #d3e2ea}.jira-evidence-tip svg{flex:none;color:#176e8a;margin-top:3px}.jira-backlog-footer{display:flex;gap:10px;align-items:center;padding:11px 16px;border-top:1px solid #d3e2ea;font-size:10px;flex-wrap:wrap;flex:none}.jira-backlog-footer>span{margin-right:auto;color:#526c7c}.jira-backlog-footer .btn{font-size:11px;min-height:34px}.jira-backlog-review{padding:24px;overflow:auto;flex:1}.jira-backlog-review h3{font-size:13px;margin:22px 0 12px}
+.jira-issue-dialog{position:fixed;inset:0;width:min(560px,calc(100vw - 28px));max-height:calc(100dvh - 40px);margin:auto;padding:0;border:1px solid #c9dce9;border-radius:12px;background:#fff;color:#183344;box-shadow:0 24px 100px #17364d3d;overflow:hidden;font-family:var(--font-body,Manrope),sans-serif}.jira-issue-dialog[open]{display:flex;flex-direction:column;animation:issue-dialog-in .18s ease-out}.jira-issue-dialog::backdrop{background:#10293f69;backdrop-filter:blur(5px)}.jira-wide-dialog{width:min(940px,calc(100vw - 28px));height:min(850px,calc(100dvh - 40px))}.jira-issue-dialog>header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:17px 21px;background:#f7fafc;border-bottom:1px solid #d3e2ea;flex:none;font-size:16px;font-weight:600}.jira-issue-dialog>header>span{display:flex;align-items:center;gap:10px}.jira-issue-dialog>header>span>svg{color:#176e8a}.jira-issue-dialog>header>button{padding:5px;border-radius:5px;color:#526c7c}.jira-issue-dialog>header>button:hover{background:#e7eff5}.jira-create-options{padding:23px;display:grid;gap:13px;font-size:12px}.jira-create-options>p{color:#526c7c;margin-bottom:8px}.jira-create-options>button{display:flex;align-items:center;gap:13px;text-align:left;padding:17px;border:1px solid #d3e2ea;border-radius:8px;background:#fff;transition:background-color .15s ease,border-color .15s ease,transform .15s ease}.jira-create-options>button:hover{background:#edf7fc;border-color:#75afc8;transform:translateY(-1px)}.jira-create-options>button>span:nth-child(2){flex:1}.jira-create-options small{display:block;font-size:11px;line-height:1.7;color:#526c7c;margin-top:5px}.jira-create-options .jira-type-epic,.jira-create-options .jira-type-story{width:30px;height:30px;border-radius:7px}.jira-epic-form{padding:22px;display:grid;gap:18px;overflow:auto;font-size:12px}.jira-epic-form>small{color:#795aaf}.jira-epic-form label{display:grid;gap:7px;font-size:11px;font-weight:600}.jira-epic-form :is(input,textarea){font:13px/1.65 var(--font-body,Manrope),sans-serif;border:1px solid #bdcfdf;border-radius:6px;background:#fbfdff;padding:10px;width:100%;color:#183344}.jira-epic-form footer{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}.jira-story-editor{overflow:hidden;flex:1}.jira-story-editor>section{min-height:0;flex:1}.jira-story-editor>section>header{padding:15px 22px;background:#fff}.jira-story-editor .h2{font-size:20px}.jira-story-editor .field{font-size:12px;border-radius:5px}.jira-story-editor .h3{font-size:14px}.jira-story-editor .purpose{font-size:11px}.jira-story-editor .label-sm{font-size:11px}.jira-provided-issue{padding:25px;font-size:12px;line-height:1.85}.jira-provided-label{display:flex;gap:8px;align-items:center;font-size:10px;color:#607d90}.jira-provided-issue h2{font:500 24px/1.3 var(--font-display,Outfit),sans-serif;margin:20px 0 14px}.jira-provided-issue p{margin-bottom:22px}.jira-issue-dialog :focus-visible{outline:2px solid #258cad;outline-offset:3px}@keyframes issue-dialog-in{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+@media(max-width:1023px){.jira-issue-desk{display:flex!important;flex-direction:column;overflow:visible}.jira-issue-desk>aside{flex:none;width:100%!important;max-height:270px;overflow:auto}.jira-backlog-room{min-height:630px!important}.jira-backlog-body{min-height:390px!important}.jira-epic-list{width:145px;flex-basis:145px}.jira-backlog-heading{padding:18px 14px!important}.jira-backlog-filters{padding:0 14px 15px;gap:6px}.jira-backlog-filters label{flex:1}.jira-backlog-filters input{width:100%}.jira-issue-list{padding:14px 9px}.jira-issue-row{flex-wrap:wrap;gap:6px}.jira-issue-row>span:nth-of-type(2){min-width:80px}.jira-issue-row small{margin-left:25px}.jira-issue-row>svg:last-child{margin-left:auto}.jira-backlog-heading h2{font-size:21px}.jira-issue-dialog>header{padding:14px}.jira-wide-dialog{width:calc(100vw - 18px);height:calc(100dvh - 24px);max-height:calc(100dvh - 24px)}.jira-story-editor>section>header{padding:12px}.jira-story-editor>section>div{padding:12px}.jira-story-editor>section>footer{padding:10px}.jira-backlog-heading .btn{padding:8px;white-space:nowrap}}
+@media(prefers-reduced-motion:reduce){.jira-issue-dialog[open]{animation:none}.jira-issue-row,.jira-create-options>button{transition:none}.jira-create-options>button:hover{transform:none}}
+.phase-contract-detail{margin-top:18px;border-top:1px solid #d3e2ea;padding-top:16px;font-size:11px}.phase-contract-detail>summary{cursor:pointer;color:var(--tool-accent,#176e8a);font-weight:600;line-height:1.7}.phase-contract-detail [data-testid=phase-brief],.phase-contract-detail [data-testid=phase-panel-brief]{border:0;padding:16px 0}.phase-contract-detail details{margin-inline:0!important}.phase-task-content{padding-top:10px}
+.phase-document-room{display:flex;flex:1;min-height:0;min-width:0;overflow:hidden;background:#f2f5f8}.phase-document-brief{width:286px;flex:0 0 286px;overflow:auto;padding:17px;background:#f8fcfe;border-right:1px solid #d3e2ea}.phase-document-center{display:flex;flex-direction:column;flex:1;min-width:0;min-height:0;overflow:hidden;background:#fff}.phase-document-heading{padding:22px 22px 14px;border-bottom:1px solid #e2eaf0;flex:none;background:#fff}.phase-document-heading h2{font:500 24px/1.3 var(--font-display,Outfit),sans-serif;letter-spacing:-.025em}.phase-document-heading>p{font-size:11px;line-height:1.8;color:#526c7c;margin-top:9px}.phase-document-content{padding:20px 22px;display:flex;flex-direction:column;gap:18px;min-height:0;flex:1;overflow:auto;scrollbar-gutter:stable}.phase-document-mentor{display:flex;flex-direction:column;width:340px;flex:0 0 340px;min-height:0;border-left:1px solid #d3e2ea;overflow:hidden}.phase-document-content .h1{font-size:23px}.phase-document-content .h2{font-size:18px}.phase-document-content .h3{font-size:14px}.phase-document-content .purpose{font-size:11px;line-height:1.85}.phase-document-content .label-sm{font-size:10px}.phase-document-content .field{font-size:12px;border-radius:5px}.phase-document-content .rounded-panel{border-radius:7px}.phase-document-content .btn{font-size:11px;min-height:33px;padding:7px 10px;border-radius:6px}.phase-document-content [role=tablist]{margin:0 -22px;padding:0 22px;background:#f6f8fa;border-color:#d3e2ea}.phase-document-content [role=tab]{font-size:11px;white-space:nowrap;padding:12px 10px}.phase-change-panels>div[hidden],.phase-drill-panels>div[hidden]{display:none!important}.phase-change-panels>div,.phase-drill-panels>div{display:flex;flex-direction:column;gap:17px}.phase-pr-evidence{display:flex;flex-direction:column;gap:18px;min-width:0}.phase-evidence-detail{border:1px solid #d3e2ea;border-radius:7px;padding:16px;font-size:12px}.phase-evidence-detail>summary{font-weight:600;color:#176e8a;cursor:pointer;margin-bottom:12px}.phase-document-view-pr .phase-document-heading{background:#f6f8fa}.phase-document-view-pr .phase-document-content{background:#fcfdff}.phase-document-view-pr .phase-document-heading h2{font-size:20px}.phase-document-room :focus-visible{outline:2px solid #258cad;outline-offset:3px}
+/* At any width, long identifiers and file paths in the change room wrap instead of pushing the page sideways (a pinned sidebar on a phone leaves the room ~130-230px) */
+.phase-change-panels{overflow-wrap:anywhere}.phase-change-panels [data-testid^="change-impact-"] :is(.btn-ghost,.chip){max-width:100%;height:auto;white-space:normal;text-align:left}
+/* At any width, the drill page's, the IDE's Runbook view's, the design room's and the issue room's buttons and tab rows wrap and long words break, and below 480px a button drops its shortcut hint, so a room a pinned sidebar on a phone leaves ~130-230px never scrolls sideways or cuts a control off */
+.phase-document-view-drill,.deployment-tool-evidence{overflow-wrap:anywhere}
+/* A done step of the drill is ticked and muted, not struck through, which reads as cancelled. */
+.drill-steps .line-through{text-decoration-line:none}
+:is(.phase-document-view-drill,.deployment-tool-evidence,footer:has([data-testid=design-submit]),footer:has([data-testid=phase-requirements-submit])) :is(.btn,.btn-secondary,.btn-ghost,.btn-danger){max-width:100%;min-width:0;flex-shrink:1;height:auto;white-space:normal;text-align:left}
+.deployment-tool-evidence [role=tablist],.implementation-view-tabs{flex-wrap:wrap}
+[data-testid=runbook-tab] span.flex{flex-wrap:wrap}
+@media(max-width:479px){:is(footer:has([data-testid=design-submit]),footer:has([data-testid=phase-requirements-submit])) .btn-kbd{display:none}footer:has([data-testid=design-submit]){padding-inline:12px}}
+/* Below 480px a pinned sidebar leaves a room 128-158px wide, narrower than a few controls' own widths: the drill page's empty-state action drops its icon indent, the design board's name fields take a full row, the design room's small buttons and the backlog heading's button wrap their labels, and the IDE's view tabs (with 6px side padding) and the deployment tools' tabs wrap theirs */
+@media(max-width:479px){.phase-document-view-drill .border-dashed>.pl-\[34px\]{padding-left:0}.design-room input.min-w-\[160px\]{min-width:min(160px,100%)}.design-room input.min-w-\[120px\]{min-width:min(120px,100%)}.design-room [data-testid=design-uml]>div:first-child,header.jira-backlog-heading{flex-wrap:wrap}:is(.design-room .btn-sm,header.jira-backlog-heading>.btn){max-width:100%;height:auto;white-space:normal;text-align:left}nav.runtime-view-tabs{padding-inline:6px}nav.runtime-view-tabs>:is(a,button){padding-inline:6px}:is(.runtime-view-tabs>a,.implementation-view-tabs>button,.deployment-tool-evidence [role=tab]){min-width:0;flex-shrink:1;white-space:normal}}
+@media(max-width:1023px){.phase-document-room{display:block;overflow:auto}.phase-document-brief{width:100%;max-height:275px;border-right:0;border-bottom:1px solid #d3e2ea}.phase-document-center{height:auto;min-height:600px;overflow:visible}.phase-document-heading{padding:18px 15px 13px}.phase-document-heading h2{font-size:21px}.phase-document-content{padding:16px 15px;overflow:visible;min-height:400px;flex:none}.phase-document-content [role=tablist]{margin-inline:-15px;padding-inline:15px;overflow-x:auto}.phase-document-mentor,.phase-document-room>[data-testid=persona-panel]{height:100%;min-height:0;max-width:100%;width:100%;border:0}.phase-document-room .phase-room-nav{gap:15px}}
+.phase-pr-review-state{border:1px solid #d3e2ea;border-radius:7px;background:#fff;padding:14px;min-width:0}.phase-pr-review-state>summary{font-size:12px;font-weight:600;color:#176e8a;cursor:pointer}.phase-pr-review-state[open]>summary{margin-bottom:14px}.phase-pr-review-state>div{border:0}.phase-document-content>div.-mt-2{margin-top:0;font-size:11px}
+.phase-case-file{display:flex;flex-direction:column;min-width:0;min-height:0;color:#183344}.phase-case-file>nav{display:flex;gap:18px;border-bottom:1px solid #d3e2ea;margin:-20px -22px 0;padding:0 22px;background:#f7fafc;overflow:auto}.phase-case-file>nav button{font-size:11px;padding:13px 0;border-bottom:2px solid transparent;white-space:nowrap;color:#526c7c}.phase-case-file>nav button[aria-pressed=true]{color:var(--tool-accent,#176e8a);border-color:#258cad}.phase-case-file [hidden]{display:none!important}.phase-case-panel{padding:28px 0 20px;font-size:12px;line-height:1.85}.phase-case-kicker{font-size:10px;letter-spacing:.07em;color:var(--tool-accent,#176e8a)}.phase-case-panel h3{font:500 27px/1.2 var(--font-display,Outfit),sans-serif;letter-spacing:-.04em;max-width:520px;margin:12px 0 20px}.phase-case-panel>p{max-width:68ch;color:#526c7c;margin:13px 0}.phase-case-panel ol{display:grid;gap:20px;list-style:none;padding:0;margin:25px 0}.phase-case-panel ol li{display:flex;gap:14px;align-items:start}.phase-case-panel ol li>span{display:grid;place-items:center;flex:none;width:29px;height:29px;background:#e8f4fb;color:#176e8a;border:1px solid #c7e0ec;border-radius:8px}.phase-case-panel ol li p{margin:3px 0}.phase-case-panel>aside{display:flex;gap:15px;background:linear-gradient(125deg,#eefbff,#f1f4fd);border:1px solid #d3e2ea;border-radius:10px;padding:22px;margin-top:30px}.phase-case-panel>aside>svg{flex:none;color:#258cad}.phase-case-panel>aside p{font-size:11px;color:#526c7c;margin:7px 0 12px}.phase-case-panel>aside a{display:flex;gap:7px;align-items:center;color:var(--tool-accent,#176e8a);font-size:11px;font-weight:600}.phase-case-files,.phase-case-criteria{list-style:none;padding:0;margin:22px 0}.phase-case-files li,.phase-case-criteria li{display:flex;gap:12px;padding:15px 0;border-bottom:1px solid #d3e2ea;align-items:start}.phase-case-files svg,.phase-case-criteria svg{flex:none;color:#258cad;margin-top:4px}.phase-case-files code{display:block;color:#647f91;font:10px/1.8 ui-monospace,monospace;margin-top:4px;overflow-wrap:anywhere}.phase-case-criteria p{font-size:11px;line-height:1.8;color:#526c7c;margin-top:6px}.phase-case-file>footer{display:flex;gap:15px;align-items:center;border-top:1px solid #d3e2ea;padding:16px 0;font-size:10px;color:#526c7c}.phase-case-file>footer>span{flex:1}.phase-case-file>nav button:hover{color:#176e8a;background:#edf6fb}
+/* The tab row has overflow:auto, so its automatic minimum height is zero and
+   a long panel would squeeze it to its border inside the shrinking case file,
+   leaving the panel where the tabs should be drawn. */
+.phase-case-file>nav{flex:none}
+
+/* The mobile pane switcher already exposes Files, Code and Review. */
+.phase-lab-workspace>.phase-activity{display:none!important}
+.implementation-app .btn-ghost:hover,.implementation-app .btn-ghost:focus-visible{background:#e4f2f8;color:#183344}
+@media(max-width:1023px){.implementation-console-bar>span{display:none}.implementation-console-bar{justify-content:flex-end}}
+
+/* The Testing phase's recorded suite runner follows the dark tool UI. */
+.testing-run-panel {
+  background:#191c20;color:#c6cdd5;min-height:0;
+  --c-surface:29 33 38;--c-ground:25 28 32;--c-ink:220 224 229;
+  --c-ink2:182 193 201;--c-muted:151 165 175;--c-dim:137 150 162;
+  --c-edge:49 54 62;--c-edge2:64 71 79;--c-accent:155 201 97;
+  --c-code:25 28 32;--c-codeline:32 36 42;--c-gutter:151 165 175;
+  --c-raised:32 36 42;--c-tint:47 62 35;--c-onaccent:11 18 32;--c-onstatus:11 18 32;--c-pass:137 209 133;--c-fail:255 166 166;--c-warn:244 190 110;--c-passtint:27 47 38;--c-failtint:51 32 31;--c-warntint:42 29 2;--c-field-border:117 147 168;
+}
+.testing-run-panel>[class*=justify-end]{border-bottom:1px solid #31363e;padding:3px 10px;background:#20242a}
+.testing-run-panel [data-testid=run-button]{color:#b9d699}
+.testing-run-panel [data-testid=run-button]:hover{background:#303b2b;color:#d9ebc4}
+/* Run evidence stays dark even when the surrounding app uses the light theme. */
+.phase-code-surface [data-testid=run-panel]{--c-onaccent:11 18 32;--c-onstatus:11 18 32;--c-pass:137 209 133;--c-fail:255 166 166;--c-warn:244 190 110;--c-passtint:27 47 38;--c-failtint:51 32 31;--c-warntint:42 29 2;--c-field-border:117 147 168;}
+.testing-run-content{display:flex;flex-direction:column;min-height:0;padding:0!important}
+.testing-run-content>[data-testid=run-pending],.testing-run-content>.notice{margin:14px}
+.testing-runner{display:flex;flex:1;min-height:0;flex-direction:column;font:11px/1.5 var(--font-body,Manrope),sans-serif}
+.testing-runner-toolbar{display:flex;align-items:center;gap:9px;min-height:34px;flex:none;padding:0 12px;border-bottom:1px solid #31363e;background:#20242a}
+.testing-runner-toolbar>svg{color:#9bc961;flex:none}
+.testing-runner-toolbar>strong{font-size:9px;letter-spacing:.08em;font-weight:500}
+.testing-runner-toolbar>span{font-size:10px;margin-left:auto}
+.testing-runner-toolbar>small{font:9px ui-monospace,monospace;color:#8b96a3;white-space:nowrap}
+.testing-runner-notice{flex:none;font-size:10px;background:#252b22;color:#bccbaa;margin:0;padding:6px 12px;border-bottom:1px solid #31363e}
+.testing-runner-grid{display:grid;grid-template-columns:minmax(150px,.7fr) minmax(0,1.5fr);min-height:0;flex:1;overflow:hidden}
+.testing-suite-tree{background:#1d2126;border-right:1px solid #31363e;padding:8px 0;min-height:0;overflow:auto;min-width:0}
+.testing-suite-tree>p:first-child{font-size:9px;color:#95a1ae;padding:4px 10px 9px;display:flex;justify-content:space-between;letter-spacing:.06em;margin:0}
+.testing-suite-tree summary{display:flex;align-items:center;gap:5px;padding:7px 9px;font-size:10px;cursor:pointer;list-style:none}
+.testing-suite-tree summary::-webkit-details-marker{display:none}
+.testing-suite-tree summary>span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.testing-suite-tree summary>svg{flex:none;color:#949fa9}
+.testing-suite-tree summary>small{font-size:9px;color:#9ba9b7}
+.testing-suite-tree button{display:flex;align-items:center;gap:6px;border:0;background:transparent;color:#b4bec9;width:100%;text-align:left;padding:8px 8px 8px 22px;font-size:10px;min-width:0;transition:background-color .16s,color .16s}
+.testing-suite-tree button>span:not(.sr-only){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.testing-suite-tree button>svg{flex:none;color:#ef8290}
+.testing-suite-tree button[data-outcome=passed]>svg{color:#9bc961}
+.testing-suite-tree button[aria-pressed=true]{background:#30362a;color:#e0ead8;box-shadow:inset 2px 0 #9bc961}
+.testing-suite-tree button:hover,.testing-suite-tree summary:hover{background:#29313a;color:#e4ebf3}
+.testing-suite-tree .testing-no-cases{font-size:10px;line-height:1.7;color:#a0adb8;padding:10px;margin:0}
+.testing-case-detail{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
+.testing-selected-case{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #31363e;flex:none;min-width:0}
+.testing-selected-case>svg{flex:none;color:#ef8290}
+.testing-selected-case[data-outcome=passed]>svg{color:#9bc961}
+.testing-selected-case>div{display:grid;gap:3px;min-width:0}
+.testing-selected-case strong{font:500 11px/1.5 ui-monospace,monospace;color:#dce0e5;overflow-wrap:anywhere}
+.testing-selected-case small{font-size:9px;color:#a7b4c1}
+.testing-detail-tabs{display:flex;gap:14px;padding:0 12px;border-bottom:1px solid #31363e;flex:none;overflow:auto}
+.testing-detail-tabs button{padding:8px 0;background:none;border:0;border-bottom:2px solid transparent;color:#a5b2bf;font-size:10px;white-space:nowrap;transition:color .16s,border-color .16s}
+.testing-detail-tabs button[aria-selected=true]{color:#bbdd94;border-bottom-color:#9bc961}
+.testing-detail-tabs button:hover{color:#e0edcd;border-bottom-color:#718d50}
+.testing-evidence-panel{padding:12px;min-height:0;overflow:auto;flex:1;font-size:11px;line-height:1.7}
+.testing-evidence-panel>p{color:#b5c1cc;margin:0 0 12px}
+.testing-evidence-panel .testing-evidence-kicker{font-size:9px;letter-spacing:.06em;color:#9baebb;margin-bottom:8px}
+.testing-evidence-panel pre{font:11px/1.65 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:5px 0 12px;color:#c8d1d9}
+.testing-evidence-panel .testing-assertion-message,.testing-evidence-panel .testing-console-error{color:#f0a0a9}
+.testing-source-frames{list-style:none;padding:0;margin:18px 0;color:#b2c2d0}
+.testing-source-frames li{padding:9px 0;border-top:1px solid #31363e}
+.testing-source-frames code{font-size:10px;color:#a9c3d7;overflow-wrap:anywhere}
+.testing-evidence-panel button{color:#bfdc9b}
+.testing-evidence-panel button:hover{background:#303b2b;color:#e0edcd}
+.testing-diff-block{border:1px solid #3a4643;border-radius:4px;overflow:hidden}
+.testing-diff-block>div{padding:10px}
+.testing-diff-expected{background:#243124;color:#c4dfa8}
+.testing-diff-actual{background:#352329;color:#f2b6c1}
+.testing-diff-block span{font-size:9px}
+.testing-diff-block pre{color:inherit;margin:5px 0 0}
+.testing-runner :focus-visible{outline:2px solid #b9d699;outline-offset:-2px}
+@media(max-width:600px){.testing-runner-grid{grid-template-columns:minmax(105px,.65fr) minmax(0,1.35fr)}.testing-suite-tree button{padding-left:10px}.testing-detail-tabs{gap:10px;padding:0 9px}.testing-evidence-panel{padding:10px}.testing-runner-toolbar{flex-wrap:wrap;gap:5px;padding:7px 10px}.testing-selected-case{padding:9px}}
+@media(prefers-reduced-motion:reduce){.testing-suite-tree button,.testing-detail-tabs button{transition:none}}
+@media(max-width:1023px){.phase-case-file>nav{margin:-16px -15px 0;padding:0 15px}.phase-case-panel{padding-top:22px}.phase-case-panel h3{font-size:24px}.phase-case-panel>aside{padding:16px}.phase-case-file>footer{align-items:flex-end}}
+@media(max-width:639px){
+  .phase-gate-banner{display:grid;grid-template-columns:16px minmax(0,1fr);align-items:start;gap:8px 12px}
+  .phase-gate-banner>svg{margin-top:3px}
+  .phase-gate-banner>button{grid-column:1/-1;justify-self:start;max-width:100%;white-space:normal}
+}
+
+/* Optional side panels reserve space only while open. Keep their draft views mounted. */
+.phase-workspace-brief{display:flex;flex-direction:column;width:286px;flex:0 0 286px;min-width:0;min-height:0;overflow:hidden;background:#f8fcfe;border-right:1px solid #d3e2ea}
+.phase-workspace-context:not([hidden]),.phase-workspace-files:not([hidden]){display:flex;flex-direction:column;flex:1;min-width:0;min-height:0;overflow:hidden}
+.phase-workspace-context[hidden],.phase-workspace-files[hidden]{display:none!important}
+.phase-workspace-context .implementation-brief.task-assignment{display:flex!important;width:100%!important;min-width:0;min-height:0;flex:1;border-right:0}
+.phase-workspace-files [data-testid=explorer]{display:flex!important;width:100%!important;min-width:0;min-height:0;flex:1;border:0}
+.phase-requirements-mentor{display:flex;flex-direction:column;min-width:0;min-height:0;width:340px;flex:0 0 340px;overflow:hidden;border-left:1px solid #d3e2ea}
+.phase-document-mentor>[data-testid=persona-panel],.phase-requirements-mentor>[data-testid=persona-panel]{width:100%!important;min-width:0;flex:1;border-left:0}
+/* Hidden must outrank the IDE's own responsive display overrides. */
+.phase-lab-workspace>[data-workspace-panel][hidden]{display:none!important}
+@media(min-width:1024px){.phase-lab-workspace>[data-workspace-panel]:not([hidden]){display:flex!important}}
+@media(max-width:1023px){
+ .phase-lab-workspace>.phase-workspace-brief{width:100%;flex:1}
+ .phase-lab-workspace>.phase-code-surface,.phase-lab-workspace>[data-workspace-panel]{display:none!important}
+ .phase-lab-workspace[data-active-pane=code]>.phase-code-surface{display:flex!important}
+ .phase-lab-workspace:is([data-active-pane=task],[data-active-pane=files])>.phase-workspace-brief:not([hidden]),.phase-lab-workspace:is([data-active-pane=panel],[data-active-pane=preview])>[data-workspace-panel=mentor]:not([hidden]){display:flex!important}
+ .phase-requirements-mentor{width:100%;height:100%;min-height:0;flex:none;border-left:0;border-top:1px solid #d3e2ea}
+}
+/* A phone uses the existing Code / Evidence views instead of compressing both. */
+@media(max-width:1023px){
+ .phase-lab-workspace:not(.implementation-workspace)>.phase-code-surface[data-workspace-view=code]>[data-testid=bottom-panel]{display:none}
+}
+/* Keep the backlog readable when a side-by-side epic tree no longer fits. */
+@media(max-width:767px){
+ .jira-backlog-body{flex-direction:column}
+ .jira-epic-list{width:100%;flex:0 0 auto;max-height:180px;border-right:0;border-bottom:1px solid #d3e2ea;padding:10px 12px}
+ .jira-epic-list>header{padding-bottom:5px}
+ .jira-issue-list{flex:1 0 auto;overflow:visible}
+}
+
+/* Keep the stacked test explorer useful without taking the editor's room.
+   The Evidence view retains the complete panel at every viewport height. */
+@media (min-width:1024px) {
+ .phase-lab-workspace:not(.implementation-workspace)>.phase-code-surface[data-workspace-view=code]>[data-testid=bottom-panel]{height:clamp(150px,30%,220px)!important;min-height:0}
+}
+.design-tool-room .design-collection button{display:flex;align-items:baseline;gap:7px;font-size:12px}
+.design-tool-room .design-collection button>small{font-size:10px;flex:none;min-width:32px}
+.design-tool-room .design-collection button>span{min-width:0;overflow-wrap:anywhere}
+
+/* App preview gets the working area after tests. Console and Run reopen
+   their retained evidence only when the learner explicitly requests it. */
+.implementation-workspace>.phase-code-surface[data-workspace-view=preview][data-console-open=false]>[data-testid=bottom-panel]{display:none}
+/* The same in testing and maintenance, whose preview is a working view rather
+   than a pane of its own: without this the app is squeezed above the
+   evidence pane, which those rooms keep open by default. */
+.phase-lab-workspace:not(.implementation-workspace)>.phase-code-surface[data-workspace-view=preview][data-console-open=false]>[data-testid=bottom-panel]{display:none}
+
+/* Tool chrome pairs with the chosen application theme. Editors, the Testing
+   runner and the real app preview retain their own deliberate palettes. */
+:where(.phase-lab-workspace,.design-room,.phase-document-room,.requirements-workspace-room,.requirements-toolbar,.jira-issue-dialog){
+  --tool-surface:#fff;--tool-raised:#f2f8fc;--tool-canvas:#edf3f7;
+  --tool-ink:#183344;--tool-muted:#526c7c;--tool-line:#cfdee8;
+  --tool-accent:#176e8a;--tool-tint:#e0f2f9;--tool-hover:#eaf5fb;
+  --tool-selected-line:#79b8d0;--tool-shadow:0 2px 7px #163f590d;
+  --tool-orange:#c86020;--tool-coral:#cc624f;
+}
+html[data-theme=graphite] :where(.phase-lab-workspace,.design-room,.phase-document-room,.requirements-workspace-room,.requirements-toolbar,.jira-issue-dialog){
+  --tool-surface:#172a39;--tool-raised:#1c3345;--tool-canvas:#112330;
+  --tool-ink:#deedf6;--tool-muted:#adc3d3;--tool-line:#365267;
+  --tool-accent:#91d4ec;--tool-tint:#25485d;--tool-hover:#223f53;
+  --tool-selected-line:#69aecb;--tool-shadow:0 2px 8px #0002;
+  --tool-orange:#f5ad73;--tool-coral:#f18e7a;
+}
+.phase-lab-workspace,.design-room,.phase-document-room{background:var(--tool-canvas)}
+.phase-workspace-brief,.phase-document-brief,.design-room>aside:first-child{
+  background:var(--tool-raised);color:var(--tool-ink);border-color:var(--tool-line);
+}
+.phase-brief-intro,.phase-case-file{color:var(--tool-ink)}
+.phase-brief-intro section,.phase-case-panel>aside{background:var(--tool-raised);border-color:var(--tool-line)}
+.phase-brief-intro section p,.phase-brief-intro>small,.phase-case-panel>p,.phase-case-criteria p,.phase-case-file>footer{color:var(--tool-muted)}
+.phase-document-center,.phase-document-heading,.phase-document-view-pr .phase-document-content,.design-tool-room{background:var(--tool-surface);color:var(--tool-ink)}
+.phase-document-heading,.phase-document-view-pr .phase-document-heading{background:var(--tool-raised);border-color:var(--tool-line)}
+.phase-document-heading>p{color:var(--tool-muted)}
+.phase-document-content,.design-tool-room{--c-surface:255 255 255;--c-ground:246 250 252;--c-ink:24 51 68;--c-muted:82 108 124}
+.design-tool-room{--c-dim:82 108 124}
+.phase-document-content{--c-dim:82 108 124}
+.phase-document-content [data-diff-scroll]{--c-gutter:82 108 124}
+html[data-theme=graphite] :is(.phase-document-content,.design-tool-room){--c-surface:23 42 57;--c-ground:17 35 48;--c-raised:28 51 69;--c-ink:222 237 246;--c-ink2:195 215 228;--c-muted:173 195 211;--c-edge:54 82 103;--c-edge2:78 111 132;--c-accent:145 212 236;--c-tint:37 72 93}
+html[data-theme=graphite] .design-tool-room{--c-dim:173 195 211}
+html[data-theme=graphite] .phase-document-content{--c-dim:173 195 211}
+html[data-theme=graphite] .phase-document-content [data-diff-scroll]{--c-gutter:173 195 211}
+
+/* A quiet toolbar, clear current location and an immediate inset press.
+   None of these states animates dimensions or moves an editor/preview. */
+:is(.implementation-view-tabs,.design-tool-tabs,.phase-room-nav,.phase-case-file>nav){
+  background:linear-gradient(180deg,var(--tool-surface),var(--tool-raised));
+  color:var(--tool-muted);border-color:var(--tool-line);box-shadow:0 1px 0 #ffffff18 inset;
+}
+:is(.implementation-view-tabs,.design-tool-tabs,.phase-room-nav,.phase-case-file>nav) :is(button,a){
+  position:relative;cursor:pointer;touch-action:manipulation;
+  transition:background-color var(--motion-control,180ms) var(--ease-out,cubic-bezier(.2,.8,.2,1)),color var(--motion-control,180ms) var(--ease-out,cubic-bezier(.2,.8,.2,1)),border-color var(--motion-control,180ms) var(--ease-out,cubic-bezier(.2,.8,.2,1)),box-shadow var(--motion-fast,120ms) var(--ease-out,cubic-bezier(.2,.8,.2,1));
+}
+.implementation-view-tabs>button,.runtime-view-tabs>a{border-radius:7px;min-height:32px;font-weight:550}
+:is(.design-tool-tabs,.phase-room-nav,.phase-case-file>nav) :is(button,a){padding-inline:10px;border-radius:6px 6px 0 0;color:var(--tool-muted)}
+:is(.design-tool-tabs,.phase-room-nav,.phase-case-file>nav){gap:5px}
+:is(.implementation-view-tabs,.design-tool-tabs,.phase-room-nav,.phase-case-file>nav) :is(button,a):hover{background:var(--tool-hover);color:var(--tool-accent);transform:none}
+.implementation-view-tabs>button[aria-pressed=true]{background:var(--tool-surface);color:var(--tool-accent);border-color:var(--tool-selected-line);box-shadow:var(--tool-shadow),inset 0 -2px var(--tool-accent)}
+:is(.design-tool-tabs,.phase-room-nav,.phase-case-file>nav) :is([aria-pressed=true],[aria-current=page]){background:var(--tool-tint);color:var(--tool-accent);border-bottom-color:var(--tool-accent);font-weight:650}
+.phase-document-view-pr .phase-room-nav [aria-current=page]{border-bottom-color:var(--tool-coral)}
+:is(.implementation-view-tabs,.design-tool-tabs,.phase-room-nav,.phase-case-file>nav) :is(button,a):active:not(:disabled){background:var(--tool-tint);box-shadow:inset 0 2px 4px #062c4826;transition-duration:var(--motion-fast,120ms)}
+:is(.implementation-view-tabs,.design-tool-tabs,.phase-room-nav,.phase-case-file>nav) :is(button,a):focus-visible{outline:2px solid var(--tool-accent);outline-offset:-3px;z-index:1}
+
+/* Postman collection and request tabs remain visibly different levels. */
+.design-tool-room .design-workbench{border-color:var(--tool-line);border-radius:9px;box-shadow:var(--tool-shadow)}
+.design-tool-room .design-workbench-top,.design-tool-room .design-collection{background:var(--tool-raised);border-color:var(--tool-line)}
+.design-tool-room .design-collection button{border:1px solid transparent;margin-bottom:4px;min-height:42px;color:var(--tool-muted);transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),border-color var(--motion-control,180ms) var(--ease-out,ease-out)}
+.design-tool-room .design-collection button:hover{background:var(--tool-hover);color:var(--tool-ink)}
+.design-tool-room .design-collection button[aria-pressed=true]{background:var(--tool-tint);border-color:var(--tool-selected-line);color:var(--tool-ink);box-shadow:inset 2px 0 var(--tool-accent)}
+.design-tool-room .design-collection button:active{background:var(--tool-tint)}
+.design-tool-room .design-collection button:focus-visible{outline:2px solid var(--tool-accent);outline-offset:-3px}
+html[data-theme=graphite] .design-tool-room .design-collection small{color:#8ed1b1}
+.design-tool-room .design-request-line{background:var(--tool-raised);border-color:var(--tool-line)}
+.design-tool-room .design-contract-editor>.mentor-mode-switch{gap:4px;border-color:var(--tool-line)}
+.design-tool-room .design-contract-editor>.mentor-mode-switch button{padding:10px 12px;color:var(--tool-muted);transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),color var(--motion-control,180ms) var(--ease-out,ease-out)}
+.design-tool-room .design-contract-editor>.mentor-mode-switch button:hover{background:var(--tool-hover);color:var(--tool-ink)}
+.design-tool-room .design-contract-editor>.mentor-mode-switch button[aria-pressed=true]{color:var(--tool-ink);border-bottom-color:var(--tool-orange);font-weight:650}
+.design-tool-room .design-contract-editor>.mentor-mode-switch button:focus-visible{outline:2px solid var(--tool-orange);outline-offset:-3px}
+
+.design-tool-room :is(.design-contract-editor input,.design-contract-editor textarea,.design-contract-editor select){border-color:rgb(var(--c-field-border,113 140 160))}
+.design-tool-room :is(input,textarea)::placeholder{opacity:1}
+.design-tool-room option{background:var(--tool-surface);color:var(--tool-ink)}
+.design-contract-editor [aria-invalid=true]{border-color:rgb(var(--c-fail));box-shadow:inset 3px 0 rgb(var(--c-fail))}
+.design-contract-editor [role=alert]{color:rgb(var(--c-fail));font-size:12px;line-height:1.65;padding:9px 11px;border:1px solid rgb(var(--c-fail));border-radius:7px;background:rgb(var(--c-failtint))}
+.implementation-app{--c-raised:239 246 250;--c-dim:82 108 124;--c-edge2:183 203 217;--c-tint:228 242 248;--c-onaccent:255 255 255;--c-onstatus:255 255 255;--c-pass:21 112 60;--c-fail:185 28 28;--c-warn:154 52 18;--c-passtint:223 243 230;--c-failtint:253 226 226;--c-warntint:255 232 217;--c-field-border:113 140 160;}
+html[data-theme=graphite] .implementation-app{--c-surface:23 42 57;--c-ground:17 35 48;--c-raised:28 51 69;--c-ink:222 237 246;--c-ink2:195 215 228;--c-muted:173 195 211;--c-dim:173 195 211;--c-edge:54 82 103;--c-edge2:78 111 132;--c-accent:145 212 236;--c-tint:37 72 93;--c-onaccent:11 18 32;--c-onstatus:11 18 32;--c-pass:137 209 133;--c-fail:255 166 166;--c-warn:244 190 110;--c-passtint:27 47 38;--c-failtint:51 32 31;--c-warntint:42 29 2;--c-field-border:117 147 168;color:rgb(var(--c-ink));background:rgb(var(--c-surface))}
+@media(max-width:767px){.design-contract-editor :is(input,textarea,select){font-size:16px}}
+
+/* Evidence controls use the runner's deliberate dark green identity. */
+.testing-detail-tabs{gap:4px}
+.testing-detail-tabs button{padding:9px 11px;border-radius:5px 5px 0 0;font-size:11px;transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),color var(--motion-control,180ms) var(--ease-out,ease-out),border-color var(--motion-control,180ms) var(--ease-out,ease-out)}
+.testing-detail-tabs button:hover{background:#293427}
+.testing-detail-tabs button[aria-selected=true]{background:#303b2b;border-bottom-color:#acd380;color:#d4eabb}
+.testing-detail-tabs button:active,.testing-suite-tree button:active{background:#3a4732;box-shadow:inset 0 2px 4px #0004}
+.testing-suite-tree button{transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),color var(--motion-control,180ms) var(--ease-out,ease-out);min-height:36px}
+.testing-suite-tree button[aria-pressed=true]:hover{background:#37432e;color:#e0ead8}
+.testing-suite-tree summary:focus-visible{outline:2px solid #b9d699;outline-offset:-3px}
+
+.implementation-console-bar{background:var(--tool-raised);border-color:var(--tool-line);color:var(--tool-muted)}
+.implementation-console-bar button{min-height:34px;border-radius:7px;transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),box-shadow var(--motion-fast,120ms) var(--ease-out,ease-out);transform:none}
+.implementation-console-bar button:hover{box-shadow:0 2px 7px #163f5920;transform:none}
+.implementation-console-bar button:active:not(:disabled){box-shadow:inset 0 2px 4px #062c4840;transform:none}
+.implementation-console-bar button:focus-visible{outline:2px solid var(--tool-accent);outline-offset:2px}
+html[data-theme=graphite] .implementation-console-bar button:not(:last-child){background:var(--tool-surface);border-color:var(--tool-line);color:var(--tool-ink)}
+.phase-document-content [role=tablist]{background:var(--tool-raised);border-color:var(--tool-line)}
+.phase-document-content [role=tab]{border-radius:5px 5px 0 0;transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),box-shadow var(--motion-control,180ms) var(--ease-out,ease-out)}
+.phase-document-content [role=tab]:hover{background:var(--tool-hover)}
+.phase-document-content [role=tab][aria-selected=true]{background:var(--tool-surface);box-shadow:inset 0 -2px var(--tool-coral)}
+.phase-pr-review-state,.phase-evidence-detail{background:var(--tool-surface);border-color:var(--tool-line);box-shadow:var(--tool-shadow)}
+.phase-pr-review-state>summary,.phase-evidence-detail>summary{color:var(--tool-accent);padding:3px 0}
+html[data-theme=graphite] .phase-code-surface .deployment-tool-evidence,
+html[data-theme=graphite] .phase-code-surface[data-workspace-view=evidence] .deployment-pipeline-section{
+  --c-surface:23 42 57;--c-ground:17 35 48;--c-code:17 35 48;--c-raised:28 51 69;
+  --c-ink:222 237 246;--c-ink2:195 215 228;--c-muted:173 195 211;--c-dim:151 178 196;
+  --c-edge:54 82 103;--c-edge2:78 111 132;--c-accent:145 212 236;--c-tint:37 72 93;
+  --c-onaccent:11 18 32;--c-onstatus:11 18 32;--c-pass:137 209 133;--c-fail:255 166 166;--c-warn:244 190 110;--c-passtint:27 47 38;--c-failtint:51 32 31;--c-warntint:42 29 2;--c-field-border:117 147 168;
+  background:var(--tool-surface);color:var(--tool-ink);
+}
+html[data-theme=graphite] .phase-code-surface[data-workspace-view=evidence] .deployment-pipeline-section>header{background:var(--tool-raised)}
+.deployment-tool-evidence .rounded-panel{border-radius:9px;box-shadow:var(--tool-shadow)}
+.deployment-tool-evidence summary{border-radius:5px;transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out)}
+.deployment-tool-evidence summary:hover{background:var(--tool-hover)}
+.deployment-tool-evidence summary:focus-visible{outline:2px solid var(--tool-accent);outline-offset:3px}
+
+@media(max-width:767px){
+  .implementation-view-tabs>button,.runtime-view-tabs>a,.design-tool-tabs button,.phase-room-nav>a,.phase-case-file>nav button,.testing-detail-tabs button,.testing-suite-tree button,.implementation-console-bar button{min-height:44px}
+  /* The view switcher holds a status word ("Saved
+     workspace") beside its controls, so on a phone it wraps onto a second
+     row instead of scrolling sideways. The phase-room and Design tool navs
+     stay one-row strips: named navigations made only of links and buttons,
+     each reached by Tab, which scrolls it into view. */
+  .implementation-view-tabs{gap:4px;padding-block:4px;flex-wrap:wrap}
+  .design-tool-tabs,.phase-room-nav{scroll-padding-inline:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  :is(.implementation-view-tabs,.design-tool-tabs,.phase-room-nav,.phase-case-file>nav) :is(button,a),.design-tool-room .design-collection button,.design-tool-room .design-contract-editor>.mentor-mode-switch button,.testing-detail-tabs button,.testing-suite-tree button,.implementation-console-bar button,.phase-document-content [role=tab],.deployment-tool-evidence summary{transition:none!important}
+}
+
+/* The Design room's Hide brief / Hide mentor sit at the end of its model tabs'
+   row, as the Requirements room's do (requirements-toolbar), instead of a 47 px row of
+   their own above the room. Where the row cannot hold both, the switches wrap onto a line
+   of their own under the tabs, at its right end, and the tabs never shrink or scroll for
+   them; on a phone that line starts at the left, as Requirements' does. The tabs keep
+   their own look; the switches take the tabs' surface and rule so the row reads as one. */
+.design-tool-toolbar{display:flex;flex-wrap:wrap;flex:none;align-items:stretch;min-width:0}
+.design-tool-toolbar>.design-tool-tabs{flex:1 0 auto;max-width:100%}
+.design-tool-toolbar>.workspace-panel-controls{position:static;flex:1 0 auto;max-width:100%;align-items:center;justify-content:flex-end;padding:0 12px;border:0;border-bottom:1px solid var(--tool-line);background:linear-gradient(180deg,var(--tool-surface),var(--tool-raised));box-shadow:0 1px 0 #ffffff18 inset}
+@media(max-width:700px){.design-tool-toolbar>.workspace-panel-controls{justify-content:flex-start;padding:4px 8px}}
+/* Keep mobile Design navigation (the tabs and the panel switches) reachable while each
+   working view keeps its reading position. */
+@media(max-width:1023px){
+  .design-tool-toolbar{position:sticky;top:0;z-index:4}
+}
+
+/* Task information uses the same readable theme accents as its surrounding workspace. */
+.task-assignment .task-assignment-tabs button:hover {
+  color: rgb(var(--c-accent));
+  border-bottom-color: rgb(var(--c-accent));
+}
+.task-assignment :focus-visible {
+  outline-color: rgb(var(--c-accent));
+}
+
+/* The bridge notice on phases 3 to 6, the
+   application these phases build, named from the provenance payload, is a
+   note, set apart from the brief's prose by a rule and a tint and read in the
+   theme's ink. Two selectors so it outranks each room's own paragraph rule. */
+.phase-case-panel>.phase-brief-bridge,.phase-brief-intro>.phase-brief-bridge{
+  max-width:68ch;margin:14px 0;padding:10px 14px;
+  border-left:3px solid rgb(var(--c-accent));border-radius:0 8px 8px 0;
+  background:rgb(var(--c-tint));color:rgb(var(--c-ink));
+  font-size:12px;line-height:1.7;
+}
+/* "Add an endpoint" sits in the collection's column but is an action, not an endpoint: it keeps the secondary button's look */
+.design-collection button.design-collection-add,.design-tool-room .design-collection button.design-collection-add{display:inline-flex;justify-content:center;width:100%;margin-top:6px;min-height:0;border:1px solid rgb(var(--c-edge));background:rgb(var(--c-surface));color:rgb(var(--c-ink));font-weight:600}
+
+/* ---------------------------------------------------------------------------
+   The work room at normal zoom.
+   Layout, size and state only, on the tokens and classes that exist; no new
+   colour, type face, radius or shadow.
+--------------------------------------------------------------------------- */
+
+/* The header row: the phase's place beside its name, one state chip. */
+.phase-header .phase-header-place{flex-shrink:0;font-size:13px;font-weight:550;color:rgb(var(--c-muted));white-space:nowrap}
+.phase-header>.chip{flex-shrink:0}
+/* The Details / More toggle is the 34 px of the row's buttons beside it: the strip's 8 px padding
+   around a 13 px line at the inherited 1.5 line height drew it 35.5 px. */
+.phase-header .phase-strip-details summary{font-size:13px;font-weight:550;color:rgb(var(--c-ink2));min-height:34px;padding-top:0;padding-bottom:0}
+.phase-header .phase-strip-secondary .phase-tutorial-replay,.phase-header .phase-strip-secondary .phase-strip-guide{justify-self:start;min-height:34px;padding:6px 8px;font-size:13px}
+.phase-header .phase-header-retry{margin-top:12px;padding-top:12px;border-top:1px solid rgb(var(--c-edge))}
+.phase-header .phase-strip-detail-panel{width:320px}
+
+/* The optional quick check: one line, as quiet as the strip around it. */
+.quick-check-line{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;flex-shrink:0;min-width:0;padding:5px 16px;border-bottom:1px solid rgb(var(--c-edge));background:rgb(var(--c-surface));font-size:13px;color:rgb(var(--c-ink2))}
+.quick-check-line .quick-check-text{min-width:0;margin:0}
+/* The title at 14 px; the "Optional" chip before it is the
+   line's label at every width, the task list's own Optional chip, a little shorter. */
+.quick-check-line .quick-check-text strong{font-size:14px;font-weight:600;color:rgb(var(--c-ink))}
+.quick-check-line .quick-check-optional{height:20px;padding:0 6px;vertical-align:1px}
+.quick-check-line .quick-check-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.quick-check-line .quick-check-actions .btn-sm{min-height:30px;white-space:normal}
+.quick-check-line-inline{flex:0 1 auto;flex-wrap:nowrap;padding:0;border:0;background:none}
+.quick-check-line-inline .quick-check-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* On the header row the sentence gives way first: the two buttons keep their
+   size and their one line, so the row stays one 55 px line. */
+@media(min-width:980px){.quick-check-line-inline .quick-check-actions{flex-wrap:nowrap;flex-shrink:0}.quick-check-line-inline .quick-check-actions .btn-sm{white-space:nowrap}}
+/* Where the row has no room, the line keeps its "Optional" label, its title and its two
+   buttons, and the phase's place gives up its spot on the row to them (the More menu still
+   leads with it). The "Optional" label never gives way: the text keeps room for it. */
+@media(max-width:1279px){.quick-check-line-inline [data-testid=concept-prompt-body]{display:none}}
+/* The header of a Maintenance document page (the change request, the
+   pull request) holds the page's own actions beside the quick check, so from
+   1280 to 1365 px its row is 40 px short of the check's whole sentence, which
+   would end in an ellipsis. There the count ("6 questions, not graded.") steps
+   out, as it does under 1280 px on every header, and the title and both
+   buttons read in full. */
+@media(min-width:1280px) and (max-width:1365px){.phase-header--doc>.quick-check-line-inline [data-testid=concept-prompt-body]{display:none}}
+/* From 1280 to 1439 px a room's header can run out of row for the whole check ("Optional Quick check
+   before you start 6 questions, not graded."). There the words wrap onto a second line inside the
+   header's own 55 px instead of being cut with an ellipsis (two lines at most; the header stays one
+   row), and on a code room's header, which also holds Run tests and Submit, the count steps out, as it does on a
+   document page from 1280 to 1365 px and on every header under 1280. Where the row has room, the line is one line;
+   at 1440 px and wider nothing here applies. Take the quick check and Later are not touched. */
+@media(min-width:1280px) and (max-width:1439px){.phase-header>.quick-check-line-inline .quick-check-text{white-space:normal;text-overflow:clip;line-height:17px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.phase-header:has([data-testid=header-run])>.quick-check-line-inline [data-testid=concept-prompt-body]{display:none}}
+/* A document page's header shows the workspace's state chip beside the place. Its row is already full
+   while the optional quick check is on it (the rules above), so there the chip gives way to the check, as the place
+   gives way to it from 701 to 1151 px; it is back as soon as the check is put away or read inside Details. */
+.phase-header--doc:has(>.quick-check-line-inline)>[data-testid=phase-state]{display:none}
+@media(min-width:701px) and (max-width:1279px){.phase-header:has(>.quick-check-line-inline) .phase-header-place{display:none}}
+@media(max-width:979px){.quick-check-line-inline{flex-wrap:wrap}}
+.quick-check-line-inline .quick-check-text{min-width:76px}
+/* Where even that is too wide for one line (1366 and 1440 at 125 per cent zoom are 1093 and
+   1152 CSS px, where a credited chip would push the quick check's buttons over Run tests; and
+   under 1440 px with the sidebar pinned open), the row wraps rather than letting anything
+   overlap: what does not fit moves to a second line under the first. Where it fits, it is
+   one 55 px line. A wrapping row breaks by its items' widths before they shrink,
+   so the quick check counts only what it cannot give up (its "Optional" label and its two
+   buttons) and its title takes whatever room the line has left. */
+@media(min-width:701px) and (max-width:1279px){.phase-strip-approved.phase-header{height:auto;flex-wrap:wrap;row-gap:4px}.phase-header>.quick-check-line-inline{flex:1 1 0;min-width:min-content}.phase-header>.quick-check-line-inline .quick-check-text{flex:1 1 76px;width:76px}}
+@media(min-width:701px) and (max-width:1439px){html[data-sidebar="full"] .phase-strip-approved.phase-header{height:auto;flex-wrap:wrap;row-gap:4px}html[data-sidebar="full"] .phase-header>.quick-check-line-inline{flex:1 1 0;min-width:min-content}html[data-sidebar="full"] .phase-header>.quick-check-line-inline .quick-check-text{flex:1 1 76px;width:76px}}
+/* Phones (the strip itself wraps under 700 px, shell-fidelity.css): the line takes a
+   row of its own at the strip's foot, its title and its two buttons wrapping inside the
+   viewport, so "Take the quick check" is never cut at the edge (WCAG 1.4.10, at 360 and
+   390 px). */
+@media(max-width:700px){.quick-check-line-inline{flex:1 0 100%;order:9;flex-wrap:wrap;min-width:0;max-width:100%}.quick-check-line-inline .quick-check-text{white-space:normal;overflow:visible;text-overflow:clip}.quick-check-line-inline .quick-check-actions{flex-wrap:wrap;flex-shrink:1;min-width:0;max-width:100%}.quick-check-line-inline .quick-check-actions .btn-sm{white-space:normal;max-width:100%}}
+/* The line drawn above a room (not on the strip) on a narrow column: with the sidebar pinned
+   at 360 px the column is about 128 px wide, so the sentence and the buttons wrap by the word
+   and never cut at the edge (WCAG 1.4.10, in the rooms with no strip). */
+@media(max-width:700px){.quick-check-line{padding:5px 12px}.quick-check-line .quick-check-text{overflow-wrap:anywhere}.quick-check-line .quick-check-actions{min-width:0;max-width:100%;flex-wrap:wrap}.quick-check-line .quick-check-actions .btn-sm{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:left}}
+/* The phase's place on the rooms that draw WorkPage's strip (Requirements, Design): the same
+   label PhaseHeader shows, hidden on phones where the strip wraps. */
+.phase-strip-approved>.phase-header-place{flex-shrink:0;font-size:13px;font-weight:550;color:rgb(var(--c-muted));white-space:nowrap}
+@media(max-width:700px){.phase-strip-approved>.phase-header-place{display:none}}
+
+/* The gate band's actions sit together on the right; on a phone they drop under the sentence. */
+@media(max-width:639px){.phase-gate-banner>span{grid-column:1/-1;justify-self:start;max-width:100%}}
+
+/* The brief and mentor switches at the right end of the view tabs. */
+.workspace-panel-controls.workspace-panel-controls-strip{position:static;margin-left:auto;padding:0 2px;border:0;background:none;flex-wrap:nowrap}
+.workspace-panel-controls.workspace-panel-controls-strip button{min-height:32px;font-size:12px}
+.implementation-view-tabs>.workspace-panel-controls-strip,.runtime-view-tabs>.workspace-panel-controls-strip{flex:none}
+.implementation-view-tabs>span:not(.focus-switch)+.workspace-panel-controls-strip{margin-left:8px}
+/* From 1024 px the working-area row is one line of one height on every
+   page of every code phase (the workspace's row and the same row on the
+   phase's document pages): it never wraps. Where it is too narrow for its
+   entries and the switches' words, the switches drop their words from view
+   (area-row-fit.ts sets data-compact; each keeps its icon, its name and a
+   title); where it is too narrow even then, the entries scroll sideways
+   inside the row and the switches stay pinned at its right end, on the row's
+   own background, so both stay in view and every entry stays reachable by
+   pointer and by Tab (an entry Tab reaches is scrolled clear of the pinned
+   switches, whose words are hidden by then: about 80 px). Under 1024 px the
+   row wraps. */
+@media(min-width:1024px){
+ .implementation-view-tabs{flex-wrap:nowrap;scroll-padding-inline-end:var(--area-row-end,88px)}
+ .implementation-view-tabs>.workspace-panel-controls.workspace-panel-controls-strip{position:sticky;right:0;z-index:1;align-self:stretch;align-items:center;margin-block:-7px;padding-block:7px;background:linear-gradient(180deg,var(--tool-surface),var(--tool-raised))}
+}
+/* Where even the wordless switches leave the entries too little room (Testing at 1280 px with the brief
+   and the mentor open), the row wraps onto a second line rather than scroll an entry under the switches, cut mid-word
+   with nothing to say there was more (area-row-fit.ts sets data-wrap). The switches end the last line, in the row's
+   flow, not pinned over it. Every other width keeps the one line above. */
+@media(min-width:1024px){
+ .implementation-view-tabs[data-wrap]{flex-wrap:wrap;row-gap:4px}
+ .implementation-view-tabs[data-wrap]>.workspace-panel-controls.workspace-panel-controls-strip{position:static;align-self:center;margin-block:0;padding-block:0;background:none}
+}
+.workspace-panel-controls-strip[data-compact] .workspace-panel-word{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.workspace-panel-controls-strip[data-compact] button{gap:0;padding-inline:8px}
+/* Where the row has no room for its status word ("Saved workspace", a word and no control),
+   the word leaves the view whole rather than being cut under the switches, and stays in the page for
+   assistive technology (area-row-fit.ts sets data-quiet before the switches drop their words); the
+   switches keep the row's right end. */
+.implementation-view-tabs>.area-row-status{flex:none}
+.implementation-view-tabs[data-quiet]>.area-row-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.implementation-view-tabs[data-quiet]>.area-row-status+.workspace-panel-controls-strip{margin-left:auto}
+
+/* The focused mode's Code / Results switch. */
+.focus-switch{display:inline-flex;flex:none;gap:2px;margin-left:auto;padding:2px;border:1px solid rgb(var(--c-edge));border-radius:8px;background:rgb(var(--c-ground))}
+.focus-switch+.workspace-panel-controls-strip{margin-left:8px}
+.focus-switch button{min-height:32px;padding:4px 10px;border-radius:6px;font-size:12.5px;font-weight:550;color:rgb(var(--c-muted))}
+.focus-switch button[aria-pressed=true]{background:rgb(var(--c-surface));color:rgb(var(--c-ink))}
+.focus-switch button:focus-visible{outline:2px solid rgb(var(--c-accent));outline-offset:2px}
+/* On the working-area row the switch is the entries' 32 px (1 px of border and 1 px of padding around 28 px
+   buttons) rather than 38 px, so a short window's row is the same height as every other page's. On a phone the
+   row's entries are 44 px and the switch keeps its own size. */
+@media(min-width:768px){.implementation-view-tabs>.focus-switch{padding:1px}.implementation-view-tabs>.focus-switch button{min-height:28px}}
+
+/* The learner's split between the code and the results, with floors for both. */
+.results-split-handle{display:none;flex:none;height:6px;cursor:row-resize;background:rgb(var(--c-edge));touch-action:none}
+.results-split-handle:hover,.results-split-handle:focus-visible{background:rgb(var(--c-accent))}
+.results-split-handle:focus-visible{outline:2px solid rgb(var(--c-accent));outline-offset:-1px}
+.results-split-handle.results-split-collapsed{height:auto;cursor:default;padding:4px 12px;background:rgb(var(--c-surface));border-top:1px solid rgb(var(--c-edge))}
+.results-split-handle.results-split-collapsed button{min-height:32px;font-size:12.5px;font-weight:550;color:rgb(var(--c-accent))}
+@media(min-width:1024px){
+  .phase-code-surface:is([data-workspace-view=code],[data-workspace-view=split]):not([data-focused=true]):not([data-focus-show=results])>.results-split-handle{display:block}
+  .phase-lab-workspace>.phase-code-surface.phase-code-surface[data-results-sized=true]:is([data-workspace-view=code],[data-workspace-view=split]):not([data-focus-show=results])>[data-testid=bottom-panel]{height:var(--results-h)!important;flex:none!important;min-height:0}
+  .phase-lab-workspace>.phase-code-surface.phase-code-surface[data-results-collapsed=true]:not([data-focus-show=results])>[data-testid=bottom-panel]>[role=tabpanel]{display:none}
+  /* Focused, the column shows the code or the results, never a sliver of both. */
+  .phase-lab-workspace>.phase-code-surface[data-focused=true][data-focus-show=code]>[data-testid=bottom-panel]{display:none!important}
+  .phase-lab-workspace>.phase-code-surface[data-focus-show=results]>:is([role=tablist],.mono,[data-testid=editor-host],.implementation-app){display:none!important}
+  .phase-lab-workspace>.phase-code-surface.phase-code-surface[data-focus-show=results]>[data-testid=bottom-panel]{display:flex!important;flex:1!important;height:auto!important;min-height:0}
+}
+
+/* No essential text under 12 px in the testing runner, the suite tree
+   and the evidence beside it. Weights and colours as they were. */
+.testing-runner{font-size:12.5px}
+.testing-runner-toolbar>strong{font-size:12px}
+.testing-runner-toolbar>span{font-size:12.5px}
+.testing-runner-toolbar>small{font-size:12px}
+.testing-runner-notice{font-size:12.5px}
+.testing-suite-tree>p:first-child{font-size:12px}
+.testing-suite-tree summary{font-size:12.5px}
+.testing-suite-tree summary>small{font-size:12px}
+.testing-suite-tree button{font-size:12.5px;align-items:flex-start}
+.testing-suite-tree button>svg{margin-top:2px}
+/* A long test name wraps to two lines instead of being cut; the detail keeps the whole name. */
+.testing-suite-tree button>span:not(.sr-only){white-space:normal;overflow:hidden;text-overflow:clip;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2}
+.testing-suite-tree .testing-no-cases{font-size:12.5px}
+.testing-selected-case strong{font-size:12.5px}
+.testing-selected-case small{font-size:12px}
+.testing-detail-tabs button{font-size:12.5px}
+.testing-evidence-panel{font-size:13px}
+.testing-evidence-panel .testing-evidence-kicker{font-size:12px}
+.testing-evidence-panel pre{font-size:12.5px}
+.testing-source-frames code{font-size:12px}
+.testing-diff-block span{font-size:12px}
+/* The Tests tab's one-line summary over the tree. */
+.testing-run-summary-line{flex:none;margin:0;padding:6px 12px;font-size:13px;font-weight:600;color:rgb(var(--c-ink));border-bottom:1px solid #31363e}
+.task-picker{font-size:12px}
+.task-assignment>header>span{font-size:12px}
+.task-assignment-tabs button{font-size:12.5px}
+.phase-header .phase-header-secondary{display:flex;align-items:center;flex-shrink:0;gap:8px}
+/* With the sidebar pinned open under 1440 px the row closes its gaps a little, so
+   Run tests, Run app, More and the primary keep their room (the quick check has a
+   row of its own there, above). */
+@media(min-width:701px) and (max-width:1439px){html[data-sidebar="full"] .phase-header{gap:10px}}
+.phase-header .phase-header-secondary .btn-kbd{display:none}
+.phase-header .phase-header-secondary button{min-height:34px}
+
+/* ---------------------------------------------------------------------------
+   The task list of the one-board rooms (Requirements, Design) as
+   one row that opens to the full list. Layout only, on the task list's own classes.
+--------------------------------------------------------------------------- */
+.task-switcher-compact summary::-webkit-details-marker{display:none}
+.task-switcher-compact summary:focus-visible{outline:2px solid rgb(var(--c-accent));outline-offset:-2px;border-radius:inherit}
+.task-switcher-compact details[open] .task-switcher-chevron{transform:rotate(180deg)}
+.task-switcher-compact details[open]>summary{border-bottom:1px solid rgb(var(--c-edge))}
+/* WCAG 1.4.10: on a phone with the sidebar pinned the room is 128 px wide at 360, too
+   narrow for the folded row's state chip ("Ready to s…"). There the task's name and its chip
+   wrap onto lines of their own and the chip's words wrap inside it (as the header chip's do),
+   so no state word is cut and the chip is never narrower than its words.
+   From 701 px nothing changes (the folded row stays one line). */
+@media(max-width:700px){.task-switcher-compact .task-switcher-current{flex-wrap:wrap;row-gap:4px;max-width:100%}.task-switcher-compact .task-switcher-title{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}.task-switcher-compact .task-switcher-chip{flex:none;max-width:100%;height:auto;min-height:24px;padding-block:4px;white-space:normal;overflow-wrap:anywhere;line-height:1.25}.task-switcher-compact .task-switcher-chevron{flex:none}}
+
+/* ---------------------------------------------------------------------------
+   The work room at 125 and 200 per cent zoom. Layout only.
+--------------------------------------------------------------------------- */
+/* The phase's place stays on the header row beside a quick check where showing it costs no
+   line: from 1152 px (1440 at 125 per cent zoom) the row still holds one 55 px line with
+   it, and under 1024 px the quick check takes a row of its own anyway (below). From 1024 to
+   1151 px (1366 at 125 per cent is 1093) the place would push the primary action onto a
+   second line and take 32 px from the work, so there it gives up its spot
+   (the rule above): More still leads with it. */
+@media(min-width:701px) and (max-width:1023px),(min-width:1152px) and (max-width:1279px){.phase-header:has(>.quick-check-line-inline) .phase-header-place{display:inline}}
+/* Under 1024 px (200 per cent zoom on a 1920 px window is 960 CSS px) the quick check
+   takes a row of its own at the header's foot, as on phones: its "Optional" label, title
+   and two buttons wrap inside that row and never run under Run tests, Run app or More. */
+@media(min-width:701px) and (max-width:1023px){.phase-header>.quick-check-line-inline{flex:1 0 100%;order:9;flex-wrap:wrap;min-width:0;max-width:100%}.phase-header>.quick-check-line-inline .quick-check-text{flex:0 1 auto;width:auto;white-space:normal;overflow:visible;text-overflow:clip}.phase-header>.quick-check-line-inline .quick-check-actions{flex-wrap:wrap;flex-shrink:1;min-width:0;max-width:100%}.phase-header>.quick-check-line-inline .quick-check-actions .btn-sm{white-space:normal;max-width:100%}}
+/* A short window (600 CSS px or less: 200 per cent zoom on a 1054 px window is 527) can
+   not hold the header, the gate band, the panel switches and the view tabs above a pane
+   with room left for the pane, so the code rooms stop being a fixed stack: the page
+   scrolls, its chrome scrolls away with it, and the working area keeps a height that
+   fits the window under the top bar, so scrolling down brings the selected view (the
+   review, the code, the tests) wholly into view. Phones keep their own layout. */
+@media(min-width:701px) and (max-height:600px){main[data-testid=workspace-page]{overflow-y:auto}main[data-testid=workspace-page]>div:last-child{flex:none;overflow:visible}main[data-testid=workspace-page] .workspace-room-scroll{flex:none;overflow:visible}main[data-testid=workspace-page] .phase-lab-workspace{flex:none;min-height:0;height:max(320px,calc(100dvh - 96px))}}
+/* Requirements and Design on a wide, short window (1280 by 600, say)
+   scroll their chrome away as the code rooms do above, instead of a fixed stack that
+   leaves the backlog or the board a few hundred pixels. From 1024 px: below that their
+   own rules already scroll the page (requirements-workspace.css, the design-page rule). */
+@media(min-width:1024px) and (max-height:600px){main[data-testid=requirements-workspace]{overflow-y:auto}main[data-testid=requirements-workspace]>div:last-child{flex:none;overflow:visible}main[data-testid=requirements-workspace] .requirements-workspace-room{flex:none;min-height:0;height:max(320px,calc(100dvh - 96px))}#main[data-testid=design-page]{overflow-y:auto}#main[data-testid=design-page]>div:last-child{flex:none;overflow:visible}#main[data-testid=design-page] .design-room{flex:none;min-height:0;height:max(320px,calc(100dvh - 96px))}}
+/* More draws no rule and no gap where the room offers no reset or retry. */
+.phase-header .phase-header-retry:empty{display:none}
+/* The retry control's short status, kept on the row while More is closed. */
+.phase-header .phase-header-note{flex:0 1 auto;min-width:0;font-size:12px;line-height:1.3;color:rgb(var(--c-muted))}
+/* From 701 px the note keeps one line, cut with an ellipsis where the
+   row is crowded (the 55 px row at 1280 px and up holds one line only); its words are its
+   title, and the full sentence is in More. */
+@media(min-width:701px){.phase-header .phase-header-note{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+/* On a phone (a pinned sidebar leaves main 128 px at 360) the state chip
+   and the story row's state may be "Credit awarded, review still needed": they wrap
+   inside the row rather than run past it (WCAG 1.4.10). Wider, nothing changes. */
+@media(max-width:700px){.phase-header>.chip{flex-shrink:1;min-width:0;max-width:100%;height:auto;min-height:24px;padding-block:4px;white-space:normal;line-height:1.25}}
+@media(max-width:1023px){.jira-issue-row small{white-space:normal;max-width:calc(100% - 25px)}}
+
+/* ---------------------------------------------------------------------------
+   A short or narrow window keeps its height for the work. At 200 per cent
+   zoom on a 1920 by 1080 window (960 by 470 to 540 CSS px) the rows above the
+   editor would leave it about three lines. Layout only; no text is made
+   smaller and nothing changes from 701 px wide and over 660 px tall, so a
+   laptop window (1440 by 900 at 80 to 100 per cent, about 700 to 800 px tall
+   even with the Dock and the bookmarks bar showing) and 1280 by 720 keep the
+   full layout. Phones keep their own layout. Pinned in test/short-window-chrome.
+--------------------------------------------------------------------------- */
+/* The optional quick check as one item inside More (PhaseHeader moves it there
+   from 701 to 1023 px wide, and up to 1279 px at 660 px tall or less): the same words and
+   buttons, wrapping inside the menu's panel instead of drawn as a band. */
+.quick-check-line.quick-check-line-menu{padding:0;margin-block:10px;border:0;background:none}
+/* From 701 to 1023 px the panel switches sit at the right end of the view tabs, as from
+   1024 px (the page draws them there while the pane switcher is not up). Under 1024 px
+   Implementation's "Saved workspace" is not drawn, so they take the free space themselves. */
+@media(min-width:701px) and (max-width:1023px){.implementation-view-tabs>span:not(.focus-switch)+.workspace-panel-controls-strip{margin-left:auto}}
+/* From 701 to 767 px the switches keep the 44 px touch target their own row gives them
+   under 768 px (WorkspacePanels.css), which the strip's 32 px would otherwise undercut. */
+@media(min-width:701px) and (max-width:767px){.workspace-panel-controls.workspace-panel-controls-strip button{min-height:44px}}
+/* At 660 px tall or less the file's path under the file tabs goes: the tab
+   already names the file, and the tab's title keeps the full path. */
+@media(min-width:701px) and (max-height:660px){.phase-code-surface>.mono{display:none}}
+/* ...and the pane switcher (Brief, Files, Code, Mentor, under 1024 px) keeps 4 px above
+   and below its tabs instead of 8; the tabs themselves keep their size. */
+@media(min-width:701px) and (max-height:660px){.workspace-pane-switcher{padding-block:4px}}
+/* ...and the "Ready to continue" band is one line: its sentence is cut with an
+   ellipsis (the whole sentence stays in the page for assistive technology and
+   in the sentence's title), and View review and Continue keep their size and
+   stay on the line, always in view. */
+@media(min-width:701px) and (max-height:660px){.phase-gate-banner:has(>.phase-gate-sentence){flex-wrap:nowrap}.phase-gate-banner>.phase-gate-sentence{flex:1 1 0;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.phase-gate-banner:has(>.phase-gate-sentence)>span{flex:none;flex-wrap:nowrap}}
+/* So is it from 1024 to 1279 px wide at any height on a code phase's pages (the workspace, whose band sits
+   beside .phase-lab-workspace, or beside .workspace-room-scroll where a teacher split the phase into tasks, and the
+   document pages in its frame, beside .phase-document-room--work). There the
+   workspace's band holds View review beside Continue, and at 1024 px its sentence would take a second line (53 px
+   against a document page's 47); cut the same way, the band is one line on every page of the phase. Requirements and Design
+   are not touched. */
+@media(min-width:1024px) and (max-width:1279px){:has(>.phase-lab-workspace,>.workspace-room-scroll,>.phase-document-room--work)>.phase-gate-banner:has(>.phase-gate-sentence){flex-wrap:nowrap}:has(>.phase-lab-workspace,>.workspace-room-scroll,>.phase-document-room--work)>.phase-gate-banner>.phase-gate-sentence{flex:1 1 0;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}:has(>.phase-lab-workspace,>.workspace-room-scroll,>.phase-document-room--work)>.phase-gate-banner:has(>.phase-gate-sentence)>span{flex:none;flex-wrap:nowrap}}
+
+/* The change page's own sections (Request, Contract, Checks, Release)
+   sit under the working-area row as a quieter, flat row of their own, so the
+   row above reads as the room's navigation and this one as the page's: a
+   shorter strip, no tint, no border. */
+.phase-room-nav.phase-room-nav--sections{min-height:34px;background:none;border-bottom:0;box-shadow:none}
+.phase-room-nav--sections>button{padding-block:7px}
+
+/* One frame for Maintenance. Its document pages (the change request and
+   the pull request) are drawn in the workspace's frame, so only the centre of
+   the page changes between them and Edit files. The left column holds the
+   workspace's two tabs over the brief and scrolls under them; the page a link
+   of the working-area row is on reads as the workspace's pressed view does;
+   and a link to a view the workspace draws as a button takes that button's
+   padding, so every entry sits where it does there (the :where keeps the
+   phone rule for this row ahead of it). The mentor column is the document
+   room's 340 px, which is the workspace's from 1280 px; from 1024 to 1279 px
+   the workspace's is 320 px, so it is here too. Measured by hand in
+   Chrome on a passed project with the sidebar collapsed, at
+   1024, 1100, 1280, 1366, 1440 and 1536 px (the widths measured, stated here
+   once): on every code phase's pages (unsplit phases) the header is 55 px,
+   the row 47 px and the ready band 47 px, and the entries, the switches, the
+   left tabs and the mentor's mode switch sit at the same places on each
+   phase's pages. Not measured: the ready band of a phase split into tasks.
+   Below 1024 px
+   the page stacks as every document page does, and the left column is the
+   plain brief box (the frame draws the work column from 1024 px only). */
+.runtime-view-tabs>a[aria-current=page]{background:var(--tool-surface);color:var(--tool-accent);border-color:var(--tool-selected-line);box-shadow:var(--tool-shadow),inset 0 -2px var(--tool-accent)}
+:where(.runtime-view-tabs)>a[data-view]{padding-inline:10px}
+@media(min-width:1024px){
+ .phase-document-brief.phase-document-brief--work{padding:0}
+ .phase-document-brief.phase-document-brief--work:not([hidden]){display:flex;flex-direction:column;overflow:hidden;min-width:0;min-height:0}
+}
+@media(min-width:1024px) and (max-width:1279px){.phase-document-room--work>.phase-document-mentor{width:320px;flex-basis:320px}}
+/* Implementation's row has its own class (no runtime-view-tabs). Its links (the pull request on the
+   workspace; Code, Split, the preview and Files on the pull request page) take its view buttons' box, and the
+   page the row is on reads as the workspace's pressed view, as on the other phases' rows. */
+:where(.implementation-view-tabs:not(.runtime-view-tabs))>a{display:flex;align-items:center;gap:6px;white-space:nowrap;border:1px solid transparent;border-radius:7px;padding:6px 10px;flex:none;min-height:32px;font-weight:550}
+.implementation-view-tabs:not(.runtime-view-tabs)>a[aria-current=page]{background:var(--tool-surface);color:var(--tool-accent);border-color:var(--tool-selected-line);box-shadow:var(--tool-shadow),inset 0 -2px var(--tool-accent)}
+@media(max-width:767px){:where(.implementation-view-tabs:not(.runtime-view-tabs))>a{min-height:44px}}
+@media(max-width:479px){:where(.implementation-view-tabs:not(.runtime-view-tabs))>a{min-width:0;flex-shrink:1;white-space:normal}}

@@ -1,0 +1,95 @@
+.agentic-conversation {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.agentic-transcript { flex: 1; min-height: 0; overflow: auto; padding: 14px; overscroll-behavior: contain; scrollbar-gutter: stable; }
+.agentic-transcript > * + *, .agentic-turn > * + * { margin-top: 12px; }
+.agentic-learner-message { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.agentic-learner-message .chat-message-copy { max-width: 92%; padding: 8px 12px; border-radius: 12px 12px 3px 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.agentic-learner-message small, .agentic-turn-status, .agentic-review-note { font-size: 12px; color: rgb(var(--chat-muted)); }
+.agentic-turn [data-testid="msg-assistant"] .btn { margin-top: 10px; }
+/* The reported step and the seconds since the turn was recorded: one flat row, no marker, no colour. */
+.agentic-wait-step { display: flex; align-items: baseline; gap: 10px; margin-top: 4px; font-size: 12px; color: rgb(var(--chat-ink2)); }
+.agentic-wait-elapsed { font-variant-numeric: tabular-nums; color: rgb(var(--chat-muted)); }
+.agentic-saved-proposals, .agentic-proposal-review { padding: 12px; border: 1px solid rgb(var(--chat-edge)); border-radius: 12px; background: rgb(var(--chat-surface)); }
+.agentic-saved-proposals > summary { cursor: pointer; color: rgb(var(--chat-ink2)); min-height: 24px; }
+.agentic-saved-proposals > p { font-size: 12px; color: rgb(var(--chat-muted)); margin-top: 8px; }
+.agentic-conversation label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; }
+.agentic-saved-proposals label { margin-top: 10px; }
+.agentic-conversation select, .agentic-proposal-review textarea { min-width: 0; width: 100%; border: 1px solid rgb(var(--c-field-border)); border-radius: 8px; color: rgb(var(--chat-ink)); background: rgb(var(--chat-canvas)); padding: 9px; }
+.agentic-proposal-review > header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; }
+.agentic-proposal-review > header small { font-size: 12px; color: rgb(var(--chat-muted)); }
+.agentic-proposal-review > * + * { margin-top: 10px; }
+.agentic-proposal-review > p { overflow-wrap: anywhere; }
+/* The AI's summary of what a proposal changes: small and muted like the review notes, the summary itself in ink. */
+.agentic-proposal-summary { font-size: 12px; color: rgb(var(--chat-muted)); overflow-wrap: anywhere; }
+.agentic-proposal-summary strong { display: block; color: rgb(var(--chat-ink2)); font-weight: 600; }
+.agentic-proposal-summary p { margin-top: 2px; color: rgb(var(--chat-ink)); }
+.agentic-proposal-summary small { display: block; margin-top: 2px; font-size: 12px; }
+.agentic-proposal-review details { border: 1px solid rgb(var(--chat-edge)); border-radius: 9px; overflow: clip; }
+.agentic-proposal-review summary { cursor: pointer; min-height: 40px; padding: 8px 10px; background: rgb(var(--chat-raised)); color: rgb(var(--chat-ink2)); font: 12px/1.7 var(--font-mono,monospace); overflow-wrap: anywhere; }
+.agentic-proposal-review .agentic-request-context summary { font-family: inherit; }
+.agentic-request-context > p { padding: 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.agentic-proposal-review details label { padding: 10px; }
+.agentic-proposal-review textarea { font: 12px/1.65 var(--font-mono,monospace); background: rgb(var(--chat-code)); resize: vertical; }
+.agentic-proposal-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.agentic-comparison { min-width: 0; }
+.agentic-comparison > * + * { margin-top: 10px; }
+.agentic-comparison details > p { padding: 10px; }
+.agentic-diff-scroll { max-height: 340px; overflow: auto; overscroll-behavior: contain; }
+.agentic-diff-scroll table { width: 100%; border-collapse: collapse; font-size: 12px; line-height: 1.65; }
+.agentic-diff-scroll th, .agentic-diff-scroll td { padding: 6px 8px; text-align: left; vertical-align: top; }
+.agentic-diff-scroll th { font-weight: 500; }
+.agentic-diff-scroll thead { background: rgb(var(--chat-raised)); color: rgb(var(--chat-ink2)); }
+/* A changed line is read whole at the mentor's width. The table's columns are fixed (the change and line
+   columns sized to their words), so the content column has the rest and a code line wraps inside it: at its spaces,
+   and inside a word only where one word is wider than the column. Before, a line kept its own width (`pre`) and was
+   cut at the column's edge ("return task.dueDate <", the rest behind a sideways scroll). */
+.agentic-diff-scroll table { table-layout: fixed; }
+.agentic-diff-scroll thead th:nth-child(1) { width: 5.2em; }
+.agentic-diff-scroll thead th:nth-child(2) { width: 3.4em; }
+.agentic-diff-scroll code { white-space: pre-wrap; overflow-wrap: break-word; font-family: var(--font-mono, monospace); }
+.agentic-diff-scroll tr[data-change="+"] { background: rgb(var(--c-pass)/.1); }
+.agentic-diff-scroll tr[data-change="-"] { background: rgb(var(--c-fail)/.1); }
+.agentic-complete-copy { margin: 10px; }
+.agentic-complete-copy pre { max-height: 340px; overflow: auto; padding: 10px; white-space: pre; font: 12px/1.65 var(--font-mono, monospace); }
+.agentic-understanding { padding: 10px; border-radius: 8px; background: rgb(var(--chat-raised)); }
+.agentic-understanding > * + * { margin-top: 6px; }
+.agentic-action-error, .agentic-action-notice { padding: 10px; border-radius: 9px; overflow-wrap: anywhere; }
+.agentic-action-error { border: 1px solid rgb(var(--c-fail)/.45); border-left: 3px solid rgb(var(--c-fail)); background: color-mix(in srgb,rgb(var(--c-fail)) 7%,rgb(var(--chat-surface))); color: rgb(var(--c-fail)); }
+.agentic-action-error .btn { margin-top: 8px; }
+.agentic-action-notice { border: 1px solid rgb(var(--chat-edge)); background: rgb(var(--chat-raised)); color: rgb(var(--chat-ink2)); }
+.agentic-composer { flex: none; padding: 10px 12px; border-top: 1px solid rgb(var(--chat-edge)); background: rgb(var(--chat-surface)); box-shadow: 0 -3px 12px rgb(var(--chat-shadow)/.035); }
+.agentic-compose-row { display: flex; align-items: flex-end; gap: 8px; }
+.agentic-compose-row textarea { flex: 1; min-width: 0; min-height: 66px; max-height: min(160px,24dvh); padding: 7px 10px; border-radius: 10px; font-size: 14px; line-height: 1.6; color: rgb(var(--chat-ink)); background: rgb(var(--chat-canvas)); resize: vertical; }
+/* While it holds an explanation, the box is three lines tall (three 22.4 px lines, its padding and border),
+   so its two-sentence placeholder is read whole rather than cut on its third line. */
+.agentic-compose-row textarea[data-explaining] { min-height: 86px; }
+.agentic-compose-row > button { flex: none; width: 44px; height: 44px; padding: 0; border-radius: 11px; }
+.agentic-composer-context { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; font-size: 12px; color: rgb(var(--chat-ink2)); }
+.agentic-composer-context button { color: rgb(var(--chat-accent)); text-decoration: underline; text-underline-offset: 3px; }
+.agentic-new-replies { align-self: center; padding: 6px 12px; margin: 4px; border: 1px solid rgb(var(--chat-edge-strong)); border-radius: 16px; background: rgb(var(--chat-raised)); color: rgb(var(--chat-ink)); font-size: 12px; }
+.agentic-new-replies svg { display: inline; vertical-align: middle; }
+@media(max-width:700px) {
+  .agentic-compose-row textarea { font-size: 16px; }
+  .agentic-proposal-actions .btn, .agentic-action-error .btn, .agentic-comparison .btn, .agentic-turn-status .btn, .agentic-proposal-review summary, .agentic-saved-proposals > summary, .agentic-composer-context button { min-height: 44px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .agentic-conversation *, .agentic-conversation *::before, .agentic-conversation *::after { scroll-behavior: auto; }
+}
+/* The files a proposal holds, one line each, in the card's small review-note type. */
+.agentic-inventory { font-size: 12px; color: rgb(var(--chat-muted)); overflow-wrap: anywhere; }
+.agentic-inventory > strong { display: block; color: rgb(var(--chat-ink2)); font-weight: 600; }
+.agentic-inventory ul { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.agentic-inventory li > span, .agentic-inventory li > button { color: rgb(var(--chat-ink)); text-align: left; overflow-wrap: anywhere; }
+.agentic-inventory li > button { text-underline-offset: 3px; }
+.agentic-inventory li > button:disabled { cursor: progress; }
+.agentic-inventory li > small { display: block; font-size: 12px; }
+@media(max-width:700px) { .agentic-inventory li > button { min-height: 44px; } }

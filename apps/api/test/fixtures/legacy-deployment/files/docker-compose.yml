@@ -1,0 +1,35 @@
+# Two services, one network, one volume.
+#
+# The browser only ever talks to web. web serves the bundle and forwards
+# anything under /api to api, which is why there is no CORS anywhere in this
+# application and why API_URL is the line in this file that matters most.
+
+services:
+  api:
+    # The build context is the project root, not api/, because api/Dockerfile
+    # copies requirements.txt, ops/ and this file.
+    build: { context: ., dockerfile: api/Dockerfile }
+    environment:
+      TASKTRACKR_DB: /data/tasktrackr.db
+      PORT: "8000"
+    expose: ["8000"]
+    volumes: ["tasktrackr-data:/data"]
+    # TODO(learner): give this service a healthcheck the web service can wait
+    # on. api/main.py answers GET /api/health with {"status": "ok"}, and this
+    # image carries python3 and nothing else — no curl, no wget. web already
+    # depends on it below, so without this line compose has nothing to wait for.
+
+  web:
+    build: { context: ., dockerfile: web/Dockerfile }
+    ports: ["5173:5173"]
+    environment:
+      # TODO(learner): point the proxy at the api service. Inside a compose
+      # network a service is reachable by its own name, on a port it exposes;
+      # localhost inside a container means that container and nothing else.
+      API_URL: ""
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  tasktrackr-data: {}

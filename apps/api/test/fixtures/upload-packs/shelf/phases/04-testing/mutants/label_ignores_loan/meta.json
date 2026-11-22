@@ -1,0 +1,6 @@
+{
+  "name": "label_ignores_loan",
+  "description": "The shelf line never says a book is on loan, so a member walks to the shelf for a book that is not there.",
+  "covers": "SH-4/AC-1",
+  "run": "web"
+}

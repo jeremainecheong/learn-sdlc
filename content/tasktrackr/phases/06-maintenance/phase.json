@@ -1,0 +1,236 @@
+{
+  "title": "Maintenance",
+  "intro": "A change request arrives on a system that already works. Ship it without breaking anything.",
+  "artifactKind": "code",
+  "canRun": true,
+  "canPreview": true,
+  "runLabel": "Run regression tests",
+  "taskPanel": "TaskTrackr shipped, people use it, and one request keeps coming back: change request CR-2, comments on a task. The ticket in the Request tab says what it asks for and how the change will be accepted.\n\nThe codebase is the finished one. Lists, tasks, tags, filters and the overdue report all work, and the front end reads them. Your job is to add the new capability without breaking any of it.\n\nIn api/repository/comments.py, implement add_comment(conn, task_id, author, body) and list_comments(conn, task_id). add_comment stores one comment and returns it in the shape the contract publishes: id, task_id, author, body and created_at. An unknown task raises KeyError, in either function. An empty author or an empty body raises ValueError, and whitespace alone is empty. list_comments returns the comments newest first.\n\nIn api/routes/comments.py the blueprint is registered and the two handlers are yours. GET /api/tasks/{id}/comments answers 200 with the comments, or 404 task_not_found. POST /api/tasks/{id}/comments answers 201 with the comment, or 400 invalid_comment, or 404 task_not_found. api/routes/tasks.py is the worked example: it turns KeyError into a 404 and ValueError into a 400, and builds both with fail(), so every error this API sends has one shape.\n\nThe task row has to show how many comments a task carries, so every task the API returns needs a comment_count. That lives in TASK_SELECT in api/repository/tasks.py, and that one query is read by get_task, list_tasks and overdue_tasks, each of which adds its own WHERE and ORDER BY. So the count has to come back as one value per task, without changing how many rows the query returns; tag_names, a few lines below, already does exactly that against another table. A join in the FROM clause is the obvious move and the wrong one. LIST_SELECT, which computes each list's task_count and open_count, is separate and does not change. The regression suite tells you, and you can run it yourself.\n\nIn web/src/components/TaskRow.tsx a task that carries comments wears a badge, 1 comment or 4 comments, and a task with none wears nothing. The badge is a span with className badge badge-comments and data-testid comment-count, in the task-main block beside the overdue badge, which is the same shape a few lines above.\n\nTwo contracts travel with the change. shared/contract/api.json is the published HTTP contract: add listComments and addComment in the shape of their neighbours, and the error code addComment answers with. design/contracts.json holds the operations you promised in the design phase, seeded when this phase unlocked: add the two comment operations, their inputs, what they return and the error cases. The conformance ledger holds your code against it.\n\nWhat 2.0.0 shipped: lists, tasks and tags over a SQLite database with foreign keys enforced; eleven HTTP operations under /api, published in the API contract; three screens behind a hash router; the overdue report, open tasks strictly past their due date, most overdue first, with the day a parameter; two containers and a compose file with a healthcheck and a named volume; the selfcheck; and a seed script. The web service proxies /api, so the application needs no CORS. The comments table is already in api/schema.sql, created by api/db.py, and nothing reads or writes it yet.\n\nRecord the change in the change request as you go: in the Request tab, the operations, screens and files it touches; in the Contract tab, the two operations as contract amendments; in the Checks tab, the tests and the acceptance items each covers; in the Release tab, the 2.1.0 release, its summary, the change lines with the acceptance items each covers, and how to roll it back, written for the person who upgrades. Say truthfully whether a schema change is needed.\n\nOn submit, a sealed suite runs your new behaviour and a regression suite over everything the earlier phases shipped, across both layers, pooled: a change that costs a regression scores less than no change at all. The visible tests are tests/test_comments_api.py, a three-question smoke of the change, tests/test_lists_api.py and tests/test_tasks_api.py, the regression suite, and web/src/components/TaskRow.test.tsx. Static analysis checks that no TODO markers are left and that complexity stays low. Keep the change small and local.\n\nWhat good looks like: the new functions read like their neighbours, with the same lookup helper for the unknown-task case, the same _to_comment on the way out, and no second copy of a check that already exists; the regression suite is green before you ever press Submit PR-6; and nothing outside the files the request names has changed.\n\nAsk the mentor how to scope a change safely, what a count in a composed query has to look like, or why regression tests belong in a maintenance change; it will not write the SQL, the routes or the badge for you. Press Run regression tests as you work, and Run app to see the count on a real row. When you are ready, press Submit PR-6. This is the final phase, so passing completes the project.",
+  "objectives": [
+    "Implement change request CR-2: comments on a task, and the count on the task row",
+    "Keep every behaviour the earlier phases shipped — the regression suite is yours to run",
+    "Reach for the count without changing how many rows the task query returns",
+    "Put the count on the task row, and nothing on a task that has none",
+    "Publish the two new operations in shared/contract/api.json and record them in design/contracts.json",
+    "Record the change in the change request: its impact, the contract amendments, the tests that cover each acceptance item, and the 2.1.0 release"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "correctness_hidden",
+        "title": "Change and regression (hidden tests)",
+        "weight": 0.4,
+        "description": "The change works AND every behaviour the earlier phases shipped still passes. The two suites are pooled, so a change that costs a regression scores less than no change at all. The count lives in TASK_SELECT and must not change how many rows it returns; LIST_SELECT's task_count and open_count are computed separately."
+      },
+      {
+        "key": "visible_tests",
+        "title": "Visible tests",
+        "weight": 0.15,
+        "description": "Both runs are green: the API smoke and the two regression suites, and the front-end suite over the row."
+      },
+      {
+        "key": "code_quality",
+        "title": "Maintainability",
+        "weight": 0.15,
+        "description": "No TODO markers left, no banned constructs, and the change stays as small and as local as the request."
+      },
+      {
+        "key": "process",
+        "title": "Process",
+        "weight": 0.15,
+        "description": "You ran the regression suite before submitting and used the mentor in moderation."
+      },
+      {
+        "key": "change_request",
+        "title": "Change request",
+        "weight": 0.15,
+        "description": "The record names what the change touched, declares the two new operations as contract amendments that match design/contracts.json and the API contract, maps every acceptance item to a test or a change line, and gives an upgrader a 2.1.0 release that says truthfully whether a schema change is needed."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "code",
+    "editableTargets": [
+      "api/repository/tasks.py",
+      "api/repository/comments.py",
+      "api/routes/comments.py",
+      "web/src/components/TaskRow.tsx"
+    ],
+    "runs": [
+      {
+        "id": "api",
+        "language": "python",
+        "harness": "pytest",
+        "hiddenHarness": "unittest",
+        "label": "API tests",
+        "visibleTests": [
+          "tests/test_comments_api.py",
+          "tests/test_lists_api.py",
+          "tests/test_tasks_api.py"
+        ],
+        "supportFiles": [
+          "tests/conftest.py"
+        ]
+      },
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "hiddenHarness": "js",
+        "label": "Front end",
+        "transform": true,
+        "visibleTests": [
+          "web/src/components/TaskRow.test.tsx"
+        ],
+        "supportFiles": []
+      }
+    ],
+    "ticket": {
+      "id": "CR-2",
+      "title": "Comments on a task",
+      "summary": "A task says what to do and never says what happened. Let people leave a comment on a task, read a task's comments newest first, and see on the task row how many a task carries.",
+      "acceptance": [
+        {
+          "id": "AC-1",
+          "line": "add_comment stores one comment and returns it with id, task_id, author, body and created_at."
+        },
+        {
+          "id": "AC-2",
+          "line": "An unknown task answers 404 task_not_found, when adding a comment and when listing them."
+        },
+        {
+          "id": "AC-3",
+          "line": "An empty or whitespace-only author or body answers 400 invalid_comment."
+        },
+        {
+          "id": "AC-4",
+          "line": "list_comments returns a task's comments newest first."
+        },
+        {
+          "id": "AC-5",
+          "line": "Every task the API returns carries comment_count, and the task query returns the same rows as before."
+        },
+        {
+          "id": "AC-6",
+          "line": "The task row shows \"1 comment\" or \"4 comments\", and nothing for a task with none."
+        },
+        {
+          "id": "AC-7",
+          "line": "listComments and addComment are published in the API contract, with the error code addComment answers with."
+        }
+      ]
+    },
+    "change": {
+      "record": "maintenance/change-request.json",
+      "contract": true,
+      "floor": {
+        "minImpact": 3,
+        "minContract": 2,
+        "minTests": 2,
+        "requireRelease": true,
+        "traceEveryAcceptance": true
+      }
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the MAINTENANCE phase of the TaskTrackr project. The learner implements change request CR-2: comments on a task, and a count of them on the task row. They write list_comments and add_comment in api/repository/comments.py, the two routes in api/routes/comments.py, the comment_count column in api/repository/tasks.py and the count badge in web/src/components/TaskRow.tsx, then publish the two operations in shared/contract/api.json and record the change in the change request record. Coach on scoping a change, on regression risk, and on why a count belongs in a subquery rather than a join in a query every screen reads. Point at the worked examples already in the tree. NEVER write the SQL, the routes or the JSX for them. Keep replies under 120 words, end with one guiding question, stay on maintenance topics. Scope facts: TaskTrackr has no learner accounts, authentication, authorization roles or session contract. Those belong to the surrounding LearnSDLC platform, not this reference project. The comment author is submitted text, not an authenticated account identity. CR-2 asks for comment storage and reading, task-row counts, the published contracts and the change request record while preserving prior behavior. Do not invent authentication or notification requirements, unrelated security work, or a new architecture. Discuss the actual task-not-found and empty-author/body cases, ordering and regression risks instead, without filling in the learner code. Query ownership facts: TASK_SELECT in api/repository/tasks.py controls returned task rows and the new per-task comment_count. LIST_SELECT in the separate read-only api/repository/lists.py computes task_count and open_count independently from the stored tasks table. A row-multiplying read in TASK_SELECT does not itself change those separate list totals or stored task records. For a comments-only query change, distinguish returned task-row cardinality and comment_count from unchanged task_count/open_count; only actual relevant task data changes can alter those list totals. Ask the learner to predict these observations separately, without writing the query for them.",
+    "topics": [
+      {
+        "keywords": [
+          "comment",
+          "change request",
+          "cr-2",
+          "add_comment",
+          "list_comments"
+        ],
+        "hints": [
+          "The comments table already exists in api/schema.sql, and count_for_task in the same repository file is finished. Read it: it shows you the query shape the count needs.",
+          "list_comments calls tasks.get_task first. That is not a formality: it is what raises KeyError for an unknown task, which is what lets the route answer 404 instead of an empty list."
+        ]
+      },
+      {
+        "keywords": [
+          "route",
+          "404",
+          "400",
+          "blueprint",
+          "flask"
+        ],
+        "hints": [
+          "api/routes/tasks.py is the worked example. Look at how it turns KeyError into a 404 and ValueError into a 400, and at how every error goes through fail() so the shape never varies.",
+          "A route with no handler still answers, because api/errors.py registers a 404 for addresses nothing claims — but the code in that body is not_found, not task_not_found. The tests read the code, not the status."
+        ]
+      },
+      {
+        "keywords": [
+          "count",
+          "comment_count",
+          "join",
+          "subquery",
+          "query"
+        ],
+        "hints": [
+          "TASK_SELECT is concatenated with a WHERE and an ORDER BY by three different callers. What does that tell you about where a GROUP BY could possibly go?",
+          "Look at how tag_names is built in the same SELECT. It reaches into another table for this task and still returns one value per task. A count needs exactly that shape."
+        ]
+      },
+      {
+        "keywords": [
+          "regression",
+          "break",
+          "existing",
+          "backward",
+          "compatible"
+        ],
+        "hints": [
+          "A maintenance change is judged as much on what it does not break as on what it adds. tests/test_lists_api.py and tests/test_tasks_api.py are the regression suite and you can run them. Run them before you submit, not after.",
+          "If a filter or the overdue report suddenly returns the wrong number of tasks, the change is in the task query and not in the filter. Ask what you added to it."
+        ]
+      },
+      {
+        "keywords": [
+          "row",
+          "badge",
+          "taskrow",
+          "front end",
+          "tsx",
+          "component"
+        ],
+        "hints": [
+          "The overdue badge a few lines above is the same shape: a conditional span with a className and a data-testid. Read it and ask what is different about a count.",
+          "A task with no comments shows nothing, not a zero. An empty badge on every row is noise, and the row is on every screen in the application."
+        ]
+      },
+      {
+        "keywords": [
+          "change request",
+          "release",
+          "2.1.0",
+          "api.json",
+          "version"
+        ],
+        "hints": [
+          "shared/contract/api.json is what the front end and anybody else is written against. An operation that works and is not in it is an operation nobody outside this repository knows exists.",
+          "The 2.1.0 release in the change request is for the person who upgrades. What can they do now that they could not do before, and does anything they already depend on read differently?"
+        ]
+      },
+      {
+        "keywords": [
+          "contract",
+          "contracts.json",
+          "design"
+        ],
+        "hints": [
+          "design/contracts.json is seeded from the operations you wrote in the design phase. Amending a contract when a change request lands is the exercise; retyping it is not."
+        ]
+      }
+    ],
+    "progressive": [
+      "Scope the change first. CR-2 asks for three things: store a comment, read a task's comments newest first, and put a count on every task. Two of them are the repository file, one of them is the task query. Which of the three is the one that can break something that already works?",
+      "Now the count. TASK_SELECT is used by get_task, list_tasks and overdue_tasks, and each of them adds its own WHERE and ORDER BY afterwards. Read how tag_names is built in that same SELECT — one value per task, no extra rows — and ask what a join in the FROM clause would do to the three callers instead.",
+      "Now the routes and the row. Both routes exist in api/routes/tasks.py in miniature: catch KeyError for the 404, catch ValueError for the 400, build both with fail(). The badge in web/src/components/TaskRow.tsx is the overdue badge with a different question in front of it. Run both suites before you go on.",
+      "Finally the record. Two files and the change request record travel with the change: the two operations and their error code in shared/contract/api.json, the same two in design/contracts.json, and the 2.1.0 release in the change request record. Then run the regression suites once more and submit."
+    ]
+  }
+}

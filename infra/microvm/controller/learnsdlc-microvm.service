@@ -1,0 +1,40 @@
+[Unit]
+Description=LearnSDLC private Lambda MicroVM bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=learnsdlc-controller
+Group=learnsdlc-runner
+WorkingDirectory=/opt/learnsdlc/microvm-controller
+EnvironmentFile=/etc/learnsdlc/microvm-controller.env
+ExecStart=/usr/bin/python3 /opt/learnsdlc/microvm-controller/serve.py --socket /run/learnsdlc/runner.sock --registry /var/lib/learnsdlc-microvm/registry.sqlite --aws-bin /usr/local/bin/aws
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=35
+RuntimeDirectory=learnsdlc
+RuntimeDirectoryMode=0750
+# The API bind-mounts this directory. Preserve its inode across stop/start so
+# recreating runner.sock stays visible inside the already-running container.
+RuntimeDirectoryPreserve=yes
+StateDirectory=learnsdlc-microvm
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/run/learnsdlc /var/lib/learnsdlc-microvm
+TasksMax=192
+MemoryMax=1536M
+LimitNOFILE=1024
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,408 @@
+# The production deployment: TLS edge + web + API + isolated code runner +
+# PostgreSQL + Redis + daily backups. Local development without Docker is
+# `npm run demo` (scripts/demo.sh), which starts the sandbox runner too; the
+# local Compose stack is scripts/stack.sh, which layers docker-compose.verify.yml
+# over this file.
+#
+#   export JWT_SECRET=$(openssl rand -base64 48) ADMIN_EMAIL=you@example.edu ADMIN_PASSWORD='…'
+#   export POSTGRES_PASSWORD=$(openssl rand -hex 24)   # hex: it is written into DATABASE_URL
+#   export SITE_HOST=learn.example.edu API_HOST=api.example.edu ACME_EMAIL=ops@example.edu
+#   docker compose up -d --build
+#
+# Only variables named under a service's environment: reach that container
+# (docs/configuration.md names each one and what reads it); anything new goes
+# here, in .env.example and in docs/configuration.md.
+#
+# Learner code never runs in the api container. It runs in `runner`: no
+# network, no secrets in its environment, uid 65534, its own pid namespace,
+# read-only rootfs, no curl. The api reaches it only over a UNIX socket on the
+# `runnersock` volume, and refuses to start in production with RUNNER_MODE=local.
+
+# Every service is capped. The numbers below are ceilings for the 2 vCPU /
+# 4 GB host the runbook recommends, not reservations, so they deliberately sum
+# to more than the host has: their job is to stop one leaking or overloaded
+# service (a runaway grading job, a workspace PUT burst against the API's 4 MB
+# body limit) from taking the host and PostgreSQL down with it. Raise them
+# together with the host, and keep the api's --max-old-space-size below its
+# mem_limit so Node reports heap exhaustion instead of being OOM-killed.
+
+# The postgres, redis and caddy images are pinned by digest, the same digests
+# infra/preview/compose.yaml pins, so every machine runs the image CI tested.
+# The tag in front of each digest says which release line it is; the digest
+# is what is pulled.
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: '50m'
+    max-file: '5'
+
+x-hardened: &hardened
+  security_opt:
+    - no-new-privileges:true
+  logging: *logging
+  restart: unless-stopped
+
+services:
+  caddy:
+    <<: *hardened
+    image: caddy:2-alpine@sha256:5f5c8640aae01df9654968d946d8f1a56c497f1dd5c5cda4cf95ab7c14d58648
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    environment:
+      SITE_HOST: ${SITE_HOST:?public hostname of the web app, e.g. learn.example.edu (localhost for a local trial)}
+      API_HOST: ${API_HOST:?public hostname of the API, e.g. api.example.edu (api.localhost for a local trial)}
+      ACME_EMAIL: ${ACME_EMAIL:-admin@${SITE_HOST}}
+    mem_limit: 128m
+    cpus: 0.5
+    volumes:
+      - ./infra/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddydata:/data
+      - caddyconfig:/config
+    # Caddy's admin API answers on 2019 inside the container only; asking it
+    # for its config is the cheapest proof the process is up and configured.
+    # 127.0.0.1, not localhost: the admin endpoint binds IPv4 only, and the
+    # image's busybox wget tries the [::1] address of `localhost` first and
+    # gets a connection refused, which would leave the edge permanently unhealthy.
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', '-q', 'http://127.0.0.1:2019/config/']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    # Ordered, so `docker compose ps` during a rollout says something true:
+    # the edge comes up behind the things it proxies.
+    depends_on:
+      web:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+
+  postgres:
+    <<: *hardened
+    image: postgres:16-alpine@sha256:cf78e76683b9ca8c5733cbbdce6c9262b45b6767934dd0a95e671f9a0fc20685
+    environment:
+      POSTGRES_DB: learnsdlc
+      POSTGRES_USER: learnsdlc
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD (the database password) before starting the stack}
+    mem_limit: 768m
+    cpus: 1
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U learnsdlc']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    <<: *hardened
+    image: redis:7-alpine@sha256:ff02b58f971e7d7d156a1267e283fcbbeee91773b6aa36c49dac28ecfe28eadf
+    # Durability for the job queue: append-only so an enqueued grading job
+    # survives a Redis restart, not just an API restart.
+    command: ['redis-server', '--appendonly', 'yes']
+    # No maxmemory and no eviction policy: this Redis holds the job queue, and
+    # an evicted key is a submission that is never graded. The cap below is the
+    # blast radius, not a working set.
+    mem_limit: 256m
+    cpus: 0.5
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  runner:
+    # Learner previews can fork. A tiny PID 1 must reap orphaned descendants
+    # after the supervisor stops their process group.
+    init: true
+    <<: *hardened
+    build:
+      context: .
+      dockerfile: infra/runner.Dockerfile
+    user: '65534:65534'
+    # Every line below is part of the isolation boundary; see the header.
+    network_mode: none
+    read_only: true
+    cap_drop:
+      - ALL
+    # 128, not 64: a phase that spans two languages runs its two suites as two
+    # children in sequence, esbuild runs its own service process for the
+    # transform, and a live preview session holds one long-lived child plus its
+    # two reader threads.
+    pids_limit: 128
+    # RUNNER_SLOTS runs × RUN_MEMORY_MB, plus the server and a Node heap that
+    # is capped by --max-old-space-size rather than an rlimit. RUNNER_SLOTS,
+    # not JOB_CONCURRENCY: the API's gate counts sandbox children, and one
+    # grading job makes several runs while the incident drill's health checks
+    # come straight off the request path and wait in the same line. Below, the
+    # api service pins the number rather than letting it default to
+    # JOB_CONCURRENCY + 2, because this container is sized for it and a
+    # host-derived figure would drift away from that on a bigger machine.
+    #
+    # The arithmetic, with live preview's term, at the defaults below:
+    #   RUNNER_SLOTS × RUN_MEMORY_MB + PREVIEW_SESSIONS × PREVIEW_MEMORY_MB + the server
+    #   4 × 256 MB + 2 × 512 MB + 512 MB ≈ 2.5 GB, inside the 3 GB limit
+    # A container over mem_limit is killed, and it takes every in-flight
+    # learner's run with it, so this figure is the one to raise first.
+    # The documented laptop profile is smaller and is in the runbook:
+    #   RUNNER_SLOTS=2 PREVIEW_SESSIONS=1 RUN_MEMORY_MB=256 PREVIEW_MEMORY_MB=256
+    mem_limit: 3g
+    cpus: 2
+    environment:
+      RUNNER_SOCKET: /run/learnsdlc/runner.sock
+      # The same number the api service pins, because the API's gate is per API
+      # process and this container is sized for exactly this many runs. With it
+      # the runner refuses past its own cap with a 503 rather than being killed
+      # for going over mem_limit with every in-flight learner's run inside it.
+      RUNNER_SLOTS: ${RUNNER_SLOTS:-4}
+      RUNNER_MAX_WAIT_MS: ${RUNNER_MAX_WAIT_MS:-120000}
+      # The pre-baked dependency layer is baked into the image at
+      # /runner/runtime by infra/runner.Dockerfile. This names it explicitly so
+      # a deployment that mounts it elsewhere has one knob rather than four; the
+      # runner computes LSDLC_PYLIB, NODE_PATH and ESBUILD_BIN from it and never
+      # takes any of them from a job.
+      RUNNER_RUNTIME_DIR: /runner/runtime
+      # Live preview (the Run app button). The runner supervises one child per
+      # session: the learner's own API on a loopback port, with their front end
+      # served by the runner itself.
+      PREVIEW_SESSIONS: "${PREVIEW_SESSIONS:-2}"
+      PREVIEW_MEMORY_MB: "${PREVIEW_MEMORY_MB:-512}"
+      PREVIEW_IDLE_SECONDS: "${PREVIEW_IDLE_SECONDS:-300}"
+      PREVIEW_MAX_SECONDS: "${PREVIEW_MAX_SECONDS:-600}"
+      PREVIEW_BOOT_SECONDS: "${PREVIEW_BOOT_SECONDS:-45}"
+      PREVIEW_BUILD_SECONDS: "${PREVIEW_BUILD_SECONDS:-30}"
+      PREVIEW_MAX_BYTES: "${PREVIEW_MAX_BYTES:-33554432}"
+      PREVIEW_REQUEST_TIMEOUT_MS: "${PREVIEW_REQUEST_TIMEOUT_MS:-20000}"
+    volumes:
+      - runnersock:/run/learnsdlc
+      - type: tmpfs
+        target: /tmp
+        tmpfs:
+          size: 268435456
+    healthcheck:
+      test: ['CMD', 'python3', '/runner/serve.py', '--check']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  api:
+    <<: *hardened
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    mem_limit: 1g
+    cpus: 1.5
+    environment:
+      NODE_ENV: production
+      # Below mem_limit on purpose: Node throws a heap error the logs and
+      # Sentry can show, where the kernel's OOM killer leaves only exit 137.
+      NODE_OPTIONS: --max-old-space-size=768
+      DATABASE_URL: postgres://learnsdlc:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD (the database password) before starting the stack}@postgres:5432/learnsdlc
+      REDIS_URL: redis://redis:6379
+      # false only on replicas started after the one-shot migration (runbook §6).
+      RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
+      # Required in production: the API refuses to start on dev defaults.
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET before starting the stack}
+      # Keys quiz papers and option tokens; empty means JWT_SECRET keys them.
+      QUIZ_SEED_SECRET: ${QUIZ_SEED_SECRET:-}
+      # Session lifetime. Shortening it is the only rotation that does not sign
+      # everyone out, which changing JWT_SECRET does.
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      # The first administrator; created on the first boot, inert afterwards.
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?set ADMIN_EMAIL (the first administrator) before starting the stack}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD before starting the stack}
+      RUNNER_MODE: socket
+      RUNNER_SOCKET: /run/learnsdlc/runner.sock
+      # The API binds loopback unless told otherwise (config.ts,
+      # resolveBindAddress). Inside this container 0.0.0.0 is still private to
+      # the compose network: caddy is the only service with published ports.
+      API_BIND: ${API_BIND:-0.0.0.0}
+      # Caddy is the single hop in front of the API; trusting exactly one
+      # makes req.ip the real client for rate limiting.
+      TRUSTED_PROXIES: '1'
+      WEB_ORIGIN: ${WEB_ORIGIN:-https://${SITE_HOST}}
+      # Where recovery and verification links point; defaults to WEB_ORIGIN.
+      SITE_URL: ${SITE_URL:-}
+      # Sign in with Google. Without both the id and the secret the button is
+      # never drawn and the routes refuse, so leaving these empty is a
+      # supported deployment.
+      # API_HOST is the redirect URI's origin, and it has to match the one
+      # registered on the OAuth client character for character.
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOOGLE_REDIRECT_URL: ${GOOGLE_REDIRECT_URL:-https://${API_HOST}/api/v1/auth/google/callback}
+      # Comma-separated, empty = any address Google will vouch for.
+      ALLOWED_EMAIL_DOMAINS: ${ALLOWED_EMAIL_DOMAINS:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5.6-luna}
+      OPENAI_REASONING_EFFORT: ${OPENAI_REASONING_EFFORT:-none}
+      AI_MAX_CONCURRENCY: ${AI_MAX_CONCURRENCY:-1}
+      # Empty means the API's own default zone (DEFAULT_USAGE_TIMEZONE in
+      # apps/api/src/config/ai.ts).
+      AI_USAGE_TIMEZONE: ${AI_USAGE_TIMEZONE:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.openai.com/v1}
+      OPENAI_TIMEOUT_MS: ${OPENAI_TIMEOUT_MS:-20000}
+      JOB_CONCURRENCY: ${JOB_CONCURRENCY:-2}
+      # Sandbox children at once, across queued grading and the drill's
+      # request-path health checks. Pinned rather than left to default, because
+      # the runner container above is sized for exactly this number; raise both
+      # together or neither.
+      RUNNER_SLOTS: ${RUNNER_SLOTS:-4}
+      # The API's own session cap and gate are per API process, so they have to
+      # agree with the runner's: an API defaulting to one session while the
+      # runner allowed two would refuse the second learner.
+      PREVIEW_SESSIONS: "${PREVIEW_SESSIONS:-2}"
+      PREVIEW_MEMORY_MB: "${PREVIEW_MEMORY_MB:-512}"
+      PREVIEW_IDLE_SECONDS: "${PREVIEW_IDLE_SECONDS:-300}"
+      PREVIEW_MAX_SECONDS: "${PREVIEW_MAX_SECONDS:-600}"
+      # A cohort arrives through one venue NAT and shares an address, so the
+      # per-address ceiling on sign-in has to be room-sized. Only means
+      # anything while TRUSTED_PROXIES is right.
+      SIGNIN_MAX_PER_ADDRESS: ${SIGNIN_MAX_PER_ADDRESS:-200}
+      JOB_ATTEMPTS: ${JOB_ATTEMPTS:-3}
+      RUN_TIMEOUT_SECONDS: ${RUN_TIMEOUT_SECONDS:-15}
+      RUN_MEMORY_MB: ${RUN_MEMORY_MB:-256}
+      LOG_FORMAT: ${LOG_FORMAT:-json}
+      SENTRY_DSN: ${SENTRY_DSN:-}
+      METRICS_TOKEN: ${METRICS_TOKEN:-}
+      # Outbound mail; with SMTP_HOST unset every message is logged instead.
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      APP_VERSION: ${APP_VERSION:-}
+    volumes:
+      - runnersock:/run/learnsdlc
+    # Compose's default 10s SIGKILLs a grading job mid-flight; the API drains
+    # the queue on SIGTERM and a sandbox job may legitimately take most of a
+    # minute.
+    stop_grace_period: 60s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      runner:
+        condition: service_healthy
+
+  web:
+    <<: *hardened
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      # Build args, not environment: next build inlines these into the client
+      # bundle and into the prerendered canonical/og:url/sitemap/robots output,
+      # so they take effect only on `docker compose up --build`.
+      # NEXT_PUBLIC_SITE_URL is this service's own public origin, the same
+      # value the API above is given as WEB_ORIGIN.
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://${API_HOST}}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://${SITE_HOST}}
+        NEXT_PUBLIC_OPERATOR_NAME: ${NEXT_PUBLIC_OPERATOR_NAME:-}
+        NEXT_PUBLIC_OPERATOR_EMAIL: ${NEXT_PUBLIC_OPERATOR_EMAIL:-}
+    mem_limit: 512m
+    cpus: 1
+    depends_on:
+      api:
+        condition: service_healthy
+
+  backup:
+    <<: *hardened
+    image: postgres:16-alpine@sha256:cf78e76683b9ca8c5733cbbdce6c9262b45b6767934dd0a95e671f9a0fc20685
+    environment:
+      PGHOST: postgres
+      PGUSER: learnsdlc
+      PGDATABASE: learnsdlc
+      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD (the database password) before starting the stack}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-14}
+      # How long between dumps. Lowering it does not change the retention
+      # window, which is counted in days by BACKUP_KEEP_DAYS.
+      BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-86400}
+      # Set to anything to take one dump and stop, rather than looping:
+      #   docker compose run --rm -e BACKUP_ONCE=1 backup
+      # which is how a deployment proves its backups work without waiting a day.
+      BACKUP_ONCE: ${BACKUP_ONCE:-}
+      # Where the dumps go. The pgbackups volume is mounted here; the variable
+      # exists so the loop can be run against a scratch directory, which is how
+      # apps/api/test/backup-loop.spec.ts drives it without a database.
+      BACKUP_DIR: ${BACKUP_DIR:-/backups}
+    mem_limit: 256m
+    cpus: 0.5
+    volumes:
+      - pgbackups:/backups
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # One plain-SQL dump a day into the pgbackups volume, pruned after
+    # BACKUP_KEEP_DAYS. Restore: gunzip -c <file> | psql "$DATABASE_URL".
+    # Copy the volume off the host too; a backup on the same disk is not one.
+    #
+    # The prune is inside the success branch, and guarded on top of that. A
+    # prune that ran unconditionally at the bottom of every iteration would let
+    # a dump that failed every night (a rotated password, a full disk, a
+    # postgres that would not answer) still age the good backups out one by
+    # one, until after BACKUP_KEEP_DAYS nights there was nothing left to
+    # restore from, with only a log line as the sign. So nothing is deleted
+    # unless this run wrote a dump, and nothing is deleted unless a dump inside
+    # the retention window would survive the prune, so the worst a long outage
+    # can do is keep backups too long.
+    #
+    # $BACKUP_DIR/metrics.prom is what tells somebody: a Prometheus textfile the
+    # dashboard scrapes, holding the run of failures and the time of the last
+    # good dump. Alert on either: failures above zero for two days, or a last
+    # success older than two intervals. Both survive a restart because they are
+    # read back out of the file at boot.
+    command:
+      - sh
+      - -c
+      - |
+        set -o pipefail
+        read_metric() {
+          awk -v key="$$1" '$$1 == key { print $$2 }' "$$BACKUP_DIR"/metrics.prom 2>/dev/null | tail -n 1
+        }
+        fails=$$(read_metric learnsdlc_backup_consecutive_failures); : "$${fails:=0}"
+        last=$$(read_metric learnsdlc_backup_last_success_seconds); : "$${last:=0}"
+        while :; do
+          f="$$BACKUP_DIR/learnsdlc-$$(date -u +%Y%m%dT%H%M%SZ).sql.gz"
+          if pg_dump --no-owner | gzip > "$$f.part" && mv "$$f.part" "$$f"; then
+            echo "backup: wrote $$f"
+            fails=0
+            last=$$(date -u +%s)
+            # Never prune on the word of the dump alone: ask the directory
+            # whether anything inside the window is left standing first.
+            if [ -n "$$(find "$$BACKUP_DIR" -name 'learnsdlc-*.sql.gz' ! -mtime +"$$BACKUP_KEEP_DAYS")" ]; then
+              find "$$BACKUP_DIR" -name 'learnsdlc-*.sql.gz' -mtime +"$$BACKUP_KEEP_DAYS" -delete
+            else
+              echo "backup: no dump inside $$BACKUP_KEEP_DAYS days, so nothing was pruned" >&2
+            fi
+          else
+            rm -f "$$f.part"
+            fails=$$((fails + 1))
+            echo "backup: pg_dump FAILED ($$fails in a row); pruned nothing" >&2
+          fi
+          {
+            echo '# HELP learnsdlc_backup_consecutive_failures Dumps that have failed in a row; zero after any success.'
+            echo '# TYPE learnsdlc_backup_consecutive_failures gauge'
+            echo "learnsdlc_backup_consecutive_failures $$fails"
+            echo '# HELP learnsdlc_backup_last_success_seconds Unix time of the last dump that finished.'
+            echo '# TYPE learnsdlc_backup_last_success_seconds gauge'
+            echo "learnsdlc_backup_last_success_seconds $$last"
+          } > "$$BACKUP_DIR"/metrics.prom.part && mv "$$BACKUP_DIR"/metrics.prom.part "$$BACKUP_DIR"/metrics.prom
+          [ -n "$$BACKUP_ONCE" ] && break
+          sleep "$${BACKUP_INTERVAL_SECONDS:-86400}"
+        done
+
+volumes:
+  pgdata:
+  redisdata:
+  pgbackups:
+  runnersock:
+  caddydata:
+  caddyconfig:

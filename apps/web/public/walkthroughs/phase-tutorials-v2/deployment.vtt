@@ -1,0 +1,33 @@
+WEBVTT
+
+NOTE Actual full-workspace tutorial recording. Prepared starter QA account; five later phases explicitly opened. No earned passes, AI, execution, edits or submissions. Normal speed; no added holds.
+
+1
+00:00:00.200 --> 00:00:06.560
+1 of 6. Inspect the release configuration
+Open Configuration to work through the pipeline and configuration files. Use the brief to understand what this isolated deployment exercise checks.
+
+2
+00:00:06.560 --> 00:00:12.760
+2 of 6. Run the configuration selfcheck
+Run selfcheck checks the saved configuration when its runner is available. It does not demonstrate Docker builds, CI execution, Compose startup or live HTTP health probes.
+
+3
+00:00:12.760 --> 00:00:18.640
+3 of 6. Read the pipeline evidence
+Open Pipeline for the actual check output. Use failures to revise the configuration. If the runner is unavailable, no successful execution can be claimed.
+
+4
+00:00:18.640 --> 00:00:24.680
+4 of 6. Work through the incident drill
+Open Incident drill to inspect its evidence, choose an investigation action and explain your response. The drill stays separate from a real deployment.
+
+5
+00:00:24.680 --> 00:00:31.080
+5 of 6. Submit the saved release work
+Submit the saved configuration and required evidence for review. Revisit specific feedback before resubmitting; only a valid passing review completes the phase.
+
+6
+00:00:31.080 --> 00:00:37.040
+6 of 6. Return whenever you need help
+Replay tutorial brings these steps back. Optional phase guide opens the lessons. In the workspace mentor, Guided offers hints. Agentic proposes changes: compare them, explain this exact version in your own words, then choose Apply only if your explanation is accepted. A changed proposal needs a new explanation.

@@ -1,0 +1,576 @@
+{
+  "slug": "shelf",
+  "version": "1.0.0",
+  "phases": {
+    "requirements": {
+      "report": "594a880d9849fb219222a3e0740f38c171a0974ae3b22fd44ce6b27dca78917f",
+      "sandboxBudget": 0,
+      "checks": [
+        {
+          "id": "story.record",
+          "status": "passed"
+        },
+        {
+          "id": "story.sentence",
+          "status": "failed"
+        },
+        {
+          "id": "story.criteria.min",
+          "status": "failed"
+        },
+        {
+          "id": "story.criteria.tags",
+          "status": "failed"
+        },
+        {
+          "id": "story.scope.min",
+          "status": "failed"
+        }
+      ],
+      "jobs": []
+    },
+    "design": {
+      "report": "242c3d8090f91f6c3a822efb5f51cab968bda782237a68ff9a95c26fd8df511c",
+      "sandboxBudget": 0,
+      "checks": [
+        {
+          "id": "design.record",
+          "status": "passed"
+        },
+        {
+          "id": "design.entities.min",
+          "status": "failed"
+        },
+        {
+          "id": "design.relations.min",
+          "status": "passed"
+        },
+        {
+          "id": "design.operations.min",
+          "status": "failed"
+        },
+        {
+          "id": "design.operations.shape",
+          "status": "passed"
+        },
+        {
+          "id": "design.decisions.min",
+          "status": "failed"
+        },
+        {
+          "id": "design.decisions.shape",
+          "status": "passed"
+        },
+        {
+          "id": "design.trace",
+          "status": "failed"
+        },
+        {
+          "id": "design.api.min",
+          "status": "failed"
+        },
+        {
+          "id": "design.api.errors",
+          "status": "failed"
+        }
+      ],
+      "jobs": []
+    },
+    "implementation": {
+      "report": "b13843ba67928ee09e5c9278e06e8e470a270ac5d776409e5342261a6446ad56",
+      "sandboxBudget": 4,
+      "checks": [
+        {
+          "id": "visible-tests",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests-api",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests-web",
+          "status": "passed"
+        },
+        {
+          "id": "static-analysis",
+          "status": "passed"
+        },
+        {
+          "id": "ran-before-submit",
+          "status": "passed"
+        }
+      ],
+      "jobs": [
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests/test_shelf_api.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/main.py",
+            "api/shelf.py",
+            "tests/conftest.py",
+            "tests/test_shelf_api.py",
+            "web/src/ShelfPage.ts",
+            "web/src/lib/shelf.test.ts",
+            "web/src/lib/shelf.ts",
+            "web/src/main.ts"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/lib/shelf.test.ts"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/main.py",
+            "api/shelf.py",
+            "tests/conftest.py",
+            "tests/test_shelf_api.py",
+            "web/src/ShelfPage.ts",
+            "web/src/lib/shelf.test.ts",
+            "web/src/lib/shelf.ts",
+            "web/src/main.ts"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "unittest",
+          "testPaths": [
+            "tests/test_hidden_shelf.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/main.py",
+            "api/shelf.py",
+            "tests/conftest.py",
+            "tests/test_hidden_shelf.py",
+            "tests/test_shelf_api.py",
+            "web/src/ShelfPage.ts",
+            "web/src/lib/shelf.test.ts",
+            "web/src/lib/shelf.ts",
+            "web/src/main.ts"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/lib/shelf.hidden.test.ts"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/main.py",
+            "api/shelf.py",
+            "tests/conftest.py",
+            "tests/test_shelf_api.py",
+            "web/src/ShelfPage.ts",
+            "web/src/lib/shelf.hidden.test.ts",
+            "web/src/lib/shelf.test.ts",
+            "web/src/lib/shelf.ts",
+            "web/src/main.ts"
+          ],
+          "gradedPaths": []
+        }
+      ]
+    },
+    "testing": {
+      "report": "e6e01b06bd2bdf8c7c38dc5bf669dd0338b5e8cc2c12afa2d7a415907fa435c1",
+      "sandboxBudget": 6,
+      "checks": [
+        {
+          "id": "tests-on-correct",
+          "status": "passed"
+        },
+        {
+          "id": "tests-on-correct-api",
+          "status": "passed"
+        },
+        {
+          "id": "tests-on-correct-web",
+          "status": "passed"
+        },
+        {
+          "id": "enough-tests",
+          "status": "failed"
+        },
+        {
+          "id": "mutation",
+          "status": "failed"
+        },
+        {
+          "id": "coverage-sh-1-author-filter",
+          "status": "failed"
+        },
+        {
+          "id": "coverage-sh-2-lend",
+          "status": "failed"
+        },
+        {
+          "id": "coverage-sh-3-return",
+          "status": "failed"
+        },
+        {
+          "id": "coverage-sh-4-on-loan",
+          "status": "failed"
+        }
+      ],
+      "jobs": [
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests/test_acceptance.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/main.py",
+            "api/shelf.py"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/lib/acceptance.test.ts"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "web/src/lib/acceptance.test.ts"
+          ],
+          "gradedPaths": [
+            "web/src/lib/shelf.ts"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests/test_acceptance.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/main.py",
+            "api/shelf.py"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/lib/acceptance.test.ts"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "web/src/lib/acceptance.test.ts"
+          ],
+          "gradedPaths": [
+            "web/src/lib/shelf.ts"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests/test_acceptance.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/main.py",
+            "api/shelf.py"
+          ]
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests/test_acceptance.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "tests/conftest.py",
+            "tests/test_acceptance.py"
+          ],
+          "gradedPaths": [
+            "api/main.py",
+            "api/shelf.py"
+          ]
+        }
+      ]
+    },
+    "deployment": {
+      "report": "4b5c735f7af81677287aac1c591fdd5cc0364b532eb68d22ff1ca2afc321fddd",
+      "sandboxBudget": 2,
+      "checks": [
+        {
+          "id": "docker-workdir",
+          "status": "passed"
+        },
+        {
+          "id": "docker-copy",
+          "status": "passed"
+        },
+        {
+          "id": "docker-entrypoint",
+          "status": "passed"
+        },
+        {
+          "id": "docker-no-todo",
+          "status": "passed"
+        },
+        {
+          "id": "runbook.record",
+          "status": "passed"
+        },
+        {
+          "id": "runbook.environment.min",
+          "status": "passed"
+        },
+        {
+          "id": "runbook.health.min",
+          "status": "failed"
+        },
+        {
+          "id": "runbook.rollback.min",
+          "status": "failed"
+        },
+        {
+          "id": "runbook.data.min",
+          "status": "passed"
+        },
+        {
+          "id": "runbook.incident",
+          "status": "failed"
+        },
+        {
+          "id": "runbook.named",
+          "status": "passed"
+        },
+        {
+          "id": "execution-scope",
+          "status": "info"
+        },
+        {
+          "id": "build-smoke",
+          "status": "passed"
+        }
+      ],
+      "jobs": [
+        {
+          "kind": "smoke",
+          "runId": null,
+          "harness": null,
+          "testPaths": [],
+          "smokeCommands": [
+            [
+              "python3",
+              "api/main.py",
+              "--selfcheck"
+            ]
+          ],
+          "filePaths": [
+            "api/Dockerfile",
+            "api/main.py",
+            "api/shelf.py",
+            "deploy/shelf.json",
+            "deployment/runbook.json"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "smoke",
+          "runId": null,
+          "harness": null,
+          "testPaths": [],
+          "smokeCommands": [
+            [
+              "python3",
+              "api/main.py",
+              "--selfcheck"
+            ]
+          ],
+          "filePaths": [
+            "api/Dockerfile",
+            "api/main.py",
+            "api/shelf.py",
+            "deploy/shelf.json",
+            "deployment/runbook.json"
+          ],
+          "gradedPaths": []
+        }
+      ]
+    },
+    "maintenance": {
+      "report": "e34ae28f2ad287eb6957c576dc6b8bfbe1e83d67231ac8d50a666c93dfcdce1f",
+      "sandboxBudget": 4,
+      "checks": [
+        {
+          "id": "visible-tests",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests-api",
+          "status": "passed"
+        },
+        {
+          "id": "hidden-tests-web",
+          "status": "passed"
+        },
+        {
+          "id": "static-analysis",
+          "status": "passed"
+        },
+        {
+          "id": "ran-before-submit",
+          "status": "passed"
+        },
+        {
+          "id": "change.record",
+          "status": "passed"
+        },
+        {
+          "id": "change.impact.min",
+          "status": "failed"
+        },
+        {
+          "id": "change.tests.min",
+          "status": "failed"
+        },
+        {
+          "id": "change.release",
+          "status": "failed"
+        },
+        {
+          "id": "change.trace",
+          "status": "failed"
+        },
+        {
+          "id": "change.named",
+          "status": "passed"
+        }
+      ],
+      "jobs": [
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "pytest",
+          "testPaths": [
+            "tests/test_shelf_order.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/main.py",
+            "api/shelf.py",
+            "maintenance/change-request.json",
+            "tests/conftest.py",
+            "tests/test_shelf_order.py",
+            "web/src/ShelfPage.ts",
+            "web/src/lib/shelf.test.ts",
+            "web/src/lib/shelf.ts"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/lib/shelf.test.ts"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/main.py",
+            "api/shelf.py",
+            "maintenance/change-request.json",
+            "tests/conftest.py",
+            "tests/test_shelf_order.py",
+            "web/src/ShelfPage.ts",
+            "web/src/lib/shelf.test.ts",
+            "web/src/lib/shelf.ts"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "api",
+          "harness": "unittest",
+          "testPaths": [
+            "tests/test_hidden_order.py"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/main.py",
+            "api/shelf.py",
+            "maintenance/change-request.json",
+            "tests/conftest.py",
+            "tests/test_hidden_order.py",
+            "tests/test_shelf_order.py",
+            "web/src/ShelfPage.ts",
+            "web/src/lib/shelf.test.ts",
+            "web/src/lib/shelf.ts"
+          ],
+          "gradedPaths": []
+        },
+        {
+          "kind": "tests",
+          "runId": "web",
+          "harness": "js",
+          "testPaths": [
+            "web/src/lib/order.hidden.test.ts"
+          ],
+          "smokeCommands": [],
+          "filePaths": [
+            "api/main.py",
+            "api/shelf.py",
+            "maintenance/change-request.json",
+            "tests/conftest.py",
+            "tests/test_shelf_order.py",
+            "web/src/ShelfPage.ts",
+            "web/src/lib/order.hidden.test.ts",
+            "web/src/lib/shelf.test.ts",
+            "web/src/lib/shelf.ts"
+          ],
+          "gradedPaths": []
+        }
+      ]
+    }
+  }
+}

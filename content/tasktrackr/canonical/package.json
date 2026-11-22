@@ -1,0 +1,34 @@
+{
+  "name": "tasktrackr",
+  "version": "2.0.1",
+  "private": true,
+  "description": "A task manager you can run: a Python API over SQLite and a TypeScript front end, talking through one contract.",
+  "scripts": {
+    "dev": "npm run build:dev && npm run serve",
+    "serve": "trap 'kill 0' EXIT; PORT=8000 python3 api/main.py & PORT=5173 API_URL=http://127.0.0.1:8000 node web/serve.js",
+    "dev:api": "python3 api/main.py",
+    "dev:web": "node web/serve.js",
+    "build": "esbuild web/src/main.tsx --bundle --outfile=web/dist/app.js --format=iife --platform=browser --target=es2020 --jsx=automatic --minify",
+    "build:dev": "esbuild web/src/main.tsx --bundle --outfile=web/dist/app.js --format=iife --platform=browser --target=es2020 --jsx=automatic --sourcemap",
+    "test": "npm run test:api && npm run test:web",
+    "test:api": "python3 -m pytest tests -q",
+    "test:web": "node web/run-tests.js",
+    "lint": "tsc --noEmit",
+    "selfcheck": "python3 api/main.py --selfcheck"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "7.18.2"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/react": "16.1.0",
+    "@types/node": "22.10.1",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "esbuild": "0.25.0",
+    "jsdom": "25.0.1",
+    "typescript": "5.7.2"
+  }
+}

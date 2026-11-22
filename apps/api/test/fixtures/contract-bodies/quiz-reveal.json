@@ -1,0 +1,2203 @@
+{
+ "recordedBy": "apps/api/test/quiz-reveal-contract-wiring.e2e-spec.ts",
+ "redaction": "ids <uuid:n>, emails <email:n>, tokens <jwt>, digests <sha256:n>, named values <label>, times as ordinal instants from 2026-01-01T00:00:00Z",
+ "bodies": {
+  "listed": {
+   "tasks": [
+    {
+     "taskKey": "practice-always",
+     "order": 2,
+     "required": false,
+     "title": "Practice, shown every time",
+     "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+     "artefactType": "quiz",
+     "artefactPath": null,
+     "checkKind": "quiz",
+     "quiz": {
+      "questions": [
+       {
+        "id": "pa1",
+        "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-1"
+       },
+       {
+        "id": "pa2",
+        "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-2"
+       },
+       {
+        "id": "pa3",
+        "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-3"
+       },
+       {
+        "id": "pa4",
+        "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-4"
+       },
+       {
+        "id": "pa5",
+        "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-5"
+       },
+       {
+        "id": "pa6",
+        "stem": "Fixture question 6. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-6"
+       },
+       {
+        "id": "pa7",
+        "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-7"
+       },
+       {
+        "id": "pa8",
+        "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-8"
+       }
+      ],
+      "shuffleOptions": true,
+      "passMark": 80,
+      "attempts": {
+       "max": 3,
+       "cooldownSeconds": null
+      },
+      "criterion": "concepts",
+      "drawn": 5,
+      "revealExplanation": "always"
+     },
+     "rubric": {
+      "passThreshold": 80,
+      "criteria": [
+       {
+        "key": "concepts",
+        "title": "Concepts",
+        "weight": 1,
+        "description": "Scored by the quiz your teacher set."
+       }
+      ]
+     },
+     "objectives": [],
+     "owns": [],
+     "authorable": true,
+     "notice": null
+    },
+    {
+     "taskKey": "practice-plain",
+     "order": 3,
+     "required": false,
+     "title": "Practice, as built",
+     "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+     "artefactType": "quiz",
+     "artefactPath": null,
+     "checkKind": "quiz",
+     "quiz": {
+      "questions": [
+       {
+        "id": "pp1",
+        "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-1"
+       },
+       {
+        "id": "pp2",
+        "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-2"
+       },
+       {
+        "id": "pp3",
+        "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-3"
+       },
+       {
+        "id": "pp4",
+        "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-4"
+       },
+       {
+        "id": "pp5",
+        "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-5"
+       },
+       {
+        "id": "pp6",
+        "stem": "Fixture question 6. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-6"
+       },
+       {
+        "id": "pp7",
+        "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-7"
+       },
+       {
+        "id": "pp8",
+        "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-8"
+       }
+      ],
+      "shuffleOptions": true,
+      "passMark": 80,
+      "attempts": {
+       "max": 3,
+       "cooldownSeconds": null
+      },
+      "criterion": "concepts",
+      "drawn": 5
+     },
+     "rubric": {
+      "passThreshold": 80,
+      "criteria": [
+       {
+        "key": "concepts",
+        "title": "Concepts",
+        "weight": 1,
+        "description": "Scored by the quiz your teacher set."
+       }
+      ]
+     },
+     "objectives": [],
+     "owns": [],
+     "authorable": true,
+     "notice": null
+    }
+   ]
+  },
+  "keyAlways": {
+   "questions": [
+    {
+     "id": "pa1",
+     "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 1. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-1"
+    },
+    {
+     "id": "pa2",
+     "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 2. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-2"
+    },
+    {
+     "id": "pa3",
+     "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 3. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-3"
+    },
+    {
+     "id": "pa4",
+     "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 4. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-4"
+    },
+    {
+     "id": "pa5",
+     "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 5. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-5"
+    },
+    {
+     "id": "pa6",
+     "stem": "Fixture question 6. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 6. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-6"
+    },
+    {
+     "id": "pa7",
+     "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 7. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-7"
+    },
+    {
+     "id": "pa8",
+     "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 8. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-8"
+    }
+   ],
+   "shuffleOptions": true,
+   "passMark": 80,
+   "attempts": {
+    "max": 3,
+    "cooldownSeconds": null
+   },
+   "criterion": "concepts",
+   "drawn": 5,
+   "revealExplanation": "always"
+  },
+  "keyPlain": {
+   "questions": [
+    {
+     "id": "pp1",
+     "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 1. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-1"
+    },
+    {
+     "id": "pp2",
+     "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 2. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-2"
+    },
+    {
+     "id": "pp3",
+     "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 3. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-3"
+    },
+    {
+     "id": "pp4",
+     "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 4. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-4"
+    },
+    {
+     "id": "pp5",
+     "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 5. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-5"
+    },
+    {
+     "id": "pp6",
+     "stem": "Fixture question 6. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 6. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-6"
+    },
+    {
+     "id": "pp7",
+     "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 7. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-7"
+    },
+    {
+     "id": "pp8",
+     "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 8. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-8"
+    }
+   ],
+   "shuffleOptions": true,
+   "passMark": 80,
+   "attempts": {
+    "max": 3,
+    "cooldownSeconds": null
+   },
+   "criterion": "concepts",
+   "drawn": 5
+  },
+  "saveAlways": {
+   "title": "Practice, shown every time",
+   "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+   "artefactType": "quiz",
+   "quiz": {
+    "questions": [
+     {
+      "id": "pa1",
+      "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 1. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-1"
+     },
+     {
+      "id": "pa2",
+      "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 2. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-2"
+     },
+     {
+      "id": "pa3",
+      "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 3. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-3"
+     },
+     {
+      "id": "pa4",
+      "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 4. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-4"
+     },
+     {
+      "id": "pa5",
+      "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 5. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-5"
+     },
+     {
+      "id": "pa6",
+      "stem": "Fixture question 6. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 6. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-6"
+     },
+     {
+      "id": "pa7",
+      "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 7. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-7"
+     },
+     {
+      "id": "pa8",
+      "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 8. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-8"
+     }
+    ],
+    "shuffleOptions": true,
+    "passMark": 80,
+    "attempts": {
+     "max": 3,
+     "cooldownSeconds": null
+    },
+    "criterion": "concepts",
+    "drawn": 5,
+    "revealExplanation": "always"
+   }
+  },
+  "savePlain": {
+   "title": "Practice, as built",
+   "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+   "artefactType": "quiz",
+   "quiz": {
+    "questions": [
+     {
+      "id": "pp1",
+      "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 1. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-1"
+     },
+     {
+      "id": "pp2",
+      "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 2. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-2"
+     },
+     {
+      "id": "pp3",
+      "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 3. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-3"
+     },
+     {
+      "id": "pp4",
+      "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 4. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-4"
+     },
+     {
+      "id": "pp5",
+      "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 5. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-5"
+     },
+     {
+      "id": "pp6",
+      "stem": "Fixture question 6. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 6. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-6"
+     },
+     {
+      "id": "pp7",
+      "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 7. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-7"
+     },
+     {
+      "id": "pp8",
+      "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+      "options": [
+       {
+        "id": "a",
+        "text": "Option A — the option this fixture keys as right."
+       },
+       {
+        "id": "b",
+        "text": "Option B — the option this fixture keys as wrong."
+       }
+      ],
+      "correct": [
+       "a"
+      ],
+      "explanation": "Fixture explanation 8. Option A is right because the fixture says so, which is the whole of it.",
+      "concept": "fixture-concept-8"
+     }
+    ],
+    "shuffleOptions": true,
+    "passMark": 80,
+    "attempts": {
+     "max": 3,
+     "cooldownSeconds": null
+    },
+    "criterion": "concepts",
+    "drawn": 5
+   }
+  },
+  "relisted": {
+   "tasks": [
+    {
+     "taskKey": "practice-always",
+     "order": 2,
+     "required": false,
+     "title": "Practice, shown every time",
+     "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+     "artefactType": "quiz",
+     "artefactPath": null,
+     "checkKind": "quiz",
+     "quiz": {
+      "questions": [
+       {
+        "id": "pa1",
+        "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-1"
+       },
+       {
+        "id": "pa2",
+        "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-2"
+       },
+       {
+        "id": "pa3",
+        "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-3"
+       },
+       {
+        "id": "pa4",
+        "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-4"
+       },
+       {
+        "id": "pa5",
+        "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-5"
+       },
+       {
+        "id": "pa6",
+        "stem": "Fixture question 6. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-6"
+       },
+       {
+        "id": "pa7",
+        "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-7"
+       },
+       {
+        "id": "pa8",
+        "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-8"
+       }
+      ],
+      "shuffleOptions": true,
+      "passMark": 80,
+      "attempts": {
+       "max": 3,
+       "cooldownSeconds": null
+      },
+      "criterion": "concepts",
+      "drawn": 5,
+      "revealExplanation": "always"
+     },
+     "rubric": {
+      "passThreshold": 80,
+      "criteria": [
+       {
+        "key": "concepts",
+        "title": "Concepts",
+        "weight": 1,
+        "description": "Scored by the quiz your teacher set."
+       }
+      ]
+     },
+     "objectives": [],
+     "owns": [],
+     "authorable": true,
+     "notice": null
+    },
+    {
+     "taskKey": "practice-plain",
+     "order": 3,
+     "required": false,
+     "title": "Practice, as built",
+     "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+     "artefactType": "quiz",
+     "artefactPath": null,
+     "checkKind": "quiz",
+     "quiz": {
+      "questions": [
+       {
+        "id": "pp1",
+        "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-1"
+       },
+       {
+        "id": "pp2",
+        "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-2"
+       },
+       {
+        "id": "pp3",
+        "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-3"
+       },
+       {
+        "id": "pp4",
+        "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-4"
+       },
+       {
+        "id": "pp5",
+        "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-5"
+       },
+       {
+        "id": "pp6",
+        "stem": "Fixture question 6. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-6"
+       },
+       {
+        "id": "pp7",
+        "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-7"
+       },
+       {
+        "id": "pp8",
+        "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "answerCount": 1,
+        "concept": "fixture-concept-8"
+       }
+      ],
+      "shuffleOptions": true,
+      "passMark": 80,
+      "attempts": {
+       "max": 3,
+       "cooldownSeconds": null
+      },
+      "criterion": "concepts",
+      "drawn": 5
+     },
+     "rubric": {
+      "passThreshold": 80,
+      "criteria": [
+       {
+        "key": "concepts",
+        "title": "Concepts",
+        "weight": 1,
+        "description": "Scored by the quiz your teacher set."
+       }
+      ]
+     },
+     "objectives": [],
+     "owns": [],
+     "authorable": true,
+     "notice": null
+    }
+   ]
+  },
+  "rekeyed": {
+   "questions": [
+    {
+     "id": "pa1",
+     "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 1. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-1"
+    },
+    {
+     "id": "pa2",
+     "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 2. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-2"
+    },
+    {
+     "id": "pa3",
+     "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 3. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-3"
+    },
+    {
+     "id": "pa4",
+     "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 4. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-4"
+    },
+    {
+     "id": "pa5",
+     "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 5. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-5"
+    },
+    {
+     "id": "pa6",
+     "stem": "Fixture question 6. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 6. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-6"
+    },
+    {
+     "id": "pa7",
+     "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 7. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-7"
+    },
+    {
+     "id": "pa8",
+     "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+     "options": [
+      {
+       "id": "a",
+       "text": "Option A — the option this fixture keys as right."
+      },
+      {
+       "id": "b",
+       "text": "Option B — the option this fixture keys as wrong."
+      }
+     ],
+     "correct": [
+      "a"
+     ],
+     "explanation": "Fixture explanation 8. Option A is right because the fixture says so, which is the whole of it.",
+     "concept": "fixture-concept-8"
+    }
+   ],
+   "shuffleOptions": true,
+   "passMark": 80,
+   "attempts": {
+    "max": 3,
+    "cooldownSeconds": null
+   },
+   "criterion": "concepts",
+   "drawn": 5,
+   "revealExplanation": "always"
+  },
+  "learnerAlways": {
+   "verdict": {
+    "taskKey": "practice-always",
+    "id": "<uuid:1>",
+    "status": "completed",
+    "score": 0,
+    "passed": false,
+    "report": {
+     "overall": 0,
+     "criteria": [
+      {
+       "key": "concepts",
+       "title": "Concepts",
+       "weight": 1,
+       "score": 0,
+       "evidence": [
+        "0 of 5 right — 0%, against a pass mark of 80%."
+       ]
+      }
+     ],
+     "checks": [
+      {
+       "id": "quiz",
+       "label": "Quiz",
+       "status": "failed",
+       "detail": "0 of 5 right — 0%, against a pass mark of 80%."
+      }
+     ],
+     "quiz": {
+      "correctCount": 0,
+      "drawn": 5,
+      "passMark": 80,
+      "attempt": 1,
+      "attemptsLeft": 2,
+      "questions": [
+       {
+        "id": "pa1",
+        "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "o50f04f6ea07a0696337059ad",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "oddaab218c88bbed2de1af716",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "selected": [
+         "oddaab218c88bbed2de1af716"
+        ],
+        "outcome": "wrong",
+        "explanation": "Fixture explanation 1. Option A is right because the fixture says so, which is the whole of it.",
+        "concept": "fixture-concept-1"
+       },
+       {
+        "id": "pa3",
+        "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "oae616cce70e92f0e0a9c4f17",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "o37fa11c623f95c2328e5c7c2",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "selected": [
+         "o37fa11c623f95c2328e5c7c2"
+        ],
+        "outcome": "wrong",
+        "explanation": "Fixture explanation 3. Option A is right because the fixture says so, which is the whole of it.",
+        "concept": "fixture-concept-3"
+       },
+       {
+        "id": "pa4",
+        "stem": "Fixture question 4. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "of15cc1809abc976b3ee7abd4",
+          "text": "Option B — the option this fixture keys as wrong."
+         },
+         {
+          "id": "oddc3e1e7a0c3add886741d8b",
+          "text": "Option A — the option this fixture keys as right."
+         }
+        ],
+        "selected": [
+         "of15cc1809abc976b3ee7abd4"
+        ],
+        "outcome": "wrong",
+        "explanation": "Fixture explanation 4. Option A is right because the fixture says so, which is the whole of it.",
+        "concept": "fixture-concept-4"
+       },
+       {
+        "id": "pa5",
+        "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "o066530a31105951f0839f590",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "o9729ed7e23fe10457ce81fe5",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "selected": [
+         "o9729ed7e23fe10457ce81fe5"
+        ],
+        "outcome": "wrong",
+        "explanation": "Fixture explanation 5. Option A is right because the fixture says so, which is the whole of it.",
+        "concept": "fixture-concept-5"
+       },
+       {
+        "id": "pa8",
+        "stem": "Fixture question 8. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "od90037e6f527abe2b6faaa9e",
+          "text": "Option B — the option this fixture keys as wrong."
+         },
+         {
+          "id": "o771f56436a9c6b6cd94ced35",
+          "text": "Option A — the option this fixture keys as right."
+         }
+        ],
+        "selected": [
+         "od90037e6f527abe2b6faaa9e"
+        ],
+        "outcome": "wrong",
+        "explanation": "Fixture explanation 8. Option A is right because the fixture says so, which is the whole of it.",
+        "concept": "fixture-concept-8"
+       }
+      ]
+     },
+     "assessmentMode": "strict_binary",
+     "passed": false,
+     "aiReview": {
+      "provider": "not-applicable",
+      "verdict": "pass",
+      "summary": "Scored against the key your teacher sealed with this quiz. This paper is below the pass mark. No model was asked — a multiple-choice answer is right or wrong by the key.",
+      "strengths": [],
+      "improvements": [],
+      "processNote": "",
+      "criteriaEvidence": [
+       {
+        "key": "concepts",
+        "met": false,
+        "evidence": "0% on this paper, against a pass mark of 80%.",
+        "issue": "This paper is below the pass mark.",
+        "nextStep": "Read what you missed, then take it again."
+       }
+      ]
+     },
+     "aiReliance": {
+      "hintsThisPhase": 0,
+      "index": 0
+     },
+     "integrity": {
+      "relianceFlag": false,
+      "relianceIndex": 0,
+      "mentorPasteFlag": false,
+      "noEffortFlag": false,
+      "note": "No integrity concerns flagged — healthy, self-directed process."
+     }
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z",
+    "commitMessage": null,
+    "runClock": null,
+    "attempt": 1
+   },
+   "room": {
+    "taskKey": "practice-always",
+    "title": "Practice, shown every time",
+    "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+    "required": false,
+    "status": "submitted",
+    "drawn": 5,
+    "passMark": 80,
+    "attemptsUsed": 1,
+    "attemptsLeft": 2,
+    "needsInstructorReset": false,
+    "cooldownSecondsLeft": null,
+    "bestScore": 0,
+    "lastSubmissionId": "<uuid:1>",
+    "paper": null
+   }
+  },
+  "learnerPlain": {
+   "verdict": {
+    "taskKey": "practice-plain",
+    "id": "<uuid:2>",
+    "status": "completed",
+    "score": 0,
+    "passed": false,
+    "report": {
+     "overall": 0,
+     "criteria": [
+      {
+       "key": "concepts",
+       "title": "Concepts",
+       "weight": 1,
+       "score": 0,
+       "evidence": [
+        "0 of 5 right — 0%, against a pass mark of 80%."
+       ]
+      }
+     ],
+     "checks": [
+      {
+       "id": "quiz",
+       "label": "Quiz",
+       "status": "failed",
+       "detail": "0 of 5 right — 0%, against a pass mark of 80%."
+      }
+     ],
+     "quiz": {
+      "correctCount": 0,
+      "drawn": 5,
+      "passMark": 80,
+      "attempt": 1,
+      "attemptsLeft": 2,
+      "questions": [
+       {
+        "id": "pp1",
+        "stem": "Fixture question 1. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "oc327486944394cd073f59ffb",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "o9f75eb52c3b0e134c1dee3a7",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "selected": [
+         "o9f75eb52c3b0e134c1dee3a7"
+        ],
+        "outcome": "wrong",
+        "explanation": null,
+        "concept": null
+       },
+       {
+        "id": "pp2",
+        "stem": "Fixture question 2. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "o4303b0609680f86f9018b2d7",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "of3badefee30198a307f8d7e2",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "selected": [
+         "of3badefee30198a307f8d7e2"
+        ],
+        "outcome": "wrong",
+        "explanation": null,
+        "concept": null
+       },
+       {
+        "id": "pp3",
+        "stem": "Fixture question 3. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "odd5f9f478fd9d4f7601d1a7b",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "o1f181a6a5257d72f20d6c1a2",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "selected": [
+         "o1f181a6a5257d72f20d6c1a2"
+        ],
+        "outcome": "wrong",
+        "explanation": null,
+        "concept": null
+       },
+       {
+        "id": "pp5",
+        "stem": "Fixture question 5. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "o08fa4dcb91aa92c941b80420",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "o7d69bac1e5d4bcefc9abb4cf",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "selected": [
+         "o7d69bac1e5d4bcefc9abb4cf"
+        ],
+        "outcome": "wrong",
+        "explanation": null,
+        "concept": null
+       },
+       {
+        "id": "pp7",
+        "stem": "Fixture question 7. This is test scaffolding and teaches nothing — option A is the one this fixture keys.",
+        "options": [
+         {
+          "id": "oa68b5bc8f45d9e2baaf8a13a",
+          "text": "Option A — the option this fixture keys as right."
+         },
+         {
+          "id": "oe356f935c991c25e8d713d5b",
+          "text": "Option B — the option this fixture keys as wrong."
+         }
+        ],
+        "selected": [
+         "oe356f935c991c25e8d713d5b"
+        ],
+        "outcome": "wrong",
+        "explanation": null,
+        "concept": null
+       }
+      ]
+     },
+     "assessmentMode": "strict_binary",
+     "passed": false,
+     "aiReview": {
+      "provider": "not-applicable",
+      "verdict": "pass",
+      "summary": "Scored against the key your teacher sealed with this quiz. This paper is below the pass mark. No model was asked — a multiple-choice answer is right or wrong by the key.",
+      "strengths": [],
+      "improvements": [],
+      "processNote": "",
+      "criteriaEvidence": [
+       {
+        "key": "concepts",
+        "met": false,
+        "evidence": "0% on this paper, against a pass mark of 80%.",
+        "issue": "This paper is below the pass mark.",
+        "nextStep": "Read what you missed, then take it again."
+       }
+      ]
+     },
+     "aiReliance": {
+      "hintsThisPhase": 0,
+      "index": 0
+     },
+     "integrity": {
+      "relianceFlag": false,
+      "relianceIndex": 0,
+      "mentorPasteFlag": false,
+      "noEffortFlag": false,
+      "note": "No integrity concerns flagged — healthy, self-directed process."
+     }
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z",
+    "commitMessage": null,
+    "runClock": null,
+    "attempt": 1
+   },
+   "room": {
+    "taskKey": "practice-plain",
+    "title": "Practice, as built",
+    "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+    "required": false,
+    "status": "submitted",
+    "drawn": 5,
+    "passMark": 80,
+    "attemptsUsed": 1,
+    "attemptsLeft": 2,
+    "needsInstructorReset": false,
+    "cooldownSecondsLeft": null,
+    "bestScore": 0,
+    "lastSubmissionId": "<uuid:2>",
+    "paper": null
+   }
+  },
+  "learnerCredited": {
+   "room": {
+    "taskKey": "practice-plain",
+    "title": "Practice, as built",
+    "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+    "required": false,
+    "status": "passed",
+    "drawn": 5,
+    "passMark": 80,
+    "attemptsUsed": 1,
+    "attemptsLeft": 2,
+    "needsInstructorReset": false,
+    "cooldownSecondsLeft": null,
+    "bestScore": 80,
+    "passCredited": true,
+    "lastSubmissionId": "<uuid:2>",
+    "paper": null
+   },
+   "uncreditedRoom": {
+    "taskKey": "practice-always",
+    "title": "Practice, shown every time",
+    "brief": "Synthetic fixture quiz. It teaches nothing and has been reviewed by nobody; the starter questions are written by the owner’s team.",
+    "required": false,
+    "status": "submitted",
+    "drawn": 5,
+    "passMark": 80,
+    "attemptsUsed": 1,
+    "attemptsLeft": 2,
+    "needsInstructorReset": false,
+    "cooldownSecondsLeft": null,
+    "bestScore": 0,
+    "lastSubmissionId": "<uuid:1>",
+    "paper": null
+   }
+  },
+  "teacherTrail": [
+   {
+    "id": "<uuid:3>",
+    "event": "project.quiz-key",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:5>",
+    "action": "requirements",
+    "reason": null,
+    "detail": {
+     "versionId": "<uuid:6>",
+     "phaseKey": "requirements",
+     "taskKey": "practice-always",
+     "taskTitle": "Practice, shown every time",
+     "questions": 8
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:7>",
+    "event": "cohort.create",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:8>",
+    "action": "Monday",
+    "reason": null,
+    "detail": null,
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:9>",
+    "event": "cohort.project",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:8>",
+    "action": "reveal-copy",
+    "reason": "Monday practises before it writes.",
+    "detail": {
+     "projectId": "<uuid:5>",
+     "projectSlug": "reveal-copy",
+     "projectTitle": "Reveal Copy",
+     "projectVersionId": "<uuid:6>",
+     "version": "1.0.0",
+     "fromProjectVersionId": null
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:10>",
+    "event": "project.tasks",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:5>",
+    "action": "requirements:practice-plain",
+    "reason": null,
+    "detail": {
+     "versionId": "<uuid:6>",
+     "phaseKey": "requirements",
+     "taskKey": "practice-plain",
+     "questions": 8,
+     "criterion": "concepts",
+     "title": "Practice, as built",
+     "brief": true,
+     "artefactType": "quiz"
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:11>",
+    "event": "project.quiz-key",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:5>",
+    "action": "requirements",
+    "reason": null,
+    "detail": {
+     "versionId": "<uuid:6>",
+     "phaseKey": "requirements",
+     "taskKey": "practice-always",
+     "taskTitle": "Practice, shown every time",
+     "questions": 8
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:12>",
+    "event": "project.tasks",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:5>",
+    "action": "requirements:practice-always",
+    "reason": null,
+    "detail": {
+     "versionId": "<uuid:6>",
+     "phaseKey": "requirements",
+     "taskKey": "practice-always",
+     "title": "Practice, shown every time",
+     "artefactType": "quiz",
+     "questions": 8,
+     "added": true
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:13>",
+    "event": "project.tasks",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:5>",
+    "action": "requirements:practice-always",
+    "reason": null,
+    "detail": {
+     "versionId": "<uuid:6>",
+     "phaseKey": "requirements",
+     "taskKey": "practice-always",
+     "questions": 8,
+     "criterion": "concepts",
+     "title": "Practice, shown every time",
+     "brief": true,
+     "artefactType": "quiz"
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:14>",
+    "event": "project.publish",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:5>",
+    "action": "1.0.0",
+    "reason": null,
+    "detail": {
+     "versionId": "<uuid:6>",
+     "slug": "reveal-copy",
+     "version": "1.0.0",
+     "sandboxBudget": 20,
+     "notes": "Two practice quizzes.",
+     "phases": [
+      {
+       "key": "requirements",
+       "tasks": 3
+      },
+      {
+       "key": "design",
+       "tasks": 1
+      },
+      {
+       "key": "implementation",
+       "tasks": 1
+      },
+      {
+       "key": "testing",
+       "tasks": 1
+      },
+      {
+       "key": "deployment",
+       "tasks": 1
+      },
+      {
+       "key": "maintenance",
+       "tasks": 1
+      }
+     ]
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:15>",
+    "event": "cohort.join",
+    "actorUserId": "<uuid:16>",
+    "actorName": "<name:learner>",
+    "subjectUserId": "<uuid:16>",
+    "subjectName": "<name:learner>",
+    "targetId": "<uuid:8>",
+    "action": "Monday",
+    "reason": null,
+    "detail": {
+     "from": "default",
+     "to": "<uuid:8>"
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:17>",
+    "event": "project.quiz-key",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:5>",
+    "action": "requirements",
+    "reason": null,
+    "detail": {
+     "versionId": "<uuid:6>",
+     "phaseKey": "requirements",
+     "taskKey": "practice-plain",
+     "taskTitle": "Practice, as built",
+     "questions": 8
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:18>",
+    "event": "task.signoff",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:16>",
+    "subjectName": "<name:learner>",
+    "targetId": "<uuid:19>",
+    "action": "task-signoff",
+    "reason": "Talked it through in the Monday session.",
+    "detail": {
+     "projectSlug": "reveal-copy",
+     "phaseKey": "requirements",
+     "taskKey": "practice-plain",
+     "taskTitle": "Practice, as built"
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:20>",
+    "event": "project.create",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:5>",
+    "action": "reveal-copy",
+    "reason": null,
+    "detail": {
+     "slug": "reveal-copy",
+     "title": "Reveal Copy",
+     "copiedFrom": {
+      "projectSlug": "tasktrackr",
+      "version": "6.0.0",
+      "versionId": "<uuid:21>"
+     },
+     "draftVersion": "0.1.0"
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:22>",
+    "event": "project.tasks",
+    "actorUserId": "<uuid:4>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:4>",
+    "subjectName": "<name:teacher>",
+    "targetId": "<uuid:5>",
+    "action": "requirements:practice-plain",
+    "reason": null,
+    "detail": {
+     "versionId": "<uuid:6>",
+     "phaseKey": "requirements",
+     "taskKey": "practice-plain",
+     "title": "Practice, as built",
+     "artefactType": "quiz",
+     "questions": 8,
+     "added": true
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   }
+  ]
+ }
+}

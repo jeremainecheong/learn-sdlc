@@ -1,0 +1,388 @@
+{
+  "key": "deployment",
+  "order": 5,
+  "title": "Deployment",
+  "intro": "Finish the API image definition, Compose file, workflow and runbook, then inspect the isolated selfcheck evidence.",
+  "artifactKind": "config",
+  "canRun": true,
+  "runLabel": "Run selfcheck",
+  "taskFile": "task.md",
+  "objectives": [
+    "Complete api/Dockerfile so the image builds and starts the API",
+    "Finish docker-compose.yml: a healthcheck on api, and the address web proxies to",
+    "Add the three missing CI steps: the API suite, the front-end suite, both images",
+    "Write the runbook an operator reads at 3am: variables, health check, rollback, data",
+    "Run the INCIDENT-1 drill and record the root cause in the runbook"
+  ],
+  "files": [
+    {
+      "path": "api/Dockerfile",
+      "source": "files/api.Dockerfile",
+      "editable": true,
+      "language": "dockerfile"
+    },
+    {
+      "path": "docker-compose.yml",
+      "source": "files/docker-compose.yml",
+      "editable": true,
+      "language": "yaml"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "source": "files/ci.yml",
+      "editable": true,
+      "language": "yaml"
+    },
+    {
+      "path": "RUNBOOK.md",
+      "source": "files/RUNBOOK.md",
+      "editable": true,
+      "language": "markdown"
+    },
+    {
+      "path": "web/Dockerfile",
+      "source": "../../canonical/web/Dockerfile",
+      "editable": false,
+      "language": "dockerfile"
+    },
+    {
+      "path": "web/serve.js",
+      "source": "../../canonical/web/serve.js",
+      "editable": false,
+      "language": "javascript"
+    },
+    {
+      "path": "api/main.py",
+      "source": "../../canonical/api/main.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "ops/selfcheck.py",
+      "source": "../../canonical/ops/selfcheck.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "requirements.txt",
+      "source": "../../canonical/requirements.txt",
+      "editable": false,
+      "language": "plaintext"
+    },
+    {
+      "path": "shared/contract/accepted-screen-copy.json",
+      "source": "../../canonical/shared/contract/accepted-screen-copy.json",
+      "editable": false,
+      "language": "json"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "config_completeness",
+        "title": "Config completeness",
+        "weight": 0.4,
+        "description": "api/Dockerfile, docker-compose.yml and the CI workflow carry every instruction the deployment needs, and no TODO markers are left."
+      },
+      {
+        "key": "build_smoke",
+        "title": "Isolated syntax and entrypoint selfcheck",
+        "weight": 0.35,
+        "description": "Python source compiles and the launcher declared by api/Dockerfile runs the project selfcheck in the sandbox. This verifies API imports, SQLite initialization and the declared Compose service address; it does not prove an image build, workflow execution or live HTTP health."
+      },
+      {
+        "key": "runbook_quality",
+        "title": "Runbook quality",
+        "weight": 0.25,
+        "description": "Environment variables, the health check, rollback, where the data lives and the INCIDENT-1 record, each written for an operator who was not on the call."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "config",
+    "smoke": {
+      "dockerfile": "api/Dockerfile",
+      "implFiles": {
+        "api/main.py": "../../canonical/api/main.py",
+        "api/db.py": "../../canonical/api/db.py",
+        "api/errors.py": "../../canonical/api/errors.py",
+        "api/schema.sql": "../../canonical/api/schema.sql",
+        "api/repository/lists.py": "../../canonical/api/repository/lists.py",
+        "api/repository/tasks.py": "../../canonical/api/repository/tasks.py",
+        "api/repository/comments.py": "../../canonical/api/repository/comments.py",
+        "api/routes/lists.py": "../../canonical/api/routes/lists.py",
+        "api/routes/tasks.py": "../../canonical/api/routes/tasks.py",
+        "api/routes/comments.py": "../../canonical/api/routes/comments.py",
+        "ops/selfcheck.py": "../../canonical/ops/selfcheck.py",
+        "docker-compose.yml": "../../canonical/docker-compose.yml"
+      },
+      "commands": [
+        [
+          "python3",
+          "api/main.py",
+          "--selfcheck"
+        ]
+      ],
+      "expect": "selfcheck: web reaches api, 13 routes, 5 tables"
+    },
+    "drill": {
+      "fault": "web-points-at-localhost",
+      "description": "The web service's API_URL is http://localhost:8000, so inside the compose network the proxy dials its own container and every API call fails while the API itself is healthy.",
+      "faultedFiles": {
+        "docker-compose.yml": {
+          "source": "drill/docker-compose.yml"
+        }
+      },
+      "expectFailure": true
+    },
+    "rules": [
+      {
+        "id": "docker-workdir",
+        "label": "api/Dockerfile sets a WORKDIR",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "pattern": "^\\s*WORKDIR\\s+\\S+",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Without WORKDIR, COPY and the entrypoint run from / \u2014 set an app directory."
+      },
+      {
+        "id": "docker-copy",
+        "label": "api/Dockerfile copies the application source",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "pattern": "^\\s*COPY\\s+\\S+",
+        "flags": "im",
+        "required": true,
+        "failDetail": "The image needs requirements.txt, api/, ops/ and docker-compose.yml \u2014 add the COPY instructions."
+      },
+      {
+        "id": "docker-entrypoint",
+        "label": "api/Dockerfile defines ENTRYPOINT or CMD",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "pattern": "^\\s*(ENTRYPOINT|CMD)\\s+",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Define how the container starts, e.g. ENTRYPOINT [\"python3\", \"api/main.py\"]."
+      },
+      {
+        "id": "docker-no-todo",
+        "label": "No TODOs left in api/Dockerfile",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "forbidden": "TODO\\(learner\\)",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Replace every TODO(learner) marker with a real instruction."
+      },
+      {
+        "id": "compose-healthcheck",
+        "label": "The api service declares a healthcheck",
+        "criterion": "config_completeness",
+        "target": "docker-compose.yml",
+        "pattern": "^[ \\t]*healthcheck:[\\s\\S]{0,400}?\\btest\\s*:",
+        "flags": "im",
+        "required": true,
+        "failDetail": "web depends on api with condition: service_healthy, so api needs a healthcheck with a test command \u2014 without one compose has nothing to wait for and refuses to start the pair."
+      },
+      {
+        "id": "compose-api-url",
+        "label": "The web service points API_URL at the api service",
+        "criterion": "config_completeness",
+        "target": "docker-compose.yml",
+        "pattern": "API_URL\\s*:\\s*[\"']?https?://(?!localhost|127\\.0\\.0\\.1|0\\.0\\.0\\.0)[A-Za-z0-9._-]+",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Give API_URL the api service's own name and port, http://api:8000. An empty value leaves the proxy with nowhere to send /api, and localhost inside a container means that container."
+      },
+      {
+        "id": "compose-no-todo",
+        "label": "No TODOs left in docker-compose.yml",
+        "criterion": "config_completeness",
+        "target": "docker-compose.yml",
+        "forbidden": "TODO\\(learner\\)",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Replace every TODO(learner) marker with a real instruction."
+      },
+      {
+        "id": "ci-test-step",
+        "label": "CI runs the API suite",
+        "criterion": "config_completeness",
+        "target": ".github/workflows/ci.yml",
+        "pattern": "^[^\\n#]*(?:python3?\\s+-m\\s+pytest|pytest\\s+tests|npm\\s+run\\s+test:api|npm\\s+test\\s*$)",
+        "flags": "im",
+        "required": true,
+        "failDetail": "The test job installs pytest but never runs it. Add a run step that executes the suite \u2014 python3 -m pytest tests -q, which is what package.json calls test:api."
+      },
+      {
+        "id": "ci-web-step",
+        "label": "CI runs the front-end suite",
+        "criterion": "config_completeness",
+        "target": ".github/workflows/ci.yml",
+        "pattern": "^[^\\n#]*(?:node\\s+web/run-tests\\.js|npm\\s+run\\s+test:web|npm\\s+test\\s*$)",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Half this application is TypeScript, so half the pipeline is missing. Add a run step for the front-end suite \u2014 node web/run-tests.js, which is what package.json calls test:web."
+      },
+      {
+        "id": "ci-build-step",
+        "label": "CI builds both images",
+        "criterion": "config_completeness",
+        "target": ".github/workflows/ci.yml",
+        "pattern": "^[^\\n#]*docker\\s+compose\\s+build|^[^\\n#]*docker\\s+build[\\s\\S]*?^[^\\n#]*docker\\s+build",
+        "flags": "im",
+        "required": true,
+        "failDetail": "This application ships two images, so a build job that builds one proves half a deployment. Run docker compose build, or one docker build per Dockerfile (each needs -f, because both are built from the project root)."
+      },
+      {
+        "id": "runbook-env",
+        "label": "Runbook documents TASKTRACKR_DB and API_URL",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "pattern": "^##[^\\n]*(?:environment|env)[^\\n]*\\n(?=(?:(?!^##)[\\s\\S])*?\\bTASKTRACKR_DB\\b(?:(?!^##)[\\s\\S]){0,240}?(?:default|/data/tasktrackr\\.db|path|controls|points to|location|sqlite|database))(?=(?:(?!^##)[\\s\\S])*?\\bAPI_URL\\b(?:(?!^##)[\\s\\S]){0,240}?(?:default|http://api|proxy|forward|send|points to|service|where))",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Under the Environment variables heading, name both variables an operator changes and say what each controls: TASKTRACKR_DB, which decides where the database file lives, and API_URL, which tells the web service where to send /api. A heading, or a name with nothing after it, tells an operator nothing."
+      },
+      {
+        "id": "runbook-health",
+        "label": "Runbook documents a health check",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "pattern": "^##[^\\n]*health[^\\n]*\\n(?:(?!^##)[\\s\\S])*?^(?!#)[^\\n]*(/api/health|--selfcheck|selfcheck|curl|docker compose|python|node|exit code|expect|status)[^\\n]{4,}",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Under the Health check heading, write the one command an operator runs and the output that proves the deployment is alive \u2014 the endpoint compose itself waits on, or the selfcheck that reads the whole deployment."
+      },
+      {
+        "id": "runbook-rollback",
+        "label": "Runbook documents rollback",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "pattern": "^##[^\\n]*roll[ -]?back[^\\n]*\\n(?:(?!^##)[\\s\\S])*?^(?!#)[^\\n]*(previous|known[ -]good|last[ -]good|revert|re-?deploy|re-?tag|docker (compose|run|pull|tag|service))[^\\n]{4,}",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Under the Rollback heading, spell out how to get back to the previous known-good images when a deploy goes wrong \u2014 a sentence with the command, not a heading."
+      },
+      {
+        "id": "runbook-data",
+        "label": "Runbook documents where the data lives",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "pattern": "^##[^\\n]*\\bdata\\b[^\\n]*\\n(?:(?!^##)[\\s\\S])*?^(?!#)[^\\n]*(volume|tasktrackr-data|backup|restore|sqlite|\\.db\\b|down -v|persist)[^\\n]{4,}",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Under the Data heading, say where the database lives and what survives what: the volume that holds it, the commands that keep it and the ones that delete it, and how to take a backup. A rollback replaces the images and leaves the data alone, and an operator has to know that before they redeploy."
+      },
+      {
+        "id": "runbook-incident",
+        "label": "Runbook records the INCIDENT-1 diagnosis",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "pattern": "^##[^\\n]*incident[^\\n]*\\n(?:(?!^##)[\\s\\S])*?^(?!#)[^\\n]*\\b(API_URL|ENTRYPOINT|WORKDIR|healthcheck)\\b[^\\n]{4,}",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Under the Incident heading, name the setting that broke the deployment and say what you changed \u2014 for INCIDENT-1 that is API_URL. A heading with no root cause helps nobody at 3am."
+      },
+      {
+        "id": "runbook-no-todo",
+        "label": "No TODOs left in the runbook",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "forbidden": "TODO\\(learner\\)",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Replace every TODO(learner) marker with real content."
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the DEPLOYMENT phase of the TaskTrackr project. TaskTrackr ships as two services: a Python API and a Node process that serves the front end and forwards /api to the API. The learner completes api/Dockerfile (WORKDIR, COPY, ENTRYPOINT), docker-compose.yml (a healthcheck on api, API_URL on web), a GitHub Actions workflow (the API suite, the front-end suite, both images) and a runbook (environment variables, health check, rollback, data, and the INCIDENT-1 record). Explain what each instruction does and why ordering and service names matter; never paste their completed files. Keep replies under 120 words, end with one guiding question, and stay on deployment topics. Exact local evidence limits: Run selfcheck separately compiles Python source and invokes the Dockerfile-declared launcher in an isolated runner. ops/selfcheck.py imports the Flask app and counts routes, initializes the SQLite schema, checks the Compose web API_URL names a declared service and an allowed declared port, and reports whether web/dist/app.js exists. Bundle presence is INFORMATIONAL, not a pass condition: when the file is missing, selfcheck prints a note and still returns exit 0. Therefore a green selfcheck does not prove that bundle exists; only its explicit bundle-present output can support that statement. Its legacy output web reaches api is a configuration-address check, not a network request. It does not build images, install Dockerfile dependencies, execute or validate every CI workflow step, start Compose services, or prove live HTTP/proxy health. Any static rubric findings about authored workflow fields are separate from execution. The canonical web/serve.js defaults API_URL to empty and returns HTTP 502 with no_api_url for /api requests when it is unset; Compose supplies http://api:8000. Do not invent a localhost fallback or infer release success from selfcheck. The LearnSDLC local pipeline displays declarations and isolated selfcheck evidence, not an executed GitHub Actions run summary. If suggesting real CI logs or live HTTP probes as stronger evidence, label them as external verification the learner would still need to perform.",
+    "topics": [
+      {
+        "keywords": [
+          "dockerfile",
+          "workdir",
+          "copy",
+          "entrypoint",
+          "cmd",
+          "image"
+        ],
+        "hints": [
+          "Each Dockerfile instruction adds a layer: WORKDIR sets where later instructions run, COPY brings source into the image, ENTRYPOINT/CMD defines what starts. In what order do those three have to appear here, and why?",
+          "ENTRYPOINT in exec form is a JSON array \u2014 [\"python3\", \"api/main.py\"] \u2014 so `docker run tasktrackr --selfcheck` hands the flag straight to the file, The local selfcheck uses that launcher in the sandbox; it does not start a Docker container. What would shell form do differently?"
+        ]
+      },
+      {
+        "keywords": [
+          "compose",
+          "docker-compose",
+          "service",
+          "healthcheck",
+          "api_url",
+          "network",
+          "depends_on",
+          "localhost",
+          "proxy"
+        ],
+        "hints": [
+          "A compose file is a small network with names in it. Inside that network the two services reach each other by service name, and localhost inside a container means that container and nothing else. Which of the two has to be told the other's address, and what would that address be?",
+          "condition: service_healthy gives compose something to wait for only if the other service says how it is checked. The api image carries python3 and nothing else \u2014 no curl, no wget. What one command, run inside that container, would prove the API is answering?"
+        ]
+      },
+      {
+        "keywords": [
+          "ci",
+          "workflow",
+          "action",
+          "pipeline",
+          "yaml",
+          "job",
+          "needs",
+          "test step"
+        ],
+        "hints": [
+          "A CI job is only as useful as what it runs. Checkout, the runtime and the install are wired in all three jobs; what each is missing is a run: line that executes something. What does package.json call the two suites, and what would each job run?",
+          "The build job needs both suites and builds both images \u2014 this application ships two, and each Dockerfile is built from the project root, so each build needs -f. Nothing here deploys, so why is building the images in CI worth the minute it costs?"
+        ]
+      },
+      {
+        "keywords": [
+          "incident",
+          "drill",
+          "outage",
+          "root cause",
+          "postmortem"
+        ],
+        "hints": [
+          "Start from the output, not from the file: the API is healthy, its logs are quiet, and every page is empty. Something asked for data and got nothing. Which of the two services makes that request, and what does it have to be told before it can?",
+          "A useful incident record answers four questions in four lines: what an operator saw, the setting that caused it, the line that changed, and the check that proves it is fixed. The gate reads that section for the setting's name. Which of the four is hardest to write honestly?"
+        ]
+      },
+      {
+        "keywords": [
+          "runbook",
+          "health",
+          "rollback",
+          "env",
+          "variable",
+          "operator",
+          "data",
+          "volume",
+          "backup"
+        ],
+        "hints": [
+          "Write the runbook for an operator at 3am who has never seen this code: which variable moves the database file, which one tells the web service where the API is, what one command proves the deployment is alive, what exactly do they type to get the previous images back, and what would docker compose down -v cost them?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with api/Dockerfile: replace the three TODOs (WORKDIR, COPY, ENTRYPOINT). Everything an instruction reads has to arrive before it, and exec-form ENTRYPOINT is a JSON array. web/Dockerfile beside it is finished and locked \u2014 read it when a line will not come.",
+      "Then docker-compose.yml: give api a healthcheck that web can wait on (python3 is the only client that image carries), and point API_URL at the api service by name. Then CI: one run step per job \u2014 the API suite, the front-end suite, and both images in the job that needs them.",
+      "Finish the runbook for an operator at 3am: which variable moves the database and which one tells web where the API is, the one command that proves the deployment is alive, exactly what to type to get the previous images back, and where the data lives and what a rollback does not undo. Then run the selfcheck, then start INCIDENT-1 and write the outage up under ## Incident, naming the setting that was wrong."
+    ]
+  }
+}

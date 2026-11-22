@@ -1,0 +1,14 @@
+{
+  "name": "LearnSDLC — experiential software engineering",
+  "short_name": "LearnSDLC",
+  "description": "Learn the software development life cycle by carrying one real project through every phase of it — with phase mentors, real execution, and feedback you can use to improve your work.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f8fb",
+  "theme_color": "#f4f8fb",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/apple-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

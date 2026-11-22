@@ -1,0 +1,16 @@
+/* The learner's own cited sentences, under the explanation review.
+   A cited sentence can be long, so the region is bounded and wraps rather than
+   widening the mentor pane. The finding label is a flat outlined word, never a
+   badge that reads as a score, and the quote keeps the learner's own spacing. */
+.agentic-findings { margin-top: 8px; font-size: 12px; line-height: 1.65; color: rgb(var(--chat-ink2)); }
+.agentic-findings > * + * { margin-top: 6px; }
+.agentic-findings-scroll { max-height: 300px; min-width: 0; overflow: auto; overscroll-behavior: contain; }
+.agentic-findings-scroll > dl > div + div { margin-top: 8px; }
+.agentic-findings-scroll dt { font-weight: 500; color: rgb(var(--chat-ink)); }
+.agentic-findings-scroll dd { margin: 4px 0 0; }
+.agentic-finding-label { display: inline-block; padding: 1px 6px; border: 1px solid rgb(var(--chat-edge)); border-radius: 4px; color: rgb(var(--chat-muted)); }
+.agentic-findings-scroll blockquote { margin: 4px 0 0; padding-left: 8px; border-left: 2px solid rgb(var(--chat-edge)); overflow-wrap: anywhere; white-space: pre-wrap; }
+.agentic-findings-scroll:focus-visible { outline: 2px solid rgb(var(--c-accent)); outline-offset: 2px; }
+/* A sentence two checks cite is drawn once; the checks that also cite it are named under it, and a later check points back to it. */
+.agentic-findings-scroll .agentic-finding-quote small { display: block; margin-top: 2px; padding-left: 10px; color: rgb(var(--chat-muted)); }
+.agentic-findings-scroll .agentic-finding-repeat { margin: 4px 0 0; color: rgb(var(--chat-muted)); }

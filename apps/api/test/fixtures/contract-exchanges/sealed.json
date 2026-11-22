@@ -1,0 +1,5577 @@
+{
+ "recordedBy": "apps/api/test/sealed-contract-wiring.e2e-spec.ts",
+ "redaction": "ids <uuid:n>, emails <email:n>, tokens <jwt>, digests <sha256:n> (one digest, one placeholder), named values <label>, times as ordinal instants from 2026-01-01T00:00:00Z",
+ "facts": {
+  "projectId": "<uuid:1>",
+  "versionId": "<uuid:2>",
+  "phaseKey": "implementation",
+  "taskKey": "main",
+  "runId": "api",
+  "secondRunId": "web",
+  "savedLabel": "API tests, as the class reads them"
+ },
+ "exchanges": [
+  {
+   "name": "draft",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "projectId": "<uuid:1>",
+    "versionId": "<uuid:2>",
+    "version": "0.1.0",
+    "status": "draft",
+    "slug": "books-on-a-shelf",
+    "title": "Books on a shelf",
+    "tagline": "A teacher's own application, carried through every phase.",
+    "description": "Shelf keeps the books a small library owns: a Python API that adds, lists and lends books, and a React page that shows them in shelf order. You will write a missing story, sketch the contract, implement the marked gaps in both layers, prove the behaviour with tests, package the API, and ship a change request that reorders the shelf.",
+    "platformOwned": false,
+    "editable": true,
+    "phases": [
+     {
+      "key": "requirements",
+      "order": 1,
+      "title": "Requirements",
+      "intro": "Four stories are settled. Write the fifth, the one a member asked for, with criteria a tester could check.",
+      "artifactKind": "story",
+      "checkKind": "story",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Requirements",
+        "brief": "Requirements: write the missing story\n\nThe shelf's backlog has four settled stories. A member has asked for a fifth: to see which of an author's books are free to borrow right now. Write SH-5 in the story form in this room; it is saved as requirements/story.json.\n\nWhat good looks like\n\n- One story in the As a … I want … so that … form, naming who wants it and why.\n- At least two acceptance criteria in the Given … When … Then … form: tag one happy path and one boundary, the book that is already on loan.\n- At least one thing the story leaves out of scope.\n\nUsing the AI mentor well\n\nAsk the mentor to question your story, not to write it: \"what would a tester ask about this criterion?\" gets you further than \"write SH-5\".",
+        "artefactType": "user-story",
+        "artefactPath": null,
+        "checkKind": "story",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "story_quality",
+           "title": "Story",
+           "weight": 0.4,
+           "description": "Who wants it, what they want, and why."
+          },
+          {
+           "key": "acceptance_criteria",
+           "title": "Acceptance criteria",
+           "weight": 0.4,
+           "description": "Given / When / Then criteria a tester could check, including a book on loan."
+          },
+          {
+           "key": "completeness",
+           "title": "Completeness",
+           "weight": 0.2,
+           "description": "Enough criteria and scope lines to say what is in and what is left out."
+          }
+         ]
+        },
+        "objectives": [
+         "Write SH-5 in the As a / I want / so that form",
+         "Give it at least two Given / When / Then acceptance criteria",
+         "Cover the case of a book that is already on loan"
+        ],
+        "owns": [
+         "requirements/story.json"
+        ],
+        "authorable": true,
+        "notice": null,
+        "story": {
+         "kind": "story",
+         "record": "requirements/story.json",
+         "providedStories": [
+          {
+           "id": "SH-1",
+           "title": "Browse the shelf",
+           "persona": "member",
+           "capability": "to see every book in shelf order",
+           "benefit": "I can find one without asking",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "books with different titles",
+             "when": "I open the shelf",
+             "then": "they are listed by title",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "books by several authors",
+             "when": "I filter by an author in any case",
+             "then": "only that author's books are listed",
+             "tag": "boundary"
+            }
+           ]
+          },
+          {
+           "id": "SH-2",
+           "title": "Lend a book",
+           "persona": "librarian",
+           "capability": "to record who has borrowed a book",
+           "benefit": "I know where it is",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on the shelf",
+             "when": "I lend it to a member",
+             "then": "the book says who has it",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "a book already on loan",
+             "when": "I try to lend it again",
+             "then": "the loan is refused",
+             "tag": "error"
+            }
+           ]
+          },
+          {
+           "id": "SH-3",
+           "title": "Return a book",
+           "persona": "librarian",
+           "capability": "to put a returned book back",
+           "benefit": "the next member can borrow it",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on loan",
+             "when": "it is returned",
+             "then": "it is on the shelf again",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "an id no book has",
+             "when": "it is returned",
+             "then": "the request is refused as not found",
+             "tag": "error"
+            }
+           ]
+          },
+          {
+           "id": "SH-4",
+           "title": "See what is out",
+           "persona": "member",
+           "capability": "the shelf to say which books are on loan",
+           "benefit": "I do not walk to an empty space",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on loan",
+             "when": "I read its line",
+             "then": "the line ends \"on loan\"",
+             "tag": "happy"
+            }
+           ]
+          }
+         ],
+         "learnerStory": {
+          "id": "SH-5",
+          "hints": {}
+         },
+         "floor": {
+          "minCriteria": 2,
+          "requiredTags": [
+           "happy",
+           "boundary"
+          ],
+          "minExclusions": 1,
+          "requireSentence": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "requirements",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other"
+      }
+     },
+     {
+      "key": "design",
+      "order": 2,
+      "title": "Design",
+      "intro": "Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision.",
+      "artifactKind": "design",
+      "checkKind": "design",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Design",
+        "brief": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence with because in it.",
+        "artefactType": "design-doc",
+        "artefactPath": null,
+        "checkKind": "design",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "contract",
+           "title": "Contract",
+           "weight": 0.5,
+           "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+          },
+          {
+           "key": "decisions",
+           "title": "Decision",
+           "weight": 0.3,
+           "description": "A decision, the alternative it beat and the reason."
+          },
+          {
+           "key": "completeness",
+           "title": "Completeness",
+           "weight": 0.2,
+           "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+          }
+         ]
+        },
+        "objectives": [
+         "List every operation the API answers",
+         "Name the status and error code of every refusal",
+         "Record one decision, the alternative and the reason"
+        ],
+        "owns": [
+         "design/design.json",
+         "shared/contract/api.json"
+        ],
+        "authorable": true,
+        "notice": null,
+        "design": {
+         "kind": "design",
+         "record": "design/design.json",
+         "contracts": {
+          "api": true,
+          "screens": false
+         },
+         "sequence": false,
+         "stories": [
+          {
+           "id": "SH-1",
+           "title": "Browse the shelf",
+           "line": "As a member, I want to see every book in shelf order, so that I can find one without asking."
+          },
+          {
+           "id": "SH-2",
+           "title": "Lend a book",
+           "line": "As a librarian, I want to record who has borrowed a book, so that I know where it is."
+          },
+          {
+           "id": "SH-3",
+           "title": "Return a book",
+           "line": "As a librarian, I want to put a returned book back, so that the next member can borrow it."
+          }
+         ],
+         "floor": {
+          "minEntities": 1,
+          "minRelations": 0,
+          "minOperations": 3,
+          "operationShape": true,
+          "minDecisions": 1,
+          "decisionShape": true,
+          "traceEveryStory": true,
+          "minEndpoints": 4,
+          "requireErrorCatalogue": true,
+          "minScreens": 0,
+          "screenShape": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "design",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other"
+      }
+     },
+     {
+      "key": "implementation",
+      "order": 3,
+      "title": "Implementation",
+      "intro": "The shelf runs except for four marked gaps, two in the Python API and two in the TypeScript page. Make the backlog's rules true in both.",
+      "artifactKind": "code",
+      "checkKind": "code",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Implementation",
+        "brief": "Implementation: fill the marked gaps\n\nThe shelf runs except for four marked gaps: two in the Python API (api/shelf.py: books and lend) and two in the TypeScript page (web/src/lib/shelf.ts: shelfLabel and sortForShelf). Make the backlog's rules true in both layers.\n\nWhat good looks like\n\n- books lists by title ignoring case, then id, and the author filter ignores case and surrounding spaces.\n- lend refuses an unknown id, a blank borrower, and a book already on loan.\n- shelfLabel and sortForShelf agree with the API about what a person reads.\n- The visible tests pass before you submit; the hidden suites ask more.\n\nUsing the AI mentor well\n\nPaste the failing test's name, not your whole file, and ask what rule it is checking. The mentor explains; it does not write the function for you.",
+        "artefactType": "code",
+        "artefactPath": null,
+        "checkKind": "code",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "correctness_hidden",
+           "title": "Correctness (hidden tests)",
+           "weight": 0.45,
+           "description": "The sealed suites, one per layer, ask the same rules many more questions."
+          },
+          {
+           "key": "visible_tests",
+           "title": "Visible tests",
+           "weight": 0.15,
+           "description": "The suites you can see pass, and you can run them before submitting."
+          },
+          {
+           "key": "code_quality",
+           "title": "Code quality",
+           "weight": 0.25,
+           "description": "No TODO left behind, reasonable complexity, docstrings kept."
+          },
+          {
+           "key": "process",
+           "title": "Process",
+           "weight": 0.15,
+           "description": "You ran the tests before submitting and used the mentor in moderation."
+          }
+         ]
+        },
+        "objectives": [
+         "Implement books with the author filter and shelf order (SH-1)",
+         "Implement lend and its refusals (SH-2)",
+         "Implement shelfLabel so a lent book says so (SH-4)",
+         "Implement sortForShelf so the page agrees with the API (SH-1)"
+        ],
+        "owns": [
+         "api/shelf.py",
+         "web/src/lib/shelf.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "code",
+         "artefactType": "code",
+         "owns": [
+          "api/shelf.py",
+          "web/src/lib/shelf.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python-hidden",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_hidden_shelf.py"
+           ],
+           "visibleTests": [
+            "tests/test_shelf_api.py"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "tests/test_hidden_shelf.py",
+             "sha256": "<sha256:1>",
+             "bytes": 4400
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript-hidden",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/shelf.hidden.test.ts"
+           ],
+           "visibleTests": [
+            "web/src/lib/shelf.test.ts"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "web/src/lib/shelf.hidden.test.ts",
+             "sha256": "<sha256:2>",
+             "bytes": 2640
+            }
+           ]
+          }
+         ],
+         "minTests": null,
+         "coverageKeywords": [],
+         "solution": [
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:3>",
+           "bytes": 3292
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:4>",
+           "bytes": 1199
+          }
+         ],
+         "mutants": [],
+         "sandboxBudget": 4
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "implementation",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "none",
+       "application": null
+      }
+     },
+     {
+      "key": "testing",
+      "order": 4,
+      "title": "Testing",
+      "intro": "Write the acceptance suites that prove SH-1 to SH-4 on both sides, and catch the bugs planted in copies of the application.",
+      "artifactKind": "tests",
+      "checkKind": "tests",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Testing",
+        "brief": "Testing: prove the backlog\n\nWrite acceptance tests for SH-1 to SH-4 in tests/test_acceptance.py (the API) and web/src/lib/acceptance.test.ts (the page). The graders run your suites against the working application and against copies of it with bugs planted in them; a good suite passes on the first and fails on every one of the others.\n\nWhat good looks like\n\n- Every test passes against the working application.\n- At least one test per acceptance criterion, asserting what a person or a client would see, not only a status code.\n- Cases about the author filter, lending, returning and the \"on loan\" line.\n\nUsing the AI mentor well\n\nAsk the mentor which acceptance criterion a test of yours does not yet cover.",
+        "artefactType": "tests",
+        "artefactPath": null,
+        "checkKind": "tests",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "tests_pass",
+           "title": "Tests pass against a working application",
+           "weight": 0.3,
+           "description": "A test that fails on correct code is a bug in the test."
+          },
+          {
+           "key": "mutants_killed",
+           "title": "Bug-detection power",
+           "weight": 0.45,
+           "description": "Your suites run against broken copies of the application; a good suite fails on every one."
+          },
+          {
+           "key": "coverage_mapping",
+           "title": "Criteria coverage",
+           "weight": 0.25,
+           "description": "The author filter, lending, returning and the on-loan line each have a test."
+          }
+         ]
+        },
+        "objectives": [
+         "Turn SH-1, SH-2 and SH-3 into tests over the HTTP contract",
+         "Prove the shelf line and the shelf order on the page",
+         "Make every test pass against the working application",
+         "Write assertions sharp enough to fail on every broken copy"
+        ],
+        "owns": [
+         "tests/test_acceptance.py",
+         "web/src/lib/acceptance.test.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "tests",
+         "artefactType": "tests",
+         "owns": [
+          "tests/test_acceptance.py",
+          "web/src/lib/acceptance.test.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_acceptance.py"
+           ],
+           "visibleTests": [],
+           "learnerTestFiles": [
+            "tests/test_acceptance.py"
+           ],
+           "hidden": [
+            {
+             "path": "tests/test_acceptance.py",
+             "sha256": "<sha256:5>",
+             "bytes": 2431
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/acceptance.test.ts"
+           ],
+           "visibleTests": [],
+           "learnerTestFiles": [
+            "web/src/lib/acceptance.test.ts"
+           ],
+           "hidden": [
+            {
+             "path": "web/src/lib/acceptance.test.ts",
+             "sha256": "<sha256:6>",
+             "bytes": 1287
+            }
+           ]
+          }
+         ],
+         "minTests": 6,
+         "coverageKeywords": [
+          "?author=",
+          "lend",
+          "/return",
+          "on loan"
+         ],
+         "solution": [
+          {
+           "path": "api/main.py",
+           "sha256": "<sha256:7>",
+           "bytes": 3835
+          },
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:8>",
+           "bytes": 3301
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:9>",
+           "bytes": 1208
+          }
+         ],
+         "mutants": [
+          {
+           "path": "author_filter_case_sensitive/api/shelf.py",
+           "sha256": "<sha256:10>",
+           "bytes": 3274
+          },
+          {
+           "path": "label_ignores_loan/web/src/lib/shelf.ts",
+           "sha256": "<sha256:11>",
+           "bytes": 1163
+          },
+          {
+           "path": "lend_twice_allowed/api/shelf.py",
+           "sha256": "<sha256:12>",
+           "bytes": 3186
+          },
+          {
+           "path": "return_unknown_is_200/api/main.py",
+           "sha256": "<sha256:13>",
+           "bytes": 3808
+          }
+         ],
+         "sandboxBudget": 6
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "testing",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "none",
+       "application": null
+      }
+     },
+     {
+      "key": "deployment",
+      "order": 5,
+      "title": "Deployment",
+      "intro": "Finish the API's image definition and the runbook, run the selfcheck, then run the drill and write down what broke.",
+      "artifactKind": "config",
+      "checkKind": "config",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Deployment",
+        "brief": "Finish api/Dockerfile so the image starts the API, and write the runbook an operator reads at 3am in the Runbook tab. Then run the selfcheck, and run the drill: a broken configuration is swapped in, and you write down what broke.\n\nWhat good looks like: the Dockerfile sets a working directory, copies the application and starts api/main.py in exec form, with no TODO left. The runbook in the Runbook tab says how to check the service is healthy under Health checks and how to roll back under Rollback; its Environment and Data sections are there for anything else an operator needs. The incident is closed on the drill page with what the drill broke, the fix and one action item.\n\nUsing the AI mentor well: ask what each Dockerfile instruction changes about the image, and write the instructions yourself.",
+        "artefactType": "runbook",
+        "artefactPath": null,
+        "checkKind": "config",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "config_completeness",
+           "title": "Config completeness",
+           "weight": 0.4,
+           "description": "api/Dockerfile carries every instruction the image needs, and no TODO is left."
+          },
+          {
+           "key": "build_smoke",
+           "title": "Isolated selfcheck",
+           "weight": 0.35,
+           "description": "The launcher api/Dockerfile declares runs the selfcheck in the sandbox. It does not build an image."
+          },
+          {
+           "key": "runbook_quality",
+           "title": "Runbook quality",
+           "weight": 0.25,
+           "description": "Health check, rollback and the incident, written for someone who was not there."
+          }
+         ]
+        },
+        "objectives": [
+         "Complete api/Dockerfile: WORKDIR, COPY and an exec-form ENTRYPOINT",
+         "Write the runbook: health check, rollback, incident",
+         "Run the drill and record the setting that broke the deployment"
+        ],
+        "owns": [
+         "api/Dockerfile",
+         "deployment/runbook.json"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "runbook": {
+         "record": "deployment/runbook.json",
+         "floor": {
+          "minEnvironment": 0,
+          "minHealth": 1,
+          "minRollback": 1,
+          "minData": 0,
+          "requireIncident": true
+         },
+         "drill": true
+        },
+        "config": {
+         "fileRules": [
+          {
+           "id": "docker-workdir",
+           "label": "api/Dockerfile sets a WORKDIR",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-copy",
+           "label": "api/Dockerfile copies the application",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-entrypoint",
+           "label": "api/Dockerfile starts the API in exec form",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-no-todo",
+           "label": "No TODO left in api/Dockerfile",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          }
+         ],
+         "smoke": {
+          "dockerfile": "api/Dockerfile",
+          "commands": [
+           [
+            "python3",
+            "api/main.py",
+            "--selfcheck"
+           ]
+          ],
+          "expectInOutput": "shelf selfcheck: 5 routes, config ok"
+         },
+         "drill": {
+          "fault": "port-zero",
+          "description": "deploy/shelf.json sets the port to 0, so the service would listen where nobody routes and the selfcheck refuses the configuration.",
+          "faultedFiles": [
+           "deploy/shelf.json"
+          ]
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "deployment",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other",
+       "application": null
+      }
+     },
+     {
+      "key": "maintenance",
+      "order": 6,
+      "title": "Maintenance",
+      "intro": "Change request CHG-1 arrives on a shelf that already works: shelve by surname. Ship it in both layers without breaking anything.",
+      "artifactKind": "code",
+      "checkKind": "code",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Maintenance",
+        "brief": "Change request CHG-1. The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.\n\nWhat good looks like: the API and the page agree on the new order. Lending, returning and the author filter behave exactly as before. The visible regression cases pass before you submit.\n\nRecord the change in the change request as you go: in the Request tab, what the change touches; in the Checks tab, the tests and the acceptance items each covers; in the Release tab, the release, its change lines and how to roll it back.\n\nUsing the AI mentor well: ask the mentor which existing behaviour your change could break, then run the regression cases to find out.",
+        "artefactType": "code",
+        "artefactPath": null,
+        "checkKind": "code",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "correctness_hidden",
+           "title": "Correctness (hidden tests)",
+           "weight": 0.4,
+           "description": "The sealed suites, one per layer, ask the same rules many more questions."
+          },
+          {
+           "key": "visible_tests",
+           "title": "Visible tests",
+           "weight": 0.1,
+           "description": "The suites you can see pass, and you can run them before submitting."
+          },
+          {
+           "key": "code_quality",
+           "title": "Code quality",
+           "weight": 0.2,
+           "description": "No TODO left behind, reasonable complexity, docstrings kept."
+          },
+          {
+           "key": "process",
+           "title": "Process",
+           "weight": 0.15,
+           "description": "You ran the tests before submitting and used the mentor in moderation."
+          },
+          {
+           "key": "change_request",
+           "title": "Change request",
+           "weight": 0.15,
+           "description": "The record names what the change touched, the tests that cover each acceptance item and the release."
+          }
+         ]
+        },
+        "objectives": [
+         "Order the shelf by surname, then title, then id, in the API (CHG-1)",
+         "Make the page agree with the API's new order",
+         "Keep lending, returning and the author filter exactly as they were"
+        ],
+        "owns": [
+         "api/shelf.py",
+         "maintenance/change-request.json",
+         "web/src/lib/shelf.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "code",
+         "artefactType": "code",
+         "owns": [
+          "api/shelf.py",
+          "maintenance/change-request.json",
+          "web/src/lib/shelf.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python-hidden",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_hidden_order.py"
+           ],
+           "visibleTests": [
+            "tests/test_shelf_order.py"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "tests/test_hidden_order.py",
+             "sha256": "<sha256:14>",
+             "bytes": 2491
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript-hidden",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/order.hidden.test.ts"
+           ],
+           "visibleTests": [
+            "web/src/lib/shelf.test.ts"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "web/src/lib/order.hidden.test.ts",
+             "sha256": "<sha256:15>",
+             "bytes": 2320
+            }
+           ]
+          }
+         ],
+         "minTests": null,
+         "coverageKeywords": [],
+         "solution": [
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:16>",
+           "bytes": 3576
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:17>",
+           "bytes": 1541
+          }
+         ],
+         "mutants": [],
+         "sandboxBudget": 4
+        },
+        "change": {
+         "ticket": {
+          "id": "CHG-1",
+          "title": "Shelve by surname",
+          "summary": "The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.",
+          "acceptance": [
+           {
+            "id": "AC-1",
+            "line": "Order the shelf by surname, then title, then id, in the API (CHG-1)"
+           },
+           {
+            "id": "AC-2",
+            "line": "Make the page agree with the API's new order"
+           },
+           {
+            "id": "AC-3",
+            "line": "Keep lending, returning and the author filter exactly as they were"
+           }
+          ]
+         },
+         "contract": false,
+         "floor": {
+          "minImpact": 1,
+          "minContract": 1,
+          "minTests": 1,
+          "requireRelease": true,
+          "traceEveryAcceptance": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "maintenance",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other",
+       "application": null
+      }
+     }
+    ],
+    "validation": {
+     "tier": "fast",
+     "ranAt": "2026-01-01T00:00:01.000Z",
+     "checks": [
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Requirements holds 1 task, which a learner can work on.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Design holds 1 task, which a learner can work on.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Implementation holds 1 task, which a learner can work on.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Testing holds 1 task, which a learner can work on.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Deployment holds 1 task, which a learner can work on.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Maintenance holds 1 task, which a learner can work on.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Requirements is gated on 1 required task.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Design is gated on 1 required task.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Implementation is gated on 1 required task.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Testing is gated on 1 required task.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Deployment is gated on 1 required task.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Maintenance is gated on 1 required task.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "artefact-paths-unique",
+       "label": "No two tasks write to one file",
+       "status": "passed",
+       "sentence": "No task in this version writes a file of its own, so no two can collide.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "runtime-is-supported",
+       "label": "The runner can import what this project needs",
+       "status": "passed",
+       "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Implementation has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Testing has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Deployment has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Maintenance has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "version-compiles",
+       "label": "The version compiles",
+       "status": "passed",
+       "sentence": "Every phase compiles: each task owns the files it is graded on, and no two tasks share what scores them.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "front-end-suite-runs",
+       "label": "The front end's own suite runs",
+       "status": "not-applicable",
+       "sentence": "This project has no front end to build, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "preview-starts",
+       "label": "The live preview starts",
+       "status": "not-applicable",
+       "sentence": "This project has no preview to start, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      }
+     ],
+     "passed": 19,
+     "failed": 0,
+     "notApplicable": 2,
+     "publishable": true,
+     "blocking": [],
+     "notApplicableLine": "2 checks do not apply to this project."
+    },
+    "supportedStacks": {
+     "python": [
+      "flask",
+      "werkzeug",
+      "jinja2",
+      "itsdangerous",
+      "click",
+      "markupsafe",
+      "blinker",
+      "pytest",
+      "pluggy",
+      "iniconfig",
+      "packaging",
+      "pygments"
+     ],
+     "node": [
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "jsdom",
+      "<npm:testing-library/react>",
+      "<npm:testing-library/dom>"
+     ],
+     "tools": [
+      "esbuild"
+     ],
+     "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change."
+    },
+    "createdAt": "2026-01-01T00:00:02.000Z",
+    "forkedFromVersionId": null,
+    "phaseSet": [
+     {
+      "key": "requirements",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "design",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "implementation",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "testing",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "deployment",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "maintenance",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     }
+    ]
+   }
+  },
+  {
+   "name": "deepValidation",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/deep-validation",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "versionId": "<uuid:2>",
+    "status": "not-run",
+    "current": false,
+    "contentDigest": null,
+    "checks": [
+     {
+      "id": "solution-passes-hidden",
+      "status": "pending",
+      "sentence": "This check has not run on this draft yet.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "starter-fails-hidden",
+      "status": "pending",
+      "sentence": "This check has not run on this draft yet.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "mutants-killed",
+      "status": "pending",
+      "sentence": "This check has not run on this draft yet.",
+      "phaseKey": null,
+      "taskKey": null
+     },
+     {
+      "id": "smoke-passes",
+      "status": "pending",
+      "sentence": "This check has not run on this draft yet.",
+      "phaseKey": null,
+      "taskKey": null
+     }
+    ],
+    "costWarning": {
+     "microVMs": 16,
+     "sentence": "Deep validation boots 16 microVMs in the sandbox, one at a time, and asks no AI model. You can run one deep validation at a time."
+    },
+    "startedAt": null,
+    "finishedAt": null
+   }
+  },
+  {
+   "name": "draftFiles",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/files",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": [
+    {
+     "id": "<uuid:3>",
+     "ownerKind": "phase",
+     "phaseKey": "deployment",
+     "path": "deployment/runbook.json",
+     "role": "workspace",
+     "editable": true,
+     "language": "json",
+     "size": 150,
+     "sealed": false,
+     "content": "{\n  \"environment\": [],\n  \"health\": [],\n  \"rollback\": [],\n  \"data\": [],\n  \"incident\": {\n    \"rootCause\": \"\",\n    \"fix\": \"\",\n    \"actionItem\": \"\"\n  }\n}\n",
+     "notice": null
+    },
+    {
+     "id": "<uuid:4>",
+     "ownerKind": "phase",
+     "phaseKey": "maintenance",
+     "path": "maintenance/change-request.json",
+     "role": "workspace",
+     "editable": true,
+     "language": "json",
+     "size": 208,
+     "sealed": false,
+     "content": "{\n  \"impact\": {\n    \"operations\": [],\n    \"screens\": [],\n    \"files\": []\n  },\n  \"contract\": [],\n  \"tests\": [],\n  \"release\": {\n    \"version\": \"\",\n    \"summary\": \"\",\n    \"changes\": [],\n    \"rollback\": \"\"\n  }\n}\n",
+     "notice": null
+    }
+   ]
+  },
+  {
+   "name": "sealHidden",
+   "method": "PUT",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/phases/implementation/tasks/main/sealed",
+   "query": {},
+   "requestBody": {
+    "role": "hidden",
+    "runId": "api",
+    "path": "tests/test_wire_extra.py",
+    "contentBase64": "<sealed:hidden-extra>"
+   },
+   "status": 200,
+   "body": {
+    "path": "tests/test_wire_extra.py",
+    "sha256": "<sha256:18>",
+    "bytes": 157
+   }
+  },
+  {
+   "name": "sealRefused",
+   "method": "PUT",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/phases/implementation/tasks/main/sealed",
+   "query": {},
+   "requestBody": {
+    "role": "hidden",
+    "runId": "api",
+    "path": "../outside.py",
+    "contentBase64": "<sealed:hidden-extra>"
+   },
+   "status": 400,
+   "body": {
+    "message": "A sealed file’s path is relative, uses forward slashes, and names folders and a file with letters, digits, dots, dashes and underscores; no part may start with a dot or be \"..\".",
+    "error": "Bad Request",
+    "statusCode": 400
+   }
+  },
+  {
+   "name": "draftAfterSeal",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "projectId": "<uuid:1>",
+    "versionId": "<uuid:2>",
+    "version": "0.1.0",
+    "status": "draft",
+    "slug": "books-on-a-shelf",
+    "title": "Books on a shelf",
+    "tagline": "A teacher's own application, carried through every phase.",
+    "description": "Shelf keeps the books a small library owns: a Python API that adds, lists and lends books, and a React page that shows them in shelf order. You will write a missing story, sketch the contract, implement the marked gaps in both layers, prove the behaviour with tests, package the API, and ship a change request that reorders the shelf.",
+    "platformOwned": false,
+    "editable": true,
+    "phases": [
+     {
+      "key": "requirements",
+      "order": 1,
+      "title": "Requirements",
+      "intro": "Four stories are settled. Write the fifth, the one a member asked for, with criteria a tester could check.",
+      "artifactKind": "story",
+      "checkKind": "story",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Requirements",
+        "brief": "Requirements: write the missing story\n\nThe shelf's backlog has four settled stories. A member has asked for a fifth: to see which of an author's books are free to borrow right now. Write SH-5 in the story form in this room; it is saved as requirements/story.json.\n\nWhat good looks like\n\n- One story in the As a … I want … so that … form, naming who wants it and why.\n- At least two acceptance criteria in the Given … When … Then … form: tag one happy path and one boundary, the book that is already on loan.\n- At least one thing the story leaves out of scope.\n\nUsing the AI mentor well\n\nAsk the mentor to question your story, not to write it: \"what would a tester ask about this criterion?\" gets you further than \"write SH-5\".",
+        "artefactType": "user-story",
+        "artefactPath": null,
+        "checkKind": "story",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "story_quality",
+           "title": "Story",
+           "weight": 0.4,
+           "description": "Who wants it, what they want, and why."
+          },
+          {
+           "key": "acceptance_criteria",
+           "title": "Acceptance criteria",
+           "weight": 0.4,
+           "description": "Given / When / Then criteria a tester could check, including a book on loan."
+          },
+          {
+           "key": "completeness",
+           "title": "Completeness",
+           "weight": 0.2,
+           "description": "Enough criteria and scope lines to say what is in and what is left out."
+          }
+         ]
+        },
+        "objectives": [
+         "Write SH-5 in the As a / I want / so that form",
+         "Give it at least two Given / When / Then acceptance criteria",
+         "Cover the case of a book that is already on loan"
+        ],
+        "owns": [
+         "requirements/story.json"
+        ],
+        "authorable": true,
+        "notice": null,
+        "story": {
+         "kind": "story",
+         "record": "requirements/story.json",
+         "providedStories": [
+          {
+           "id": "SH-1",
+           "title": "Browse the shelf",
+           "persona": "member",
+           "capability": "to see every book in shelf order",
+           "benefit": "I can find one without asking",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "books with different titles",
+             "when": "I open the shelf",
+             "then": "they are listed by title",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "books by several authors",
+             "when": "I filter by an author in any case",
+             "then": "only that author's books are listed",
+             "tag": "boundary"
+            }
+           ]
+          },
+          {
+           "id": "SH-2",
+           "title": "Lend a book",
+           "persona": "librarian",
+           "capability": "to record who has borrowed a book",
+           "benefit": "I know where it is",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on the shelf",
+             "when": "I lend it to a member",
+             "then": "the book says who has it",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "a book already on loan",
+             "when": "I try to lend it again",
+             "then": "the loan is refused",
+             "tag": "error"
+            }
+           ]
+          },
+          {
+           "id": "SH-3",
+           "title": "Return a book",
+           "persona": "librarian",
+           "capability": "to put a returned book back",
+           "benefit": "the next member can borrow it",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on loan",
+             "when": "it is returned",
+             "then": "it is on the shelf again",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "an id no book has",
+             "when": "it is returned",
+             "then": "the request is refused as not found",
+             "tag": "error"
+            }
+           ]
+          },
+          {
+           "id": "SH-4",
+           "title": "See what is out",
+           "persona": "member",
+           "capability": "the shelf to say which books are on loan",
+           "benefit": "I do not walk to an empty space",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on loan",
+             "when": "I read its line",
+             "then": "the line ends \"on loan\"",
+             "tag": "happy"
+            }
+           ]
+          }
+         ],
+         "learnerStory": {
+          "id": "SH-5",
+          "hints": {}
+         },
+         "floor": {
+          "minCriteria": 2,
+          "requiredTags": [
+           "happy",
+           "boundary"
+          ],
+          "minExclusions": 1,
+          "requireSentence": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "requirements",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other"
+      }
+     },
+     {
+      "key": "design",
+      "order": 2,
+      "title": "Design",
+      "intro": "Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision.",
+      "artifactKind": "design",
+      "checkKind": "design",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Design",
+        "brief": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence with because in it.",
+        "artefactType": "design-doc",
+        "artefactPath": null,
+        "checkKind": "design",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "contract",
+           "title": "Contract",
+           "weight": 0.5,
+           "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+          },
+          {
+           "key": "decisions",
+           "title": "Decision",
+           "weight": 0.3,
+           "description": "A decision, the alternative it beat and the reason."
+          },
+          {
+           "key": "completeness",
+           "title": "Completeness",
+           "weight": 0.2,
+           "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+          }
+         ]
+        },
+        "objectives": [
+         "List every operation the API answers",
+         "Name the status and error code of every refusal",
+         "Record one decision, the alternative and the reason"
+        ],
+        "owns": [
+         "design/design.json",
+         "shared/contract/api.json"
+        ],
+        "authorable": true,
+        "notice": null,
+        "design": {
+         "kind": "design",
+         "record": "design/design.json",
+         "contracts": {
+          "api": true,
+          "screens": false
+         },
+         "sequence": false,
+         "stories": [
+          {
+           "id": "SH-1",
+           "title": "Browse the shelf",
+           "line": "As a member, I want to see every book in shelf order, so that I can find one without asking."
+          },
+          {
+           "id": "SH-2",
+           "title": "Lend a book",
+           "line": "As a librarian, I want to record who has borrowed a book, so that I know where it is."
+          },
+          {
+           "id": "SH-3",
+           "title": "Return a book",
+           "line": "As a librarian, I want to put a returned book back, so that the next member can borrow it."
+          }
+         ],
+         "floor": {
+          "minEntities": 1,
+          "minRelations": 0,
+          "minOperations": 3,
+          "operationShape": true,
+          "minDecisions": 1,
+          "decisionShape": true,
+          "traceEveryStory": true,
+          "minEndpoints": 4,
+          "requireErrorCatalogue": true,
+          "minScreens": 0,
+          "screenShape": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "design",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other"
+      }
+     },
+     {
+      "key": "implementation",
+      "order": 3,
+      "title": "Implementation",
+      "intro": "The shelf runs except for four marked gaps, two in the Python API and two in the TypeScript page. Make the backlog's rules true in both.",
+      "artifactKind": "code",
+      "checkKind": "code",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Implementation",
+        "brief": "Implementation: fill the marked gaps\n\nThe shelf runs except for four marked gaps: two in the Python API (api/shelf.py: books and lend) and two in the TypeScript page (web/src/lib/shelf.ts: shelfLabel and sortForShelf). Make the backlog's rules true in both layers.\n\nWhat good looks like\n\n- books lists by title ignoring case, then id, and the author filter ignores case and surrounding spaces.\n- lend refuses an unknown id, a blank borrower, and a book already on loan.\n- shelfLabel and sortForShelf agree with the API about what a person reads.\n- The visible tests pass before you submit; the hidden suites ask more.\n\nUsing the AI mentor well\n\nPaste the failing test's name, not your whole file, and ask what rule it is checking. The mentor explains; it does not write the function for you.",
+        "artefactType": "code",
+        "artefactPath": null,
+        "checkKind": "code",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "correctness_hidden",
+           "title": "Correctness (hidden tests)",
+           "weight": 0.45,
+           "description": "The sealed suites, one per layer, ask the same rules many more questions."
+          },
+          {
+           "key": "visible_tests",
+           "title": "Visible tests",
+           "weight": 0.15,
+           "description": "The suites you can see pass, and you can run them before submitting."
+          },
+          {
+           "key": "code_quality",
+           "title": "Code quality",
+           "weight": 0.25,
+           "description": "No TODO left behind, reasonable complexity, docstrings kept."
+          },
+          {
+           "key": "process",
+           "title": "Process",
+           "weight": 0.15,
+           "description": "You ran the tests before submitting and used the mentor in moderation."
+          }
+         ]
+        },
+        "objectives": [
+         "Implement books with the author filter and shelf order (SH-1)",
+         "Implement lend and its refusals (SH-2)",
+         "Implement shelfLabel so a lent book says so (SH-4)",
+         "Implement sortForShelf so the page agrees with the API (SH-1)"
+        ],
+        "owns": [
+         "api/shelf.py",
+         "web/src/lib/shelf.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "code",
+         "artefactType": "code",
+         "owns": [
+          "api/shelf.py",
+          "web/src/lib/shelf.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python-hidden",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_hidden_shelf.py",
+            "tests/test_wire_extra.py"
+           ],
+           "visibleTests": [
+            "tests/test_shelf_api.py"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "tests/test_hidden_shelf.py",
+             "sha256": "<sha256:1>",
+             "bytes": 4400
+            },
+            {
+             "path": "tests/test_wire_extra.py",
+             "sha256": "<sha256:18>",
+             "bytes": 157
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript-hidden",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/shelf.hidden.test.ts"
+           ],
+           "visibleTests": [
+            "web/src/lib/shelf.test.ts"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "web/src/lib/shelf.hidden.test.ts",
+             "sha256": "<sha256:2>",
+             "bytes": 2640
+            }
+           ]
+          }
+         ],
+         "minTests": null,
+         "coverageKeywords": [],
+         "solution": [
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:3>",
+           "bytes": 3292
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:4>",
+           "bytes": 1199
+          }
+         ],
+         "mutants": [],
+         "sandboxBudget": 4
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "implementation",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "none",
+       "application": null
+      }
+     },
+     {
+      "key": "testing",
+      "order": 4,
+      "title": "Testing",
+      "intro": "Write the acceptance suites that prove SH-1 to SH-4 on both sides, and catch the bugs planted in copies of the application.",
+      "artifactKind": "tests",
+      "checkKind": "tests",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Testing",
+        "brief": "Testing: prove the backlog\n\nWrite acceptance tests for SH-1 to SH-4 in tests/test_acceptance.py (the API) and web/src/lib/acceptance.test.ts (the page). The graders run your suites against the working application and against copies of it with bugs planted in them; a good suite passes on the first and fails on every one of the others.\n\nWhat good looks like\n\n- Every test passes against the working application.\n- At least one test per acceptance criterion, asserting what a person or a client would see, not only a status code.\n- Cases about the author filter, lending, returning and the \"on loan\" line.\n\nUsing the AI mentor well\n\nAsk the mentor which acceptance criterion a test of yours does not yet cover.",
+        "artefactType": "tests",
+        "artefactPath": null,
+        "checkKind": "tests",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "tests_pass",
+           "title": "Tests pass against a working application",
+           "weight": 0.3,
+           "description": "A test that fails on correct code is a bug in the test."
+          },
+          {
+           "key": "mutants_killed",
+           "title": "Bug-detection power",
+           "weight": 0.45,
+           "description": "Your suites run against broken copies of the application; a good suite fails on every one."
+          },
+          {
+           "key": "coverage_mapping",
+           "title": "Criteria coverage",
+           "weight": 0.25,
+           "description": "The author filter, lending, returning and the on-loan line each have a test."
+          }
+         ]
+        },
+        "objectives": [
+         "Turn SH-1, SH-2 and SH-3 into tests over the HTTP contract",
+         "Prove the shelf line and the shelf order on the page",
+         "Make every test pass against the working application",
+         "Write assertions sharp enough to fail on every broken copy"
+        ],
+        "owns": [
+         "tests/test_acceptance.py",
+         "web/src/lib/acceptance.test.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "tests",
+         "artefactType": "tests",
+         "owns": [
+          "tests/test_acceptance.py",
+          "web/src/lib/acceptance.test.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_acceptance.py"
+           ],
+           "visibleTests": [],
+           "learnerTestFiles": [
+            "tests/test_acceptance.py"
+           ],
+           "hidden": [
+            {
+             "path": "tests/test_acceptance.py",
+             "sha256": "<sha256:5>",
+             "bytes": 2431
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/acceptance.test.ts"
+           ],
+           "visibleTests": [],
+           "learnerTestFiles": [
+            "web/src/lib/acceptance.test.ts"
+           ],
+           "hidden": [
+            {
+             "path": "web/src/lib/acceptance.test.ts",
+             "sha256": "<sha256:6>",
+             "bytes": 1287
+            }
+           ]
+          }
+         ],
+         "minTests": 6,
+         "coverageKeywords": [
+          "?author=",
+          "lend",
+          "/return",
+          "on loan"
+         ],
+         "solution": [
+          {
+           "path": "api/main.py",
+           "sha256": "<sha256:7>",
+           "bytes": 3835
+          },
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:8>",
+           "bytes": 3301
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:9>",
+           "bytes": 1208
+          }
+         ],
+         "mutants": [
+          {
+           "path": "author_filter_case_sensitive/api/shelf.py",
+           "sha256": "<sha256:10>",
+           "bytes": 3274
+          },
+          {
+           "path": "label_ignores_loan/web/src/lib/shelf.ts",
+           "sha256": "<sha256:11>",
+           "bytes": 1163
+          },
+          {
+           "path": "lend_twice_allowed/api/shelf.py",
+           "sha256": "<sha256:12>",
+           "bytes": 3186
+          },
+          {
+           "path": "return_unknown_is_200/api/main.py",
+           "sha256": "<sha256:13>",
+           "bytes": 3808
+          }
+         ],
+         "sandboxBudget": 6
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "testing",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "none",
+       "application": null
+      }
+     },
+     {
+      "key": "deployment",
+      "order": 5,
+      "title": "Deployment",
+      "intro": "Finish the API's image definition and the runbook, run the selfcheck, then run the drill and write down what broke.",
+      "artifactKind": "config",
+      "checkKind": "config",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Deployment",
+        "brief": "Finish api/Dockerfile so the image starts the API, and write the runbook an operator reads at 3am in the Runbook tab. Then run the selfcheck, and run the drill: a broken configuration is swapped in, and you write down what broke.\n\nWhat good looks like: the Dockerfile sets a working directory, copies the application and starts api/main.py in exec form, with no TODO left. The runbook in the Runbook tab says how to check the service is healthy under Health checks and how to roll back under Rollback; its Environment and Data sections are there for anything else an operator needs. The incident is closed on the drill page with what the drill broke, the fix and one action item.\n\nUsing the AI mentor well: ask what each Dockerfile instruction changes about the image, and write the instructions yourself.",
+        "artefactType": "runbook",
+        "artefactPath": null,
+        "checkKind": "config",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "config_completeness",
+           "title": "Config completeness",
+           "weight": 0.4,
+           "description": "api/Dockerfile carries every instruction the image needs, and no TODO is left."
+          },
+          {
+           "key": "build_smoke",
+           "title": "Isolated selfcheck",
+           "weight": 0.35,
+           "description": "The launcher api/Dockerfile declares runs the selfcheck in the sandbox. It does not build an image."
+          },
+          {
+           "key": "runbook_quality",
+           "title": "Runbook quality",
+           "weight": 0.25,
+           "description": "Health check, rollback and the incident, written for someone who was not there."
+          }
+         ]
+        },
+        "objectives": [
+         "Complete api/Dockerfile: WORKDIR, COPY and an exec-form ENTRYPOINT",
+         "Write the runbook: health check, rollback, incident",
+         "Run the drill and record the setting that broke the deployment"
+        ],
+        "owns": [
+         "api/Dockerfile",
+         "deployment/runbook.json"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "runbook": {
+         "record": "deployment/runbook.json",
+         "floor": {
+          "minEnvironment": 0,
+          "minHealth": 1,
+          "minRollback": 1,
+          "minData": 0,
+          "requireIncident": true
+         },
+         "drill": true
+        },
+        "config": {
+         "fileRules": [
+          {
+           "id": "docker-workdir",
+           "label": "api/Dockerfile sets a WORKDIR",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-copy",
+           "label": "api/Dockerfile copies the application",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-entrypoint",
+           "label": "api/Dockerfile starts the API in exec form",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-no-todo",
+           "label": "No TODO left in api/Dockerfile",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          }
+         ],
+         "smoke": {
+          "dockerfile": "api/Dockerfile",
+          "commands": [
+           [
+            "python3",
+            "api/main.py",
+            "--selfcheck"
+           ]
+          ],
+          "expectInOutput": "shelf selfcheck: 5 routes, config ok"
+         },
+         "drill": {
+          "fault": "port-zero",
+          "description": "deploy/shelf.json sets the port to 0, so the service would listen where nobody routes and the selfcheck refuses the configuration.",
+          "faultedFiles": [
+           "deploy/shelf.json"
+          ]
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "deployment",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other",
+       "application": null
+      }
+     },
+     {
+      "key": "maintenance",
+      "order": 6,
+      "title": "Maintenance",
+      "intro": "Change request CHG-1 arrives on a shelf that already works: shelve by surname. Ship it in both layers without breaking anything.",
+      "artifactKind": "code",
+      "checkKind": "code",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Maintenance",
+        "brief": "Change request CHG-1. The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.\n\nWhat good looks like: the API and the page agree on the new order. Lending, returning and the author filter behave exactly as before. The visible regression cases pass before you submit.\n\nRecord the change in the change request as you go: in the Request tab, what the change touches; in the Checks tab, the tests and the acceptance items each covers; in the Release tab, the release, its change lines and how to roll it back.\n\nUsing the AI mentor well: ask the mentor which existing behaviour your change could break, then run the regression cases to find out.",
+        "artefactType": "code",
+        "artefactPath": null,
+        "checkKind": "code",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "correctness_hidden",
+           "title": "Correctness (hidden tests)",
+           "weight": 0.4,
+           "description": "The sealed suites, one per layer, ask the same rules many more questions."
+          },
+          {
+           "key": "visible_tests",
+           "title": "Visible tests",
+           "weight": 0.1,
+           "description": "The suites you can see pass, and you can run them before submitting."
+          },
+          {
+           "key": "code_quality",
+           "title": "Code quality",
+           "weight": 0.2,
+           "description": "No TODO left behind, reasonable complexity, docstrings kept."
+          },
+          {
+           "key": "process",
+           "title": "Process",
+           "weight": 0.15,
+           "description": "You ran the tests before submitting and used the mentor in moderation."
+          },
+          {
+           "key": "change_request",
+           "title": "Change request",
+           "weight": 0.15,
+           "description": "The record names what the change touched, the tests that cover each acceptance item and the release."
+          }
+         ]
+        },
+        "objectives": [
+         "Order the shelf by surname, then title, then id, in the API (CHG-1)",
+         "Make the page agree with the API's new order",
+         "Keep lending, returning and the author filter exactly as they were"
+        ],
+        "owns": [
+         "api/shelf.py",
+         "maintenance/change-request.json",
+         "web/src/lib/shelf.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "code",
+         "artefactType": "code",
+         "owns": [
+          "api/shelf.py",
+          "maintenance/change-request.json",
+          "web/src/lib/shelf.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python-hidden",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_hidden_order.py"
+           ],
+           "visibleTests": [
+            "tests/test_shelf_order.py"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "tests/test_hidden_order.py",
+             "sha256": "<sha256:14>",
+             "bytes": 2491
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript-hidden",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/order.hidden.test.ts"
+           ],
+           "visibleTests": [
+            "web/src/lib/shelf.test.ts"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "web/src/lib/order.hidden.test.ts",
+             "sha256": "<sha256:15>",
+             "bytes": 2320
+            }
+           ]
+          }
+         ],
+         "minTests": null,
+         "coverageKeywords": [],
+         "solution": [
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:16>",
+           "bytes": 3576
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:17>",
+           "bytes": 1541
+          }
+         ],
+         "mutants": [],
+         "sandboxBudget": 4
+        },
+        "change": {
+         "ticket": {
+          "id": "CHG-1",
+          "title": "Shelve by surname",
+          "summary": "The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.",
+          "acceptance": [
+           {
+            "id": "AC-1",
+            "line": "Order the shelf by surname, then title, then id, in the API (CHG-1)"
+           },
+           {
+            "id": "AC-2",
+            "line": "Make the page agree with the API's new order"
+           },
+           {
+            "id": "AC-3",
+            "line": "Keep lending, returning and the author filter exactly as they were"
+           }
+          ]
+         },
+         "contract": false,
+         "floor": {
+          "minImpact": 1,
+          "minContract": 1,
+          "minTests": 1,
+          "requireRelease": true,
+          "traceEveryAcceptance": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "maintenance",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other",
+       "application": null
+      }
+     }
+    ],
+    "validation": {
+     "tier": "fast",
+     "ranAt": "2026-01-01T00:00:03.000Z",
+     "checks": [
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Requirements holds 1 task, which a learner can work on.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Design holds 1 task, which a learner can work on.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Implementation holds 1 task, which a learner can work on.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Testing holds 1 task, which a learner can work on.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Deployment holds 1 task, which a learner can work on.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Maintenance holds 1 task, which a learner can work on.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Requirements is gated on 1 required task.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Design is gated on 1 required task.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Implementation is gated on 1 required task.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Testing is gated on 1 required task.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Deployment is gated on 1 required task.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Maintenance is gated on 1 required task.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "artefact-paths-unique",
+       "label": "No two tasks write to one file",
+       "status": "passed",
+       "sentence": "No task in this version writes a file of its own, so no two can collide.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "runtime-is-supported",
+       "label": "The runner can import what this project needs",
+       "status": "passed",
+       "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Implementation has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Testing has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Deployment has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Maintenance has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "version-compiles",
+       "label": "The version compiles",
+       "status": "passed",
+       "sentence": "Every phase compiles: each task owns the files it is graded on, and no two tasks share what scores them.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "front-end-suite-runs",
+       "label": "The front end's own suite runs",
+       "status": "not-applicable",
+       "sentence": "This project has no front end to build, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "preview-starts",
+       "label": "The live preview starts",
+       "status": "not-applicable",
+       "sentence": "This project has no preview to start, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      }
+     ],
+     "passed": 19,
+     "failed": 0,
+     "notApplicable": 2,
+     "publishable": true,
+     "blocking": [],
+     "notApplicableLine": "2 checks do not apply to this project."
+    },
+    "supportedStacks": {
+     "python": [
+      "flask",
+      "werkzeug",
+      "jinja2",
+      "itsdangerous",
+      "click",
+      "markupsafe",
+      "blinker",
+      "pytest",
+      "pluggy",
+      "iniconfig",
+      "packaging",
+      "pygments"
+     ],
+     "node": [
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "jsdom",
+      "<npm:testing-library/react>",
+      "<npm:testing-library/dom>"
+     ],
+     "tools": [
+      "esbuild"
+     ],
+     "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change."
+    },
+    "createdAt": "2026-01-01T00:00:02.000Z",
+    "forkedFromVersionId": null,
+    "phaseSet": [
+     {
+      "key": "requirements",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "design",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "implementation",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "testing",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "deployment",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "maintenance",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     }
+    ]
+   }
+  },
+  {
+   "name": "sealHiddenRun2",
+   "method": "PUT",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/phases/implementation/tasks/main/sealed",
+   "query": {},
+   "requestBody": {
+    "role": "hidden",
+    "runId": "web",
+    "path": "web/src/lib/wire.hidden.test.ts",
+    "contentBase64": "<sealed:hidden-extra-web>"
+   },
+   "status": 200,
+   "body": {
+    "path": "web/src/lib/wire.hidden.test.ts",
+    "sha256": "<sha256:19>",
+    "bytes": 219
+   }
+  },
+  {
+   "name": "draftAfterSealRun2",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "projectId": "<uuid:1>",
+    "versionId": "<uuid:2>",
+    "version": "0.1.0",
+    "status": "draft",
+    "slug": "books-on-a-shelf",
+    "title": "Books on a shelf",
+    "tagline": "A teacher's own application, carried through every phase.",
+    "description": "Shelf keeps the books a small library owns: a Python API that adds, lists and lends books, and a React page that shows them in shelf order. You will write a missing story, sketch the contract, implement the marked gaps in both layers, prove the behaviour with tests, package the API, and ship a change request that reorders the shelf.",
+    "platformOwned": false,
+    "editable": true,
+    "phases": [
+     {
+      "key": "requirements",
+      "order": 1,
+      "title": "Requirements",
+      "intro": "Four stories are settled. Write the fifth, the one a member asked for, with criteria a tester could check.",
+      "artifactKind": "story",
+      "checkKind": "story",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Requirements",
+        "brief": "Requirements: write the missing story\n\nThe shelf's backlog has four settled stories. A member has asked for a fifth: to see which of an author's books are free to borrow right now. Write SH-5 in the story form in this room; it is saved as requirements/story.json.\n\nWhat good looks like\n\n- One story in the As a … I want … so that … form, naming who wants it and why.\n- At least two acceptance criteria in the Given … When … Then … form: tag one happy path and one boundary, the book that is already on loan.\n- At least one thing the story leaves out of scope.\n\nUsing the AI mentor well\n\nAsk the mentor to question your story, not to write it: \"what would a tester ask about this criterion?\" gets you further than \"write SH-5\".",
+        "artefactType": "user-story",
+        "artefactPath": null,
+        "checkKind": "story",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "story_quality",
+           "title": "Story",
+           "weight": 0.4,
+           "description": "Who wants it, what they want, and why."
+          },
+          {
+           "key": "acceptance_criteria",
+           "title": "Acceptance criteria",
+           "weight": 0.4,
+           "description": "Given / When / Then criteria a tester could check, including a book on loan."
+          },
+          {
+           "key": "completeness",
+           "title": "Completeness",
+           "weight": 0.2,
+           "description": "Enough criteria and scope lines to say what is in and what is left out."
+          }
+         ]
+        },
+        "objectives": [
+         "Write SH-5 in the As a / I want / so that form",
+         "Give it at least two Given / When / Then acceptance criteria",
+         "Cover the case of a book that is already on loan"
+        ],
+        "owns": [
+         "requirements/story.json"
+        ],
+        "authorable": true,
+        "notice": null,
+        "story": {
+         "kind": "story",
+         "record": "requirements/story.json",
+         "providedStories": [
+          {
+           "id": "SH-1",
+           "title": "Browse the shelf",
+           "persona": "member",
+           "capability": "to see every book in shelf order",
+           "benefit": "I can find one without asking",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "books with different titles",
+             "when": "I open the shelf",
+             "then": "they are listed by title",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "books by several authors",
+             "when": "I filter by an author in any case",
+             "then": "only that author's books are listed",
+             "tag": "boundary"
+            }
+           ]
+          },
+          {
+           "id": "SH-2",
+           "title": "Lend a book",
+           "persona": "librarian",
+           "capability": "to record who has borrowed a book",
+           "benefit": "I know where it is",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on the shelf",
+             "when": "I lend it to a member",
+             "then": "the book says who has it",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "a book already on loan",
+             "when": "I try to lend it again",
+             "then": "the loan is refused",
+             "tag": "error"
+            }
+           ]
+          },
+          {
+           "id": "SH-3",
+           "title": "Return a book",
+           "persona": "librarian",
+           "capability": "to put a returned book back",
+           "benefit": "the next member can borrow it",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on loan",
+             "when": "it is returned",
+             "then": "it is on the shelf again",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "an id no book has",
+             "when": "it is returned",
+             "then": "the request is refused as not found",
+             "tag": "error"
+            }
+           ]
+          },
+          {
+           "id": "SH-4",
+           "title": "See what is out",
+           "persona": "member",
+           "capability": "the shelf to say which books are on loan",
+           "benefit": "I do not walk to an empty space",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on loan",
+             "when": "I read its line",
+             "then": "the line ends \"on loan\"",
+             "tag": "happy"
+            }
+           ]
+          }
+         ],
+         "learnerStory": {
+          "id": "SH-5",
+          "hints": {}
+         },
+         "floor": {
+          "minCriteria": 2,
+          "requiredTags": [
+           "happy",
+           "boundary"
+          ],
+          "minExclusions": 1,
+          "requireSentence": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "requirements",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other"
+      }
+     },
+     {
+      "key": "design",
+      "order": 2,
+      "title": "Design",
+      "intro": "Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision.",
+      "artifactKind": "design",
+      "checkKind": "design",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Design",
+        "brief": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence with because in it.",
+        "artefactType": "design-doc",
+        "artefactPath": null,
+        "checkKind": "design",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "contract",
+           "title": "Contract",
+           "weight": 0.5,
+           "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+          },
+          {
+           "key": "decisions",
+           "title": "Decision",
+           "weight": 0.3,
+           "description": "A decision, the alternative it beat and the reason."
+          },
+          {
+           "key": "completeness",
+           "title": "Completeness",
+           "weight": 0.2,
+           "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+          }
+         ]
+        },
+        "objectives": [
+         "List every operation the API answers",
+         "Name the status and error code of every refusal",
+         "Record one decision, the alternative and the reason"
+        ],
+        "owns": [
+         "design/design.json",
+         "shared/contract/api.json"
+        ],
+        "authorable": true,
+        "notice": null,
+        "design": {
+         "kind": "design",
+         "record": "design/design.json",
+         "contracts": {
+          "api": true,
+          "screens": false
+         },
+         "sequence": false,
+         "stories": [
+          {
+           "id": "SH-1",
+           "title": "Browse the shelf",
+           "line": "As a member, I want to see every book in shelf order, so that I can find one without asking."
+          },
+          {
+           "id": "SH-2",
+           "title": "Lend a book",
+           "line": "As a librarian, I want to record who has borrowed a book, so that I know where it is."
+          },
+          {
+           "id": "SH-3",
+           "title": "Return a book",
+           "line": "As a librarian, I want to put a returned book back, so that the next member can borrow it."
+          }
+         ],
+         "floor": {
+          "minEntities": 1,
+          "minRelations": 0,
+          "minOperations": 3,
+          "operationShape": true,
+          "minDecisions": 1,
+          "decisionShape": true,
+          "traceEveryStory": true,
+          "minEndpoints": 4,
+          "requireErrorCatalogue": true,
+          "minScreens": 0,
+          "screenShape": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "design",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other"
+      }
+     },
+     {
+      "key": "implementation",
+      "order": 3,
+      "title": "Implementation",
+      "intro": "The shelf runs except for four marked gaps, two in the Python API and two in the TypeScript page. Make the backlog's rules true in both.",
+      "artifactKind": "code",
+      "checkKind": "code",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Implementation",
+        "brief": "Implementation: fill the marked gaps\n\nThe shelf runs except for four marked gaps: two in the Python API (api/shelf.py: books and lend) and two in the TypeScript page (web/src/lib/shelf.ts: shelfLabel and sortForShelf). Make the backlog's rules true in both layers.\n\nWhat good looks like\n\n- books lists by title ignoring case, then id, and the author filter ignores case and surrounding spaces.\n- lend refuses an unknown id, a blank borrower, and a book already on loan.\n- shelfLabel and sortForShelf agree with the API about what a person reads.\n- The visible tests pass before you submit; the hidden suites ask more.\n\nUsing the AI mentor well\n\nPaste the failing test's name, not your whole file, and ask what rule it is checking. The mentor explains; it does not write the function for you.",
+        "artefactType": "code",
+        "artefactPath": null,
+        "checkKind": "code",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "correctness_hidden",
+           "title": "Correctness (hidden tests)",
+           "weight": 0.45,
+           "description": "The sealed suites, one per layer, ask the same rules many more questions."
+          },
+          {
+           "key": "visible_tests",
+           "title": "Visible tests",
+           "weight": 0.15,
+           "description": "The suites you can see pass, and you can run them before submitting."
+          },
+          {
+           "key": "code_quality",
+           "title": "Code quality",
+           "weight": 0.25,
+           "description": "No TODO left behind, reasonable complexity, docstrings kept."
+          },
+          {
+           "key": "process",
+           "title": "Process",
+           "weight": 0.15,
+           "description": "You ran the tests before submitting and used the mentor in moderation."
+          }
+         ]
+        },
+        "objectives": [
+         "Implement books with the author filter and shelf order (SH-1)",
+         "Implement lend and its refusals (SH-2)",
+         "Implement shelfLabel so a lent book says so (SH-4)",
+         "Implement sortForShelf so the page agrees with the API (SH-1)"
+        ],
+        "owns": [
+         "api/shelf.py",
+         "web/src/lib/shelf.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "code",
+         "artefactType": "code",
+         "owns": [
+          "api/shelf.py",
+          "web/src/lib/shelf.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python-hidden",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_hidden_shelf.py",
+            "tests/test_wire_extra.py"
+           ],
+           "visibleTests": [
+            "tests/test_shelf_api.py"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "tests/test_hidden_shelf.py",
+             "sha256": "<sha256:1>",
+             "bytes": 4400
+            },
+            {
+             "path": "tests/test_wire_extra.py",
+             "sha256": "<sha256:18>",
+             "bytes": 157
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript-hidden",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/shelf.hidden.test.ts",
+            "web/src/lib/wire.hidden.test.ts"
+           ],
+           "visibleTests": [
+            "web/src/lib/shelf.test.ts"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "web/src/lib/shelf.hidden.test.ts",
+             "sha256": "<sha256:2>",
+             "bytes": 2640
+            },
+            {
+             "path": "web/src/lib/wire.hidden.test.ts",
+             "sha256": "<sha256:19>",
+             "bytes": 219
+            }
+           ]
+          }
+         ],
+         "minTests": null,
+         "coverageKeywords": [],
+         "solution": [
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:3>",
+           "bytes": 3292
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:4>",
+           "bytes": 1199
+          }
+         ],
+         "mutants": [],
+         "sandboxBudget": 4
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "implementation",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "none",
+       "application": null
+      }
+     },
+     {
+      "key": "testing",
+      "order": 4,
+      "title": "Testing",
+      "intro": "Write the acceptance suites that prove SH-1 to SH-4 on both sides, and catch the bugs planted in copies of the application.",
+      "artifactKind": "tests",
+      "checkKind": "tests",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Testing",
+        "brief": "Testing: prove the backlog\n\nWrite acceptance tests for SH-1 to SH-4 in tests/test_acceptance.py (the API) and web/src/lib/acceptance.test.ts (the page). The graders run your suites against the working application and against copies of it with bugs planted in them; a good suite passes on the first and fails on every one of the others.\n\nWhat good looks like\n\n- Every test passes against the working application.\n- At least one test per acceptance criterion, asserting what a person or a client would see, not only a status code.\n- Cases about the author filter, lending, returning and the \"on loan\" line.\n\nUsing the AI mentor well\n\nAsk the mentor which acceptance criterion a test of yours does not yet cover.",
+        "artefactType": "tests",
+        "artefactPath": null,
+        "checkKind": "tests",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "tests_pass",
+           "title": "Tests pass against a working application",
+           "weight": 0.3,
+           "description": "A test that fails on correct code is a bug in the test."
+          },
+          {
+           "key": "mutants_killed",
+           "title": "Bug-detection power",
+           "weight": 0.45,
+           "description": "Your suites run against broken copies of the application; a good suite fails on every one."
+          },
+          {
+           "key": "coverage_mapping",
+           "title": "Criteria coverage",
+           "weight": 0.25,
+           "description": "The author filter, lending, returning and the on-loan line each have a test."
+          }
+         ]
+        },
+        "objectives": [
+         "Turn SH-1, SH-2 and SH-3 into tests over the HTTP contract",
+         "Prove the shelf line and the shelf order on the page",
+         "Make every test pass against the working application",
+         "Write assertions sharp enough to fail on every broken copy"
+        ],
+        "owns": [
+         "tests/test_acceptance.py",
+         "web/src/lib/acceptance.test.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "tests",
+         "artefactType": "tests",
+         "owns": [
+          "tests/test_acceptance.py",
+          "web/src/lib/acceptance.test.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_acceptance.py"
+           ],
+           "visibleTests": [],
+           "learnerTestFiles": [
+            "tests/test_acceptance.py"
+           ],
+           "hidden": [
+            {
+             "path": "tests/test_acceptance.py",
+             "sha256": "<sha256:5>",
+             "bytes": 2431
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/acceptance.test.ts"
+           ],
+           "visibleTests": [],
+           "learnerTestFiles": [
+            "web/src/lib/acceptance.test.ts"
+           ],
+           "hidden": [
+            {
+             "path": "web/src/lib/acceptance.test.ts",
+             "sha256": "<sha256:6>",
+             "bytes": 1287
+            }
+           ]
+          }
+         ],
+         "minTests": 6,
+         "coverageKeywords": [
+          "?author=",
+          "lend",
+          "/return",
+          "on loan"
+         ],
+         "solution": [
+          {
+           "path": "api/main.py",
+           "sha256": "<sha256:7>",
+           "bytes": 3835
+          },
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:8>",
+           "bytes": 3301
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:9>",
+           "bytes": 1208
+          }
+         ],
+         "mutants": [
+          {
+           "path": "author_filter_case_sensitive/api/shelf.py",
+           "sha256": "<sha256:10>",
+           "bytes": 3274
+          },
+          {
+           "path": "label_ignores_loan/web/src/lib/shelf.ts",
+           "sha256": "<sha256:11>",
+           "bytes": 1163
+          },
+          {
+           "path": "lend_twice_allowed/api/shelf.py",
+           "sha256": "<sha256:12>",
+           "bytes": 3186
+          },
+          {
+           "path": "return_unknown_is_200/api/main.py",
+           "sha256": "<sha256:13>",
+           "bytes": 3808
+          }
+         ],
+         "sandboxBudget": 6
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "testing",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "none",
+       "application": null
+      }
+     },
+     {
+      "key": "deployment",
+      "order": 5,
+      "title": "Deployment",
+      "intro": "Finish the API's image definition and the runbook, run the selfcheck, then run the drill and write down what broke.",
+      "artifactKind": "config",
+      "checkKind": "config",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Deployment",
+        "brief": "Finish api/Dockerfile so the image starts the API, and write the runbook an operator reads at 3am in the Runbook tab. Then run the selfcheck, and run the drill: a broken configuration is swapped in, and you write down what broke.\n\nWhat good looks like: the Dockerfile sets a working directory, copies the application and starts api/main.py in exec form, with no TODO left. The runbook in the Runbook tab says how to check the service is healthy under Health checks and how to roll back under Rollback; its Environment and Data sections are there for anything else an operator needs. The incident is closed on the drill page with what the drill broke, the fix and one action item.\n\nUsing the AI mentor well: ask what each Dockerfile instruction changes about the image, and write the instructions yourself.",
+        "artefactType": "runbook",
+        "artefactPath": null,
+        "checkKind": "config",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "config_completeness",
+           "title": "Config completeness",
+           "weight": 0.4,
+           "description": "api/Dockerfile carries every instruction the image needs, and no TODO is left."
+          },
+          {
+           "key": "build_smoke",
+           "title": "Isolated selfcheck",
+           "weight": 0.35,
+           "description": "The launcher api/Dockerfile declares runs the selfcheck in the sandbox. It does not build an image."
+          },
+          {
+           "key": "runbook_quality",
+           "title": "Runbook quality",
+           "weight": 0.25,
+           "description": "Health check, rollback and the incident, written for someone who was not there."
+          }
+         ]
+        },
+        "objectives": [
+         "Complete api/Dockerfile: WORKDIR, COPY and an exec-form ENTRYPOINT",
+         "Write the runbook: health check, rollback, incident",
+         "Run the drill and record the setting that broke the deployment"
+        ],
+        "owns": [
+         "api/Dockerfile",
+         "deployment/runbook.json"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "runbook": {
+         "record": "deployment/runbook.json",
+         "floor": {
+          "minEnvironment": 0,
+          "minHealth": 1,
+          "minRollback": 1,
+          "minData": 0,
+          "requireIncident": true
+         },
+         "drill": true
+        },
+        "config": {
+         "fileRules": [
+          {
+           "id": "docker-workdir",
+           "label": "api/Dockerfile sets a WORKDIR",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-copy",
+           "label": "api/Dockerfile copies the application",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-entrypoint",
+           "label": "api/Dockerfile starts the API in exec form",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-no-todo",
+           "label": "No TODO left in api/Dockerfile",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          }
+         ],
+         "smoke": {
+          "dockerfile": "api/Dockerfile",
+          "commands": [
+           [
+            "python3",
+            "api/main.py",
+            "--selfcheck"
+           ]
+          ],
+          "expectInOutput": "shelf selfcheck: 5 routes, config ok"
+         },
+         "drill": {
+          "fault": "port-zero",
+          "description": "deploy/shelf.json sets the port to 0, so the service would listen where nobody routes and the selfcheck refuses the configuration.",
+          "faultedFiles": [
+           "deploy/shelf.json"
+          ]
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "deployment",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other",
+       "application": null
+      }
+     },
+     {
+      "key": "maintenance",
+      "order": 6,
+      "title": "Maintenance",
+      "intro": "Change request CHG-1 arrives on a shelf that already works: shelve by surname. Ship it in both layers without breaking anything.",
+      "artifactKind": "code",
+      "checkKind": "code",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Maintenance",
+        "brief": "Change request CHG-1. The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.\n\nWhat good looks like: the API and the page agree on the new order. Lending, returning and the author filter behave exactly as before. The visible regression cases pass before you submit.\n\nRecord the change in the change request as you go: in the Request tab, what the change touches; in the Checks tab, the tests and the acceptance items each covers; in the Release tab, the release, its change lines and how to roll it back.\n\nUsing the AI mentor well: ask the mentor which existing behaviour your change could break, then run the regression cases to find out.",
+        "artefactType": "code",
+        "artefactPath": null,
+        "checkKind": "code",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "correctness_hidden",
+           "title": "Correctness (hidden tests)",
+           "weight": 0.4,
+           "description": "The sealed suites, one per layer, ask the same rules many more questions."
+          },
+          {
+           "key": "visible_tests",
+           "title": "Visible tests",
+           "weight": 0.1,
+           "description": "The suites you can see pass, and you can run them before submitting."
+          },
+          {
+           "key": "code_quality",
+           "title": "Code quality",
+           "weight": 0.2,
+           "description": "No TODO left behind, reasonable complexity, docstrings kept."
+          },
+          {
+           "key": "process",
+           "title": "Process",
+           "weight": 0.15,
+           "description": "You ran the tests before submitting and used the mentor in moderation."
+          },
+          {
+           "key": "change_request",
+           "title": "Change request",
+           "weight": 0.15,
+           "description": "The record names what the change touched, the tests that cover each acceptance item and the release."
+          }
+         ]
+        },
+        "objectives": [
+         "Order the shelf by surname, then title, then id, in the API (CHG-1)",
+         "Make the page agree with the API's new order",
+         "Keep lending, returning and the author filter exactly as they were"
+        ],
+        "owns": [
+         "api/shelf.py",
+         "maintenance/change-request.json",
+         "web/src/lib/shelf.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "code",
+         "artefactType": "code",
+         "owns": [
+          "api/shelf.py",
+          "maintenance/change-request.json",
+          "web/src/lib/shelf.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python-hidden",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_hidden_order.py"
+           ],
+           "visibleTests": [
+            "tests/test_shelf_order.py"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "tests/test_hidden_order.py",
+             "sha256": "<sha256:14>",
+             "bytes": 2491
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript-hidden",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/order.hidden.test.ts"
+           ],
+           "visibleTests": [
+            "web/src/lib/shelf.test.ts"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "web/src/lib/order.hidden.test.ts",
+             "sha256": "<sha256:15>",
+             "bytes": 2320
+            }
+           ]
+          }
+         ],
+         "minTests": null,
+         "coverageKeywords": [],
+         "solution": [
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:16>",
+           "bytes": 3576
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:17>",
+           "bytes": 1541
+          }
+         ],
+         "mutants": [],
+         "sandboxBudget": 4
+        },
+        "change": {
+         "ticket": {
+          "id": "CHG-1",
+          "title": "Shelve by surname",
+          "summary": "The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.",
+          "acceptance": [
+           {
+            "id": "AC-1",
+            "line": "Order the shelf by surname, then title, then id, in the API (CHG-1)"
+           },
+           {
+            "id": "AC-2",
+            "line": "Make the page agree with the API's new order"
+           },
+           {
+            "id": "AC-3",
+            "line": "Keep lending, returning and the author filter exactly as they were"
+           }
+          ]
+         },
+         "contract": false,
+         "floor": {
+          "minImpact": 1,
+          "minContract": 1,
+          "minTests": 1,
+          "requireRelease": true,
+          "traceEveryAcceptance": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "maintenance",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other",
+       "application": null
+      }
+     }
+    ],
+    "validation": {
+     "tier": "fast",
+     "ranAt": "2026-01-01T00:00:04.000Z",
+     "checks": [
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Requirements holds 1 task, which a learner can work on.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Design holds 1 task, which a learner can work on.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Implementation holds 1 task, which a learner can work on.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Testing holds 1 task, which a learner can work on.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Deployment holds 1 task, which a learner can work on.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Maintenance holds 1 task, which a learner can work on.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Requirements is gated on 1 required task.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Design is gated on 1 required task.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Implementation is gated on 1 required task.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Testing is gated on 1 required task.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Deployment is gated on 1 required task.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Maintenance is gated on 1 required task.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "artefact-paths-unique",
+       "label": "No two tasks write to one file",
+       "status": "passed",
+       "sentence": "No task in this version writes a file of its own, so no two can collide.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "runtime-is-supported",
+       "label": "The runner can import what this project needs",
+       "status": "passed",
+       "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Implementation has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Testing has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Deployment has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Maintenance has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "version-compiles",
+       "label": "The version compiles",
+       "status": "passed",
+       "sentence": "Every phase compiles: each task owns the files it is graded on, and no two tasks share what scores them.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "front-end-suite-runs",
+       "label": "The front end's own suite runs",
+       "status": "not-applicable",
+       "sentence": "This project has no front end to build, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "preview-starts",
+       "label": "The live preview starts",
+       "status": "not-applicable",
+       "sentence": "This project has no preview to start, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      }
+     ],
+     "passed": 19,
+     "failed": 0,
+     "notApplicable": 2,
+     "publishable": true,
+     "blocking": [],
+     "notApplicableLine": "2 checks do not apply to this project."
+    },
+    "supportedStacks": {
+     "python": [
+      "flask",
+      "werkzeug",
+      "jinja2",
+      "itsdangerous",
+      "click",
+      "markupsafe",
+      "blinker",
+      "pytest",
+      "pluggy",
+      "iniconfig",
+      "packaging",
+      "pygments"
+     ],
+     "node": [
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "jsdom",
+      "<npm:testing-library/react>",
+      "<npm:testing-library/dom>"
+     ],
+     "tools": [
+      "esbuild"
+     ],
+     "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change."
+    },
+    "createdAt": "2026-01-01T00:00:02.000Z",
+    "forkedFromVersionId": null,
+    "phaseSet": [
+     {
+      "key": "requirements",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "design",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "implementation",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "testing",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "deployment",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "maintenance",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     }
+    ]
+   }
+  },
+  {
+   "name": "saveExecutable",
+   "method": "PATCH",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/phases/implementation/tasks/main",
+   "query": {},
+   "requestBody": {
+    "runs": [
+     {
+      "id": "api",
+      "shape": "run-python-hidden",
+      "label": "API tests, as the class reads them",
+      "testPaths": [
+       "tests/test_hidden_shelf.py",
+       "tests/test_wire_extra.py"
+      ],
+      "visibleTests": [
+       "tests/test_shelf_api.py"
+      ],
+      "learnerTestFiles": []
+     },
+     {
+      "id": "web",
+      "shape": "run-typescript-hidden",
+      "label": "Front end",
+      "testPaths": [
+       "web/src/lib/shelf.hidden.test.ts",
+       "web/src/lib/wire.hidden.test.ts"
+      ],
+      "visibleTests": [
+       "web/src/lib/shelf.test.ts"
+      ],
+      "learnerTestFiles": []
+     }
+    ]
+   },
+   "status": 200,
+   "body": {
+    "phase": {
+     "key": "implementation",
+     "order": 3,
+     "title": "Implementation",
+     "intro": "The shelf runs except for four marked gaps, two in the Python API and two in the TypeScript page. Make the backlog's rules true in both.",
+     "artifactKind": "code",
+     "checkKind": "code",
+     "tasks": [
+      {
+       "taskKey": "main",
+       "order": 1,
+       "required": true,
+       "title": "Implementation",
+       "brief": "Implementation: fill the marked gaps\n\nThe shelf runs except for four marked gaps: two in the Python API (api/shelf.py: books and lend) and two in the TypeScript page (web/src/lib/shelf.ts: shelfLabel and sortForShelf). Make the backlog's rules true in both layers.\n\nWhat good looks like\n\n- books lists by title ignoring case, then id, and the author filter ignores case and surrounding spaces.\n- lend refuses an unknown id, a blank borrower, and a book already on loan.\n- shelfLabel and sortForShelf agree with the API about what a person reads.\n- The visible tests pass before you submit; the hidden suites ask more.\n\nUsing the AI mentor well\n\nPaste the failing test's name, not your whole file, and ask what rule it is checking. The mentor explains; it does not write the function for you.",
+       "artefactType": "code",
+       "artefactPath": null,
+       "checkKind": "code",
+       "rubric": {
+        "passThreshold": 70,
+        "criteria": [
+         {
+          "key": "correctness_hidden",
+          "title": "Correctness (hidden tests)",
+          "weight": 0.45,
+          "description": "The sealed suites, one per layer, ask the same rules many more questions."
+         },
+         {
+          "key": "visible_tests",
+          "title": "Visible tests",
+          "weight": 0.15,
+          "description": "The suites you can see pass, and you can run them before submitting."
+         },
+         {
+          "key": "code_quality",
+          "title": "Code quality",
+          "weight": 0.25,
+          "description": "No TODO left behind, reasonable complexity, docstrings kept."
+         },
+         {
+          "key": "process",
+          "title": "Process",
+          "weight": 0.15,
+          "description": "You ran the tests before submitting and used the mentor in moderation."
+         }
+        ]
+       },
+       "objectives": [
+        "Implement books with the author filter and shelf order (SH-1)",
+        "Implement lend and its refusals (SH-2)",
+        "Implement shelfLabel so a lent book says so (SH-4)",
+        "Implement sortForShelf so the page agrees with the API (SH-1)"
+       ],
+       "owns": [
+        "api/shelf.py",
+        "web/src/lib/shelf.ts"
+       ],
+       "authorable": false,
+       "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+       "executable": {
+        "taskKey": "main",
+        "checkKind": "code",
+        "artefactType": "code",
+        "owns": [
+         "api/shelf.py",
+         "web/src/lib/shelf.ts"
+        ],
+        "profile": "baked",
+        "runs": [
+         {
+          "id": "api",
+          "shape": "run-python-hidden",
+          "label": "API tests, as the class reads them",
+          "testPaths": [
+           "tests/test_hidden_shelf.py",
+           "tests/test_wire_extra.py"
+          ],
+          "visibleTests": [
+           "tests/test_shelf_api.py"
+          ],
+          "learnerTestFiles": [],
+          "hidden": [
+           {
+            "path": "tests/test_hidden_shelf.py",
+            "sha256": "<sha256:1>",
+            "bytes": 4400
+           },
+           {
+            "path": "tests/test_wire_extra.py",
+            "sha256": "<sha256:18>",
+            "bytes": 157
+           }
+          ]
+         },
+         {
+          "id": "web",
+          "shape": "run-typescript-hidden",
+          "label": "Front end",
+          "testPaths": [
+           "web/src/lib/shelf.hidden.test.ts",
+           "web/src/lib/wire.hidden.test.ts"
+          ],
+          "visibleTests": [
+           "web/src/lib/shelf.test.ts"
+          ],
+          "learnerTestFiles": [],
+          "hidden": [
+           {
+            "path": "web/src/lib/shelf.hidden.test.ts",
+            "sha256": "<sha256:2>",
+            "bytes": 2640
+           },
+           {
+            "path": "web/src/lib/wire.hidden.test.ts",
+            "sha256": "<sha256:19>",
+            "bytes": 219
+           }
+          ]
+         }
+        ],
+        "minTests": null,
+        "coverageKeywords": [],
+        "solution": [
+         {
+          "path": "api/shelf.py",
+          "sha256": "<sha256:3>",
+          "bytes": 3292
+         },
+         {
+          "path": "web/src/lib/shelf.ts",
+          "sha256": "<sha256:4>",
+          "bytes": 1199
+         }
+        ],
+        "mutants": [],
+        "sandboxBudget": 4
+       }
+      }
+     ],
+     "blocksPublish": false,
+     "provenance": {
+      "phaseKey": "implementation",
+      "referenceName": null,
+      "rollup": "own",
+      "intro": "own",
+      "interview": null,
+      "files": [],
+      "tasks": [
+       {
+        "taskKey": "main",
+        "provenance": "edited",
+        "titleEdited": false
+       }
+      ],
+      "roomTask": "none",
+      "application": null
+     }
+    },
+    "validation": {
+     "tier": "fast",
+     "ranAt": "2026-01-01T00:00:05.000Z",
+     "checks": [
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Requirements holds 1 task, which a learner can work on.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Design holds 1 task, which a learner can work on.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Implementation holds 1 task, which a learner can work on.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Testing holds 1 task, which a learner can work on.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Deployment holds 1 task, which a learner can work on.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Maintenance holds 1 task, which a learner can work on.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Requirements is gated on 1 required task.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Design is gated on 1 required task.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Implementation is gated on 1 required task.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Testing is gated on 1 required task.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Deployment is gated on 1 required task.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Maintenance is gated on 1 required task.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "artefact-paths-unique",
+       "label": "No two tasks write to one file",
+       "status": "passed",
+       "sentence": "No task in this version writes a file of its own, so no two can collide.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "runtime-is-supported",
+       "label": "The runner can import what this project needs",
+       "status": "passed",
+       "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Implementation has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Testing has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Deployment has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Maintenance has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "version-compiles",
+       "label": "The version compiles",
+       "status": "passed",
+       "sentence": "Every phase compiles: each task owns the files it is graded on, and no two tasks share what scores them.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "front-end-suite-runs",
+       "label": "The front end's own suite runs",
+       "status": "not-applicable",
+       "sentence": "This project has no front end to build, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "preview-starts",
+       "label": "The live preview starts",
+       "status": "not-applicable",
+       "sentence": "This project has no preview to start, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      }
+     ],
+     "passed": 19,
+     "failed": 0,
+     "notApplicable": 2,
+     "publishable": true,
+     "blocking": [],
+     "notApplicableLine": "2 checks do not apply to this project."
+    }
+   }
+  },
+  {
+   "name": "saveOwnsRefused",
+   "method": "PATCH",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/phases/implementation/tasks/main",
+   "query": {},
+   "requestBody": {
+    "owns": [
+     "api/elsewhere.py"
+    ]
+   },
+   "status": 400,
+   "body": {
+    "message": "Implementation's learner works in the files the project's starter makes editable, and those are set when the project is uploaded. Upload the project again to change which files are editable.",
+    "error": "Bad Request",
+    "statusCode": 400
+   }
+  },
+  {
+   "name": "saveShapeRefused",
+   "method": "PATCH",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/phases/implementation/tasks/main",
+   "query": {},
+   "requestBody": {
+    "runs": [
+     {
+      "id": "api",
+      "shape": "run-python",
+      "label": "API tests, as the class reads them",
+      "testPaths": [
+       "tests/test_hidden_shelf.py",
+       "tests/test_wire_extra.py"
+      ],
+      "visibleTests": [
+       "tests/test_shelf_api.py"
+      ],
+      "learnerTestFiles": []
+     },
+     {
+      "id": "web",
+      "shape": "run-typescript-hidden",
+      "label": "Front end",
+      "testPaths": [
+       "web/src/lib/shelf.hidden.test.ts",
+       "web/src/lib/wire.hidden.test.ts"
+      ],
+      "visibleTests": [
+       "web/src/lib/shelf.test.ts"
+      ],
+      "learnerTestFiles": []
+     }
+    ]
+   },
+   "status": 400,
+   "body": {
+    "message": "Implementation's run \"api\" keeps the run shape it was uploaded with: a shape is a command the runner was reviewed for. Upload the project again to change it.",
+    "error": "Bad Request",
+    "statusCode": 400
+   }
+  },
+  {
+   "name": "saveLearnerFilesRefused",
+   "method": "PATCH",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/phases/implementation/tasks/main",
+   "query": {},
+   "requestBody": {
+    "runs": [
+     {
+      "id": "api",
+      "shape": "run-python-hidden",
+      "label": "API tests, as the class reads them",
+      "testPaths": [
+       "tests/test_hidden_shelf.py",
+       "tests/test_wire_extra.py"
+      ],
+      "visibleTests": [
+       "tests/test_shelf_api.py"
+      ],
+      "learnerTestFiles": [
+       "api/test_mine.py"
+      ]
+     },
+     {
+      "id": "web",
+      "shape": "run-typescript-hidden",
+      "label": "Front end",
+      "testPaths": [
+       "web/src/lib/shelf.hidden.test.ts",
+       "web/src/lib/wire.hidden.test.ts"
+      ],
+      "visibleTests": [
+       "web/src/lib/shelf.test.ts"
+      ],
+      "learnerTestFiles": []
+     }
+    ]
+   },
+   "status": 400,
+   "body": {
+    "message": "Implementation's run \"api\" grades the learner's code, so it holds no learner suite; only a testing task does.",
+    "error": "Bad Request",
+    "statusCode": 400
+   }
+  },
+  {
+   "name": "draftAfterSave",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "projectId": "<uuid:1>",
+    "versionId": "<uuid:2>",
+    "version": "0.1.0",
+    "status": "draft",
+    "slug": "books-on-a-shelf",
+    "title": "Books on a shelf",
+    "tagline": "A teacher's own application, carried through every phase.",
+    "description": "Shelf keeps the books a small library owns: a Python API that adds, lists and lends books, and a React page that shows them in shelf order. You will write a missing story, sketch the contract, implement the marked gaps in both layers, prove the behaviour with tests, package the API, and ship a change request that reorders the shelf.",
+    "platformOwned": false,
+    "editable": true,
+    "phases": [
+     {
+      "key": "requirements",
+      "order": 1,
+      "title": "Requirements",
+      "intro": "Four stories are settled. Write the fifth, the one a member asked for, with criteria a tester could check.",
+      "artifactKind": "story",
+      "checkKind": "story",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Requirements",
+        "brief": "Requirements: write the missing story\n\nThe shelf's backlog has four settled stories. A member has asked for a fifth: to see which of an author's books are free to borrow right now. Write SH-5 in the story form in this room; it is saved as requirements/story.json.\n\nWhat good looks like\n\n- One story in the As a … I want … so that … form, naming who wants it and why.\n- At least two acceptance criteria in the Given … When … Then … form: tag one happy path and one boundary, the book that is already on loan.\n- At least one thing the story leaves out of scope.\n\nUsing the AI mentor well\n\nAsk the mentor to question your story, not to write it: \"what would a tester ask about this criterion?\" gets you further than \"write SH-5\".",
+        "artefactType": "user-story",
+        "artefactPath": null,
+        "checkKind": "story",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "story_quality",
+           "title": "Story",
+           "weight": 0.4,
+           "description": "Who wants it, what they want, and why."
+          },
+          {
+           "key": "acceptance_criteria",
+           "title": "Acceptance criteria",
+           "weight": 0.4,
+           "description": "Given / When / Then criteria a tester could check, including a book on loan."
+          },
+          {
+           "key": "completeness",
+           "title": "Completeness",
+           "weight": 0.2,
+           "description": "Enough criteria and scope lines to say what is in and what is left out."
+          }
+         ]
+        },
+        "objectives": [
+         "Write SH-5 in the As a / I want / so that form",
+         "Give it at least two Given / When / Then acceptance criteria",
+         "Cover the case of a book that is already on loan"
+        ],
+        "owns": [
+         "requirements/story.json"
+        ],
+        "authorable": true,
+        "notice": null,
+        "story": {
+         "kind": "story",
+         "record": "requirements/story.json",
+         "providedStories": [
+          {
+           "id": "SH-1",
+           "title": "Browse the shelf",
+           "persona": "member",
+           "capability": "to see every book in shelf order",
+           "benefit": "I can find one without asking",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "books with different titles",
+             "when": "I open the shelf",
+             "then": "they are listed by title",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "books by several authors",
+             "when": "I filter by an author in any case",
+             "then": "only that author's books are listed",
+             "tag": "boundary"
+            }
+           ]
+          },
+          {
+           "id": "SH-2",
+           "title": "Lend a book",
+           "persona": "librarian",
+           "capability": "to record who has borrowed a book",
+           "benefit": "I know where it is",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on the shelf",
+             "when": "I lend it to a member",
+             "then": "the book says who has it",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "a book already on loan",
+             "when": "I try to lend it again",
+             "then": "the loan is refused",
+             "tag": "error"
+            }
+           ]
+          },
+          {
+           "id": "SH-3",
+           "title": "Return a book",
+           "persona": "librarian",
+           "capability": "to put a returned book back",
+           "benefit": "the next member can borrow it",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on loan",
+             "when": "it is returned",
+             "then": "it is on the shelf again",
+             "tag": "happy"
+            },
+            {
+             "id": "AC-2",
+             "given": "an id no book has",
+             "when": "it is returned",
+             "then": "the request is refused as not found",
+             "tag": "error"
+            }
+           ]
+          },
+          {
+           "id": "SH-4",
+           "title": "See what is out",
+           "persona": "member",
+           "capability": "the shelf to say which books are on loan",
+           "benefit": "I do not walk to an empty space",
+           "criteria": [
+            {
+             "id": "AC-1",
+             "given": "a book on loan",
+             "when": "I read its line",
+             "then": "the line ends \"on loan\"",
+             "tag": "happy"
+            }
+           ]
+          }
+         ],
+         "learnerStory": {
+          "id": "SH-5",
+          "hints": {}
+         },
+         "floor": {
+          "minCriteria": 2,
+          "requiredTags": [
+           "happy",
+           "boundary"
+          ],
+          "minExclusions": 1,
+          "requireSentence": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "requirements",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other"
+      }
+     },
+     {
+      "key": "design",
+      "order": 2,
+      "title": "Design",
+      "intro": "Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision.",
+      "artifactKind": "design",
+      "checkKind": "design",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Design",
+        "brief": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence with because in it.",
+        "artefactType": "design-doc",
+        "artefactPath": null,
+        "checkKind": "design",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "contract",
+           "title": "Contract",
+           "weight": 0.5,
+           "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+          },
+          {
+           "key": "decisions",
+           "title": "Decision",
+           "weight": 0.3,
+           "description": "A decision, the alternative it beat and the reason."
+          },
+          {
+           "key": "completeness",
+           "title": "Completeness",
+           "weight": 0.2,
+           "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+          }
+         ]
+        },
+        "objectives": [
+         "List every operation the API answers",
+         "Name the status and error code of every refusal",
+         "Record one decision, the alternative and the reason"
+        ],
+        "owns": [
+         "design/design.json",
+         "shared/contract/api.json"
+        ],
+        "authorable": true,
+        "notice": null,
+        "design": {
+         "kind": "design",
+         "record": "design/design.json",
+         "contracts": {
+          "api": true,
+          "screens": false
+         },
+         "sequence": false,
+         "stories": [
+          {
+           "id": "SH-1",
+           "title": "Browse the shelf",
+           "line": "As a member, I want to see every book in shelf order, so that I can find one without asking."
+          },
+          {
+           "id": "SH-2",
+           "title": "Lend a book",
+           "line": "As a librarian, I want to record who has borrowed a book, so that I know where it is."
+          },
+          {
+           "id": "SH-3",
+           "title": "Return a book",
+           "line": "As a librarian, I want to put a returned book back, so that the next member can borrow it."
+          }
+         ],
+         "floor": {
+          "minEntities": 1,
+          "minRelations": 0,
+          "minOperations": 3,
+          "operationShape": true,
+          "minDecisions": 1,
+          "decisionShape": true,
+          "traceEveryStory": true,
+          "minEndpoints": 4,
+          "requireErrorCatalogue": true,
+          "minScreens": 0,
+          "screenShape": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "design",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other"
+      }
+     },
+     {
+      "key": "implementation",
+      "order": 3,
+      "title": "Implementation",
+      "intro": "The shelf runs except for four marked gaps, two in the Python API and two in the TypeScript page. Make the backlog's rules true in both.",
+      "artifactKind": "code",
+      "checkKind": "code",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Implementation",
+        "brief": "Implementation: fill the marked gaps\n\nThe shelf runs except for four marked gaps: two in the Python API (api/shelf.py: books and lend) and two in the TypeScript page (web/src/lib/shelf.ts: shelfLabel and sortForShelf). Make the backlog's rules true in both layers.\n\nWhat good looks like\n\n- books lists by title ignoring case, then id, and the author filter ignores case and surrounding spaces.\n- lend refuses an unknown id, a blank borrower, and a book already on loan.\n- shelfLabel and sortForShelf agree with the API about what a person reads.\n- The visible tests pass before you submit; the hidden suites ask more.\n\nUsing the AI mentor well\n\nPaste the failing test's name, not your whole file, and ask what rule it is checking. The mentor explains; it does not write the function for you.",
+        "artefactType": "code",
+        "artefactPath": null,
+        "checkKind": "code",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "correctness_hidden",
+           "title": "Correctness (hidden tests)",
+           "weight": 0.45,
+           "description": "The sealed suites, one per layer, ask the same rules many more questions."
+          },
+          {
+           "key": "visible_tests",
+           "title": "Visible tests",
+           "weight": 0.15,
+           "description": "The suites you can see pass, and you can run them before submitting."
+          },
+          {
+           "key": "code_quality",
+           "title": "Code quality",
+           "weight": 0.25,
+           "description": "No TODO left behind, reasonable complexity, docstrings kept."
+          },
+          {
+           "key": "process",
+           "title": "Process",
+           "weight": 0.15,
+           "description": "You ran the tests before submitting and used the mentor in moderation."
+          }
+         ]
+        },
+        "objectives": [
+         "Implement books with the author filter and shelf order (SH-1)",
+         "Implement lend and its refusals (SH-2)",
+         "Implement shelfLabel so a lent book says so (SH-4)",
+         "Implement sortForShelf so the page agrees with the API (SH-1)"
+        ],
+        "owns": [
+         "api/shelf.py",
+         "web/src/lib/shelf.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "code",
+         "artefactType": "code",
+         "owns": [
+          "api/shelf.py",
+          "web/src/lib/shelf.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python-hidden",
+           "label": "API tests, as the class reads them",
+           "testPaths": [
+            "tests/test_hidden_shelf.py",
+            "tests/test_wire_extra.py"
+           ],
+           "visibleTests": [
+            "tests/test_shelf_api.py"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "tests/test_hidden_shelf.py",
+             "sha256": "<sha256:1>",
+             "bytes": 4400
+            },
+            {
+             "path": "tests/test_wire_extra.py",
+             "sha256": "<sha256:18>",
+             "bytes": 157
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript-hidden",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/shelf.hidden.test.ts",
+            "web/src/lib/wire.hidden.test.ts"
+           ],
+           "visibleTests": [
+            "web/src/lib/shelf.test.ts"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "web/src/lib/shelf.hidden.test.ts",
+             "sha256": "<sha256:2>",
+             "bytes": 2640
+            },
+            {
+             "path": "web/src/lib/wire.hidden.test.ts",
+             "sha256": "<sha256:19>",
+             "bytes": 219
+            }
+           ]
+          }
+         ],
+         "minTests": null,
+         "coverageKeywords": [],
+         "solution": [
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:3>",
+           "bytes": 3292
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:4>",
+           "bytes": 1199
+          }
+         ],
+         "mutants": [],
+         "sandboxBudget": 4
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "implementation",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "none",
+       "application": null
+      }
+     },
+     {
+      "key": "testing",
+      "order": 4,
+      "title": "Testing",
+      "intro": "Write the acceptance suites that prove SH-1 to SH-4 on both sides, and catch the bugs planted in copies of the application.",
+      "artifactKind": "tests",
+      "checkKind": "tests",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Testing",
+        "brief": "Testing: prove the backlog\n\nWrite acceptance tests for SH-1 to SH-4 in tests/test_acceptance.py (the API) and web/src/lib/acceptance.test.ts (the page). The graders run your suites against the working application and against copies of it with bugs planted in them; a good suite passes on the first and fails on every one of the others.\n\nWhat good looks like\n\n- Every test passes against the working application.\n- At least one test per acceptance criterion, asserting what a person or a client would see, not only a status code.\n- Cases about the author filter, lending, returning and the \"on loan\" line.\n\nUsing the AI mentor well\n\nAsk the mentor which acceptance criterion a test of yours does not yet cover.",
+        "artefactType": "tests",
+        "artefactPath": null,
+        "checkKind": "tests",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "tests_pass",
+           "title": "Tests pass against a working application",
+           "weight": 0.3,
+           "description": "A test that fails on correct code is a bug in the test."
+          },
+          {
+           "key": "mutants_killed",
+           "title": "Bug-detection power",
+           "weight": 0.45,
+           "description": "Your suites run against broken copies of the application; a good suite fails on every one."
+          },
+          {
+           "key": "coverage_mapping",
+           "title": "Criteria coverage",
+           "weight": 0.25,
+           "description": "The author filter, lending, returning and the on-loan line each have a test."
+          }
+         ]
+        },
+        "objectives": [
+         "Turn SH-1, SH-2 and SH-3 into tests over the HTTP contract",
+         "Prove the shelf line and the shelf order on the page",
+         "Make every test pass against the working application",
+         "Write assertions sharp enough to fail on every broken copy"
+        ],
+        "owns": [
+         "tests/test_acceptance.py",
+         "web/src/lib/acceptance.test.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "tests",
+         "artefactType": "tests",
+         "owns": [
+          "tests/test_acceptance.py",
+          "web/src/lib/acceptance.test.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_acceptance.py"
+           ],
+           "visibleTests": [],
+           "learnerTestFiles": [
+            "tests/test_acceptance.py"
+           ],
+           "hidden": [
+            {
+             "path": "tests/test_acceptance.py",
+             "sha256": "<sha256:5>",
+             "bytes": 2431
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/acceptance.test.ts"
+           ],
+           "visibleTests": [],
+           "learnerTestFiles": [
+            "web/src/lib/acceptance.test.ts"
+           ],
+           "hidden": [
+            {
+             "path": "web/src/lib/acceptance.test.ts",
+             "sha256": "<sha256:6>",
+             "bytes": 1287
+            }
+           ]
+          }
+         ],
+         "minTests": 6,
+         "coverageKeywords": [
+          "?author=",
+          "lend",
+          "/return",
+          "on loan"
+         ],
+         "solution": [
+          {
+           "path": "api/main.py",
+           "sha256": "<sha256:7>",
+           "bytes": 3835
+          },
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:8>",
+           "bytes": 3301
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:9>",
+           "bytes": 1208
+          }
+         ],
+         "mutants": [
+          {
+           "path": "author_filter_case_sensitive/api/shelf.py",
+           "sha256": "<sha256:10>",
+           "bytes": 3274
+          },
+          {
+           "path": "label_ignores_loan/web/src/lib/shelf.ts",
+           "sha256": "<sha256:11>",
+           "bytes": 1163
+          },
+          {
+           "path": "lend_twice_allowed/api/shelf.py",
+           "sha256": "<sha256:12>",
+           "bytes": 3186
+          },
+          {
+           "path": "return_unknown_is_200/api/main.py",
+           "sha256": "<sha256:13>",
+           "bytes": 3808
+          }
+         ],
+         "sandboxBudget": 6
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "testing",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "none",
+       "application": null
+      }
+     },
+     {
+      "key": "deployment",
+      "order": 5,
+      "title": "Deployment",
+      "intro": "Finish the API's image definition and the runbook, run the selfcheck, then run the drill and write down what broke.",
+      "artifactKind": "config",
+      "checkKind": "config",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Deployment",
+        "brief": "Finish api/Dockerfile so the image starts the API, and write the runbook an operator reads at 3am in the Runbook tab. Then run the selfcheck, and run the drill: a broken configuration is swapped in, and you write down what broke.\n\nWhat good looks like: the Dockerfile sets a working directory, copies the application and starts api/main.py in exec form, with no TODO left. The runbook in the Runbook tab says how to check the service is healthy under Health checks and how to roll back under Rollback; its Environment and Data sections are there for anything else an operator needs. The incident is closed on the drill page with what the drill broke, the fix and one action item.\n\nUsing the AI mentor well: ask what each Dockerfile instruction changes about the image, and write the instructions yourself.",
+        "artefactType": "runbook",
+        "artefactPath": null,
+        "checkKind": "config",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "config_completeness",
+           "title": "Config completeness",
+           "weight": 0.4,
+           "description": "api/Dockerfile carries every instruction the image needs, and no TODO is left."
+          },
+          {
+           "key": "build_smoke",
+           "title": "Isolated selfcheck",
+           "weight": 0.35,
+           "description": "The launcher api/Dockerfile declares runs the selfcheck in the sandbox. It does not build an image."
+          },
+          {
+           "key": "runbook_quality",
+           "title": "Runbook quality",
+           "weight": 0.25,
+           "description": "Health check, rollback and the incident, written for someone who was not there."
+          }
+         ]
+        },
+        "objectives": [
+         "Complete api/Dockerfile: WORKDIR, COPY and an exec-form ENTRYPOINT",
+         "Write the runbook: health check, rollback, incident",
+         "Run the drill and record the setting that broke the deployment"
+        ],
+        "owns": [
+         "api/Dockerfile",
+         "deployment/runbook.json"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "runbook": {
+         "record": "deployment/runbook.json",
+         "floor": {
+          "minEnvironment": 0,
+          "minHealth": 1,
+          "minRollback": 1,
+          "minData": 0,
+          "requireIncident": true
+         },
+         "drill": true
+        },
+        "config": {
+         "fileRules": [
+          {
+           "id": "docker-workdir",
+           "label": "api/Dockerfile sets a WORKDIR",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-copy",
+           "label": "api/Dockerfile copies the application",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-entrypoint",
+           "label": "api/Dockerfile starts the API in exec form",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          },
+          {
+           "id": "docker-no-todo",
+           "label": "No TODO left in api/Dockerfile",
+           "criterion": "config_completeness",
+           "target": "api/Dockerfile"
+          }
+         ],
+         "smoke": {
+          "dockerfile": "api/Dockerfile",
+          "commands": [
+           [
+            "python3",
+            "api/main.py",
+            "--selfcheck"
+           ]
+          ],
+          "expectInOutput": "shelf selfcheck: 5 routes, config ok"
+         },
+         "drill": {
+          "fault": "port-zero",
+          "description": "deploy/shelf.json sets the port to 0, so the service would listen where nobody routes and the selfcheck refuses the configuration.",
+          "faultedFiles": [
+           "deploy/shelf.json"
+          ]
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "deployment",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other",
+       "application": null
+      }
+     },
+     {
+      "key": "maintenance",
+      "order": 6,
+      "title": "Maintenance",
+      "intro": "Change request CHG-1 arrives on a shelf that already works: shelve by surname. Ship it in both layers without breaking anything.",
+      "artifactKind": "code",
+      "checkKind": "code",
+      "tasks": [
+       {
+        "taskKey": "main",
+        "order": 1,
+        "required": true,
+        "title": "Maintenance",
+        "brief": "Change request CHG-1. The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.\n\nWhat good looks like: the API and the page agree on the new order. Lending, returning and the author filter behave exactly as before. The visible regression cases pass before you submit.\n\nRecord the change in the change request as you go: in the Request tab, what the change touches; in the Checks tab, the tests and the acceptance items each covers; in the Release tab, the release, its change lines and how to roll it back.\n\nUsing the AI mentor well: ask the mentor which existing behaviour your change could break, then run the regression cases to find out.",
+        "artefactType": "code",
+        "artefactPath": null,
+        "checkKind": "code",
+        "rubric": {
+         "passThreshold": 70,
+         "criteria": [
+          {
+           "key": "correctness_hidden",
+           "title": "Correctness (hidden tests)",
+           "weight": 0.4,
+           "description": "The sealed suites, one per layer, ask the same rules many more questions."
+          },
+          {
+           "key": "visible_tests",
+           "title": "Visible tests",
+           "weight": 0.1,
+           "description": "The suites you can see pass, and you can run them before submitting."
+          },
+          {
+           "key": "code_quality",
+           "title": "Code quality",
+           "weight": 0.2,
+           "description": "No TODO left behind, reasonable complexity, docstrings kept."
+          },
+          {
+           "key": "process",
+           "title": "Process",
+           "weight": 0.15,
+           "description": "You ran the tests before submitting and used the mentor in moderation."
+          },
+          {
+           "key": "change_request",
+           "title": "Change request",
+           "weight": 0.15,
+           "description": "The record names what the change touched, the tests that cover each acceptance item and the release."
+          }
+         ]
+        },
+        "objectives": [
+         "Order the shelf by surname, then title, then id, in the API (CHG-1)",
+         "Make the page agree with the API's new order",
+         "Keep lending, returning and the author filter exactly as they were"
+        ],
+        "owns": [
+         "api/shelf.py",
+         "maintenance/change-request.json",
+         "web/src/lib/shelf.ts"
+        ],
+        "authorable": false,
+        "notice": "Inherited from the project you copied. It is graded as it came, and it cannot be edited or removed here.",
+        "executable": {
+         "taskKey": "main",
+         "checkKind": "code",
+         "artefactType": "code",
+         "owns": [
+          "api/shelf.py",
+          "maintenance/change-request.json",
+          "web/src/lib/shelf.ts"
+         ],
+         "profile": "baked",
+         "runs": [
+          {
+           "id": "api",
+           "shape": "run-python-hidden",
+           "label": "API tests",
+           "testPaths": [
+            "tests/test_hidden_order.py"
+           ],
+           "visibleTests": [
+            "tests/test_shelf_order.py"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "tests/test_hidden_order.py",
+             "sha256": "<sha256:14>",
+             "bytes": 2491
+            }
+           ]
+          },
+          {
+           "id": "web",
+           "shape": "run-typescript-hidden",
+           "label": "Front end",
+           "testPaths": [
+            "web/src/lib/order.hidden.test.ts"
+           ],
+           "visibleTests": [
+            "web/src/lib/shelf.test.ts"
+           ],
+           "learnerTestFiles": [],
+           "hidden": [
+            {
+             "path": "web/src/lib/order.hidden.test.ts",
+             "sha256": "<sha256:15>",
+             "bytes": 2320
+            }
+           ]
+          }
+         ],
+         "minTests": null,
+         "coverageKeywords": [],
+         "solution": [
+          {
+           "path": "api/shelf.py",
+           "sha256": "<sha256:16>",
+           "bytes": 3576
+          },
+          {
+           "path": "web/src/lib/shelf.ts",
+           "sha256": "<sha256:17>",
+           "bytes": 1541
+          }
+         ],
+         "mutants": [],
+         "sandboxBudget": 4
+        },
+        "change": {
+         "ticket": {
+          "id": "CHG-1",
+          "title": "Shelve by surname",
+          "summary": "The library has asked for the shelf to follow the order a librarian shelves in: by the author's surname, then by title, then by id. Change both layers (api/shelf.py and web/src/lib/shelf.ts) without breaking anything the shelf already did.",
+          "acceptance": [
+           {
+            "id": "AC-1",
+            "line": "Order the shelf by surname, then title, then id, in the API (CHG-1)"
+           },
+           {
+            "id": "AC-2",
+            "line": "Make the page agree with the API's new order"
+           },
+           {
+            "id": "AC-3",
+            "line": "Keep lending, returning and the author filter exactly as they were"
+           }
+          ]
+         },
+         "contract": false,
+         "floor": {
+          "minImpact": 1,
+          "minContract": 1,
+          "minTests": 1,
+          "requireRelease": true,
+          "traceEveryAcceptance": true
+         }
+        }
+       }
+      ],
+      "blocksPublish": false,
+      "provenance": {
+       "phaseKey": "maintenance",
+       "referenceName": null,
+       "rollup": "own",
+       "intro": "own",
+       "interview": null,
+       "files": [],
+       "tasks": [
+        {
+         "taskKey": "main",
+         "provenance": "edited",
+         "titleEdited": false
+        }
+       ],
+       "roomTask": "other",
+       "application": null
+      }
+     }
+    ],
+    "validation": {
+     "tier": "fast",
+     "ranAt": "2026-01-01T00:00:05.000Z",
+     "checks": [
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Requirements holds 1 task, which a learner can work on.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Design holds 1 task, which a learner can work on.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Implementation holds 1 task, which a learner can work on.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Testing holds 1 task, which a learner can work on.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Deployment holds 1 task, which a learner can work on.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "phase-holds-one-task",
+       "label": "A phase holds tasks a learner can work on",
+       "status": "passed",
+       "sentence": "Maintenance holds 1 task, which a learner can work on.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Requirements is gated on 1 required task.",
+       "phaseKey": "requirements",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Design is gated on 1 required task.",
+       "phaseKey": "design",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Implementation is gated on 1 required task.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Testing is gated on 1 required task.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Deployment is gated on 1 required task.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "required-task-per-phase",
+       "label": "A phase has a task that gates it",
+       "status": "passed",
+       "sentence": "Maintenance is gated on 1 required task.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "artefact-paths-unique",
+       "label": "No two tasks write to one file",
+       "status": "passed",
+       "sentence": "No task in this version writes a file of its own, so no two can collide.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "runtime-is-supported",
+       "label": "The runner can import what this project needs",
+       "status": "passed",
+       "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Implementation has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "implementation",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Testing has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "testing",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Deployment has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "deployment",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "deep-validation-current",
+       "label": "Deep validation is current for this phase",
+       "status": "passed",
+       "sentence": "Maintenance has no current deep validation. Run deep validation on this draft and publish once it passes.",
+       "phaseKey": "maintenance",
+       "taskKey": null,
+       "files": [],
+       "advisory": "warning"
+      },
+      {
+       "id": "version-compiles",
+       "label": "The version compiles",
+       "status": "passed",
+       "sentence": "Every phase compiles: each task owns the files it is graded on, and no two tasks share what scores them.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "front-end-suite-runs",
+       "label": "The front end's own suite runs",
+       "status": "not-applicable",
+       "sentence": "This project has no front end to build, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      },
+      {
+       "id": "preview-starts",
+       "label": "The live preview starts",
+       "status": "not-applicable",
+       "sentence": "This project has no preview to start, so there is nothing here to prove.",
+       "phaseKey": null,
+       "taskKey": null,
+       "files": []
+      }
+     ],
+     "passed": 19,
+     "failed": 0,
+     "notApplicable": 2,
+     "publishable": true,
+     "blocking": [],
+     "notApplicableLine": "2 checks do not apply to this project."
+    },
+    "supportedStacks": {
+     "python": [
+      "flask",
+      "werkzeug",
+      "jinja2",
+      "itsdangerous",
+      "click",
+      "markupsafe",
+      "blinker",
+      "pytest",
+      "pluggy",
+      "iniconfig",
+      "packaging",
+      "pygments"
+     ],
+     "node": [
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "jsdom",
+      "<npm:testing-library/react>",
+      "<npm:testing-library/dom>"
+     ],
+     "tools": [
+      "esbuild"
+     ],
+     "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change."
+    },
+    "createdAt": "2026-01-01T00:00:02.000Z",
+    "forkedFromVersionId": null,
+    "phaseSet": [
+     {
+      "key": "requirements",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "design",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "implementation",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "testing",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "deployment",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     },
+     {
+      "key": "maintenance",
+      "state": "held",
+      "removeSource": "no-source",
+      "canRemove": true,
+      "canPutBack": false,
+      "canAdd": false,
+      "why": null
+     }
+    ]
+   }
+  }
+ ]
+}

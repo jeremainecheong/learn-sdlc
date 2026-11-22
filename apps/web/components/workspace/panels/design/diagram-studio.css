@@ -1,0 +1,169 @@
+/*
+ * The Diagram studio (`DiagramStudio.tsx`), which imports this file itself so
+ * that every page that draws it draws it styled: the learner's Design room
+ * and the teacher's Design section (its Starting point card).
+ *
+ * These rules live here rather than in `components/workspace/phase-experience.css`,
+ * which only the learner's layouts import; they are the one source.
+ *
+ * Colours: inside the learner's rooms the `--tool-*` tokens are set by the
+ * room (phase-experience.css, "Tool chrome pairs with the chosen application
+ * theme"), and the studio reads them through its own `--studio-*` names.
+ * Outside a room those tokens are not set, so each name falls back to the
+ * value the rooms give it in that theme.
+ */
+.diagram-studio {
+  --studio-surface: var(--tool-surface, #fff);
+  --studio-canvas: var(--tool-canvas, #edf3f7);
+  --studio-ink: var(--tool-ink, #183344);
+  --studio-muted: var(--tool-muted, #526c7c);
+  --studio-line: var(--tool-line, #cfdee8);
+  --studio-accent: var(--tool-accent, #176e8a);
+  --studio-tint: var(--tool-tint, #e0f2f9);
+  --studio-hover: var(--tool-hover, #eaf5fb);
+  --studio-selected-line: var(--tool-selected-line, #79b8d0);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid var(--studio-line);
+  border-radius: 7px;
+  background: var(--studio-surface);
+}
+html[data-theme=graphite] .diagram-studio {
+  --studio-surface: var(--tool-surface, #172a39);
+  --studio-canvas: var(--tool-canvas, #112330);
+  --studio-ink: var(--tool-ink, #deedf6);
+  --studio-muted: var(--tool-muted, #adc3d3);
+  --studio-line: var(--tool-line, #365267);
+  --studio-accent: var(--tool-accent, #91d4ec);
+  --studio-tint: var(--tool-tint, #25485d);
+  --studio-hover: var(--tool-hover, #223f53);
+  --studio-selected-line: var(--tool-selected-line, #69aecb);
+}
+.diagram-studio textarea {
+  font: 12px/1.6 monospace;
+  background: rgb(var(--c-ground));
+  color: rgb(var(--c-ink));
+  padding: 10px;
+  border: 1px solid rgb(var(--c-field-border, 113 140 160));
+  border-radius: 7px;
+  min-height: 160px;
+  width: 100%;
+}
+.diagram-studio svg {
+  display: block;
+  width: 100%;
+  min-width: 520px;
+  --c-edge: 113 140 160;
+  --c-edge2: 113 140 160;
+}
+html[data-theme=graphite] .diagram-studio svg {
+  --c-edge: 117 147 168;
+  --c-edge2: 117 147 168;
+}
+.diagram-canvas {
+  overflow: auto;
+  background: rgb(var(--c-ground));
+  border: 1px solid rgb(var(--c-edge));
+  border-radius: 9px;
+  padding: 10px;
+}
+/* The sequence drawing is drawn between its own floor and cap (inline min-width and max-width,
+   DiagramStudio.tsx), so it does not always fill the canvas: where it stops growing it stands in the middle. */
+.diagram-studio .diagram-canvas > svg {
+  margin-inline: auto;
+}
+.diagram-studio .diagram-canvas {
+  --c-edge: 113 140 160;
+  --c-edge2: 113 140 160;
+}
+html[data-theme=graphite] .diagram-studio .diagram-canvas {
+  --c-edge: 117 147 168;
+  --c-edge2: 117 147 168;
+}
+.diagram-studio label {
+  font-size: 12px;
+  font-weight: 600;
+}
+.diagram-studio p {
+  font-size: 12px;
+  color: rgb(var(--c-muted));
+}
+.diagram-studio > [role=alert] {
+  color: rgb(var(--c-fail));
+  font-size: 12px;
+  line-height: 1.65;
+  padding: 9px 11px;
+  border: 1px solid rgb(var(--c-fail));
+  border-radius: 7px;
+  background: rgb(var(--c-failtint));
+}
+
+/* The diagram mode selector is a tool control, independent of chat modes. It
+   borrows the mentor's `.mentor-mode-switch` class name only; every property
+   it is drawn with is set here, so it needs no other stylesheet. */
+.diagram-studio > .flex {
+  align-items: center;
+  flex-wrap: wrap;
+}
+.diagram-studio .mentor-mode-switch {
+  display: flex;
+  flex: none;
+  gap: 4px;
+  min-width: 220px;
+  margin: 0;
+  padding: 4px;
+  border: 1px solid var(--studio-line);
+  border-radius: 10px;
+  background: var(--studio-canvas);
+}
+.diagram-studio .mentor-mode-switch button {
+  flex: 1;
+  min-height: 38px;
+  white-space: nowrap;
+  padding: 8px 12px;
+  font-size: 12px;
+  border-radius: 7px;
+  color: var(--studio-muted);
+  border: 1px solid transparent;
+  transition:
+    background-color var(--motion-control, 180ms),
+    border-color var(--motion-control, 180ms),
+    color var(--motion-control, 180ms);
+}
+.diagram-studio .mentor-mode-switch button:hover {
+  background: var(--studio-hover);
+  color: var(--studio-ink);
+}
+.diagram-studio .mentor-mode-switch button[aria-pressed=true] {
+  background: var(--studio-tint);
+  border-color: var(--studio-selected-line);
+  color: var(--studio-accent);
+  box-shadow: inset 0 -2px var(--studio-accent);
+  font-weight: 650;
+}
+.diagram-studio .mentor-mode-switch button:active {
+  box-shadow: inset 0 2px 4px #0002;
+}
+.diagram-studio .mentor-mode-switch button:focus-visible {
+  outline: 2px solid var(--studio-accent);
+  outline-offset: 2px;
+}
+@media (max-width: 767px) {
+  .diagram-studio .mentor-mode-switch {
+    width: 100%;
+    min-width: 0;
+  }
+  .diagram-studio .mentor-mode-switch button {
+    min-height: 44px;
+  }
+  .diagram-studio textarea {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .diagram-studio .mentor-mode-switch button {
+    transition: none;
+  }
+}

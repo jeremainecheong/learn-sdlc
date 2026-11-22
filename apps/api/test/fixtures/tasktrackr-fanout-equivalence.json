@@ -1,0 +1,160 @@
+{
+  "slug": "tasktrackr",
+  "version": "6.0.0",
+  "recordedAt": "d1733fa148ae",
+  "phases": {
+    "implementation": {
+      "jobs": [
+        "17deb96688b43aab9cb3c78dc24a3fc04541537aaf65d1f3343ed93794722fab",
+        "cb27a89e52e5aaabb1e3cc74bcfe4a2a9811312e06039117249844ec7773fc94",
+        "f314068c16ca2b03e0f68fa511daae1d1ef36fe49c806ef41796530a61b0b2e7",
+        "d2931d4f792c026e1409320027a1e2a136ad61127b691a1b8848fcfbc42694b4"
+      ],
+      "scenarios": {
+        "mixed": {
+          "report": "ae10a964cf2e94d5789f3d491473f6f870830b7fa5f5130acbf0b6fb9f8baccb",
+          "error": null,
+          "starts": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "maxInFlight": 1
+        },
+        "visible-and-hidden-refused": {
+          "report": null,
+          "error": "runner refused job 1",
+          "starts": [
+            0,
+            1
+          ],
+          "maxInFlight": 1
+        },
+        "all-refused": {
+          "report": null,
+          "error": "runner refused job 0",
+          "starts": [
+            0
+          ],
+          "maxInFlight": 1
+        }
+      }
+    },
+    "testing": {
+      "jobs": [
+        "87576a87557409cd00cfc3661e73c7c9f2d493149e39e574bb01a35d29cf10b7",
+        "fd0171703a7ea9108792a7b60515722bc012596f24842813c883efe52848c207",
+        "6ce2ea745187e5c9b9d15349fd34c8834a974d14888fda35d9380de9ad40f15a",
+        "bd7b9851ef8c2f831a1de348b17ea0363a3962ddae92b3be1e675f2892045930",
+        "9a3085dec9472e5db8291d40090fcec0a0656102f16ced7d086b7edb1439921f",
+        "5b48eae5f6b6fdf529543f0943980a0e27163ca7f864a63b314521650f24afb5",
+        "318d1ca0bb87de136d8c4c14dab6f240de2046cc27edab0035929c1b286bfc45",
+        "70c1815536fa78e10cbcb4dd5c12381d507e44d2e0fb04766edc9c178703039f",
+        "1b3bdf2064236e7f1c261ab82c36f86e7908d118518e30576fcf904e390547f8",
+        "8de18c0817de2da6ab17e9349e69506dcbbbb7f697e88862c4f67b47d9b5cf92"
+      ],
+      "scenarios": {
+        "mixed": {
+          "report": "13569d43043090c0ab92d7e63d2d50bba1f50b5b6ae8c25bf2fadc1654f6768c",
+          "error": null,
+          "starts": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "maxInFlight": 8
+        },
+        "failing-reference": {
+          "report": "62d91f69b04212eabdc22b33ea6ac5b88910ec5831421caf59d57d66c71ac2e2",
+          "error": null,
+          "starts": [
+            0,
+            1
+          ],
+          "maxInFlight": 1
+        },
+        "failing-reference-mutant-refused": {
+          "report": "62d91f69b04212eabdc22b33ea6ac5b88910ec5831421caf59d57d66c71ac2e2",
+          "error": null,
+          "starts": [
+            0,
+            1
+          ],
+          "maxInFlight": 1
+        },
+        "reference-and-mutant-refused": {
+          "report": null,
+          "error": "runner refused job 1",
+          "starts": [
+            0,
+            1
+          ],
+          "maxInFlight": 1
+        },
+        "two-mutants-refused": {
+          "report": null,
+          "error": "runner refused job 4",
+          "starts": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "maxInFlight": 8
+        }
+      }
+    },
+    "maintenance": {
+      "jobs": [
+        "da31c10e7828d28f7ea9d3cc5f5e7a54f74678e85566f52449a3a7b8765b964a",
+        "a13fb519f5f02df26056f5f40aeea1f2811f2c1714d1404c8481c4cc7bdf68c7",
+        "2b2fb69917521dae8b98202162ae327f285d82a607c9ff8d7a75d463fc8a9020",
+        "78bc1926d8b2fbe8e756d1f3cec9e9166655d70550ecccd91050dc4e076d7ba6"
+      ],
+      "scenarios": {
+        "mixed": {
+          "report": "95fea1893306d34ffcbd92cceb50297cfab84e517aba2b343f18b05619554c7f",
+          "error": null,
+          "starts": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "maxInFlight": 1
+        },
+        "visible-and-hidden-refused": {
+          "report": null,
+          "error": "runner refused job 1",
+          "starts": [
+            0,
+            1
+          ],
+          "maxInFlight": 1
+        },
+        "all-refused": {
+          "report": null,
+          "error": "runner refused job 0",
+          "starts": [
+            0
+          ],
+          "maxInFlight": 1
+        }
+      }
+    }
+  }
+}

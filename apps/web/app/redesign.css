@@ -1,0 +1,125 @@
+@font-face {
+  font-family: Outfit;
+  src: url("/fonts/outfit.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/fonts/manrope.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/space-grotesk.woff2") format("woff2");
+  font-weight: 300 700;
+  font-display: swap;
+}
+:root {
+  --c-ground: 244 248 251;
+  --c-surface: 255 255 255;
+  --c-raised: 236 243 248;
+  --c-edge: 218 230 239;
+  --c-edge2: 181 202 218;
+  --c-ink: 30 59 81;
+  --c-ink2: 64 90 109;
+  /* Secondary copy also appears on warning/error tints in Stat and forms. */
+  --c-muted: 80 104 123;
+  --c-accent: 26 102 130;
+  --c-tint: 225 242 249;
+  /* Input boundaries have a stronger pair than decorative panel dividers. */
+  --c-field-border: 113 140 160;
+  --side-width: 240px;
+  --glass-shadow: 0 12px 40px #2453690b;
+  --radius-panel: 22px;
+  --font-display: Outfit, sans-serif;
+  --motion-fast: 120ms;
+  --motion-control: 180ms;
+  --motion-surface: 260ms;
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-press: cubic-bezier(.4, 0, 1, 1);
+}
+html[data-theme="graphite"] {
+  --c-ground: 20 39 55;
+  --c-surface: 28 49 67;
+  --c-raised: 34 59 79;
+  --c-edge: 56 81 101;
+  --c-edge2: 80 109 131;
+  --c-ink: 230 241 249;
+  --c-ink2: 192 214 230;
+  --c-muted: 160 187 206;
+  --c-accent: 134 211 235;
+  --c-tint: 32 73 92;
+  --c-field-border: 117 147 168;
+  /* Errors are also read on the blue raised/hover surfaces in this theme. */
+  --c-fail: 255 166 166;
+  --glass-shadow: 0 12px 40px #0002;
+}
+body {
+  font-family: Manrope, system-ui, sans-serif;
+}
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+button,
+a,
+input,
+textarea,
+select {
+  touch-action: manipulation;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgb(var(--c-accent));
+  outline-offset: 3px;
+}
+input,
+textarea,
+select {
+  max-width: 100%;
+}
+.rounded-panel {
+  box-shadow: var(--glass-shadow);
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Signed-in routes own their scrollable panels. Fixing the frame to the
+   viewport keeps positioned artwork and sticky lesson content from creating a
+   second document scrollbar. The frame itself never scrolls: it clips with
+   `overflow: clip` (components/shell/shell-fidelity.css), which, unlike
+   `hidden`, is not a scroll container, so a scrollIntoView inside a page
+   cannot scroll the frame and move the application chrome. `.shell-page`
+   inside it is still `overflow: hidden`, a scroll container, so such a
+   scroll can still reach it (e2e/signed-in-frame-scroll.spec.ts reads both). */
+.signed-in-frame {
+  position: fixed;
+  inset: 0;
+  height: 100dvh;
+  min-height: 0;
+}

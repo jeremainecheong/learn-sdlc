@@ -1,0 +1,37 @@
+WEBVTT
+
+00:00.000 --> 00:02.000
+Prepared QA example: a small documentation change.
+The learner supplies a goal and boundaries.
+
+00:02.000 --> 00:05.200
+Paused to read the actual AI reply.
+The proposed file is ready for review, not yet applied.
+
+00:05.200 --> 00:06.800
+“Looks good. I agree with the change.”
+The mentor reviews this vague explanation.
+
+00:06.800 --> 00:07.960
+The explanation does not establish what the change does.
+Apply stays locked.
+
+00:07.960 --> 00:13.200
+Paused to read the actual rejection.
+The learner is asked to explain what the changed lines establish.
+
+00:13.200 --> 00:15.000
+The learner explains the actual effect, preserved boundaries
+and limits of the available evidence.
+
+00:15.000 --> 00:21.200
+Paused to read the accepted understanding assessment.
+The unchanged proposal is ready for explicit Apply.
+
+00:21.200 --> 00:22.560
+The learner selects “Apply this reviewed proposal.”
+The documentation is saved.
+
+00:22.560 --> 00:30.000
+Paused to read the actual saved result.
+Execution and phase review remain separate steps.

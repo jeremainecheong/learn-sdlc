@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskTrackr</title>
+  <!-- An empty icon, so the browser stops asking for one and the console stays quiet. -->
+  <link rel="icon" href="data:," />
+  <style>
+    :root {
+      --ink: #1c1b19;
+      --muted: #6b6660;
+      --paper: #faf8f4;
+      --card: #ffffff;
+      --line: #ddd7cd;
+      --accent: #2f5d50;
+      --late: #a33a24;
+      --high: #8a4b12;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    .shell { max-width: 780px; margin: 0 auto; padding: 0 20px 48px; }
+    header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--line); margin-bottom: 24px;
+    }
+    .brand { font-weight: 650; font-size: 18px; letter-spacing: -0.01em; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1 { font-size: 22px; margin: 0 0 16px; letter-spacing: -0.01em; }
+    p { margin: 0 0 12px; }
+    .muted { color: var(--muted); }
+    .error { color: var(--late); }
+    ul { list-style: none; margin: 0; padding: 0; }
+    input, select, button {
+      font: inherit; color: inherit; padding: 6px 10px;
+      border: 1px solid var(--line); border-radius: 4px; background: var(--card);
+    }
+    button { cursor: pointer; border-color: var(--ink); }
+    button:disabled { cursor: default; opacity: 0.5; }
+    form { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+    .filters label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+    .list-card, .task-row {
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 4px; padding: 12px 14px; margin-bottom: 8px;
+    }
+    .task-main { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; flex: 1 1 260px; }
+    .task-meta { display: flex; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+    .task-title { font-weight: 550; }
+    .is-done .task-title { text-decoration: line-through; color: var(--muted); }
+    .is-late { border-left: 3px solid var(--late); }
+    .badge {
+      font-size: 12px; padding: 1px 7px; border-radius: 10px;
+      border: 1px solid var(--line); color: var(--muted);
+    }
+    .badge-high { color: var(--high); border-color: var(--high); }
+    .badge-overdue { color: var(--late); border-color: var(--late); }
+    .tag { border: 1px dashed var(--line); border-radius: 10px; padding: 1px 7px; }
+  </style>
+</head>
+<body>
+  <div id="root" data-app="tasktrackr"></div>
+  <!-- Relative, so the same file works at "/" and under the preview's <base href>. -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+{
+  "key": "deployment",
+  "order": 5,
+  "title": "Deployment",
+  "intro": "Finish the API's image definition and the runbook, run the selfcheck, then run the drill and write down what broke.",
+  "artifactKind": "config",
+  "canRun": true,
+  "runLabel": "Run selfcheck",
+  "taskFile": "task.md",
+  "objectives": [
+    "Complete api/Dockerfile: WORKDIR, COPY and an exec-form ENTRYPOINT",
+    "Write the runbook: health check, rollback, incident",
+    "Run the drill and record the setting that broke the deployment"
+  ],
+  "files": [
+    {
+      "path": "api/Dockerfile",
+      "source": "files/api.Dockerfile",
+      "editable": true,
+      "language": "dockerfile"
+    },
+    {
+      "path": "RUNBOOK.md",
+      "source": "files/RUNBOOK.md",
+      "editable": true,
+      "language": "markdown"
+    },
+    {
+      "path": "api/main.py",
+      "source": "../../canonical/api/main.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/shelf.py",
+      "source": "../../canonical/api/shelf.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "deploy/shelf.json",
+      "source": "../../canonical/deploy/shelf.json",
+      "editable": false,
+      "language": "json"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "config_completeness",
+        "title": "Config completeness",
+        "weight": 0.4,
+        "description": "api/Dockerfile carries every instruction the image needs, and no TODO is left."
+      },
+      {
+        "key": "build_smoke",
+        "title": "Isolated selfcheck",
+        "weight": 0.35,
+        "description": "The launcher api/Dockerfile declares runs the selfcheck in the sandbox. It does not build an image."
+      },
+      {
+        "key": "runbook_quality",
+        "title": "Runbook quality",
+        "weight": 0.25,
+        "description": "Health check, rollback and the incident, written for someone who was not there."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "config",
+    "smoke": {
+      "dockerfile": "api/Dockerfile",
+      "implFiles": {
+        "api/main.py": "../../canonical/api/main.py",
+        "api/shelf.py": "../../canonical/api/shelf.py",
+        "deploy/shelf.json": "../../canonical/deploy/shelf.json"
+      },
+      "commands": [
+        [
+          "python3",
+          "api/main.py",
+          "--selfcheck"
+        ]
+      ],
+      "expect": "shelf selfcheck: 5 routes, config ok"
+    },
+    "drill": {
+      "fault": "port-zero",
+      "description": "deploy/shelf.json sets the port to 0, so the service would listen where nobody routes and the selfcheck refuses the configuration.",
+      "faultedFiles": {
+        "deploy/shelf.json": {
+          "source": "drill/shelf.json"
+        }
+      },
+      "expectFailure": true
+    },
+    "rules": [
+      {
+        "id": "docker-workdir",
+        "label": "api/Dockerfile sets a WORKDIR",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "pattern": "^\\s*WORKDIR\\s+\\S+",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Set the directory the instructions below run in, e.g. WORKDIR /app."
+      },
+      {
+        "id": "docker-copy",
+        "label": "api/Dockerfile copies the application",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "pattern": "^\\s*COPY\\s+\\S+",
+        "flags": "im",
+        "required": true,
+        "failDetail": "The image needs api/ and deploy/: add the COPY instructions."
+      },
+      {
+        "id": "docker-entrypoint",
+        "label": "api/Dockerfile starts the API in exec form",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "pattern": "^\\s*(ENTRYPOINT|CMD)\\s+\\[",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Start the API in exec form, as a JSON array naming python3 and api/main.py."
+      },
+      {
+        "id": "docker-no-todo",
+        "label": "No TODO left in api/Dockerfile",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "forbidden": "TODO\\(learner\\)",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Replace every TODO(learner) with a real instruction."
+      },
+      {
+        "id": "runbook-health",
+        "label": "The runbook says how to check health",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "pattern": "^##[^\\n]*health[^\\n]*\\n(?:(?!^##)[\\s\\S])*?^(?!#)[^\\n]*(--selfcheck|/api/health|curl|docker)[^\\n]{4,}",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Under Health check, write the command an operator runs and the output that proves the service is alive."
+      },
+      {
+        "id": "runbook-rollback",
+        "label": "The runbook says how to roll back",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "pattern": "^##[^\\n]*roll[ -]?back[^\\n]*\\n(?:(?!^##)[\\s\\S])*?^(?!#)[^\\n]*(previous|known[ -]good|revert|re-?deploy|docker (run|pull|tag))[^\\n]{4,}",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Under Rollback, give the command that brings back the previous known-good image."
+      },
+      {
+        "id": "runbook-incident",
+        "label": "The runbook records the drill's root cause",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "pattern": "^##[^\\n]*incident[^\\n]*\\n(?:(?!^##)[\\s\\S])*?^(?!#)[^\\n]*\\b(port|shelf\\.json)\\b[^\\n]{4,}",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Under Incident, name the setting that broke the deployment and what you changed."
+      },
+      {
+        "id": "runbook-no-todo",
+        "label": "No TODO left in the runbook",
+        "criterion": "runbook_quality",
+        "target": "RUNBOOK.md",
+        "forbidden": "TODO\\(learner\\)",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Replace every TODO(learner) with real content."
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the DEPLOYMENT phase of Shelf, a teacher's own application: a Python Flask API that keeps books in memory and a TypeScript React page that lists them. The learner completes api/Dockerfile and RUNBOOK.md and runs the drill. The selfcheck runs the launcher api/Dockerfile declares in an isolated runner; it does not build an image or start a container. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "dockerfile",
+          "workdir",
+          "copy",
+          "entrypoint",
+          "cmd"
+        ],
+        "hints": [
+          "In what order do WORKDIR, COPY and ENTRYPOINT have to appear, and why?",
+          "What does exec form hand to the program that shell form would not?"
+        ]
+      },
+      {
+        "keywords": [
+          "runbook",
+          "health",
+          "rollback",
+          "operator"
+        ],
+        "hints": [
+          "What one command proves the service is alive, and what output says so?",
+          "What would an operator type to get yesterday's image back?"
+        ]
+      },
+      {
+        "keywords": [
+          "drill",
+          "incident",
+          "port",
+          "config"
+        ],
+        "hints": [
+          "The selfcheck refused the configuration: which line of its output names the setting?",
+          "What would you write so the next person finds the cause in a minute?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with api/Dockerfile: the three TODOs, in order.",
+      "Then the runbook: health check, rollback, incident.",
+      "Run the selfcheck, run the drill, and write the incident up naming the setting that was wrong."
+    ]
+  }
+}

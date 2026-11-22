@@ -1,0 +1,102 @@
+{
+ "recordedBy": "apps/api/test/export-contract-wiring.e2e-spec.ts",
+ "redaction": "ids <uuid:n>, emails <email:n>, tokens <jwt>, digests <sha256:n> (one digest, one placeholder), named values <label>, times as ordinal instants from 2026-01-01T00:00:00Z",
+ "facts": {
+  "projectId": "<uuid:1>",
+  "versionId": "<uuid:2>",
+  "slug": "books-on-a-shelf",
+  "version": "0.1.0",
+  "copyProjectId": "<uuid:3>",
+  "copyVersionId": "<uuid:4>",
+  "copySlug": "copied-for-the-class",
+  "editedProjectId": "<uuid:5>",
+  "editedVersionId": "<uuid:6>",
+  "editedSlug": "books-on-a-shelf-reworded"
+ },
+ "exchanges": [
+  {
+   "name": "exported",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/export",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "contentType": "application/zip",
+    "text": "<archive>"
+   },
+   "headers": {
+    "content-type": "application/zip",
+    "content-disposition": "attachment; filename=\"books-on-a-shelf-0.1.0.zip\"",
+    "cache-control": "no-store",
+    "x-export-withheld": "0"
+   }
+  },
+  {
+   "name": "exportedCopy",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:3>/versions/<uuid:4>/export",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "contentType": "application/zip",
+    "text": "<archive>"
+   },
+   "headers": {
+    "content-type": "application/zip",
+    "content-disposition": "attachment; filename=\"copied-for-the-class-0.1.0.zip\"",
+    "cache-control": "no-store",
+    "x-export-withheld": "44"
+   }
+  },
+  {
+   "name": "refusedTaskEdited",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:5>/versions/<uuid:6>/export",
+   "query": {},
+   "requestBody": null,
+   "status": 409,
+   "body": {
+    "message": "This version would make an archive the upload refuses, so it is not exported: the archive would compile Requirements to a different task than this version holds, so it is not exported.",
+    "error": "Conflict",
+    "statusCode": 409
+   },
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   }
+  },
+  {
+   "name": "refusedNotOwner",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/export",
+   "query": {},
+   "requestBody": null,
+   "status": 404,
+   "body": {
+    "message": "no project with that id in your library",
+    "error": "Not Found",
+    "statusCode": 404
+   },
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   }
+  },
+  {
+   "name": "refusedLearner",
+   "method": "GET",
+   "path": "/instructor/projects/<uuid:1>/versions/<uuid:2>/export",
+   "query": {},
+   "requestBody": null,
+   "status": 403,
+   "body": {
+    "message": "insufficient role",
+    "error": "Forbidden",
+    "statusCode": 403
+   },
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   }
+  }
+ ]
+}

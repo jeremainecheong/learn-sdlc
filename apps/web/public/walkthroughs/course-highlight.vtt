@@ -1,0 +1,61 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+One project. Six connected phases. An edited QA walkthrough using prepared inputs and real recorded reviews. Review frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:05.000 --> 00:00:12.000
+01 / Requirements Organize the brief into a backlog before the implementation begins. Original-speed excerpt.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:12.000 --> 00:00:16.000
+Use the feedback. A genuine Needs revision remains part of the learning record. Review frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:16.000 --> 00:00:20.000
+Revise, then submit again. Requirements earned Pass after the evidence was corrected. Review frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:20.000 --> 00:00:27.000
+02 / Design Connect the data model, HTTP boundary and request path. Original-speed excerpt / final frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:27.000 --> 00:00:31.000
+Review the design contract. The first submitted design received Needs revision. Review frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:31.000 --> 00:00:35.000
+Carry a reviewed design forward. The corrected design earned Pass; the earlier review stays in history. Review frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:35.000 --> 00:00:42.000
+03 / Implementation Inspect actual test output. A passing run is separate from the phase review. Original-speed excerpt / final frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:42.000 --> 00:00:46.000
+Progress follows the review. Implementation later earned Pass after revisions and infrastructure recovery. Review frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:46.000 --> 00:00:50.000
+04 / Testing Weak assertions received Needs revision, even with green reference tests. Review frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:50.000 --> 00:00:55.000
+Challenge the behavior. Corrected tests earned Pass: 24/24 reference tests and 8/8 mutants detected. Review frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:00:55.000 --> 00:01:01.000
+05 / Deployment Run the isolated configuration selfcheck and inspect its actual output. Review frame held.
+Selfcheck only: not Docker builds, CI execution, Compose startup or live HTTP.
+
+00:01:01.000 --> 00:01:08.000
+Investigate a release fault. Page the incident, inspect the configuration and verify the repair. 1.4x playback.
+Isolated configuration drill; this footage does not demonstrate a live deployment.
+
+00:01:08.000 --> 00:01:15.000
+06 / Maintenance Review a change beside its history and checks. The phase earned Pass. Original-speed excerpt / final frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.
+
+00:01:15.000 --> 00:01:22.000
+Six phases. An earned project record. This recorded course completed all six phases, preserving every earlier attempt. Review frame held.
+Original recorded QA course / prepared inputs / waits and other attempts omitted.

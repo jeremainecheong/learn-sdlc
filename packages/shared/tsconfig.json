@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    // The package ships to every browser and both apps, so it holds itself to
+    // the stricter checks too.
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  // The specs under `src` are run by the API's jest config, which names this
+  // directory as a root (apps/api/jest.config.js), and type-checked by
+  // tsconfig.spec.json. They are not part of what the package publishes:
+  // `apps/api` resolves @learnsdlc/shared from `dist`, so a
+  // `dist/projects.spec.js` would put jest's globals, and a describe block that
+  // runs on import, inside the API's own build.
+  "exclude": ["src/**/*.spec.ts"]
+}

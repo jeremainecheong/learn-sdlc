@@ -1,0 +1,268 @@
+{
+  "title": "Requirements",
+  "intro": "Complete the partly-specified backlog: the overdue-report story is missing.",
+  "artifactKind": "story",
+  "canRun": false,
+  "runLabel": "",
+  "taskPanel": "The TaskTrackr backlog is almost complete. Product has signed off on US-1, US-2, US-3 and US-5 (shown read-only beside your story), but the overdue report story was never written, and the team cannot build what nobody has specified.\n\nTaskTrackr is a task manager for people juggling study and work: a Python API over a SQLite database and a React front end in TypeScript, where tasks live in lists, carry a priority and an optional due date, and can be searched, filtered and commented on. This release covers lists and tasks, completing and reopening a task, filtering and searching a list, an overdue report, and a late marker on the rows a person is already looking at. Accounts, sync, notifications and anything that sends a message to a human being are out of scope.\n\nComplete your story, US-4:\n\n1. Write user story US-4 for the overdue report, in the standard format:\n   As a <persona>, I want <capability>, so that <benefit>.\n2. Add at least two acceptance criteria in Given / When / Then form. Make them testable — a machine should be able to verify each one. At least one criterion must settle an edge case: what about a task due today? What about a task that is already completed?\n3. Say where the report appears. Dana asked for one place to look, and told you it is not a filter on the list. A requirement can name the surface without designing it.\n4. Add a scope note — one or two sentences on what the overdue report will not do in this release.\n\nTo pass the checks, tag one criterion happy path and one boundary (the task due today), and add at least one out-of-scope line.\n\nInterview Dana before you write. She has ten minutes and she has already decided more than you would expect: the boundary, completed tasks, tasks with no due date, the order, what an empty report says, and where she wants to read it. One thing she will not decide is whether the report is a new screen or a new endpoint — that is your problem, and phase 2 is where you answer it.\n\nLater phases build on your story, so the review reads the meaning of your requirements as well as their shape. An epic relationship is optional; if you add one, link it to an epic you have defined.\n\nNumber your criteria the way the rest of the project reads them\n\nYour story's id is US-4, and criterion ids are local to it: AC-1, AC-2, and so on. The rest of the project qualifies those same ids as US-4/AC-1, US-4/AC-2, and so on.\n\nEvery criterion in this project has an id. US-2/AC-1 is the first criterion of US-2, and the testing phase files each seeded bug against the one criterion that should catch it. Yours are the ones you are about to mint, so write them in this order:\n\n- US-4/AC-1 — the report itself: a task whose due date has passed appears in it.\n- US-4/AC-2 — the boundary: a task due today is not in it yet.\n- US-4/AC-3 — the exclusion: a task you have completed is not in it, however late it was.\n\nTwo of the eight bugs in phase 4 are filed against AC-2 and AC-3. Number them differently and the mapping still works, but you will be reading someone else's numbering for four phases.\n\nWhat good looks like\n\n- The story names a real persona from the provided backlog and a concrete benefit.\n- Every criterion could be turned into an automated test without further discussion.\n- The reader can tell where the report appears and what a row of it shows.\n- No vague words like fast, user-friendly or and so on — nothing testable follows them.\n\nUsing the AI mentor well\n\nAsk the mentor to critique your draft, propose edge cases you may have missed, or explain what makes a criterion testable. It will not write the story for you — in this phase the requirement decisions are yours, and the next five phases build on what you write here.\n\nWhen you are ready, press Submit for review. Every required criterion and its evidence must pass review before the next phase opens.\n",
+  "objectives": [
+    "Write user story US-4 for the overdue report in the standard format",
+    "Give US-4 at least two testable Given/When/Then acceptance criteria",
+    "Say where the report appears, so phase 2 can design a screen for it",
+    "State what is in and out of scope for the overdue report"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "story_structure",
+        "title": "User story structure",
+        "weight": 0.3,
+        "description": "US-4 follows As a / I want / so that and names the overdue report."
+      },
+      {
+        "key": "acceptance_criteria",
+        "title": "Testable acceptance criteria",
+        "weight": 0.4,
+        "description": "At least two Given / When / Then criteria a test could verify, covering the overdue boundary: a task due today is not overdue."
+      },
+      {
+        "key": "scope_clarity",
+        "title": "Scope and precision",
+        "weight": 0.3,
+        "description": "A scope note states what is excluded, the story says where the report appears (a page, screen or view), and the wording is precise enough to test, with no vague words like user-friendly, fast or etc."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "story",
+    "record": "requirements/story.json",
+    "providedStories": [
+      {
+        "id": "US-1",
+        "title": "Add a task",
+        "persona": "busy learner",
+        "capability": "to add a task to a list with a title, a priority and an optional due date",
+        "benefit": "I can capture work the moment I think of it",
+        "criteria": [
+          {
+            "id": "AC-1",
+            "given": "a list with no tasks",
+            "when": "I add a task titled \"Write report\"",
+            "then": "the task is stored in that list with priority medium, status open and no completion time",
+            "tag": "happy"
+          },
+          {
+            "id": "AC-2",
+            "given": "any list",
+            "when": "I add a task with an empty title",
+            "then": "the API answers 400 with the code invalid_title and stores nothing",
+            "tag": "error"
+          },
+          {
+            "id": "AC-3",
+            "given": "any list",
+            "when": "I add a task with priority urgent",
+            "then": "the API answers 400 with the code invalid_priority; only low, medium and high exist",
+            "tag": "error"
+          }
+        ]
+      },
+      {
+        "id": "US-2",
+        "title": "Complete a task",
+        "persona": "busy learner",
+        "capability": "to mark a task as completed by its id",
+        "benefit": "my lists reflect what is actually left to do",
+        "criteria": [
+          {
+            "id": "AC-1",
+            "given": "an open task",
+            "when": "I complete it",
+            "then": "it is stored as done with the time it was completed, and it is still done the next time anything reads it",
+            "tag": "happy"
+          },
+          {
+            "id": "AC-2",
+            "given": "an id no task has",
+            "when": "I complete it",
+            "then": "the API answers 404 with the code task_not_found and nothing changes",
+            "tag": "error"
+          }
+        ]
+      },
+      {
+        "id": "US-3",
+        "title": "Filter, search and order a list",
+        "persona": "busy learner",
+        "capability": "to narrow a list by status, tag and keyword and read it in priority order",
+        "benefit": "I can see the right work without scrolling past the rest",
+        "criteria": [
+          {
+            "id": "AC-1",
+            "given": "a list of open and done tasks",
+            "when": "I ask for status open",
+            "then": "only the open tasks come back",
+            "tag": "happy"
+          },
+          {
+            "id": "AC-2",
+            "given": "tasks titled \"Pay rent\" and \"Review notes\"",
+            "when": "I search for \"rent\"",
+            "then": "only \"Pay rent\" comes back, and searching for \"RENT\" returns the same task; the match ignores case",
+            "tag": "boundary"
+          },
+          {
+            "id": "AC-3",
+            "given": "a keyword in the search box",
+            "when": "I also change the status or the tag",
+            "then": "the request the front end sends still carries the keyword, so the search is not silently dropped by the next filter",
+            "tag": "boundary"
+          },
+          {
+            "id": "AC-4",
+            "given": "tasks of mixed priorities",
+            "when": "I read a list",
+            "then": "high tasks come before medium and medium before low, and two tasks of the same priority are ordered by id",
+            "tag": "happy"
+          }
+        ]
+      },
+      {
+        "id": "US-5",
+        "title": "See at a glance which tasks are late",
+        "persona": "busy learner",
+        "capability": "a late marker on the task rows I am already looking at",
+        "benefit": "I do not have to open a report to notice a deadline I have missed",
+        "criteria": [
+          {
+            "id": "AC-1",
+            "given": "a task whose due date has passed",
+            "when": "I look at its row",
+            "then": "the row carries a marker saying how many whole days late the task is",
+            "tag": "happy"
+          },
+          {
+            "id": "AC-2",
+            "given": "a task I have completed",
+            "when": "I look at its row",
+            "then": "it carries no late marker, however long ago its due date was; a finished task is not owed",
+            "tag": "boundary"
+          },
+          {
+            "id": "AC-3",
+            "given": "a task with no due date",
+            "when": "I look at its row",
+            "then": "it carries no late marker and no empty space where one would go",
+            "tag": "boundary"
+          }
+        ]
+      }
+    ],
+    "learnerStory": {
+      "id": "US-4",
+      "hints": {
+        "persona": "person who runs TaskTrackr every morning",
+        "capability": "a report of the tasks that are overdue",
+        "benefit": "I catch what I missed before the day starts"
+      }
+    },
+    "floor": {
+      "minCriteria": 2,
+      "requiredTags": [
+        "happy",
+        "boundary"
+      ],
+      "minExclusions": 1,
+      "requireSentence": true
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the REQUIREMENTS phase of the TaskTrackr project, a web application with a Python API and a React front end. The learner writes user story US-4 for an overdue report in the Requirements room's story form: the As a / I want / so that sentence, testable Given/When/Then acceptance criteria, a line on where the report appears, and a scope note. Coach with Socratic questions and short examples of FORM (never their content). Never write US-4 or its acceptance criteria for them. Keep replies under 120 words, end with one guiding question, and stay strictly on requirements-phase topics: user stories, acceptance criteria, scope, edge cases.",
+    "topics": [
+      {
+        "keywords": [
+          "story",
+          "format",
+          "as a",
+          "structure",
+          "us-4",
+          "start"
+        ],
+        "hints": [
+          "A user story has three parts: a persona, a capability and a benefit — 'As a <who>, I want <what>, so that <why>'. For US-4, who actually needs the overdue report, and what decision does it help them make?",
+          "Look at how US-1 names a persona and a benefit. Your overdue story should follow the same shape. Which persona from the provided stories cares most about missed deadlines?"
+        ]
+      },
+      {
+        "keywords": [
+          "acceptance",
+          "criteria",
+          "given",
+          "when",
+          "then",
+          "testable"
+        ],
+        "hints": [
+          "Acceptance criteria describe observable behaviour: Given a starting state, When an action happens, Then a checkable outcome. What state would you set up to prove a task shows in the overdue report?",
+          "A criterion is testable when a machine could verify it. 'The report is clear' is not testable; 'a task due yesterday appears in the report' is. Which edge cases does your report need to pin down?"
+        ]
+      },
+      {
+        "keywords": [
+          "boundary",
+          "edge",
+          "today",
+          "completed",
+          "due"
+        ],
+        "hints": [
+          "Two classic edge cases here: a task due exactly today, and a task that is already completed. Your criteria should decide both explicitly. What behaviour do you think users expect for each?",
+          "Ask yourself: if I finished a task last week but it was due last month, should it appear as overdue? Write the answer down as a Given/When/Then."
+        ]
+      },
+      {
+        "keywords": [
+          "where",
+          "page",
+          "screen",
+          "surface",
+          "endpoint",
+          "front end"
+        ],
+        "hints": [
+          "Dana said she wants one place to look, and that it is not a filter on a list. A requirement can say where a capability appears without designing it: which words in your story tell a reader that the report is a place of its own?",
+          "You are writing requirements, not the design. Dana refused to choose between a new screen and a new endpoint. What can you still write down that phase 2 will need — the surface she asked for, or the modules that serve it?"
+        ]
+      },
+      {
+        "keywords": [
+          "row",
+          "shows",
+          "columns",
+          "days late",
+          "which list"
+        ],
+        "hints": [
+          "Dana told you what a row has to show. A criterion that names the fields is testable; 'the report is useful' is not. What would a test assert about one row?"
+        ]
+      },
+      {
+        "keywords": [
+          "scope",
+          "out of scope",
+          "exclude",
+          "notification"
+        ],
+        "hints": [
+          "A scope note protects you from gold-plating. Name at least one plausible feature the report will NOT do this release — reminders? emails? sorting options? Which would you cut first and why?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start from the provided stories: US-1, US-2, US-3 and US-5 each name a persona, a capability and a benefit. US-4 should do the same for the overdue report. What would the first line be?",
+      "Now make it testable: write at least two Given/When/Then criteria. One should cover a normal overdue task; one should settle an edge case, like a task due today or an already-completed task.",
+      "Say where the report appears — Dana asked for one place to look, not a filter on a list — and finish with a scope note on what it will NOT include this release. Then re-read your criteria: could each one become an automated test?"
+    ]
+  }
+}

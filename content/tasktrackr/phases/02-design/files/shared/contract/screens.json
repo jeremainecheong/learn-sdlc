@@ -1,0 +1,46 @@
+{
+  "$comment": "The screen contract: which screens exist, what each one shows, and which operation in api.json feeds it. web/src/router.tsx publishes these routes and every page is written against its row here.",
+  "$gaps": [
+    "The overdue report has a row and nothing in it. Name its component, the story it satisfies, the operation it reads, the components it renders, and the sentence it shows when nothing is overdue.",
+    "The tasks screen claims two stories. It serves more than two: add the rest once you have named the operations that make them work."
+  ],
+  "version": "2.0.0",
+  "router": "hash",
+  "$router_comment": "Hash routing, so the server needs no history fallback and the app works inside the sandboxed preview frame.",
+
+  "screens": [
+    {
+      "route": "#/",
+      "component": "ListsPage",
+      "title": "Your lists",
+      "shows": "Every list with how many of its tasks are still open, and a form that makes a new one.",
+      "satisfies": ["US-1"],
+      "reads": ["listLists"],
+      "writes": ["createList"],
+      "components": ["ListsPage"],
+      "empty": "No lists yet. Make the first one."
+    },
+    {
+      "route": "#/lists/:listId",
+      "component": "TasksPage",
+      "title": "Tasks",
+      "shows": "The tasks in one list, a filter bar over status, search and tag, and a form that adds a task. The API does the filtering and the ordering.",
+      "satisfies": ["US-1", "US-5"],
+      "reads": ["listTasks"],
+      "writes": ["createTask"],
+      "components": ["TasksPage", "TaskFilters", "NewTaskForm", "TaskRow", "OverdueBadge"],
+      "empty": "This list is empty. Add the first task."
+    },
+    {
+      "route": "#/overdue",
+      "component": "",
+      "title": "",
+      "shows": "",
+      "satisfies": [],
+      "reads": [],
+      "writes": [],
+      "components": [],
+      "empty": ""
+    }
+  ]
+}

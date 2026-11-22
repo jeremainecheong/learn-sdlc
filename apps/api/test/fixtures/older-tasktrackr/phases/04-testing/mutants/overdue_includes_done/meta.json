@@ -1,0 +1,6 @@
+{
+  "name": "overdue_includes_done",
+  "description": "The overdue query drops its status = 'open' clause, so a task that was finished late is still on the report.",
+  "covers": "US-4/AC-3",
+  "run": "api"
+}

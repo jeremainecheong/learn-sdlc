@@ -1,0 +1,153 @@
+# The reference AWS deployment's services on its host (docs/deployment/preview.md).
+# The local Compose stack (docker-compose.yml, scripts/stack.sh) does not use it.
+name: learnsdlc-cloud-preview
+
+x-service: &service
+  restart: unless-stopped
+  security_opt: ["no-new-privileges:true"]
+  logging:
+    driver: awslogs
+    options:
+      awslogs-region: ap-southeast-1
+      awslogs-group: ${CLOUDWATCH_LOG_GROUP:?required}
+      awslogs-create-group: "false"
+      mode: non-blocking
+      max-buffer-size: 4m
+
+services:
+  postgres:
+    <<: *service
+    image: postgres:16-alpine@sha256:cf78e76683b9ca8c5733cbbdce6c9262b45b6767934dd0a95e671f9a0fc20685
+    env_file: /srv/learnsdlc/secrets/postgres.env
+    environment:
+      POSTGRES_DB: learnsdlc
+      POSTGRES_USER: learnsdlc
+    mem_limit: 768m
+    volumes: [/srv/learnsdlc/postgres:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD, pg_isready, -U, learnsdlc]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    <<: *service
+    image: redis:7-alpine@sha256:ff02b58f971e7d7d156a1267e283fcbbeee91773b6aa36c49dac28ecfe28eadf
+    command: [redis-server, --appendonly, "yes", --maxmemory-policy, noeviction]
+    mem_limit: 256m
+    volumes: [/srv/learnsdlc/redis:/data]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    <<: *service
+    image: learnsdlc-cloud-api:${RELEASE_ID:?required}
+    build:
+      context: ../..
+      dockerfile: apps/api/Dockerfile
+    env_file: /srv/learnsdlc/secrets/api.env
+    environment:
+      NODE_ENV: production
+      NODE_OPTIONS: --max-old-space-size=768
+      API_BIND: 0.0.0.0
+      TRUSTED_PROXIES: "1"
+      WEB_ORIGIN: https://${SITE_HOST:?required}
+      API_PUBLIC_URL: https://${SITE_HOST}
+      SITE_URL: https://${SITE_HOST}
+      REDIS_URL: redis://redis:6379
+      RUN_MIGRATIONS: "false"
+      SCHEMA_SYNC: "false"
+      RUNNER_MODE: socket
+      RUNNER_STARTUP_OWNER_ID: ${RUNNER_STARTUP_OWNER_ID:?required}
+      RUNNER_SOCKET: /run/learnsdlc/runner.sock
+      RUNNER_TRANSPORT_ALLOWANCE_SECONDS: "60"
+      RUNNER_SLOTS: "24"
+      GRADING_RUN_FANOUT: "8"
+      JOB_CONCURRENCY: "3"
+      GRADING_SPECULATIVE_MUTANTS: "on"
+      RUN_TIMEOUT_SECONDS: "15"
+      RUN_MEMORY_MB: "256"
+      PREVIEW_ENABLED: "true"
+      PREVIEW_SESSIONS: "10"
+      PREVIEW_MEMORY_MB: "512"
+      PREVIEW_IDLE_SECONDS: "300"
+      PREVIEW_MAX_SECONDS: "600"
+      OPENAI_MODEL: gpt-5.6-luna
+      OPENAI_REASONING_EFFORT: none
+      AI_MAX_CONCURRENCY: "12"
+      OPENAI_BASE_URL: https://api.openai.com/v1
+      OPENAI_TIMEOUT_MS: "60000"
+      AI_AGENTIC_EDIT_LIST: "strict"
+      AI_AGENTIC_PAYLOAD: "full"
+      AI_USAGE_TIMEZONE: Asia/Singapore
+      LOG_FORMAT: json
+      APP_VERSION: ${RELEASE_ID}
+    read_only: true
+    cap_drop: [ALL]
+    # The gid of the learnsdlc-runner group (Group= in learnsdlc-microvm.service), which owns the controller
+    # socket /run/learnsdlc/runner.sock; the host must create that group with this gid.
+    group_add: ["2000"]
+    tmpfs: ["/tmp:size=128m,mode=1777"]
+    mem_limit: 1g
+    volumes: [/run/learnsdlc:/run/learnsdlc:ro]
+    stop_grace_period: 120s
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+
+  web:
+    <<: *service
+    image: learnsdlc-cloud-web:${RELEASE_ID:?required}
+    build:
+      context: ../..
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: https://${SITE_HOST}
+        NEXT_PUBLIC_SITE_URL: https://${SITE_HOST}
+        NEXT_PUBLIC_OPERATOR_NAME: LearnSDLC private preview
+    read_only: true
+    cap_drop: [ALL]
+    tmpfs: ["/tmp:size=64m,mode=1777", "/app/apps/web/.next/cache:size=64m,uid=1000,gid=1000"]
+    mem_limit: 512m
+    depends_on:
+      api: {condition: service_healthy}
+
+  preview-gate:
+    <<: *service
+    image: learnsdlc-preview-gate:${RELEASE_ID:?required}
+    build: ./gateway
+    environment:
+      GATE_SITE_HOST: ${SITE_HOST}
+      GATE_SECRET_FILE: /run/secrets/preview-gate.json
+      GATE_COOKIE_TTL_SECONDS: "604800"
+    read_only: true
+    cap_drop: [ALL]
+    mem_limit: 64m
+    volumes: [/srv/learnsdlc/secrets/gate:/run/secrets:ro]
+
+  caddy:
+    <<: *service
+    image: caddy:2-alpine@sha256:5f5c8640aae01df9654968d946d8f1a56c497f1dd5c5cda4cf95ab7c14d58648
+    environment:
+      SITE_HOST: ${SITE_HOST}
+    ports: ["80:80", "443:443"]
+    mem_limit: 128m
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - /srv/learnsdlc/caddy/data:/data
+      - /srv/learnsdlc/caddy/config:/config
+      # Stable serving directory; only immutable verified build assets are
+      # atomically appended. No old HTML/API responses are retained here.
+      - /srv/learnsdlc/next-static:/retained-static:ro
+    healthcheck:
+      test: [CMD, wget, --spider, -q, "http://127.0.0.1:2019/config/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      web: {condition: service_healthy}
+      api: {condition: service_healthy}
+      preview-gate: {condition: service_healthy}

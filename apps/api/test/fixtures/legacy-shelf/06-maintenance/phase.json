@@ -1,0 +1,170 @@
+{
+  "key": "maintenance",
+  "order": 6,
+  "title": "Maintenance",
+  "intro": "Change request CHG-1 arrives on a shelf that already works: shelve by surname. Ship it in both layers without breaking anything.",
+  "artifactKind": "code",
+  "canRun": true,
+  "runLabel": "Run regression tests",
+  "taskFile": "task.md",
+  "objectives": [
+    "Order the shelf by surname, then title, then id, in the API (CHG-1)",
+    "Make the page agree with the API's new order",
+    "Keep lending, returning and the author filter exactly as they were"
+  ],
+  "files": [
+    {
+      "path": "api/main.py",
+      "source": "../../canonical/api/main.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/shelf.py",
+      "source": "files/api/shelf.py",
+      "editable": true,
+      "language": "python"
+    },
+    {
+      "path": "tests/conftest.py",
+      "source": "../../canonical/tests/conftest.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "tests/test_shelf_order.py",
+      "source": "files/tests/test_shelf_order.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "web/src/lib/shelf.ts",
+      "source": "files/web/src/lib/shelf.ts",
+      "editable": true,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/lib/shelf.test.ts",
+      "source": "files/web/src/lib/shelf.test.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/ShelfPage.ts",
+      "source": "../../canonical/web/src/ShelfPage.ts",
+      "editable": false,
+      "language": "typescript"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "correctness_hidden",
+        "title": "Correctness (hidden tests)",
+        "weight": 0.45,
+        "description": "The sealed suites, one per layer, ask the same rules many more questions."
+      },
+      {
+        "key": "visible_tests",
+        "title": "Visible tests",
+        "weight": 0.15,
+        "description": "The suites you can see pass, and you can run them before submitting."
+      },
+      {
+        "key": "code_quality",
+        "title": "Code quality",
+        "weight": 0.25,
+        "description": "No TODO left behind, reasonable complexity, docstrings kept."
+      },
+      {
+        "key": "process",
+        "title": "Process",
+        "weight": 0.15,
+        "description": "You ran the tests before submitting and used the mentor in moderation."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "code",
+    "editableTargets": [
+      "api/shelf.py",
+      "web/src/lib/shelf.ts"
+    ],
+    "solutionDir": "solution",
+    "runs": [
+      {
+        "id": "api",
+        "language": "python",
+        "harness": "pytest",
+        "hiddenHarness": "unittest",
+        "label": "API tests",
+        "visibleTests": [
+          "tests/test_shelf_order.py"
+        ],
+        "hiddenTestDir": "hidden_tests/api",
+        "supportFiles": [
+          "tests/conftest.py"
+        ]
+      },
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "hiddenHarness": "js",
+        "label": "Front end",
+        "transform": true,
+        "visibleTests": [
+          "web/src/lib/shelf.test.ts"
+        ],
+        "hiddenTestDir": "hidden_tests/web",
+        "supportFiles": []
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the MAINTENANCE phase of Shelf, a teacher's own application: a Python Flask API that keeps books in memory and a TypeScript React page that lists them. The learner ships change request CHG-1 (shelve by surname) in api/shelf.py and web/src/lib/shelf.ts without regressions. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "surname",
+          "order",
+          "sort",
+          "chg-1"
+        ],
+        "hints": [
+          "Where does the author's surname come from, and what if the name has three words?",
+          "Which sort key comes first now, and which come after it?"
+        ]
+      },
+      {
+        "keywords": [
+          "regression",
+          "break",
+          "lend",
+          "filter"
+        ],
+        "hints": [
+          "Which behaviours did the shelf have before CHG-1, and which test proves each still holds?",
+          "Did the author filter's order change too? Should it?"
+        ]
+      },
+      {
+        "keywords": [
+          "page",
+          "typescript",
+          "sortforshelf"
+        ],
+        "hints": [
+          "Why must the page and the API agree on the order?",
+          "Can the two layers share the rule without sharing code?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Read CHG-1 and the regression cases first.",
+      "Change the API's order, then the page's, the same way.",
+      "Run the regression tests in both layers before you submit."
+    ]
+  }
+}

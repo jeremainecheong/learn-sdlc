@@ -1,0 +1,119 @@
+{
+  "persona": {
+    "name": "Head Librarian",
+    "role": "runs the lending desk and speaks for the members who borrow"
+  },
+  "opening": "Head Librarian here. Ask me what you need to know, and I will tell you what I want from this work.",
+  "unknownReply": "I have not decided that yet. What would you suggest, and why?",
+  "refusal": "That part is your job. I can tell you what I need, but the wording has to be yours.",
+  "maxTurns": 12,
+  "factsExpected": 5,
+  "facts": [
+    {
+      "id": "f1",
+      "topic": "SH-5: who it is for",
+      "keywords": [
+        "member"
+      ],
+      "answer": "It is for a member."
+    },
+    {
+      "id": "f2",
+      "topic": "SH-5: what they need",
+      "keywords": [
+        "see",
+        "books",
+        "author",
+        "borrow",
+        "today"
+      ],
+      "answer": "I need to see which books by one author I can borrow today."
+    },
+    {
+      "id": "f3",
+      "topic": "SH-5: why",
+      "keywords": [
+        "walk",
+        "shelves",
+        "book",
+        "take",
+        "home"
+      ],
+      "answer": "That matters because I only walk to the shelves for a book I can take home."
+    },
+    {
+      "id": "f4",
+      "topic": "SH-5/AC-1: what should happen when I ask for that author's free books",
+      "keywords": [
+        "author",
+        "two",
+        "books",
+        "shelf",
+        "third",
+        "lent",
+        "ask",
+        "free",
+        "listed"
+      ],
+      "answer": "If an author with two books on the shelf and a third one lent out and I ask for that author's free books, I expect only the two on the shelf are listed."
+    },
+    {
+      "id": "f5",
+      "topic": "SH-5/AC-2: what should happen when I ask for an author with none on the shelf",
+      "keywords": [
+        "book",
+        "author",
+        "lent",
+        "ask",
+        "none",
+        "shelf",
+        "list",
+        "empty",
+        "says",
+        "free",
+        "today"
+      ],
+      "answer": "If every book by one author is lent out and I ask for an author with none on the shelf, I expect the list is empty and it says that none are free today."
+    },
+    {
+      "id": "f6",
+      "topic": "SH-5/AC-3: what should happen when I type the author's name in small letters",
+      "keywords": [
+        "author",
+        "name",
+        "printed",
+        "capitals",
+        "type",
+        "small",
+        "letters",
+        "get",
+        "books",
+        "typed"
+      ],
+      "answer": "If an author's name is printed with capitals and I type the author's name in small letters, I expect I get the same books as with the name typed as it is printed."
+    },
+    {
+      "id": "f7",
+      "topic": "SH-5: what is out of scope",
+      "keywords": [
+        "holding",
+        "book",
+        "member",
+        "lent"
+      ],
+      "answer": "Out of scope: holding a book for a member while it is lent out."
+    },
+    {
+      "id": "f8",
+      "topic": "SH-5: a note",
+      "keywords": [
+        "book",
+        "free",
+        "shelf",
+        "nobody",
+        "borrowed"
+      ],
+      "answer": "Note: a book is free when it is on the shelf and nobody has borrowed it."
+    }
+  ]
+}

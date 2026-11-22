@@ -1,0 +1,110 @@
+{
+	# Never enable debug/access logs: invitation URLs and preview capabilities
+	# are credentials. Keep operational startup/TLS logs, discard HTTP context.
+	log default {
+		exclude http.log.error http.log.access http.handlers.reverse_proxy
+	}
+	log private_http {
+		include http.log.error http.log.access http.handlers.reverse_proxy
+		output discard
+	}
+	servers {
+		# The preview publishes TCP 443 only; do not advertise unreachable QUIC.
+		protocols h1 h2
+		timeouts {
+			read_header 10s
+			idle 2m
+		}
+		max_header_size 32KB
+	}
+}
+
+{$SITE_HOST} {
+	header {
+		>Cache-Control "no-store, max-age=0"
+		>Referrer-Policy "no-referrer"
+		>X-Robots-Tag "noindex, nofollow, noarchive"
+		Strict-Transport-Security "max-age=31536000"
+		-Server
+	}
+	encode zstd gzip
+
+	# This service-only endpoint uses a dedicated HMAC proof and atomic replay
+	# checks in the API. It cannot create sessions or read coursework.
+	@cognito_migration {
+		method POST
+		path /api/v1/auth/cognito/migrate
+	}
+	handle @cognito_migration {
+		request_body {
+			max_size 4KB
+		}
+		reverse_proxy api:4000 {
+			header_up -Authorization
+			header_up -Cookie
+			transport http {
+				dial_timeout 1s
+				response_header_timeout 3s
+			}
+		}
+	}
+
+	@gate_entry path /_preview/access /_preview/access/*
+	handle @gate_entry {
+		request_body {
+			max_size 2KB
+		}
+		reverse_proxy preview-gate:8080 {
+			header_up -Authorization
+			header_up -Proxy-Authorization
+			transport http {
+				dial_timeout 2s
+				response_header_timeout 6s
+			}
+		}
+	}
+
+	handle {
+		route {
+			# The gate examines Caddy's original URI before permitting the sole
+			# canonical preview-capability exception. API JWTs are independent.
+			forward_auth preview-gate:8080 {
+				uri /check
+				header_up X-Forwarded-Uri {http.request.orig_uri}
+				header_up -Authorization
+				header_up -Proxy-Authorization
+				transport http {
+					dial_timeout 2s
+					response_header_timeout 6s
+				}
+			}
+			@api path /api /api/* /socket.io /socket.io/*
+			handle @api {
+				reverse_proxy api:4000 {
+					# Existing WebSocket frames cannot recheck cookies. Force a
+					# bounded reconnect through the invitation/JWT boundaries.
+					stream_timeout 5m
+				}
+			}
+			# Immutable build assets only, behind the same invitation check.
+			# The root has no HTML, API responses, uploads, or auth/session data.
+			@retained_static {
+				method GET HEAD
+				path /_next/static/*
+				path_regexp retained_extension \.(js|css|woff2?|ttf|otf|eot|png|jpe?g|gif|webp|avif|svg|ico|wasm)$
+				file {
+					root /retained-static/public
+					try_files {path}
+				}
+			}
+			handle @retained_static {
+				root * /retained-static/public
+				header X-Content-Type-Options nosniff
+				file_server
+			}
+			handle {
+				reverse_proxy web:3000
+			}
+		}
+	}
+}

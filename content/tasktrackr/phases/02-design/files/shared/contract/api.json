@@ -1,0 +1,85 @@
+{
+  "$comment": "The HTTP contract. Both halves of TaskTrackr are written against this file: the routes publish it and the front end mirrors it. Four things are missing and they are yours; everything already filled in is a worked example, so copy its shape rather than inventing one.",
+  "$gaps": [
+    "entities.tasks has two fields. The backlog needs more than two, and one story cannot work at all until the model can say when a task was due.",
+    "entities is missing the tables tasks depends on. A tag belongs to more than one task and a task carries more than one tag, so say how that is stored.",
+    "operations.listTasks publishes no query parameters and no failures. Say what may be asked for, what each parameter accepts, and what the API refuses.",
+    "operations.completeTask and operations.getOverdue are empty rows. Fill the summary, the success and the failures.",
+    "errors is empty. Every code an operation names must be declared here with its status and its meaning."
+  ],
+  "version": "2.0.0",
+  "base": "/api",
+
+  "entities": {
+    "lists": {
+      "table": "lists",
+      "description": "A named list. Deleting one takes its tasks with it.",
+      "fields": [
+        { "name": "id", "type": "integer", "required": true, "primaryKey": true },
+        { "name": "name", "type": "string", "required": true, "unique": true },
+        { "name": "created_at", "type": "timestamp", "required": true }
+      ]
+    },
+    "tasks": {
+      "table": "tasks",
+      "description": "One thing to do, in exactly one list.",
+      "fields": [
+        { "name": "id", "type": "integer", "required": true, "primaryKey": true },
+        { "name": "title", "type": "string", "required": true }
+      ]
+    }
+  },
+
+  "operations": [
+    {
+      "id": "listLists",
+      "method": "GET",
+      "path": "/api/lists",
+      "summary": "Every list, oldest first, each with how many of its tasks are still open.",
+      "satisfies": "US-1",
+      "success": { "status": 200, "body": "TaskList[]" },
+      "errors": []
+    },
+    {
+      "id": "createList",
+      "method": "POST",
+      "path": "/api/lists",
+      "summary": "Make a list. A name that is already taken is refused rather than merged.",
+      "satisfies": "US-1",
+      "body": { "name": "string" },
+      "success": { "status": 201, "body": "TaskList" },
+      "errors": ["invalid_name", "duplicate_list"]
+    },
+    {
+      "id": "listTasks",
+      "method": "GET",
+      "path": "/api/lists/{id}/tasks",
+      "summary": "The tasks in one list.",
+      "satisfies": "",
+      "query": [],
+      "success": { "status": 200, "body": "Task[]" },
+      "errors": []
+    },
+    {
+      "id": "completeTask",
+      "method": "POST",
+      "path": "/api/tasks/{id}/complete",
+      "summary": "",
+      "satisfies": "",
+      "success": {},
+      "errors": []
+    },
+    {
+      "id": "getOverdue",
+      "method": "GET",
+      "path": "/api/tasks/overdue",
+      "summary": "",
+      "satisfies": "",
+      "query": [],
+      "success": {},
+      "errors": []
+    }
+  ],
+
+  "errors": {}
+}

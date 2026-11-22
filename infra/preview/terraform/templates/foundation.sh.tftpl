@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+umask 027
+
+# Base OS packages only, from the AL2023 signed repositories. No app checkout,
+# release archive, secret value, Docker Compose stack or learner runtime starts.
+dnf install -y docker amazon-ssm-agent awscli-2 jq curl-minimal tar gzip util-linux e2fsprogs nvme-cli
+systemctl enable --now amazon-ssm-agent
+systemctl enable --now docker
+systemctl disable --now sshd
+
+install -d -m 0750 /etc/learnsdlc /srv/learnsdlc
+cat > /etc/learnsdlc/foundation.json <<'FOUNDATION_METADATA'
+${foundation_metadata}
+FOUNDATION_METADATA
+chmod 0640 /etc/learnsdlc/foundation.json
+cat > /etc/learnsdlc/APP_LAUNCH_BLOCKED <<'BLOCKED'
+Foundation only. The data volume is attached separately and is NOT formatted
+or mounted by user data. Identify it by EBS volume ID, inspect existing data,
+and mount it using the separately reviewed bootstrap before any application
+containers start. Persist /srv/learnsdlc by filesystem UUID in /etc/fstab.
+The application and Lambda MicroVM adapter are not installed or validated.
+BLOCKED
+chmod 0640 /etc/learnsdlc/APP_LAUNCH_BLOCKED

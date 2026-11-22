@@ -1,0 +1,51 @@
+node_modules
+.preview
+.git
+**/node_modules
+**/.next
+**/dist
+**/data
+**/.e2e-data
+**/.shots-data
+*.sqlite
+playwright-report
+test-results
+e2e
+infra
+docs
+# Env files at any depth: a nested apps/web/.env.local would otherwise reach
+# the build stage, and next build inlines what it finds there. The tracked
+# examples stay (the api image copies the pack's own .env.example).
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Local working folders, logs and keys: never part of an image.
+tmp
+tmp-never
+output
+.superpowers
+.eval-scratch
+**/*.log
+**/*.pem
+**/*.key
+
+# The web tests are type-checked by the web workspace's own scripts, not by
+# the image's next build; the image never runs them.
+apps/web/test
+
+# The runner's own test suite: the images learner code runs in hold nothing
+# they do not need.
+apps/api/runner/test_*.py
+
+# The runner image bakes its own Python and Node dependencies (infra/runner.Dockerfile):
+# the host contributes runtime/manifest.json and nothing else. A checkout that also ran
+# the native setup holds its own runtime/python, runtime/node and runtime/bin (darwin
+# binaries on a Mac). Copied into the image they sit in a lower layer, and the bake's
+# rename of the old directory then fails on overlayfs with "Invalid cross-device link",
+# so the image does not build.
+apps/api/runner/runtime/*
+!apps/api/runner/runtime/manifest.json

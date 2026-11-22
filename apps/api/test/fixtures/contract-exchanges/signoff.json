@@ -1,0 +1,1889 @@
+{
+ "recordedBy": "apps/api/test/signoff-contract-wiring.e2e-spec.ts",
+ "redaction": "ids <uuid:n>, emails <email:n>, tokens <jwt>, digests <sha256:n> (one digest, one placeholder), named values <label>, times as ordinal instants from 2026-01-01T00:00:00Z",
+ "facts": {
+  "cohortId": "<uuid:1>",
+  "reasonMin": 10,
+  "reason": "Heard both interviews in the Monday lab."
+ },
+ "exchanges": [
+  {
+   "name": "cohorts",
+   "method": "GET",
+   "path": "/instructor/cohorts",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": [
+    {
+     "id": "<uuid:1>",
+     "name": "Monday lab",
+     "joinCode": "<join-code>",
+     "createdAt": "2026-01-01T00:00:01.000Z",
+     "memberCount": 2
+    }
+   ]
+  },
+  {
+   "name": "overview",
+   "method": "GET",
+   "path": "/instructor/overview",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "learners": [
+     {
+      "userId": "<uuid:2>",
+      "displayName": "<name:ann>",
+      "email": "<email:1>",
+      "cohort": "<uuid:1>",
+      "cohortName": "Monday lab",
+      "projectSlug": "interviews-copy",
+      "progressPercent": 33,
+      "phasesPassed": 1,
+      "averageScore": 100,
+      "totalHints": 0,
+      "relianceIndex": 0,
+      "tokensToday": 4,
+      "completed": false,
+      "integrityFlag": false,
+      "difficultyTier": "challenge",
+      "checklistPercent": 33,
+      "masteryPercent": null
+     },
+     {
+      "userId": "<uuid:3>",
+      "displayName": "<name:ben>",
+      "email": "<email:2>",
+      "cohort": "<uuid:1>",
+      "cohortName": "Monday lab",
+      "projectSlug": "interviews-copy",
+      "progressPercent": 33,
+      "phasesPassed": 1,
+      "averageScore": 100,
+      "totalHints": 0,
+      "relianceIndex": 0,
+      "tokensToday": 4,
+      "completed": false,
+      "integrityFlag": false,
+      "difficultyTier": "challenge",
+      "checklistPercent": 33,
+      "masteryPercent": null
+     }
+    ],
+    "cohortSize": 2,
+    "averageProgress": 33,
+    "averageReliance": 0,
+    "aiProvider": "mock-ai"
+   }
+  },
+  {
+   "name": "classLearners",
+   "method": "GET",
+   "path": "/instructor/learners",
+   "query": {
+    "cohort": "<uuid:1>",
+    "limit": "50"
+   },
+   "requestBody": null,
+   "status": 200,
+   "body": [
+    {
+     "userId": "<uuid:3>",
+     "email": "<email:2>",
+     "displayName": "<name:ben>",
+     "avatar": 0,
+     "cohort": "<uuid:1>",
+     "cohortName": "Monday lab",
+     "createdAt": "2026-01-01T00:00:02.000Z",
+     "tokensToday": 4,
+     "interview": null,
+     "enrollments": [
+      {
+       "id": "<uuid:4>",
+       "projectSlug": "interviews-copy",
+       "projectTitle": "Interviews",
+       "currentPhaseOrder": 2,
+       "completed": false,
+       "startedAt": "2026-01-01T00:00:02.000Z",
+       "completedAt": null,
+       "phases": [
+        {
+         "id": "<uuid:5>",
+         "key": "requirements",
+         "order": 1,
+         "title": "Requirements",
+         "status": "passed",
+         "bestScore": 100,
+         "attempts": 1,
+         "reflection": null,
+         "passedAt": "2026-01-01T00:00:03.000Z",
+         "unlockedAt": "2026-01-01T00:00:04.000Z",
+         "hints": 0,
+         "relianceIndex": 0,
+         "passThreshold": 70,
+         "lastSubmission": {
+          "id": "<uuid:6>",
+          "status": "completed",
+          "score": 100,
+          "passed": true,
+          "verifiedPass": true,
+          "report": {
+           "overall": 100,
+           "criteria": [
+            {
+             "key": "story_quality",
+             "title": "Story",
+             "weight": 0.4,
+             "score": 100,
+             "evidence": [
+              "✓ The story record",
+              "✓ A full story sentence",
+              "✓ At least 2 acceptance criteria",
+              "✓ The required cases",
+              "✓ At least 1 out-of-scope lines"
+             ]
+            },
+            {
+             "key": "acceptance_criteria",
+             "title": "Acceptance criteria",
+             "weight": 0.4,
+             "score": 100,
+             "evidence": [
+              "✓ The story record",
+              "✓ A full story sentence",
+              "✓ At least 2 acceptance criteria",
+              "✓ The required cases",
+              "✓ At least 1 out-of-scope lines"
+             ]
+            },
+            {
+             "key": "completeness",
+             "title": "Completeness",
+             "weight": 0.2,
+             "score": 100,
+             "evidence": [
+              "✓ The story record",
+              "✓ A full story sentence",
+              "✓ At least 2 acceptance criteria",
+              "✓ The required cases",
+              "✓ At least 1 out-of-scope lines"
+             ]
+            }
+           ],
+           "checks": [
+            {
+             "id": "story.record",
+             "label": "The story record",
+             "status": "passed",
+             "detail": "The record is well formed"
+            },
+            {
+             "id": "story.sentence",
+             "label": "A full story sentence",
+             "status": "passed",
+             "detail": "As a, I want and So that are filled"
+            },
+            {
+             "id": "story.criteria.min",
+             "label": "At least 2 acceptance criteria",
+             "status": "passed",
+             "detail": "2 complete criteria"
+            },
+            {
+             "id": "story.criteria.tags",
+             "label": "The required cases",
+             "status": "passed",
+             "detail": "Every required case is covered"
+            },
+            {
+             "id": "story.scope.min",
+             "label": "At least 1 out-of-scope lines",
+             "status": "passed",
+             "detail": "1 out-of-scope lines"
+            }
+           ],
+           "assessmentMode": "strict_binary",
+           "passed": true,
+           "aiReview": {
+            "provider": "mock-ai",
+            "verdict": "pass",
+            "summary": "Mocked semantic review for route persistence and authority tests.",
+            "strengths": [],
+            "improvements": [],
+            "processNote": "Provider is explicitly mocked in this integration suite.",
+            "criteriaEvidence": [
+             {
+              "key": "story_quality",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             },
+             {
+              "key": "acceptance_criteria",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             },
+             {
+              "key": "completeness",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             }
+            ]
+           },
+           "aiReliance": {
+            "hintsThisPhase": 0,
+            "index": 0
+           },
+           "integrity": {
+            "relianceFlag": false,
+            "relianceIndex": 0,
+            "mentorPasteFlag": false,
+            "noEffortFlag": false,
+            "note": "No integrity concerns flagged — healthy, self-directed process."
+           }
+          },
+          "createdAt": "2026-01-01T00:00:02.000Z",
+          "taskKey": "main"
+         },
+         "tasks": [
+          {
+           "key": "main",
+           "order": 1,
+           "required": true,
+           "title": "Requirements",
+           "status": "passed",
+           "bestScore": 100,
+           "attempts": 1,
+           "passedAt": "2026-01-01T00:00:03.000Z",
+           "awaitingSignOff": false,
+           "signedOffAt": null,
+           "lastSubmission": {
+            "id": "<uuid:6>",
+            "status": "completed",
+            "score": 100,
+            "passed": true,
+            "verifiedPass": true,
+            "report": {
+             "overall": 100,
+             "criteria": [
+              {
+               "key": "story_quality",
+               "title": "Story",
+               "weight": 0.4,
+               "score": 100,
+               "evidence": [
+                "✓ The story record",
+                "✓ A full story sentence",
+                "✓ At least 2 acceptance criteria",
+                "✓ The required cases",
+                "✓ At least 1 out-of-scope lines"
+               ]
+              },
+              {
+               "key": "acceptance_criteria",
+               "title": "Acceptance criteria",
+               "weight": 0.4,
+               "score": 100,
+               "evidence": [
+                "✓ The story record",
+                "✓ A full story sentence",
+                "✓ At least 2 acceptance criteria",
+                "✓ The required cases",
+                "✓ At least 1 out-of-scope lines"
+               ]
+              },
+              {
+               "key": "completeness",
+               "title": "Completeness",
+               "weight": 0.2,
+               "score": 100,
+               "evidence": [
+                "✓ The story record",
+                "✓ A full story sentence",
+                "✓ At least 2 acceptance criteria",
+                "✓ The required cases",
+                "✓ At least 1 out-of-scope lines"
+               ]
+              }
+             ],
+             "checks": [
+              {
+               "id": "story.record",
+               "label": "The story record",
+               "status": "passed",
+               "detail": "The record is well formed"
+              },
+              {
+               "id": "story.sentence",
+               "label": "A full story sentence",
+               "status": "passed",
+               "detail": "As a, I want and So that are filled"
+              },
+              {
+               "id": "story.criteria.min",
+               "label": "At least 2 acceptance criteria",
+               "status": "passed",
+               "detail": "2 complete criteria"
+              },
+              {
+               "id": "story.criteria.tags",
+               "label": "The required cases",
+               "status": "passed",
+               "detail": "Every required case is covered"
+              },
+              {
+               "id": "story.scope.min",
+               "label": "At least 1 out-of-scope lines",
+               "status": "passed",
+               "detail": "1 out-of-scope lines"
+              }
+             ],
+             "assessmentMode": "strict_binary",
+             "passed": true,
+             "aiReview": {
+              "provider": "mock-ai",
+              "verdict": "pass",
+              "summary": "Mocked semantic review for route persistence and authority tests.",
+              "strengths": [],
+              "improvements": [],
+              "processNote": "Provider is explicitly mocked in this integration suite.",
+              "criteriaEvidence": [
+               {
+                "key": "story_quality",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               },
+               {
+                "key": "acceptance_criteria",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               },
+               {
+                "key": "completeness",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               }
+              ]
+             },
+             "aiReliance": {
+              "hintsThisPhase": 0,
+              "index": 0
+             },
+             "integrity": {
+              "relianceFlag": false,
+              "relianceIndex": 0,
+              "mentorPasteFlag": false,
+              "noEffortFlag": false,
+              "note": "No integrity concerns flagged — healthy, self-directed process."
+             }
+            },
+            "createdAt": "2026-01-01T00:00:02.000Z",
+            "taskKey": "main"
+           }
+          }
+         ],
+         "opensAt": null,
+         "dueAt": null
+        },
+        {
+         "id": "<uuid:7>",
+         "key": "design",
+         "order": 2,
+         "title": "Design",
+         "status": "submitted",
+         "bestScore": 100,
+         "attempts": 1,
+         "reflection": null,
+         "passedAt": null,
+         "unlockedAt": "2026-01-01T00:00:05.000Z",
+         "hints": 0,
+         "relianceIndex": 0,
+         "passThreshold": 70,
+         "lastSubmission": {
+          "id": "<uuid:8>",
+          "status": "completed",
+          "score": 100,
+          "passed": true,
+          "verifiedPass": true,
+          "report": {
+           "overall": 100,
+           "criteria": [
+            {
+             "key": "contract",
+             "title": "Contract",
+             "weight": 0.5,
+             "score": 100,
+             "evidence": [
+              "✓ The design record",
+              "✓ At least 1 entity",
+              "✓ At least 0 relations",
+              "✓ At least 3 operations",
+              "✓ Every operation has an input and a return",
+              "✓ At least 1 decision",
+              "✓ Every decision has a rationale and a trade-off",
+              "✓ Every story is traced",
+              "✓ At least 4 endpoints",
+              "✓ An error catalogue"
+             ]
+            },
+            {
+             "key": "decisions",
+             "title": "Decision",
+             "weight": 0.3,
+             "score": 100,
+             "evidence": [
+              "✓ The design record",
+              "✓ At least 1 entity",
+              "✓ At least 0 relations",
+              "✓ At least 3 operations",
+              "✓ Every operation has an input and a return",
+              "✓ At least 1 decision",
+              "✓ Every decision has a rationale and a trade-off",
+              "✓ Every story is traced",
+              "✓ At least 4 endpoints",
+              "✓ An error catalogue"
+             ]
+            },
+            {
+             "key": "completeness",
+             "title": "Completeness",
+             "weight": 0.2,
+             "score": 100,
+             "evidence": [
+              "✓ The design record",
+              "✓ At least 1 entity",
+              "✓ At least 0 relations",
+              "✓ At least 3 operations",
+              "✓ Every operation has an input and a return",
+              "✓ At least 1 decision",
+              "✓ Every decision has a rationale and a trade-off",
+              "✓ Every story is traced",
+              "✓ At least 4 endpoints",
+              "✓ An error catalogue"
+             ]
+            }
+           ],
+           "checks": [
+            {
+             "id": "design.record",
+             "label": "The design record",
+             "status": "passed",
+             "detail": "The record is well formed"
+            },
+            {
+             "id": "design.entities.min",
+             "label": "At least 1 entity",
+             "status": "passed",
+             "detail": "1 entity"
+            },
+            {
+             "id": "design.relations.min",
+             "label": "At least 0 relations",
+             "status": "passed",
+             "detail": "0 relations"
+            },
+            {
+             "id": "design.operations.min",
+             "label": "At least 3 operations",
+             "status": "passed",
+             "detail": "3 operations"
+            },
+            {
+             "id": "design.operations.shape",
+             "label": "Every operation has an input and a return",
+             "status": "passed",
+             "detail": "Every operation names an input and a return"
+            },
+            {
+             "id": "design.decisions.min",
+             "label": "At least 1 decision",
+             "status": "passed",
+             "detail": "1 decision"
+            },
+            {
+             "id": "design.decisions.shape",
+             "label": "Every decision has a rationale and a trade-off",
+             "status": "passed",
+             "detail": "Every decision gives a rationale and a trade-off"
+            },
+            {
+             "id": "design.trace",
+             "label": "Every story is traced",
+             "status": "passed",
+             "detail": "Every story is traced"
+            },
+            {
+             "id": "design.api.min",
+             "label": "At least 4 endpoints",
+             "status": "passed",
+             "detail": "4 endpoints"
+            },
+            {
+             "id": "design.api.errors",
+             "label": "An error catalogue",
+             "status": "passed",
+             "detail": "3 errors declared"
+            }
+           ],
+           "assessmentMode": "strict_binary",
+           "passed": true,
+           "aiReview": {
+            "provider": "mock-ai",
+            "verdict": "pass",
+            "summary": "Mocked semantic review for route persistence and authority tests.",
+            "strengths": [],
+            "improvements": [],
+            "processNote": "Provider is explicitly mocked in this integration suite.",
+            "criteriaEvidence": [
+             {
+              "key": "contract",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             },
+             {
+              "key": "decisions",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             },
+             {
+              "key": "completeness",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             }
+            ]
+           },
+           "aiReliance": {
+            "hintsThisPhase": 0,
+            "index": 0
+           },
+           "integrity": {
+            "relianceFlag": false,
+            "relianceIndex": 0,
+            "mentorPasteFlag": false,
+            "noEffortFlag": false,
+            "note": "No integrity concerns flagged — healthy, self-directed process."
+           }
+          },
+          "createdAt": "2026-01-01T00:00:02.000Z",
+          "taskKey": "main"
+         },
+         "tasks": [
+          {
+           "key": "main",
+           "order": 1,
+           "required": true,
+           "title": "Design",
+           "status": "submitted",
+           "bestScore": 100,
+           "attempts": 1,
+           "passedAt": null,
+           "awaitingSignOff": true,
+           "signedOffAt": null,
+           "lastSubmission": {
+            "id": "<uuid:8>",
+            "status": "completed",
+            "score": 100,
+            "passed": true,
+            "verifiedPass": true,
+            "report": {
+             "overall": 100,
+             "criteria": [
+              {
+               "key": "contract",
+               "title": "Contract",
+               "weight": 0.5,
+               "score": 100,
+               "evidence": [
+                "✓ The design record",
+                "✓ At least 1 entity",
+                "✓ At least 0 relations",
+                "✓ At least 3 operations",
+                "✓ Every operation has an input and a return",
+                "✓ At least 1 decision",
+                "✓ Every decision has a rationale and a trade-off",
+                "✓ Every story is traced",
+                "✓ At least 4 endpoints",
+                "✓ An error catalogue"
+               ]
+              },
+              {
+               "key": "decisions",
+               "title": "Decision",
+               "weight": 0.3,
+               "score": 100,
+               "evidence": [
+                "✓ The design record",
+                "✓ At least 1 entity",
+                "✓ At least 0 relations",
+                "✓ At least 3 operations",
+                "✓ Every operation has an input and a return",
+                "✓ At least 1 decision",
+                "✓ Every decision has a rationale and a trade-off",
+                "✓ Every story is traced",
+                "✓ At least 4 endpoints",
+                "✓ An error catalogue"
+               ]
+              },
+              {
+               "key": "completeness",
+               "title": "Completeness",
+               "weight": 0.2,
+               "score": 100,
+               "evidence": [
+                "✓ The design record",
+                "✓ At least 1 entity",
+                "✓ At least 0 relations",
+                "✓ At least 3 operations",
+                "✓ Every operation has an input and a return",
+                "✓ At least 1 decision",
+                "✓ Every decision has a rationale and a trade-off",
+                "✓ Every story is traced",
+                "✓ At least 4 endpoints",
+                "✓ An error catalogue"
+               ]
+              }
+             ],
+             "checks": [
+              {
+               "id": "design.record",
+               "label": "The design record",
+               "status": "passed",
+               "detail": "The record is well formed"
+              },
+              {
+               "id": "design.entities.min",
+               "label": "At least 1 entity",
+               "status": "passed",
+               "detail": "1 entity"
+              },
+              {
+               "id": "design.relations.min",
+               "label": "At least 0 relations",
+               "status": "passed",
+               "detail": "0 relations"
+              },
+              {
+               "id": "design.operations.min",
+               "label": "At least 3 operations",
+               "status": "passed",
+               "detail": "3 operations"
+              },
+              {
+               "id": "design.operations.shape",
+               "label": "Every operation has an input and a return",
+               "status": "passed",
+               "detail": "Every operation names an input and a return"
+              },
+              {
+               "id": "design.decisions.min",
+               "label": "At least 1 decision",
+               "status": "passed",
+               "detail": "1 decision"
+              },
+              {
+               "id": "design.decisions.shape",
+               "label": "Every decision has a rationale and a trade-off",
+               "status": "passed",
+               "detail": "Every decision gives a rationale and a trade-off"
+              },
+              {
+               "id": "design.trace",
+               "label": "Every story is traced",
+               "status": "passed",
+               "detail": "Every story is traced"
+              },
+              {
+               "id": "design.api.min",
+               "label": "At least 4 endpoints",
+               "status": "passed",
+               "detail": "4 endpoints"
+              },
+              {
+               "id": "design.api.errors",
+               "label": "An error catalogue",
+               "status": "passed",
+               "detail": "3 errors declared"
+              }
+             ],
+             "assessmentMode": "strict_binary",
+             "passed": true,
+             "aiReview": {
+              "provider": "mock-ai",
+              "verdict": "pass",
+              "summary": "Mocked semantic review for route persistence and authority tests.",
+              "strengths": [],
+              "improvements": [],
+              "processNote": "Provider is explicitly mocked in this integration suite.",
+              "criteriaEvidence": [
+               {
+                "key": "contract",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               },
+               {
+                "key": "decisions",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               },
+               {
+                "key": "completeness",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               }
+              ]
+             },
+             "aiReliance": {
+              "hintsThisPhase": 0,
+              "index": 0
+             },
+             "integrity": {
+              "relianceFlag": false,
+              "relianceIndex": 0,
+              "mentorPasteFlag": false,
+              "noEffortFlag": false,
+              "note": "No integrity concerns flagged — healthy, self-directed process."
+             }
+            },
+            "createdAt": "2026-01-01T00:00:02.000Z",
+            "taskKey": "main"
+           }
+          }
+         ],
+         "opensAt": null,
+         "dueAt": null
+        },
+        {
+         "id": "<uuid:9>",
+         "key": "implementation",
+         "order": 3,
+         "title": "Implementation",
+         "status": "locked",
+         "bestScore": null,
+         "attempts": 0,
+         "reflection": null,
+         "passedAt": null,
+         "unlockedAt": null,
+         "hints": 0,
+         "relianceIndex": 0,
+         "passThreshold": 70,
+         "lastSubmission": null,
+         "tasks": [
+          {
+           "key": "main",
+           "order": 1,
+           "required": true,
+           "title": "Implementation",
+           "status": "in_progress",
+           "bestScore": null,
+           "attempts": 0,
+           "passedAt": null,
+           "awaitingSignOff": false,
+           "signedOffAt": null,
+           "lastSubmission": null
+          }
+         ],
+         "opensAt": null,
+         "dueAt": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "userId": "<uuid:2>",
+     "email": "<email:1>",
+     "displayName": "<name:ann>",
+     "avatar": 0,
+     "cohort": "<uuid:1>",
+     "cohortName": "Monday lab",
+     "createdAt": "2026-01-01T00:00:02.000Z",
+     "tokensToday": 4,
+     "interview": null,
+     "enrollments": [
+      {
+       "id": "<uuid:10>",
+       "projectSlug": "interviews-copy",
+       "projectTitle": "Interviews",
+       "currentPhaseOrder": 2,
+       "completed": false,
+       "startedAt": "2026-01-01T00:00:02.000Z",
+       "completedAt": null,
+       "phases": [
+        {
+         "id": "<uuid:11>",
+         "key": "requirements",
+         "order": 1,
+         "title": "Requirements",
+         "status": "passed",
+         "bestScore": 100,
+         "attempts": 1,
+         "reflection": null,
+         "passedAt": "2026-01-01T00:00:06.000Z",
+         "unlockedAt": "2026-01-01T00:00:07.000Z",
+         "hints": 0,
+         "relianceIndex": 0,
+         "passThreshold": 70,
+         "lastSubmission": {
+          "id": "<uuid:12>",
+          "status": "completed",
+          "score": 100,
+          "passed": true,
+          "verifiedPass": true,
+          "report": {
+           "overall": 100,
+           "criteria": [
+            {
+             "key": "story_quality",
+             "title": "Story",
+             "weight": 0.4,
+             "score": 100,
+             "evidence": [
+              "✓ The story record",
+              "✓ A full story sentence",
+              "✓ At least 2 acceptance criteria",
+              "✓ The required cases",
+              "✓ At least 1 out-of-scope lines"
+             ]
+            },
+            {
+             "key": "acceptance_criteria",
+             "title": "Acceptance criteria",
+             "weight": 0.4,
+             "score": 100,
+             "evidence": [
+              "✓ The story record",
+              "✓ A full story sentence",
+              "✓ At least 2 acceptance criteria",
+              "✓ The required cases",
+              "✓ At least 1 out-of-scope lines"
+             ]
+            },
+            {
+             "key": "completeness",
+             "title": "Completeness",
+             "weight": 0.2,
+             "score": 100,
+             "evidence": [
+              "✓ The story record",
+              "✓ A full story sentence",
+              "✓ At least 2 acceptance criteria",
+              "✓ The required cases",
+              "✓ At least 1 out-of-scope lines"
+             ]
+            }
+           ],
+           "checks": [
+            {
+             "id": "story.record",
+             "label": "The story record",
+             "status": "passed",
+             "detail": "The record is well formed"
+            },
+            {
+             "id": "story.sentence",
+             "label": "A full story sentence",
+             "status": "passed",
+             "detail": "As a, I want and So that are filled"
+            },
+            {
+             "id": "story.criteria.min",
+             "label": "At least 2 acceptance criteria",
+             "status": "passed",
+             "detail": "2 complete criteria"
+            },
+            {
+             "id": "story.criteria.tags",
+             "label": "The required cases",
+             "status": "passed",
+             "detail": "Every required case is covered"
+            },
+            {
+             "id": "story.scope.min",
+             "label": "At least 1 out-of-scope lines",
+             "status": "passed",
+             "detail": "1 out-of-scope lines"
+            }
+           ],
+           "assessmentMode": "strict_binary",
+           "passed": true,
+           "aiReview": {
+            "provider": "mock-ai",
+            "verdict": "pass",
+            "summary": "Mocked semantic review for route persistence and authority tests.",
+            "strengths": [],
+            "improvements": [],
+            "processNote": "Provider is explicitly mocked in this integration suite.",
+            "criteriaEvidence": [
+             {
+              "key": "story_quality",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             },
+             {
+              "key": "acceptance_criteria",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             },
+             {
+              "key": "completeness",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             }
+            ]
+           },
+           "aiReliance": {
+            "hintsThisPhase": 0,
+            "index": 0
+           },
+           "integrity": {
+            "relianceFlag": false,
+            "relianceIndex": 0,
+            "mentorPasteFlag": false,
+            "noEffortFlag": false,
+            "note": "No integrity concerns flagged — healthy, self-directed process."
+           }
+          },
+          "createdAt": "2026-01-01T00:00:02.000Z",
+          "taskKey": "main"
+         },
+         "tasks": [
+          {
+           "key": "main",
+           "order": 1,
+           "required": true,
+           "title": "Requirements",
+           "status": "passed",
+           "bestScore": 100,
+           "attempts": 1,
+           "passedAt": "2026-01-01T00:00:06.000Z",
+           "awaitingSignOff": false,
+           "signedOffAt": null,
+           "lastSubmission": {
+            "id": "<uuid:12>",
+            "status": "completed",
+            "score": 100,
+            "passed": true,
+            "verifiedPass": true,
+            "report": {
+             "overall": 100,
+             "criteria": [
+              {
+               "key": "story_quality",
+               "title": "Story",
+               "weight": 0.4,
+               "score": 100,
+               "evidence": [
+                "✓ The story record",
+                "✓ A full story sentence",
+                "✓ At least 2 acceptance criteria",
+                "✓ The required cases",
+                "✓ At least 1 out-of-scope lines"
+               ]
+              },
+              {
+               "key": "acceptance_criteria",
+               "title": "Acceptance criteria",
+               "weight": 0.4,
+               "score": 100,
+               "evidence": [
+                "✓ The story record",
+                "✓ A full story sentence",
+                "✓ At least 2 acceptance criteria",
+                "✓ The required cases",
+                "✓ At least 1 out-of-scope lines"
+               ]
+              },
+              {
+               "key": "completeness",
+               "title": "Completeness",
+               "weight": 0.2,
+               "score": 100,
+               "evidence": [
+                "✓ The story record",
+                "✓ A full story sentence",
+                "✓ At least 2 acceptance criteria",
+                "✓ The required cases",
+                "✓ At least 1 out-of-scope lines"
+               ]
+              }
+             ],
+             "checks": [
+              {
+               "id": "story.record",
+               "label": "The story record",
+               "status": "passed",
+               "detail": "The record is well formed"
+              },
+              {
+               "id": "story.sentence",
+               "label": "A full story sentence",
+               "status": "passed",
+               "detail": "As a, I want and So that are filled"
+              },
+              {
+               "id": "story.criteria.min",
+               "label": "At least 2 acceptance criteria",
+               "status": "passed",
+               "detail": "2 complete criteria"
+              },
+              {
+               "id": "story.criteria.tags",
+               "label": "The required cases",
+               "status": "passed",
+               "detail": "Every required case is covered"
+              },
+              {
+               "id": "story.scope.min",
+               "label": "At least 1 out-of-scope lines",
+               "status": "passed",
+               "detail": "1 out-of-scope lines"
+              }
+             ],
+             "assessmentMode": "strict_binary",
+             "passed": true,
+             "aiReview": {
+              "provider": "mock-ai",
+              "verdict": "pass",
+              "summary": "Mocked semantic review for route persistence and authority tests.",
+              "strengths": [],
+              "improvements": [],
+              "processNote": "Provider is explicitly mocked in this integration suite.",
+              "criteriaEvidence": [
+               {
+                "key": "story_quality",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               },
+               {
+                "key": "acceptance_criteria",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               },
+               {
+                "key": "completeness",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               }
+              ]
+             },
+             "aiReliance": {
+              "hintsThisPhase": 0,
+              "index": 0
+             },
+             "integrity": {
+              "relianceFlag": false,
+              "relianceIndex": 0,
+              "mentorPasteFlag": false,
+              "noEffortFlag": false,
+              "note": "No integrity concerns flagged — healthy, self-directed process."
+             }
+            },
+            "createdAt": "2026-01-01T00:00:02.000Z",
+            "taskKey": "main"
+           }
+          }
+         ],
+         "opensAt": null,
+         "dueAt": null
+        },
+        {
+         "id": "<uuid:13>",
+         "key": "design",
+         "order": 2,
+         "title": "Design",
+         "status": "submitted",
+         "bestScore": 100,
+         "attempts": 1,
+         "reflection": null,
+         "passedAt": null,
+         "unlockedAt": "2026-01-01T00:00:08.000Z",
+         "hints": 0,
+         "relianceIndex": 0,
+         "passThreshold": 70,
+         "lastSubmission": {
+          "id": "<uuid:14>",
+          "status": "completed",
+          "score": 100,
+          "passed": true,
+          "verifiedPass": true,
+          "report": {
+           "overall": 100,
+           "criteria": [
+            {
+             "key": "contract",
+             "title": "Contract",
+             "weight": 0.5,
+             "score": 100,
+             "evidence": [
+              "✓ The design record",
+              "✓ At least 1 entity",
+              "✓ At least 0 relations",
+              "✓ At least 3 operations",
+              "✓ Every operation has an input and a return",
+              "✓ At least 1 decision",
+              "✓ Every decision has a rationale and a trade-off",
+              "✓ Every story is traced",
+              "✓ At least 4 endpoints",
+              "✓ An error catalogue"
+             ]
+            },
+            {
+             "key": "decisions",
+             "title": "Decision",
+             "weight": 0.3,
+             "score": 100,
+             "evidence": [
+              "✓ The design record",
+              "✓ At least 1 entity",
+              "✓ At least 0 relations",
+              "✓ At least 3 operations",
+              "✓ Every operation has an input and a return",
+              "✓ At least 1 decision",
+              "✓ Every decision has a rationale and a trade-off",
+              "✓ Every story is traced",
+              "✓ At least 4 endpoints",
+              "✓ An error catalogue"
+             ]
+            },
+            {
+             "key": "completeness",
+             "title": "Completeness",
+             "weight": 0.2,
+             "score": 100,
+             "evidence": [
+              "✓ The design record",
+              "✓ At least 1 entity",
+              "✓ At least 0 relations",
+              "✓ At least 3 operations",
+              "✓ Every operation has an input and a return",
+              "✓ At least 1 decision",
+              "✓ Every decision has a rationale and a trade-off",
+              "✓ Every story is traced",
+              "✓ At least 4 endpoints",
+              "✓ An error catalogue"
+             ]
+            }
+           ],
+           "checks": [
+            {
+             "id": "design.record",
+             "label": "The design record",
+             "status": "passed",
+             "detail": "The record is well formed"
+            },
+            {
+             "id": "design.entities.min",
+             "label": "At least 1 entity",
+             "status": "passed",
+             "detail": "1 entity"
+            },
+            {
+             "id": "design.relations.min",
+             "label": "At least 0 relations",
+             "status": "passed",
+             "detail": "0 relations"
+            },
+            {
+             "id": "design.operations.min",
+             "label": "At least 3 operations",
+             "status": "passed",
+             "detail": "3 operations"
+            },
+            {
+             "id": "design.operations.shape",
+             "label": "Every operation has an input and a return",
+             "status": "passed",
+             "detail": "Every operation names an input and a return"
+            },
+            {
+             "id": "design.decisions.min",
+             "label": "At least 1 decision",
+             "status": "passed",
+             "detail": "1 decision"
+            },
+            {
+             "id": "design.decisions.shape",
+             "label": "Every decision has a rationale and a trade-off",
+             "status": "passed",
+             "detail": "Every decision gives a rationale and a trade-off"
+            },
+            {
+             "id": "design.trace",
+             "label": "Every story is traced",
+             "status": "passed",
+             "detail": "Every story is traced"
+            },
+            {
+             "id": "design.api.min",
+             "label": "At least 4 endpoints",
+             "status": "passed",
+             "detail": "4 endpoints"
+            },
+            {
+             "id": "design.api.errors",
+             "label": "An error catalogue",
+             "status": "passed",
+             "detail": "3 errors declared"
+            }
+           ],
+           "assessmentMode": "strict_binary",
+           "passed": true,
+           "aiReview": {
+            "provider": "mock-ai",
+            "verdict": "pass",
+            "summary": "Mocked semantic review for route persistence and authority tests.",
+            "strengths": [],
+            "improvements": [],
+            "processNote": "Provider is explicitly mocked in this integration suite.",
+            "criteriaEvidence": [
+             {
+              "key": "contract",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             },
+             {
+              "key": "decisions",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             },
+             {
+              "key": "completeness",
+              "met": true,
+              "evidence": "Synthetic semantic finding; automated checks execute separately.",
+              "issue": "",
+              "nextStep": ""
+             }
+            ]
+           },
+           "aiReliance": {
+            "hintsThisPhase": 0,
+            "index": 0
+           },
+           "integrity": {
+            "relianceFlag": false,
+            "relianceIndex": 0,
+            "mentorPasteFlag": false,
+            "noEffortFlag": false,
+            "note": "No integrity concerns flagged — healthy, self-directed process."
+           }
+          },
+          "createdAt": "2026-01-01T00:00:02.000Z",
+          "taskKey": "main"
+         },
+         "tasks": [
+          {
+           "key": "main",
+           "order": 1,
+           "required": true,
+           "title": "Design",
+           "status": "submitted",
+           "bestScore": 100,
+           "attempts": 1,
+           "passedAt": null,
+           "awaitingSignOff": true,
+           "signedOffAt": null,
+           "lastSubmission": {
+            "id": "<uuid:14>",
+            "status": "completed",
+            "score": 100,
+            "passed": true,
+            "verifiedPass": true,
+            "report": {
+             "overall": 100,
+             "criteria": [
+              {
+               "key": "contract",
+               "title": "Contract",
+               "weight": 0.5,
+               "score": 100,
+               "evidence": [
+                "✓ The design record",
+                "✓ At least 1 entity",
+                "✓ At least 0 relations",
+                "✓ At least 3 operations",
+                "✓ Every operation has an input and a return",
+                "✓ At least 1 decision",
+                "✓ Every decision has a rationale and a trade-off",
+                "✓ Every story is traced",
+                "✓ At least 4 endpoints",
+                "✓ An error catalogue"
+               ]
+              },
+              {
+               "key": "decisions",
+               "title": "Decision",
+               "weight": 0.3,
+               "score": 100,
+               "evidence": [
+                "✓ The design record",
+                "✓ At least 1 entity",
+                "✓ At least 0 relations",
+                "✓ At least 3 operations",
+                "✓ Every operation has an input and a return",
+                "✓ At least 1 decision",
+                "✓ Every decision has a rationale and a trade-off",
+                "✓ Every story is traced",
+                "✓ At least 4 endpoints",
+                "✓ An error catalogue"
+               ]
+              },
+              {
+               "key": "completeness",
+               "title": "Completeness",
+               "weight": 0.2,
+               "score": 100,
+               "evidence": [
+                "✓ The design record",
+                "✓ At least 1 entity",
+                "✓ At least 0 relations",
+                "✓ At least 3 operations",
+                "✓ Every operation has an input and a return",
+                "✓ At least 1 decision",
+                "✓ Every decision has a rationale and a trade-off",
+                "✓ Every story is traced",
+                "✓ At least 4 endpoints",
+                "✓ An error catalogue"
+               ]
+              }
+             ],
+             "checks": [
+              {
+               "id": "design.record",
+               "label": "The design record",
+               "status": "passed",
+               "detail": "The record is well formed"
+              },
+              {
+               "id": "design.entities.min",
+               "label": "At least 1 entity",
+               "status": "passed",
+               "detail": "1 entity"
+              },
+              {
+               "id": "design.relations.min",
+               "label": "At least 0 relations",
+               "status": "passed",
+               "detail": "0 relations"
+              },
+              {
+               "id": "design.operations.min",
+               "label": "At least 3 operations",
+               "status": "passed",
+               "detail": "3 operations"
+              },
+              {
+               "id": "design.operations.shape",
+               "label": "Every operation has an input and a return",
+               "status": "passed",
+               "detail": "Every operation names an input and a return"
+              },
+              {
+               "id": "design.decisions.min",
+               "label": "At least 1 decision",
+               "status": "passed",
+               "detail": "1 decision"
+              },
+              {
+               "id": "design.decisions.shape",
+               "label": "Every decision has a rationale and a trade-off",
+               "status": "passed",
+               "detail": "Every decision gives a rationale and a trade-off"
+              },
+              {
+               "id": "design.trace",
+               "label": "Every story is traced",
+               "status": "passed",
+               "detail": "Every story is traced"
+              },
+              {
+               "id": "design.api.min",
+               "label": "At least 4 endpoints",
+               "status": "passed",
+               "detail": "4 endpoints"
+              },
+              {
+               "id": "design.api.errors",
+               "label": "An error catalogue",
+               "status": "passed",
+               "detail": "3 errors declared"
+              }
+             ],
+             "assessmentMode": "strict_binary",
+             "passed": true,
+             "aiReview": {
+              "provider": "mock-ai",
+              "verdict": "pass",
+              "summary": "Mocked semantic review for route persistence and authority tests.",
+              "strengths": [],
+              "improvements": [],
+              "processNote": "Provider is explicitly mocked in this integration suite.",
+              "criteriaEvidence": [
+               {
+                "key": "contract",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               },
+               {
+                "key": "decisions",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               },
+               {
+                "key": "completeness",
+                "met": true,
+                "evidence": "Synthetic semantic finding; automated checks execute separately.",
+                "issue": "",
+                "nextStep": ""
+               }
+              ]
+             },
+             "aiReliance": {
+              "hintsThisPhase": 0,
+              "index": 0
+             },
+             "integrity": {
+              "relianceFlag": false,
+              "relianceIndex": 0,
+              "mentorPasteFlag": false,
+              "noEffortFlag": false,
+              "note": "No integrity concerns flagged — healthy, self-directed process."
+             }
+            },
+            "createdAt": "2026-01-01T00:00:02.000Z",
+            "taskKey": "main"
+           }
+          }
+         ],
+         "opensAt": null,
+         "dueAt": null
+        },
+        {
+         "id": "<uuid:15>",
+         "key": "implementation",
+         "order": 3,
+         "title": "Implementation",
+         "status": "locked",
+         "bestScore": null,
+         "attempts": 0,
+         "reflection": null,
+         "passedAt": null,
+         "unlockedAt": null,
+         "hints": 0,
+         "relianceIndex": 0,
+         "passThreshold": 70,
+         "lastSubmission": null,
+         "tasks": [
+          {
+           "key": "main",
+           "order": 1,
+           "required": true,
+           "title": "Implementation",
+           "status": "in_progress",
+           "bestScore": null,
+           "attempts": 0,
+           "passedAt": null,
+           "awaitingSignOff": false,
+           "signedOffAt": null,
+           "lastSubmission": null
+          }
+         ],
+         "opensAt": null,
+         "dueAt": null
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "stuck",
+   "method": "GET",
+   "path": "/instructor/stuck",
+   "query": {
+    "cohortId": "<uuid:1>"
+   },
+   "requestBody": null,
+   "status": 200,
+   "body": []
+  },
+  {
+   "name": "classProject",
+   "method": "GET",
+   "path": "/instructor/cohorts/<uuid:1>/project",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "cohortId": "<uuid:1>",
+    "active": {
+     "id": "<uuid:16>",
+     "cohortId": "<uuid:1>",
+     "projectVersionId": "<uuid:17>",
+     "projectSlug": "interviews-copy",
+     "projectTitle": "Interviews",
+     "version": "1.0.0",
+     "assignedByUserId": "<uuid:18>",
+     "assignedByName": "<name:teacher>",
+     "reason": "This class interviews a customer this term.",
+     "active": true,
+     "createdAt": "2026-01-01T00:00:02.000Z",
+     "provenance": {
+      "ownPhases": 2,
+      "mixedPhases": 0,
+      "referencePhases": 0,
+      "applicationFrom": null
+     },
+     "phases": [
+      "requirements",
+      "design",
+      "implementation"
+     ]
+    },
+    "history": [
+     {
+      "id": "<uuid:16>",
+      "cohortId": "<uuid:1>",
+      "projectVersionId": "<uuid:17>",
+      "projectSlug": "interviews-copy",
+      "projectTitle": "Interviews",
+      "version": "1.0.0",
+      "assignedByUserId": "<uuid:18>",
+      "assignedByName": "<name:teacher>",
+      "reason": "This class interviews a customer this term.",
+      "active": true,
+      "createdAt": "2026-01-01T00:00:02.000Z",
+      "provenance": {
+       "ownPhases": 2,
+       "mixedPhases": 0,
+       "referencePhases": 0,
+       "applicationFrom": null
+      },
+      "phases": [
+       "requirements",
+       "design",
+       "implementation"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "assignable",
+   "method": "GET",
+   "path": "/instructor/cohorts/<uuid:1>/project/assignable",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": [
+    {
+     "projectId": "<uuid:19>",
+     "projectSlug": "tasktrackr",
+     "projectTitle": "TaskTrackr — a task manager you can run",
+     "platformOwned": true,
+     "mine": false,
+     "versionId": "<uuid:20>",
+     "version": "6.0.0",
+     "publishedAt": "2026-01-01T00:00:09.000Z",
+     "current": false,
+     "provenance": {
+      "ownPhases": 0,
+      "mixedPhases": 0,
+      "referencePhases": 2,
+      "applicationFrom": "TaskTrackr"
+     },
+     "phases": [
+      "requirements",
+      "design",
+      "implementation",
+      "testing",
+      "deployment",
+      "maintenance"
+     ]
+    },
+    {
+     "projectId": "<uuid:21>",
+     "projectSlug": "release-signoff",
+     "projectTitle": "Shelf — a small library you can run",
+     "platformOwned": true,
+     "mine": false,
+     "versionId": "<uuid:22>",
+     "version": "1.0.0",
+     "publishedAt": "2026-01-01T00:00:10.000Z",
+     "current": false,
+     "provenance": {
+      "ownPhases": 2,
+      "mixedPhases": 0,
+      "referencePhases": 0,
+      "applicationFrom": null
+     },
+     "phases": [
+      "requirements",
+      "design",
+      "implementation"
+     ]
+    },
+    {
+     "projectId": "<uuid:23>",
+     "projectSlug": "interviews-copy",
+     "projectTitle": "Interviews",
+     "platformOwned": false,
+     "mine": true,
+     "versionId": "<uuid:17>",
+     "version": "1.0.0",
+     "publishedAt": "2026-01-01T00:00:11.000Z",
+     "current": true,
+     "provenance": {
+      "ownPhases": 2,
+      "mixedPhases": 0,
+      "referencePhases": 0,
+      "applicationFrom": null
+     },
+     "phases": [
+      "requirements",
+      "design",
+      "implementation"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "notes",
+   "method": "GET",
+   "path": "/instructor/notes",
+   "query": {
+    "cohortId": "<uuid:1>"
+   },
+   "requestBody": null,
+   "status": 200,
+   "body": []
+  },
+  {
+   "name": "schedule",
+   "method": "GET",
+   "path": "/instructor/cohorts/<uuid:1>/schedule",
+   "query": {
+    "project": "interviews-copy"
+   },
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "cohortId": "<uuid:1>",
+    "projectSlug": "interviews-copy",
+    "phases": [
+     {
+      "phaseKey": "requirements",
+      "opensAt": null,
+      "dueAt": null
+     },
+     {
+      "phaseKey": "design",
+      "opensAt": null,
+      "dueAt": null
+     },
+     {
+      "phaseKey": "implementation",
+      "opensAt": null,
+      "dueAt": null
+     }
+    ],
+    "timezone": "Asia/Singapore"
+   }
+  },
+  {
+   "name": "teacherFeedback1",
+   "method": "GET",
+   "path": "/submissions/<uuid:6>/teacher-feedback",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": []
+  },
+  {
+   "name": "teacherFeedback2",
+   "method": "GET",
+   "path": "/submissions/<uuid:8>/teacher-feedback",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": []
+  },
+  {
+   "name": "teacherFeedback3",
+   "method": "GET",
+   "path": "/submissions/<uuid:12>/teacher-feedback",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": []
+  },
+  {
+   "name": "teacherFeedback4",
+   "method": "GET",
+   "path": "/submissions/<uuid:14>/teacher-feedback",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": []
+  },
+  {
+   "name": "queue",
+   "method": "GET",
+   "path": "/instructor/cohorts/<uuid:1>/signoff-queue",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "cohortId": "<uuid:1>",
+    "rows": [
+     {
+      "userId": "<uuid:2>",
+      "learnerName": "<name:ann>",
+      "phaseKey": "design",
+      "taskKey": "main",
+      "taskTitle": "Design",
+      "awaitingSince": "2026-01-01T00:00:02.000Z"
+     },
+     {
+      "userId": "<uuid:3>",
+      "learnerName": "<name:ben>",
+      "phaseKey": "design",
+      "taskKey": "main",
+      "taskTitle": "Design",
+      "awaitingSince": "2026-01-01T00:00:02.000Z"
+     }
+    ]
+   }
+  },
+  {
+   "name": "bulkShortReason",
+   "method": "POST",
+   "path": "/instructor/cohorts/<uuid:1>/signoff",
+   "query": {},
+   "requestBody": {
+    "phaseKey": "design",
+    "taskKey": "main",
+    "userIds": [
+     "<uuid:3>",
+     "<uuid:2>"
+    ],
+    "reason": "xxxxxxxxx"
+   },
+   "status": 400,
+   "body": {
+    "message": "give a reason of at least 10 characters — it is recorded with each learner's sign-off",
+    "error": "Bad Request",
+    "statusCode": 400
+   }
+  },
+  {
+   "name": "bulk",
+   "method": "POST",
+   "path": "/instructor/cohorts/<uuid:1>/signoff",
+   "query": {},
+   "requestBody": {
+    "phaseKey": "design",
+    "taskKey": "main",
+    "userIds": [
+     "<uuid:3>",
+     "<uuid:2>"
+    ],
+    "reason": "Heard both interviews in the Monday lab."
+   },
+   "status": 200,
+   "body": {
+    "signedOff": [
+     "<uuid:2>",
+     "<uuid:3>"
+    ],
+    "refused": []
+   }
+  },
+  {
+   "name": "bulkAgain",
+   "method": "POST",
+   "path": "/instructor/cohorts/<uuid:1>/signoff",
+   "query": {},
+   "requestBody": {
+    "phaseKey": "design",
+    "taskKey": "main",
+    "userIds": [
+     "<uuid:3>",
+     "<uuid:2>"
+    ],
+    "reason": "Heard both interviews in the Monday lab."
+   },
+   "status": 200,
+   "body": {
+    "signedOff": [],
+    "refused": [
+     {
+      "userId": "<uuid:3>",
+      "sentence": "Design has already passed for this learner."
+     },
+     {
+      "userId": "<uuid:2>",
+      "sentence": "Design has already passed for this learner."
+     }
+    ]
+   }
+  },
+  {
+   "name": "queueAfter",
+   "method": "GET",
+   "path": "/instructor/cohorts/<uuid:1>/signoff-queue",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "cohortId": "<uuid:1>",
+    "rows": []
+   }
+  }
+ ]
+}

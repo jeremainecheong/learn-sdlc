@@ -1,0 +1,167 @@
+<div class="space-y-7 px-4 py-4 pb-10" aria-live="polite" data-testid="feedback-report">
+<section class="rounded-panel border-1.5 border-edge px-4 py-3.5 bg-passtint" data-testid="feedback-verdict">
+<div class="flex items-start gap-3">
+<span class="pt-[5px]">
+<span class="" style="width: 12px; height: 12px; border-radius: 3px; box-sizing: border-box; flex: 0 0 auto; display: inline-block; background: rgb(var(--c-pass));" aria-hidden="true" data-state="pass">
+</span>
+</span>
+<div class="min-w-0 flex-1">
+<p class="text-[17px] font-semibold leading-tight tracking-[-0.01em] text-ink">Pass</p>
+<p class="mt-1 text-[13px] leading-relaxed text-ink2">All required evidence accepted.</p>
+</div>
+</div>
+</section>
+<section>
+<div class="mb-2.5 flex items-start justify-between gap-3">
+<div class="min-w-0">
+<h3 class="h3">Criteria</h3>
+<p class="purpose">Every required criterion must be supported by correct evidence. There is no numerical pass threshold.</p>
+</div>
+</div>
+<table class="w-full border-collapse">
+<thead>
+<tr>
+<th scope="col" class="label-sm border-b-1.5 border-edge2 pb-1.5 text-left font-medium">Criterion</th>
+<th scope="col" class="label-sm border-b-1.5 border-edge2 pb-1.5 text-left font-medium text-right">Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border-b-1.5 border-edge py-2.5 align-top pr-3">
+<div class="flex items-start gap-2">
+<span class="pt-[3px]">
+<span class="" style="width: 11px; height: 11px; border-radius: 3px; box-sizing: border-box; flex: 0 0 auto; display: inline-block; background: rgb(var(--c-pass));" aria-hidden="true" data-state="pass">
+</span>
+</span>
+<div class="min-w-0">
+<p class="text-[13px] font-semibold leading-snug text-ink">Hidden tests</p>
+<ul class="mt-1 space-y-1">
+<li class="text-[12px] leading-relaxed text-muted">8/8 passed</li>
+</ul>
+</div>
+</div>
+</td>
+<td class="border-b-1.5 border-edge py-2.5 align-top text-right">
+<span class="chip chip-pass ">Met</span>
+</td>
+</tr>
+<tr>
+<td class="border-b-1.5 border-edge py-2.5 align-top pr-3">
+<div class="flex items-start gap-2">
+<span class="pt-[3px]">
+<span class="" style="width: 11px; height: 11px; border-radius: 3px; box-sizing: border-box; flex: 0 0 auto; display: inline-block; background: rgb(var(--c-pass));" aria-hidden="true" data-state="pass">
+</span>
+</span>
+<div class="min-w-0">
+<p class="text-[13px] font-semibold leading-snug text-ink">Code quality</p>
+</div>
+</div>
+</td>
+<td class="border-b-1.5 border-edge py-2.5 align-top text-right">
+<span class="chip chip-pass ">Met</span>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<div class="mb-2.5 flex items-start justify-between gap-3">
+<div class="min-w-0">
+<h3 class="h3">Checks</h3>
+<p class="purpose">What ran on this submission, in the sandbox.</p>
+</div>
+</div>
+<table class="w-full border-collapse">
+<thead>
+<tr>
+<th scope="col" class="label-sm border-b-1.5 border-edge2 pb-1.5 text-left font-medium">Check</th>
+<th scope="col" class="label-sm border-b-1.5 border-edge2 pb-1.5 text-left font-medium text-right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border-b-1.5 border-edge py-2.5 align-top pr-3">
+<div class="flex items-start gap-2">
+<span class="pt-[3px]">
+<span class="" style="width: 11px; height: 11px; border-radius: 3px; box-sizing: border-box; flex: 0 0 auto; display: inline-block; background: rgb(var(--c-pass));" aria-hidden="true" data-state="pass">
+</span>
+</span>
+<div class="min-w-0">
+<p class="text-[13px] font-semibold leading-snug text-ink">Hidden test suite (edge cases)</p>
+</div>
+</div>
+</td>
+<td class="border-b-1.5 border-edge py-2.5 align-top text-right">
+<span class="chip chip-pass ">Passed</span>
+</td>
+</tr>
+<tr>
+<td class="border-b-1.5 border-edge py-2.5 align-top pr-3">
+<div class="flex items-start gap-2">
+<span class="pt-[3px]">
+<span class="" style="width: 11px; height: 11px; border-radius: 3px; box-sizing: border-box; flex: 0 0 auto; display: inline-block; background: rgb(var(--c-pass));" aria-hidden="true" data-state="pass">
+</span>
+</span>
+<div class="min-w-0">
+<p class="text-[13px] font-semibold leading-snug text-ink">Static analysis</p>
+</div>
+</div>
+</td>
+<td class="border-b-1.5 border-edge py-2.5 align-top text-right">
+<span class="chip chip-pass ">Passed</span>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section data-testid="static-analysis">
+<div class="mb-2.5 flex items-start justify-between gap-3">
+<div class="min-w-0">
+<h3 class="h3">Static analysis</h3>
+<p class="purpose">5 functions across 2 files, 0 to do, complexity up to 3, docstrings on 80%.</p>
+</div>
+<span class="shrink-0">
+<span class="chip chip-pass ">Clean</span>
+</span>
+</div>
+</section>
+<section data-testid="ai-review">
+<div class="mb-2.5 flex items-start gap-3">
+<span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-ctl border-1.5 border-edge bg-raised text-accent">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb shrink-0" aria-hidden="true">
+<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5">
+</path>
+<path d="M9 18h6">
+</path>
+<path d="M10 22h4">
+</path>
+</svg>
+</span>
+<div class="min-w-0 flex-1">
+<div class="mb-2.5 flex items-start justify-between gap-3">
+<div class="min-w-0">
+<h3 class="h3">Review</h3>
+<p class="purpose">Written by the phase mentor from your artefact and the checks above.</p>
+</div>
+<span class="shrink-0">
+<span class="chip ">Reviewed by Fixture</span>
+</span>
+</div>
+</div>
+</div>
+<p class="text-[13px] leading-relaxed text-ink2">Fine.</p>
+</section>
+<section data-testid="reliance-note">
+<div class="mb-2.5 flex items-start justify-between gap-3">
+<div class="min-w-0">
+<h3 class="h3">Mentor activity</h3>
+<p class="purpose">Guided hints are learning activity. They do not change the evidence needed for a Pass.</p>
+</div>
+</div>
+<div class="flex min-w-0 flex-col gap-0.5 rounded-ctl px-3 py-2.5 bg-raised ">
+<span class="readout text-[20px] leading-tight text-ink">0</span>
+<span class="label-sm wrap font-medium text-muted">Guided hints this phase</span>
+</div>
+<p class="mt-2 text-[13px] leading-relaxed text-muted" data-testid="reliance-agentic">Agentic proposals are not counted here.</p>
+</section>
+</div>

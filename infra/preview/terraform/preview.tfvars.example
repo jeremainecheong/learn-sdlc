@@ -1,0 +1,12 @@
+# Metadata only. Replace the account and tester address after choosing a preview
+# identity/audience. Do not copy credentials, passwords or secret JSON here.
+aws_account_id      = "000000000000"
+aws_profile         = "learnsdlc-preview"
+preview_host        = "preview.example.invalid"
+allowed_https_cidrs = ["198.51.100.42/32"]
+
+# Optional existing container ARN; Terraform never reads or populates its value.
+# app_secret_arn = "arn:aws:secretsmanager:ap-southeast-1:000000000000:secret:learnsdlc/preview/config-AbCdEf"
+
+# After reviewing the first plan, pin selected_ami_id for repeatable replacements.
+# ami_id = "ami-0123456789abcdef0"

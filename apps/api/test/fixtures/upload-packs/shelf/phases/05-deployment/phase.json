@@ -1,0 +1,154 @@
+{
+  "title": "Deployment",
+  "intro": "Finish the API's image definition and the runbook, run the selfcheck, then run the drill and write down what broke.",
+  "artifactKind": "config",
+  "canRun": true,
+  "runLabel": "Run selfcheck",
+  "taskPanel": "Finish api/Dockerfile so the image starts the API, and write the runbook an operator reads at 3am in the Runbook tab. Then run the selfcheck, and run the drill: a broken configuration is swapped in, and you write down what broke.\n\nWhat good looks like: the Dockerfile sets a working directory, copies the application and starts api/main.py in exec form, with no TODO left. The runbook in the Runbook tab says how to check the service is healthy under Health checks and how to roll back under Rollback; its Environment and Data sections are there for anything else an operator needs. The incident is closed on the drill page with what the drill broke, the fix and one action item.\n\nUsing the AI mentor well: ask what each Dockerfile instruction changes about the image, and write the instructions yourself.",
+  "objectives": [
+    "Complete api/Dockerfile: WORKDIR, COPY and an exec-form ENTRYPOINT",
+    "Write the runbook: health check, rollback, incident",
+    "Run the drill and record the setting that broke the deployment"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "config_completeness",
+        "title": "Config completeness",
+        "weight": 0.4,
+        "description": "api/Dockerfile carries every instruction the image needs, and no TODO is left."
+      },
+      {
+        "key": "build_smoke",
+        "title": "Isolated selfcheck",
+        "weight": 0.35,
+        "description": "The launcher api/Dockerfile declares runs the selfcheck in the sandbox. It does not build an image."
+      },
+      {
+        "key": "runbook_quality",
+        "title": "Runbook quality",
+        "weight": 0.25,
+        "description": "Health check, rollback and the incident, written for someone who was not there."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "config",
+    "smoke": {
+      "dockerfile": "api/Dockerfile",
+      "commands": [
+        [
+          "python3",
+          "api/main.py",
+          "--selfcheck"
+        ]
+      ],
+      "expect": "shelf selfcheck: 5 routes, config ok"
+    },
+    "drill": {
+      "fault": "port-zero",
+      "description": "deploy/shelf.json sets the port to 0, so the service would listen where nobody routes and the selfcheck refuses the configuration.",
+      "expectFailure": true
+    },
+    "rules": [
+      {
+        "id": "docker-workdir",
+        "label": "api/Dockerfile sets a WORKDIR",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "pattern": "^\\s*WORKDIR\\s+\\S+",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Set the directory the instructions below run in, e.g. WORKDIR /app."
+      },
+      {
+        "id": "docker-copy",
+        "label": "api/Dockerfile copies the application",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "pattern": "^\\s*COPY\\s+\\S+",
+        "flags": "im",
+        "required": true,
+        "failDetail": "The image needs api/ and deploy/: add the COPY instructions."
+      },
+      {
+        "id": "docker-entrypoint",
+        "label": "api/Dockerfile starts the API in exec form",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "pattern": "^\\s*(ENTRYPOINT|CMD)\\s+\\[",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Start the API in exec form, as a JSON array naming python3 and api/main.py."
+      },
+      {
+        "id": "docker-no-todo",
+        "label": "No TODO left in api/Dockerfile",
+        "criterion": "config_completeness",
+        "target": "api/Dockerfile",
+        "forbidden": "TODO\\(learner\\)",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Replace every TODO(learner) with a real instruction."
+      }
+    ],
+    "runbook": {
+      "record": "deployment/runbook.json",
+      "floor": {
+        "minEnvironment": 0,
+        "minHealth": 1,
+        "minRollback": 1,
+        "minData": 0,
+        "requireIncident": true
+      }
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the DEPLOYMENT phase of Shelf, a teacher's own application: a Python Flask API that keeps books in memory and a TypeScript React page that lists them. The learner completes api/Dockerfile and the runbook in the Runbook tab and runs the drill. The selfcheck runs the launcher api/Dockerfile declares in an isolated runner; it does not build an image or start a container. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "dockerfile",
+          "workdir",
+          "copy",
+          "entrypoint",
+          "cmd"
+        ],
+        "hints": [
+          "In what order do WORKDIR, COPY and ENTRYPOINT have to appear, and why?",
+          "What does exec form hand to the program that shell form would not?"
+        ]
+      },
+      {
+        "keywords": [
+          "runbook",
+          "health",
+          "rollback",
+          "operator"
+        ],
+        "hints": [
+          "What one command proves the service is alive, and what output says so?",
+          "What would an operator type to get yesterday's image back?"
+        ]
+      },
+      {
+        "keywords": [
+          "drill",
+          "incident",
+          "port",
+          "config"
+        ],
+        "hints": [
+          "The selfcheck refused the configuration: which line of its output names the setting?",
+          "What would you write so the next person finds the cause in a minute?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with api/Dockerfile: the three TODOs, in order.",
+      "Then the runbook: health check, rollback, incident.",
+      "Run the selfcheck, run the drill, and close the incident on the drill page naming the setting that was wrong."
+    ]
+  }
+}

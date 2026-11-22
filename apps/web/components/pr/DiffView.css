@@ -1,0 +1,28 @@
+/* Code keeps its intrinsic table width. Inline discussion follows the visible
+   scroll viewport so reading a long source line never cuts off its reply. */
+.pr-diff-scroll {
+  container-type: inline-size;
+}
+
+.pr-diff-thread {
+  position: sticky;
+  left: 0;
+  inline-size: 100cqi;
+  max-inline-size: 100%;
+  display: flow-root;
+  overflow-wrap: anywhere;
+}
+
+.pr-diff-thread > [data-testid^="phase-implementation-thread-"] {
+  margin-inline: 106px 10px;
+}
+
+.pr-diff-thread input {
+  min-inline-size: 0;
+}
+
+@media (max-width: 767px) {
+  .pr-diff-thread > [data-testid^="phase-implementation-thread-"] {
+    margin-inline: 8px;
+  }
+}

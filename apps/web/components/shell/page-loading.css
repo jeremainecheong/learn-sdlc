@@ -1,0 +1,12 @@
+.route-loading { flex: 1; min-width: 0; padding: clamp(20px, 3vw, 40px); overflow: hidden; background: rgb(var(--c-ground)); }
+.route-loading-label { color: rgb(var(--c-muted)); font-size: 13px; margin-bottom: 20px; }
+.route-loading-heading { width: min(360px, 65%); height: 32px; margin-bottom: 28px; border-radius: 9px; background: rgb(var(--c-edge) / .7); }
+.route-loading-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 20px; }
+.route-loading-panel { min-height: 250px; padding: 28px; border: 1px solid rgb(var(--c-edge)); border-radius: var(--radius-panel, 22px); background: rgb(var(--c-surface)); }
+.route-loading-panel span { display: block; height: 13px; border-radius: 5px; background: rgb(var(--c-edge) / .65); margin-bottom: 18px; }
+.route-loading-panel span:nth-child(2) { width: 85%; }
+.route-loading-panel span:nth-child(3) { width: 60%; }
+.shell-page > main:not(.route-loading), .shell-page > div > main { animation: page-content-arrival 150ms ease-out both; }
+@keyframes page-content-arrival { from { opacity: .65; } to { opacity: 1; } }
+@media (max-width: 720px) { .route-loading-grid { grid-template-columns: minmax(0, 1fr); } .route-loading-panel { min-height: 190px; } }
+@media (prefers-reduced-motion: reduce) { .shell-page > main:not(.route-loading), .shell-page > div > main { animation: none; } }

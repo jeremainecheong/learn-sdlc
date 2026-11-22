@@ -1,0 +1,620 @@
+/* Tailwind 4, loaded the way Tailwind 3 cascaded: the theme and preflight in
+   their layers, the utilities unlayered, so a utility competes with the rules
+   below by specificity and order exactly as it did before 4 put utilities in a
+   cascade layer that every unlayered rule beats. */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css';
+/* The theme (tokens, radii, the flat shadow scale) stays in the JS config. */
+@config '../tailwind.config.js';
+
+/* Tailwind 4 changed four defaults this design was drawn with; these keep the
+   Tailwind 3 behaviour: hover: applies on every device, not only where the
+   pointer can hover; a bare border is Tailwind 3's grey-200; placeholders are
+   its grey-400; and buttons show the pointer cursor. */
+@custom-variant hover (&:hover);
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: #e5e7eb;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: #9ca3af;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Tokens.
+
+   Every colour is an RGB triplet so Tailwind's opacity modifiers work
+   (bg-accent/20 → rgb(var(--c-accent) / 0.2)). Paper is the default;
+   Graphite is applied as data-theme on <html> by the boot script in layout.tsx
+   before the first paint, and by lib/theme.ts afterwards.
+--------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --c-ground: 243 244 246;
+  --c-surface: 255 255 255;
+  --c-raised: 238 240 243;
+  --c-edge: 227 230 235;
+  --c-edge2: 203 208 216;
+  --c-ink: 17 24 39;
+  --c-ink2: 63 70 83;
+  /* A shade deeper than 99 106 120: a Stat's label is drawn on the status
+     tints as well as on the panel, and on failtint that shade reads only
+     4.44 to 1. */
+  --c-muted: 95 102 116;
+  /* Decorative separators only. Readable text and placeholders use muted;
+     actionable glyphs use ink2/accent so their meaning remains visible. */
+  --c-dim: 156 163 175;
+  /* Paper's three chromatic tokens each sit a step deeper than the obvious
+     one, because each is read on its own tint as well as on white: at
+     37 99 235 / 21 128 61 / 220 38 38 the pairs were 4.48, 4.32 and 3.94 to 1
+     and every error message in the product failed. */
+  --c-accent: 29 78 216;
+  --c-onaccent: 255 255 255;
+  --c-tint: 232 239 255;
+  --c-pass: 22 101 52;
+  --c-fail: 185 28 28;
+  --c-warn: 154 52 18;
+  --c-passtint: 223 243 230;
+  --c-failtint: 253 226 226;
+  --c-warntint: 255 232 217;
+  /* text drawn on a solid pass/fail/warn fill */
+  --c-onstatus: 255 255 255;
+  --c-code: 255 255 255;
+  --c-codeline: 240 242 246;
+  /* Line numbers are read, so the gutter is measured like text: at
+     154 160 171 it was 2.6 to 1 on the code surface. */
+  --c-gutter: 102 109 122;
+
+  /* Each hue is read on its own tint (the numeral tile, the section strip)
+     so requirements, implementation, testing and maintenance follow the same
+     deepening as the status colours above. */
+  --hue-requirements: 133 77 14;
+  --hue-design: 124 58 237;
+  --hue-implementation: 29 78 216;
+  --hue-testing: 22 101 52;
+  --hue-deployment: 14 116 144;
+  --hue-maintenance: 190 24 93;
+
+  --tint-requirements: 251 243 214;
+  --tint-design: 239 231 253;
+  --tint-implementation: 228 236 253;
+  --tint-testing: 223 243 230;
+  --tint-deployment: 221 241 246;
+  --tint-maintenance: 252 228 239;
+
+  /* the one overlay shadow, and the scrollbar thumb */
+  --shadow-pop: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --scroll-thumb: rgba(17, 24, 39, 0.22);
+  --scroll-thumb-hover: rgba(17, 24, 39, 0.36);
+}
+
+html[data-theme='graphite'] {
+  color-scheme: dark;
+
+  --c-ground: 19 20 23;
+  --c-surface: 27 29 33;
+  --c-raised: 36 39 44;
+  --c-edge: 48 52 58;
+  --c-edge2: 67 72 80;
+  --c-ink: 243 244 246;
+  --c-ink2: 199 203 209;
+  /* Lighter than 139 145 154 for the same reason Paper's is deeper: on
+     passtint that shade reads only 4.47 to 1. */
+  --c-muted: 145 151 160;
+  --c-dim: 95 101 110;
+  --c-accent: 76 141 255;
+  --c-onaccent: 11 18 32;
+  --c-tint: 28 41 66;
+  --c-pass: 67 194 124;
+  --c-fail: 242 92 92;
+  --c-warn: 251 146 60;
+  --c-passtint: 27 47 38;
+  --c-failtint: 51 32 31;
+  --c-warntint: 42 29 2;
+  --c-onstatus: 11 18 32;
+  --c-code: 22 24 28;
+  --c-codeline: 31 34 40;
+  /* Graphite's own gutter, lifted for the same reason: 95 101 110 on the code
+     surface was 3.0 to 1. Every other Graphite pair already cleared 4.5. */
+  --c-gutter: 132 139 149;
+
+  --hue-requirements: 230 199 122;
+  --hue-design: 169 139 250;
+  --hue-implementation: 76 141 255;
+  --hue-testing: 67 194 124;
+  --hue-deployment: 62 197 217;
+  --hue-maintenance: 242 122 159;
+
+  --tint-requirements: 46 42 31;
+  --tint-design: 41 36 64;
+  --tint-implementation: 28 41 66;
+  --tint-testing: 27 47 38;
+  --tint-deployment: 26 46 51;
+  --tint-maintenance: 51 34 43;
+
+  --shadow-pop: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --scroll-thumb: rgba(243, 244, 246, 0.18);
+  --scroll-thumb-hover: rgba(243, 244, 246, 0.3);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-ground font-sans text-ink antialiased;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Grid and flex children shrink instead of forcing horizontal overflow. */
+* {
+  min-width: 0;
+}
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+svg {
+  max-width: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Type and surfaces.
+--------------------------------------------------------------------------- */
+@layer components {
+  .h1 {
+    @apply text-[28px] font-semibold leading-[1.15] tracking-[-0.02em] text-ink;
+  }
+  .h2 {
+    @apply text-[18px] font-semibold leading-snug tracking-[-0.01em] text-ink;
+  }
+  .h3 {
+    @apply text-[14px] font-semibold leading-snug text-ink;
+  }
+  /* Quiet secondary text. Sentence case, never upper-cased, never tracked. */
+  .label {
+    @apply text-[13px] font-normal leading-tight text-muted;
+  }
+  .label-sm {
+    @apply text-[12px] font-normal leading-tight text-muted;
+  }
+  /* The one-line reason under a list or section title. */
+  .purpose {
+    @apply text-[13px] leading-[1.45] text-muted;
+  }
+  /* A section heading above a group, the way a grouped list is titled. */
+  .group-title {
+    @apply text-[13px] font-semibold text-ink;
+  }
+  /* Numerals you compare down a column. */
+  .readout {
+    @apply font-semibold tabular-nums tracking-[-0.01em];
+  }
+  .verbatim,
+  .mono {
+    @apply font-mono text-[12.5px] tabular-nums tracking-normal;
+  }
+  .kbd {
+    @apply inline-flex h-[18px] items-center rounded-sm border-1.5 border-edge2 px-[5px] font-mono text-[10.5px] leading-none text-ink2;
+  }
+  .wrap {
+    overflow-wrap: anywhere;
+  }
+
+  /* Shared panel geometry; redesign.css supplies the glass depth. */
+  .panel,
+  .card {
+    @apply rounded-panel border-1.5 border-edge bg-surface;
+  }
+
+  /* Button geometry, variants and interaction states: components/ui/controls.css. */
+
+  /* The shortcut a button carries. The design puts the key inside the control
+     rather than in a tooltip, so it is learned by the people who press it.
+     On a filled button it has to be drawn in the button's own foreground or it
+     sinks into the fill. */
+  .btn-kbd {
+    @apply ml-0.5 shrink-0;
+  }
+  .btn > .btn-kbd,
+  .btn-danger > .btn-kbd {
+    border-color: rgb(var(--c-onaccent) / 0.55);
+    color: rgb(var(--c-onaccent));
+  }
+
+  /* The heading an IDE block wears: Explorer, Your changes, Problems. It is
+     the same label as everywhere else in the product: sentence case, no
+     letter-spacing. The editor convention is upper case; this product's convention is not, and one
+     product reads better than one borrowed chrome. */
+  .block-head {
+    @apply flex shrink-0 items-center justify-between gap-2 px-3 py-2 text-[12px] font-semibold text-muted;
+  }
+
+  /* A strip that scrolls sideways fades at the edge that has more behind it,
+     so a clipped tab reads as "there is more" rather than as a hard cut
+     `useEdgeFade` in components/ui picks which one. */
+  .edge-fade-right {
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+  }
+  .edge-fade-left {
+    mask-image: linear-gradient(to left, #000 calc(100% - 28px), transparent);
+  }
+  .edge-fade-both {
+    mask-image: linear-gradient(to right, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+  }
+  .edge-fade-bottom {
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent);
+  }
+  .edge-fade-top {
+    mask-image: linear-gradient(to top, #000 calc(100% - 20px), transparent);
+  }
+  .edge-fade-y {
+    mask-image: linear-gradient(to bottom, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+  }
+
+  /* A read-only field takes focus and shows a caret, so it has to look locked
+     as well as behave that way: without this it was indistinguishable from an
+     editable one and silently swallowed typing. */
+  .field {
+    @apply w-full rounded-ctl border-1.5 border-edge2 bg-surface px-3 py-2 text-[14px] text-ink outline-none transition-colors placeholder:text-muted disabled:cursor-not-allowed disabled:bg-raised disabled:text-muted read-only:cursor-default read-only:bg-raised read-only:text-muted;
+  }
+  textarea.field {
+    @apply leading-relaxed;
+  }
+
+  /* Chips: 6px radius, 12px medium. Neutral sits on raised; the three status
+     chips are solid fills so a result reads at a glance. */
+  .chip {
+    @apply inline-flex h-6 items-center gap-1.5 whitespace-nowrap rounded-chip bg-raised px-2 text-[12px] font-medium leading-none text-ink2;
+  }
+  .chip-pass {
+    @apply bg-pass text-onstatus;
+  }
+  .chip-fail {
+    @apply bg-fail text-onstatus;
+  }
+  .chip-warn {
+    @apply bg-warn text-onstatus;
+  }
+  .chip-accent {
+    @apply bg-tint text-accent;
+  }
+  .chip-outline {
+    @apply border-1.5 border-edge2 bg-transparent text-ink2;
+  }
+
+  /* Press feedback stays flat: a small scale, never a lift. */
+  .press {
+    @apply transition-transform duration-100 active:scale-[0.985];
+  }
+
+  .skeleton {
+    @apply rounded-md;
+    background: linear-gradient(
+      90deg,
+      rgb(var(--c-raised)) 25%,
+      rgb(var(--c-edge)) 50%,
+      rgb(var(--c-raised)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scrollbars.
+--------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+  background-clip: content-box;
+}
+* {
+  scrollbar-color: var(--scroll-thumb) transparent;
+  scrollbar-width: thin;
+}
+
+/* ---------------------------------------------------------------------------
+   Focus. One visible ring on everything interactive, drawn in the accent.
+--------------------------------------------------------------------------- */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid rgb(var(--c-accent));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+/* Fields provide their own paired focus treatment in controls.css. */
+
+/* The code editor takes focus in a 1px hidden textarea, so the ring above is
+   drawn on nothing a learner can see (on every IDE room and the requirements
+   task room's editor). The editor draws the ring itself, inside its own edge
+   so no pane clips it. */
+.monaco-editor:focus-within {
+  outline: 2px solid rgb(var(--c-accent));
+  outline-offset: -2px;
+}
+
+::selection {
+  background: rgb(var(--c-accent) / 0.22);
+}
+
+/* ---------------------------------------------------------------------------
+   Rendered markdown (briefs, feedback, help).
+--------------------------------------------------------------------------- */
+.prose-docs {
+  @apply text-[14px] leading-[1.65] text-ink2;
+}
+.prose-docs > :first-child {
+  @apply mt-0;
+}
+/* The ramp is keyed to the level the author wrote, not to the tag. Markdown
+   embedded in a page nests one level under the page's own h1 (a learner's
+   `#` must not be a second top-level heading) so the tag drops a level and
+   the size does not. */
+.prose-docs [data-md='1'] {
+  @apply mb-3 mt-1 text-[19px] font-semibold tracking-[-0.01em] text-ink;
+}
+.prose-docs [data-md='2'] {
+  @apply mb-2 mt-6 text-[15px] font-semibold tracking-[-0.01em] text-ink;
+}
+.prose-docs [data-md='3'],
+.prose-docs [data-md='4'],
+.prose-docs [data-md='5'],
+.prose-docs [data-md='6'] {
+  @apply mb-1.5 mt-4 text-[14px] font-semibold text-ink;
+}
+.prose-docs p {
+  @apply mb-3;
+}
+.prose-docs ul,
+.prose-docs ol {
+  @apply mb-3 ml-5 space-y-1.5;
+}
+.prose-docs ul {
+  @apply list-disc;
+}
+.prose-docs ol {
+  @apply list-decimal;
+}
+.prose-docs li::marker {
+  @apply text-muted;
+}
+.prose-docs code {
+  @apply rounded-sm bg-raised px-1.5 py-0.5 font-mono text-[12.5px] text-ink;
+}
+.prose-docs pre {
+  @apply mb-3 overflow-x-auto rounded-md border-1.5 border-edge bg-code p-3.5;
+}
+.prose-docs pre code {
+  @apply bg-transparent p-0 text-ink2;
+}
+.prose-docs strong {
+  @apply font-semibold text-ink;
+}
+.prose-docs a {
+  @apply text-accent underline underline-offset-[3px];
+}
+.prose-docs blockquote {
+  @apply mb-3 border-l-2 border-edge2 pl-3.5 text-muted;
+}
+.prose-docs table {
+  @apply mb-3 block w-full max-w-full border-collapse overflow-x-auto text-[13px];
+}
+.prose-docs th,
+.prose-docs td {
+  @apply border-b-1.5 border-edge px-2.5 py-2 text-left align-top;
+}
+.prose-docs th {
+  @apply text-[12px] font-medium text-muted;
+}
+.prose-docs hr {
+  @apply my-6 border-edge;
+}
+.prose-docs img {
+  @apply my-3 max-w-full rounded-md border-1.5 border-edge;
+}
+
+/* Policy pages: a narrow measure, plain hierarchy, nothing decorative. */
+.legal {
+  @apply text-[16px] leading-[1.7] text-ink2;
+}
+.legal .lede {
+  @apply text-[17px] leading-[1.65] text-muted;
+}
+.legal h2 {
+  @apply mb-3 mt-10 text-[20px] font-semibold tracking-[-0.01em] text-ink;
+}
+.legal p {
+  @apply mb-4;
+}
+.legal ul {
+  @apply mb-5 ml-5 list-disc space-y-2;
+}
+.legal li::marker {
+  @apply text-muted;
+}
+.legal strong {
+  @apply font-semibold text-ink;
+}
+.legal a {
+  @apply text-accent underline underline-offset-[3px];
+}
+.legal .callout {
+  @apply rounded-panel border-1.5 border-edge bg-tint px-5 py-4 text-[15px] leading-relaxed text-ink;
+}
+
+/* ---------------------------------------------------------------------------
+   Motion. Short, one easing, and switched off for anyone who asked.
+--------------------------------------------------------------------------- */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@layer components {
+  .animate-spin-slow {
+    animation: spin 1.1s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .press:active {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Theme-swapped pairs.
+
+   Both halves are in the DOM and CSS picks, so anything that has to be right
+   on the first paint (the theme toggle's icon) is right before React runs,
+   and cannot flip afterwards. `revert` puts the element back to its own
+   default display rather than forcing one on it.
+--------------------------------------------------------------------------- */
+.when-graphite {
+  display: none;
+}
+html[data-theme='graphite'] .when-graphite {
+  display: revert;
+}
+html[data-theme='graphite'] .when-paper {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   The sidebar's two widths.
+
+   `full` is the 212px column the design is drawn around; `rail` is the 60px
+   strip of icons. Which one is showing is `data-sidebar` on <html>, stamped by
+   the boot script in layout.tsx before the first paint and switched by
+   lib/sidebar.ts afterwards. Drawing it here rather than in a React branch is
+   what makes a reload land on the width the learner left it at, with no frame
+   of the other shape on the way.
+
+   It is the same element and the same markup either way (CSS narrows the
+   column, centres the rows and drops the words) so the switch is one
+   attribute and nothing is rebuilt. No transition: the design is flat, and a
+   column that slides is furniture moving.
+
+   Below `lg` there is no room beside the content, so the sidebar is the strip
+   under the bar and has no width to give up; only the column has two shapes.
+--------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  .nav-col {
+    width: 212px;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+  }
+  html[data-sidebar='rail'] .nav-col {
+    width: 60px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  html[data-sidebar='rail'] .nav-label {
+    display: none;
+  }
+  html[data-sidebar='rail'] .nav-row {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Print. The shell is furniture; a printed page is the record alone.
+--------------------------------------------------------------------------- */
+@media print {
+  .print-hide {
+    display: none !important;
+  }
+
+  /* The page geometry, which belongs to the deployment rather than
+     to one document. The rest of printing (the Paper palette restated so a
+     Graphite reader still gets dark ink on white, the colour adjustment that
+     keeps a filled chip filled) is a scoped block the two printing pages
+     import from components/dossier/print.css.tsx.
+
+     Running headers and footers are not available in CSS the browsers support
+     consistently, so page numbers stay the browser's own and the dossier's
+     colophon carries the date instead. */
+  @page {
+    margin: 16mm 14mm;
+  }
+
+  /* A heading that ends a page has left its section behind. */
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  /* Nothing in a printed document scrolls: a pane with its own scrollbar
+     prints one screenful and silently drops the rest. */
+  .overflow-x-auto,
+  .overflow-y-auto {
+    overflow: visible !important;
+  }
+}
+
+/* Token names a few components read (the project map on Home and /map, in
+   components/map/ProjectMap.css) that the signed-in look does not otherwise
+   define. Each is given the signed-in look's own value (these tokens with
+   redesign.css's teal palette, Manrope and Outfit), so those components draw
+   in the same palette, type and depth as the rest of the product. */
+:root {
+  /* Body face of the signed-in look (redesign.css sets body in Manrope). */
+  --font-sans: Manrope, system-ui, sans-serif;
+  /* The control radius the Tailwind theme's rounded-ctl uses. */
+  --radius-ctl: 12px;
+  /* The control transition the signed-in stylesheets use. */
+  --motion-base: var(--motion-control, 180ms);
+  /* Card depth: the signed-in look's one glass shadow, light and Graphite. */
+  --shadow-card: var(--glass-shadow);
+}

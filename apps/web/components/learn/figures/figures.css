@@ -1,0 +1,181 @@
+/* Study-guide figures: one flat style on a white ground.
+ *
+ * Colour carries meaning only: pass green, fail red, survived amber, a
+ * neutral grey for "not run". A selected control or node has one neutral look
+ * in every figure of the six guides, an ink stroke over a tinted fill, never
+ * the phase accent: Deployment's accent is the green of "Passed" and
+ * Testing's sits beside the fail red, so an accent selection read as a
+ * verdict. Strokes
+ * are 1.5 px, corners 8 px, fills white or a 4 percent tint; no gradient, no
+ * glow, no shadow. Text colours keep 4.5:1 on white and meaningful strokes
+ * 3:1. Motion is 150 ms at most and none under reduced motion. The frame
+ * keeps its white ground in the graphite theme too, so a figure reads the
+ * same on either shell. */
+.fig {
+  --fig-ground: #ffffff;
+  --fig-ink: #17323f;
+  --fig-muted: #4f6470;
+  --fig-line: #8094a2; /* 3.2:1 on white: strokes that carry meaning */
+  --fig-rule: #c9d3db; /* dividers only, never the only cue */
+  --fig-tint: #f5f8fa;
+  --fig-pass: #2f7d32;
+  --fig-fail: #b3261e;
+  --fig-warn: #8a5a00;
+  /* The one selected look: ink stroke (13.4:1 on white), the tint as fill. */
+  --fig-selected: #17323f;
+  --fig-selected-fill: var(--fig-tint);
+  /* Figure rules written before the neutral look name the selected colour
+   * --fig-accent; it is the same ink, so every guide inherits one look. */
+  --fig-accent: var(--fig-selected);
+  --fig-focus: #1f6f8b;
+  /* A disabled control's words: inactive, so exempt from 4.5:1 (WCAG 1.4.3). */
+  --fig-disabled: #6b7c87;
+  margin: 22px 0;
+  padding: 18px 20px;
+  border: 1.5px solid var(--fig-rule);
+  border-radius: 8px;
+  background: var(--fig-ground);
+  color: var(--fig-ink);
+  min-width: 0;
+  max-width: 100%;
+}
+.fig figcaption { display: grid; gap: 4px; margin-bottom: 14px; }
+.fig figcaption strong { font-size: 15px; font-weight: 650; color: var(--fig-ink); }
+.fig-howto { font-size: 13px; color: var(--fig-muted); }
+/* The honesty tag: a pill on one line; on two or three lines at a phone's
+ * width a rounded box, so the words never crowd round ends. */
+.fig-model-tag {
+  justify-self: start;
+  padding: 2px 10px;
+  border: 1px solid var(--fig-line);
+  border-radius: 12px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--fig-muted);
+  background: var(--fig-ground);
+}
+.fig-scroll { overflow-x: auto; }
+.fig-scroll:focus-visible,
+.fig :is(button, a, input, select, summary, [tabindex="0"]):focus-visible { outline: 2px solid var(--fig-focus); outline-offset: 2px; }
+.fig-description { margin: 12px 0 0; font-size: 12.5px; color: var(--fig-muted); }
+/* A figure's SVG text is the page's own font at about body size. SVG text
+ * scales with its drawing, so FigureSvg caps the drawn width
+ * at 1.2 times the viewBox width (FIGURE_SVG_MAX_SCALE): 13-unit text never
+ * draws above about 15.6 px. A drawing that should fill a figure at 1440
+ * (about 1190 px) gives its viewBox a width of 1000 or more. */
+.fig-svg { display: block; width: 100%; height: auto; margin-inline: auto; }
+.fig-svg text { fill: var(--fig-ink); font-family: inherit; font-size: 13px; }
+.fig-svg :is(rect, circle, path, line) { stroke-width: 1.5; }
+
+/* Code type. The page font joins some pairs into one glyph
+ * (Manrope draws the two hyphens of `x' OR 1=1 --` as one dash), so code in
+ * a figure, and every code fragment in a label or sentence (the
+ * `code-fragment` class codeFragments in CodeText.tsx puts on it), is drawn
+ * in code type with ligatures and contextual alternates off. */
+.fig :is(code, pre, kbd, samp),
+.code-fragment { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
+.code-fragment { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+
+/* Buttons inside figures: flat, bordered, the pressed state also drawn as a tick. */
+.fig-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1.5px solid var(--fig-line);
+  border-radius: 8px;
+  background: var(--fig-ground);
+  color: var(--fig-ink);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  max-width: 100%;
+  cursor: pointer;
+}
+.fig-button:disabled { color: var(--fig-disabled); border-color: var(--fig-rule); cursor: not-allowed; }
+.fig-button[aria-pressed="true"] { border-color: var(--fig-selected); box-shadow: inset 0 0 0 1px var(--fig-selected); background: var(--fig-selected-fill); font-weight: 600; }
+.fig-toggle-tick { width: 14px; height: 14px; flex: none; }
+/* A slider's whole box is its target: at least 32 px tall. */
+.fig input[type="range"] { min-height: 32px; }
+
+/* ToggleSet */
+.fig-toggles { display: flex; flex-wrap: wrap; gap: 8px; }
+.fig-toggles-summary { margin: 8px 0 0; font-size: 12.5px; color: var(--fig-muted); }
+
+/* StepThrough */
+.fig-steps { display: grid; gap: 12px; }
+.fig-steps-head { display: grid; gap: 2px; }
+.fig-steps-count { font-size: 12px; font-weight: 600; letter-spacing: .02em; color: var(--fig-muted); }
+.fig-steps-head strong { font-size: 15px; }
+.fig-steps-text { margin: 0; font-size: 14px; color: var(--fig-ink); }
+.fig-steps-dots { display: flex; gap: 6px; }
+.fig-steps-dots span { width: 18px; height: 4px; border-radius: 2px; background: var(--fig-rule); }
+.fig-steps-dots span[data-done="true"] { background: var(--fig-line); }
+.fig-steps-dots span[data-current="true"] { background: var(--fig-selected); }
+.fig-steps-frame { animation: fig-enter 150ms ease-out; }
+.fig-steps-controls { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* StatusMark: glyph and word, never colour alone. */
+.fig-status { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.fig-status svg { width: 14px; height: 14px; flex: none; }
+.fig-status-passed, .fig-status-killed { color: var(--fig-pass); }
+.fig-status-failed { color: var(--fig-fail); }
+.fig-status-survived { color: var(--fig-warn); }
+.fig-status-not-run { color: var(--fig-muted); font-weight: 500; }
+.fig-status-current { color: var(--fig-ink); }
+.fig-status-current svg { color: var(--fig-selected); }
+
+/* The reader's slot for a registered figure: it carries the id, not a box. */
+.lesson-figure { display: contents; }
+
+/* PhaseGlyph */
+.phase-glyph { flex: none; color: inherit; }
+
+/* The mutation table (Testing, chapter 4): the model of a finished figure. */
+.fig-mutation-controls { display: grid; gap: 12px; margin-bottom: 14px; }
+.fig-mutation-controls > div > span { display: block; margin-bottom: 6px; font-size: 12.5px; font-weight: 600; color: var(--fig-muted); }
+.fig-mutation-score { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 12px; font-size: 14px; font-weight: 600; }
+.fig-mutation-score svg { width: 152px; height: 18px; flex: none; }
+.fig-score-killed { fill: var(--fig-pass); stroke: var(--fig-pass); }
+.fig-score-survived { fill: var(--fig-ground); stroke: var(--fig-warn); }
+.fig-mutation-blocked { margin: 0 0 12px; padding: 8px 12px; border: 1.5px solid var(--fig-fail); border-radius: 8px; color: var(--fig-fail); font-size: 13.5px; font-weight: 600; }
+.fig-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.fig-table caption { text-align: left; font-size: 12.5px; color: var(--fig-muted); padding-bottom: 6px; }
+.fig-table :is(th, td) { padding: 8px 10px; border-bottom: 1px solid var(--fig-rule); text-align: left; vertical-align: top; }
+.fig-table thead th { font-size: 12px; font-weight: 600; color: var(--fig-muted); border-bottom-color: var(--fig-line); }
+.fig-table code { font-size: 12.5px; color: var(--fig-ink); }
+.fig-table tr[data-changed="true"] { animation: fig-row 150ms ease-out; }
+.fig-live { margin: 10px 0 0; font-size: 13px; color: var(--fig-ink); }
+/* A long test name, path or address in a figure's sentence wraps inside the
+ * figure instead of widening the page at a phone's width (set here for every
+ * guide). */
+.fig :is(.fig-live, .fig-verdict, .fig-description) { overflow-wrap: anywhere; }
+
+/* One look shared by the six guides' figures. */
+/* A verdict: a bordered line whose colour and word agree (pass, fail, or warn for "not yet"). */
+.fig-verdict { display: block; width: fit-content; max-width: 100%; margin: 12px 0 0; padding: 6px 12px; border: 1.5px solid var(--fig-line); border-radius: 8px; font-size: 13.5px; font-weight: 600; }
+.fig-verdict[data-tone="pass"] { border-color: var(--fig-pass); color: var(--fig-pass); }
+.fig-verdict[data-tone="fail"] { border-color: var(--fig-fail); color: var(--fig-fail); }
+.fig-verdict[data-tone="warn"] { border-color: var(--fig-warn); color: var(--fig-warn); }
+/* A diff line: the colour of its meaning and a 3 px bar in the gutter, so it never rests on colour alone beside its + or -. */
+.fig :is(.fig-code [data-line="added"], .fig-c-code ins, .fig-dm-code > span[data-kind="add"]) { color: var(--fig-pass); box-shadow: inset 3px 0 0 var(--fig-pass); }
+.fig :is(.fig-code [data-line="removed"], .fig-c-code del, .fig-dm-code > span[data-kind="del"]) { color: var(--fig-fail); box-shadow: inset 3px 0 0 var(--fig-fail); }
+.fig :is(.fig-code [data-line], .fig-c-code ins, .fig-c-code del) { display: block; padding-left: 8px; }
+
+@keyframes fig-enter { from { opacity: 0; transform: translateX(6px); } to { opacity: 1; transform: none; } }
+@keyframes fig-row { from { background: var(--fig-tint); } to { background: transparent; } }
+
+.fig[data-motion="reduce"] :is(.fig-steps-frame, tr[data-changed="true"]),
+.fig-steps[data-motion="reduce"] .fig-steps-frame { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fig-steps-frame, .fig-table tr[data-changed="true"] { animation: none; }
+}
+@media (max-width: 520px) {
+  .fig { padding: 14px; }
+  /* At a phone's width a figure's table scrolls inside its own box (every
+   * table sits in a ScrollRegion or a scrolling figure) instead of squeezing
+   * four or five columns into a few words each or widening the page. */
+  .fig :is(.experience-scroll-viewport, .fig-scroll) .fig-table:has(thead th:nth-child(4)) { min-width: 480px; }
+  .fig-status { white-space: normal; }
+}

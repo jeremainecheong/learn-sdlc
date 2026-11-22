@@ -1,0 +1,97 @@
+{
+  "title": "Deployment",
+  "intro": "Fix one deployment setting, run the selfcheck, then run the drill and close the incident.",
+  "artifactKind": "config",
+  "canRun": true,
+  "runLabel": "Run selfcheck",
+  "taskPanel": "The team supplied the deployment: deploy/services.json, ops/Dockerfile, the selfcheck ops/selfcheck.py and a short runbook in the Runbook tab. One setting is wrong.\n\n1. Run the selfcheck and read the fault.\n2. In deploy/services.json, fix the web service's API_URL. Inside a container, localhost is the web container itself, so the web service must reach the api service by its service name. Leave the other settings as they are.\n3. Run the selfcheck again until it passes.\n4. Run the drill: it swaps in a copy of the settings with the same kind of fault. Read the fault, then close the incident: the root cause, the fix and one action item.",
+  "objectives": [
+    "Fix the web service's API_URL in deploy/services.json",
+    "Pass the selfcheck",
+    "Run the drill and close the incident"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "config",
+        "title": "Configuration",
+        "weight": 0.4,
+        "description": "The web service reaches the api service by its service name."
+      },
+      {
+        "key": "build_smoke",
+        "title": "Selfcheck",
+        "weight": 0.35,
+        "description": "The selfcheck passes in the sandbox. It does not build an image."
+      },
+      {
+        "key": "runbook_quality",
+        "title": "Runbook and incident",
+        "weight": 0.25,
+        "description": "The incident names the root cause, the fix and one action item."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "config",
+    "smoke": {
+      "dockerfile": "ops/Dockerfile",
+      "commands": [
+        [
+          "python3",
+          "ops/selfcheck.py",
+          "--selfcheck"
+        ]
+      ],
+      "expect": "selfcheck: web reaches api"
+    },
+    "drill": {
+      "fault": "api-url-loopback",
+      "description": "deploy/services.json points the web service's API_URL at http://127.0.0.1:8000, which inside the web container is the container itself, so the selfcheck refuses it.",
+      "expectFailure": true
+    },
+    "rules": [
+      {
+        "id": "web-api-url",
+        "label": "The web service calls the api service by name",
+        "criterion": "config",
+        "target": "deploy/services.json",
+        "pattern": "\"API_URL\"\\s*:\\s*\"http://api:8000/?\"",
+        "flags": "",
+        "required": true,
+        "failDetail": "Set the web service's API_URL to the api service's name and its port, http://api:<port>, not localhost."
+      }
+    ],
+    "runbook": {
+      "record": "deployment/runbook.json",
+      "floor": {
+        "minEnvironment": 1,
+        "minHealth": 1,
+        "minRollback": 1,
+        "minData": 0,
+        "requireIncident": true
+      }
+    }
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the DEPLOYMENT phase of Deadline badge. The learner fixes the web service's API_URL in deploy/services.json, runs the selfcheck and the drill, and closes the incident. The selfcheck runs in an isolated runner; it does not build an image or start a container. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 80 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "localhost",
+          "api_url",
+          "service"
+        ],
+        "hints": [
+          "Inside the web container, what does localhost point at?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Run the selfcheck and read its fault.",
+      "Fix the one setting it names.",
+      "Run the drill and close the incident."
+    ]
+  }
+}

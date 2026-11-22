@@ -1,0 +1,104 @@
+{
+ "recordedBy": "apps/api/test/runtime-profile-contract-wiring.e2e-spec.ts",
+ "redaction": "ids <uuid:n>, emails <email:n>, tokens <jwt>, digests <sha256:n> (one digest, one placeholder), named values <label>, times as ordinal instants from 2026-01-01T00:00:00Z",
+ "facts": {
+  "uploadMaxBytes": 33554432,
+  "defaultCap": 33554432,
+  "smallCap": 6291456
+ },
+ "exchanges": [
+  {
+   "name": "profile",
+   "method": "GET",
+   "path": "/instructor/runtime-profile",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "id": "baked",
+    "name": "Baked runtime",
+    "manifestSha256": "<sha256:1>",
+    "python": [
+     "blinker",
+     "click",
+     "flask",
+     "iniconfig",
+     "itsdangerous",
+     "jinja2",
+     "markupsafe",
+     "packaging",
+     "pluggy",
+     "pygments",
+     "pytest",
+     "werkzeug"
+    ],
+    "node": [
+     "<npm:testing-library/dom>",
+     "<npm:testing-library/react>",
+     "jsdom",
+     "react",
+     "react-dom",
+     "react-router-dom"
+    ],
+    "tools": [
+     "esbuild"
+    ],
+    "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change.",
+    "uploadMaxBytes": 33554432
+   }
+  },
+  {
+   "name": "profileSmallCap",
+   "method": "GET",
+   "path": "/instructor/runtime-profile",
+   "query": {},
+   "requestBody": null,
+   "status": 200,
+   "body": {
+    "id": "baked",
+    "name": "Baked runtime",
+    "manifestSha256": "<sha256:1>",
+    "python": [
+     "blinker",
+     "click",
+     "flask",
+     "iniconfig",
+     "itsdangerous",
+     "jinja2",
+     "markupsafe",
+     "packaging",
+     "pluggy",
+     "pygments",
+     "pytest",
+     "werkzeug"
+    ],
+    "node": [
+     "<npm:testing-library/dom>",
+     "<npm:testing-library/react>",
+     "jsdom",
+     "react",
+     "react-dom",
+     "react-router-dom"
+    ],
+    "tools": [
+     "esbuild"
+    ],
+    "sentence": "This deployment runs Flask and React. Adding a library is a platform change, not a content change.",
+    "uploadMaxBytes": 6291456
+   }
+  },
+  {
+   "name": "profileLearner",
+   "method": "GET",
+   "path": "/instructor/runtime-profile",
+   "query": {},
+   "requestBody": null,
+   "status": 403,
+   "body": {
+    "message": "insufficient role",
+    "error": "Forbidden",
+    "statusCode": 403
+   }
+  }
+ ]
+}

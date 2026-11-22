@@ -1,0 +1,33 @@
+{
+  "environment": [
+    {
+      "id": "E1",
+      "name": "API_URL",
+      "purpose": "Where the web service finds the api service.",
+      "kind": "config",
+      "example": "http://<service name>:<port>"
+    }
+  ],
+  "health": [
+    {
+      "id": "H1",
+      "name": "Selfcheck",
+      "how": "python3 ops/selfcheck.py --selfcheck",
+      "expected": "deadline selfcheck: web reaches api"
+    }
+  ],
+  "rollback": [
+    {
+      "id": "R1",
+      "step": "Deploy the previous image tags again.",
+      "verify": "The selfcheck passes."
+    }
+  ],
+  "data": [],
+  "incident": {
+    "rootCause": "",
+    "fix": "",
+    "actionItem": ""
+  },
+  "notes": ""
+}

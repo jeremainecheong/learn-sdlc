@@ -1,0 +1,15 @@
+{
+  "note": "The Deadline badge pack's finished learner work for the three rooms that draw its page (Implementation, Testing, Maintenance), keyed by phase folder and workspace path. The rooms' own files are read from the tracked pack, apps/api/test/fixtures/upload-packs/deadline-badge.",
+  "learner": {
+    "03-implementation": {
+      "web/src/lib/overdue.ts": "import type { Task } from './types';\n\n/**\n * Whether a task shows the overdue badge on the given day.\n * Both dates are ISO strings (yyyy-mm-dd), so they compare as text.\n */\nexport function isOverdue(task: Task, today: string): boolean {\n  if (task.dueDate === null) {\n    return false;\n  }\n  // A task is overdue when its due date is before today.\n  return task.dueDate < today;\n}\n"
+    },
+    "04-testing": {
+      "web/src/lib/overdue.test.ts": "/**\n * Tests for the overdue badge. `test` and `assert` are globals the runner\n * provides; `assert` is Node's own.\n */\nimport { isOverdue } from './overdue';\nimport type { Task } from './types';\n\ndeclare const test: (name: string, fn: () => void | Promise<void>) => void;\ndeclare const assert: typeof import('node:assert');\n\nconst TODAY = '2026-11-13';\n\nfunction task(dueDate: string | null): Task {\n  return { title: 'Send the report', dueDate, done: false };\n}\n\ntest('a task due yesterday is overdue', () => {\n  assert.strictEqual(isOverdue(task('2026-11-12'), TODAY), true);\n});\n\n// Add your test below.\n\ntest('a task due today is not overdue', () => {\n  assert.strictEqual(isOverdue(task('2026-11-13'), TODAY), false);\n});\n"
+    },
+    "06-maintenance": {
+      "web/src/lib/overdue.ts": "import type { Task } from './types';\n\n/**\n * Whether a task shows the overdue badge on the given day.\n * Both dates are ISO strings (yyyy-mm-dd), so they compare as text.\n */\nexport function isOverdue(task: Task, today: string): boolean {\n  if (task.done || task.dueDate === null) {\n    return false;\n  }\n  // A task is overdue when its due date is before today.\n  return task.dueDate < today;\n}\n",
+      "web/src/lib/overdue.test.ts": "/**\n * Tests for the overdue badge. `test` and `assert` are globals the runner\n * provides; `assert` is Node's own.\n */\nimport { isOverdue } from './overdue';\nimport type { Task } from './types';\n\ndeclare const test: (name: string, fn: () => void | Promise<void>) => void;\ndeclare const assert: typeof import('node:assert');\n\nconst TODAY = '2026-11-13';\n\nfunction task(dueDate: string | null, done = false): Task {\n  return { title: 'Send the report', dueDate, done };\n}\n\ntest('a task due yesterday is overdue', () => {\n  assert.strictEqual(isOverdue(task('2026-11-12'), TODAY), true);\n});\n\ntest('a task due today is not overdue', () => {\n  assert.strictEqual(isOverdue(task('2026-11-13'), TODAY), false);\n});\n\ntest('a completed task due yesterday is not overdue', () => {\n  assert.strictEqual(isOverdue(task('2026-11-12', true), TODAY), false);\n});\n"
+    }
+  }
+}

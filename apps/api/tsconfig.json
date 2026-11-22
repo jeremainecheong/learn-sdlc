@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    // Nest and TypeORM fill DTO and entity fields through decorators after
+    // construction, so a field without an initialiser is the normal case here.
+    "strictPropertyInitialization": false,
+    "types": ["node", "jest"]
+  },
+  "include": ["src", "test"],
+  // TaskTrackr 4.0.0's Maintenance, frozen byte for byte as a fixture, carries the
+  // pack's own React and Vitest sources; they are content, never this project's code.
+  // So do the frozen older packs and the upload packs' phase folders, whose sources
+  // sit split across files/, readonly/ and the sealed folders by where each mounts.
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test/fixtures/legacy-maintenance",
+    "test/fixtures/older-tasktrackr",
+    "test/fixtures/older-shelf",
+    "test/fixtures/upload-packs/*/phases"
+  ]
+}

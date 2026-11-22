@@ -1,0 +1,11 @@
+{
+  "environment": [],
+  "health": [],
+  "rollback": [],
+  "data": [],
+  "incident": {
+    "rootCause": "",
+    "fix": "",
+    "actionItem": ""
+  }
+}

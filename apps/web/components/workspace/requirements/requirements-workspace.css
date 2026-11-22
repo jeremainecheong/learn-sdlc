@@ -1,0 +1,180 @@
+/* One working surface: tab switches change the centre pane, never the shell. */
+.requirements-toolbar{display:flex;flex:none;align-items:stretch;justify-content:space-between;min-width:0;background:#f3f9fc;border-bottom:1px solid #d3e2ea}
+.requirements-tabs{display:flex;align-items:stretch;gap:8px;padding:0 16px;min-width:0}
+.requirements-tabs a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 12px;border-bottom:2px solid transparent;color:#526c7c;font:500 12px/1.4 Manrope,sans-serif;white-space:nowrap;transition:background-color .16s ease,color .16s ease,border-color .16s ease}
+.requirements-tabs a:hover{background:#e5f3f8;color:#176e8a}
+.requirements-tabs a[aria-selected=true]{color:#176e8a;border-bottom-color:#258cad;background:#eaf5fa}
+.requirements-tabs a:focus-visible,.requirements-reference-tabs button:focus-visible,.jira-view-nav button:focus-visible{outline:2px solid #258cad;outline-offset:-3px}
+.requirements-toolbar .workspace-panel-controls{position:static;border:0;background:transparent;align-items:center;margin-left:auto}
+.requirements-workspace-room{display:flex;flex:1;min-width:0;min-height:0;overflow:hidden;background:#f2f5f8}
+.requirements-shared-brief{width:286px;flex:0 0 286px;min-width:0;overflow:auto;background:#f8fcfe;border-right:1px solid #d3e2ea;padding:16px}
+.requirements-reference-tabs{display:flex;gap:6px;align-items:center;margin:-4px 0 18px;border-bottom:1px solid #d3e2ea}
+.requirements-reference-tabs button{font:500 11px/1.5 Manrope,sans-serif;min-height:38px;padding:8px 5px;border-bottom:2px solid transparent;color:#526c7c}
+.requirements-reference-tabs button[aria-pressed=true]{border-color:#258cad;color:#176e8a}
+.requirements-shared-brief [data-testid=interview-checklist]{padding:0;border:0;width:100%;max-height:none;background:transparent;overflow:visible}
+.requirements-full-brief{margin-top:20px;border-top:1px solid #d3e2ea;font-size:12px}
+.requirements-full-brief summary{padding:14px 0;cursor:pointer;color:#176e8a;font-weight:600}
+.requirements-full-brief .plain-text{font-size:12px;overflow-wrap:anywhere}
+.requirements-workspace-center{display:flex;flex:1;min-width:0;min-height:0;overflow:hidden;background:#fff}
+.requirements-pane{display:flex;flex-direction:column;flex:1;min-width:0;min-height:0;overflow:hidden}
+.requirements-workspace-room [hidden]{display:none!important}
+.requirements-pane .requirements-conversation{height:100%;min-height:0;overflow:hidden}
+.requirements-conversation [data-testid=interview-persona]{display:flex;flex:none;gap:18px;border-bottom:1px solid #d3e2ea}
+.requirements-conversation [data-testid=interview-persona] .purpose{max-width:64ch}
+.requirements-next-step{display:inline-flex;align-items:center;gap:10px;margin-top:12px;font:600 11px/1.5 Manrope,sans-serif;color:#176e8a;padding:5px 0}
+.requirements-next-step:hover{text-decoration:underline;text-underline-offset:4px}
+.requirements-gate{display:flex;flex:none;align-items:center;gap:12px;padding:10px 18px;background:#e6f5ef;border-bottom:1px solid #c3dfd5;font:500 12px/1.6 Manrope,sans-serif;color:#254d45}
+.requirements-gate>div{flex:1;min-width:0}.requirements-gate strong{font-weight:700}.requirements-gate p{font-size:11px;margin:2px 0 0}.requirements-needs-revision{background:#fff5e9;border-color:#ebd9bc;color:#74542e}
+.requirements-workspace-center .jira-issue-desk{width:100%;height:100%;min-height:0;overflow:hidden}
+.requirements-workspace-center .jira-backlog-room,.requirements-workspace-center .jira-backlog-body{min-height:0!important}
+.jira-view-nav{display:flex;flex:none;gap:16px;padding:0 22px;border-bottom:1px solid #e1e9ee;background:#fbfdfe}
+.jira-view-nav button{font:500 11px/1.5 Manrope,sans-serif;color:#526c7c;min-height:40px;padding:8px 2px;border-bottom:2px solid transparent}
+.jira-view-nav button[aria-pressed=true]{color:#176e8a;border-color:#258cad}
+.jira-view-nav button:hover{color:#176e8a;background:#eef7fb}
+.requirements-review-empty{font-size:13px;line-height:1.7;color:#526c7c;margin-bottom:20px}
+.requirements-reference-document{padding:22px;min-height:0;overflow:auto;overflow-wrap:anywhere}.requirements-reference-document>p:first-child{font-size:12px;color:#526c7c;margin-bottom:18px}.requirements-reference-document pre{white-space:pre-wrap;font:12px/1.7 ui-monospace,monospace}
+.requirements-workspace-room .jira-provided-issue{min-height:0;overflow:auto}
+.requirements-conflict-body{flex:1;min-height:0;overflow:auto;padding:20px;font-size:12px;line-height:1.7}.requirements-conflict-body>p{margin-bottom:18px;color:#526c7c}.requirements-conflict-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.requirements-conflict-copy{min-width:0;padding:16px;border:1px solid #d3e2ea;border-radius:8px;overflow-wrap:anywhere}.requirements-conflict-copy h3{font-size:16px;font-weight:600;margin-bottom:16px}.requirements-conflict-copy h4{font-size:12px;font-weight:600;margin:18px 0 8px}.requirements-conflict-copy dl>div{margin:8px 0}.requirements-conflict-copy dt{font-size:10px;color:#526c7c}.requirements-conflict-copy li{margin:10px 0}.requirements-conflict-copy details{margin-top:18px;border-top:1px solid #d3e2ea;padding-top:12px}.requirements-conflict-copy summary{cursor:pointer;color:#176e8a}.requirements-conflict-actions{flex:none;padding:16px;border-top:1px solid #d3e2ea;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}.requirements-conflict-actions p{width:100%;font-size:11px;line-height:1.6;color:#526c7c}
+@media(max-width:1100px){.requirements-tabs{padding:0 8px;gap:2px}.requirements-tabs a{padding-inline:9px;font-size:11px}}
+@media(max-width:1023px){
+  .requirements-workspace-room{flex-direction:column;overflow:auto}
+  .requirements-shared-brief{width:100%;flex:none;max-height:320px;border-right:0;border-bottom:1px solid #d3e2ea}
+  .requirements-workspace-center{flex:none;width:100%;height:100%}
+  /* A phone stacks the room under its chrome (the strip, the toolbar, a split
+     phase's task list, the reset), which could leave the room a line: the
+     mentor's composer was cut off and the conversation squeezed. The page
+     scrolls instead, and the room keeps a working height. */
+  main[data-testid=requirements-workspace]>div:last-child{overflow-x:hidden;overflow-y:auto}
+  .requirements-workspace-room{min-height:min(560px,75dvh)}
+  .requirements-pane .requirements-conversation{min-height:0;height:100%}
+  .requirements-conversation [data-testid=interview-persona]{min-height:136px;padding:12px 16px;gap:12px}
+  .requirements-conversation .stakeholder-portrait{width:92px;height:92px;flex:none}
+  .requirements-conversation [data-testid=interview-persona] p:first-child{font-size:17px;margin-bottom:7px}
+  .requirements-conversation [data-testid=interview-transcript]{padding:16px}
+}
+@media(max-width:700px){
+  .requirements-toolbar{flex-direction:column}.requirements-tabs{padding:0 8px;gap:4px}.requirements-tabs a{flex:1;gap:7px;min-height:44px;padding:9px 4px;font-size:11px;min-width:0;white-space:normal;overflow-wrap:anywhere;text-align:center}.requirements-tabs svg{width:15px;height:15px;flex:none}
+  .requirements-toolbar .workspace-panel-controls{margin-left:0;border-top:1px solid #e4edf2;padding:4px 8px}
+  .requirements-gate{flex-wrap:wrap;padding:9px 12px}.requirements-gate>.btn{margin-left:0}
+  .requirements-conversation [data-testid=interview-persona]{align-items:flex-start;padding:12px;gap:10px}.requirements-conversation .stakeholder-portrait{width:62px;height:76px;object-fit:contain}.requirements-conversation [data-testid=interview-persona] p:first-child{font-size:15px}.requirements-conversation [data-testid=interview-persona] .purpose{font-size:10px}
+  .requirements-next-step{font-size:10px;margin-top:6px}.requirements-workspace-center .jira-backlog-body{flex-direction:column}
+  .requirements-conflict-columns{grid-template-columns:1fr}
+  .requirements-workspace-center .jira-epic-list{display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px;width:100%;max-height:122px;flex:none;padding:8px 12px;border-right:0;border-bottom:1px solid #d3e2ea}
+  .requirements-workspace-center .jira-epic-list>header{width:100%;padding:0 4px 3px}.requirements-workspace-center .jira-epic-list>button{width:auto;padding:6px}.requirements-workspace-center .jira-epic-list>div{max-width:100%}.requirements-workspace-center .jira-epic-list>p{padding:3px;font-size:10px}.requirements-workspace-center .jira-epic-list>p button{margin-top:2px}
+  .requirements-workspace-center .jira-issue-list{flex:1;min-height:0}.requirements-workspace-center .jira-backlog-heading{padding:12px!important}.requirements-workspace-center .jira-backlog-heading h2{font-size:19px}.requirements-workspace-center .jira-backlog-review{padding:14px}.requirements-workspace-center .jira-backlog-filters{padding-bottom:10px}
+}
+@media(prefers-reduced-motion:reduce){.requirements-tabs a{transition:none}}
+
+/* The Jira-style backlog's hierarchy stays clear in both themes: phase navigation, view
+   navigation, then the bordered backlog. No row moves under the pointer. */
+.requirements-toolbar{background:linear-gradient(180deg,var(--tool-surface),var(--tool-raised));border-color:var(--tool-line);color:var(--tool-ink)}
+.requirements-tabs a{border-radius:6px 6px 0 0;color:var(--tool-muted);font-weight:550;transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),color var(--motion-control,180ms) var(--ease-out,ease-out),box-shadow var(--motion-fast,120ms) var(--ease-out,ease-out)}
+.requirements-tabs a:hover{background:var(--tool-hover);color:var(--tool-accent)}
+.requirements-tabs a[aria-selected=true]{background:var(--tool-tint);color:var(--tool-accent);border-color:var(--tool-accent);font-weight:650}
+/* Reserve the selected label's width in both states, including initial font
+   loading. The hidden copy is excluded from each tab's accessible name. */
+.requirements-tab-label {
+  display: inline-grid;
+}
+.requirements-tab-label > span {
+  grid-area: 1 / 1;
+}
+.requirements-tab-label > .requirements-tab-size {
+  font-weight: 650;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+/* The Required / Optional word beside the interview tab and the mentor switch. */
+.requirements-tabs .requirements-qualifier,.requirements-toolbar .workspace-panel-note{height:20px;padding:0 6px;flex:none}
+.requirements-toolbar .workspace-panel-note{margin-left:2px}
+/* Phones: with the sidebar pinned the two tabs are 54 to 69 px wide at 360 and 390 px, too
+   narrow for the chip beside "Stakeholder interview" (it ran over "My backlog", WCAG 1.4.10);
+   the words stay the controls' descriptions, and the tutorial still names them. */
+@media(max-width:700px){.requirements-tabs .requirements-qualifier,.requirements-toolbar .workspace-panel-note{display:none}}
+.requirements-tabs a:active{box-shadow:inset 0 2px 4px #062c4826;background:var(--tool-tint)}
+.requirements-tabs a:focus-visible{outline-color:var(--tool-accent)}
+.requirements-workspace-room{background:var(--tool-canvas);color:var(--tool-ink)}
+.requirements-shared-brief{background:var(--tool-raised);border-color:var(--tool-line)}
+.requirements-workspace-center,.jira-backlog-room,.jira-issue-list{background:var(--tool-surface);color:var(--tool-ink)}
+.requirements-workspace-center .jira-backlog-room,.jira-backlog-filters,.jira-backlog-footer{background:var(--tool-surface)}
+.jira-backlog-heading{background:var(--tool-surface)!important}
+.jira-backlog-heading small,.jira-backlog-heading p,.jira-issue-list>header span,.jira-list-note,.jira-backlog-footer>span{color:var(--tool-muted)}
+.jira-view-nav{background:var(--tool-raised);border-color:var(--tool-line);gap:4px}
+.jira-view-nav button{padding-inline:12px;border-radius:5px 5px 0 0;color:var(--tool-muted);transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),box-shadow var(--motion-fast,120ms) var(--ease-out,ease-out)}
+.jira-view-nav button:hover{background:var(--tool-hover);color:var(--tool-accent)}
+.jira-view-nav button[aria-pressed=true]{background:var(--tool-surface);border-color:var(--tool-accent);color:var(--tool-accent);font-weight:650}
+.jira-view-nav button:active{box-shadow:inset 0 2px 4px #062c4826}
+.jira-backlog-filters label,.jira-backlog-filters select{background:var(--tool-raised);border-color:var(--tool-line);border-radius:7px;color:var(--tool-muted);min-height:36px}
+.jira-backlog-filters label:focus-within{outline:2px solid var(--tool-accent);outline-offset:2px;border-color:var(--tool-accent)}
+.jira-backlog-filters input{color:var(--tool-ink)}
+.jira-backlog-body,.jira-backlog-footer{border-color:var(--tool-line)}
+.jira-epic-list{background:var(--tool-raised);border-color:var(--tool-line)}
+:is(.jira-epic-list>button,.jira-epic-list>div>button:first-child){color:var(--tool-muted);border-radius:7px;transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),box-shadow var(--motion-fast,120ms) var(--ease-out,ease-out)}
+.jira-epic-list [aria-pressed=true]{background:var(--tool-tint);color:var(--tool-accent);box-shadow:inset 2px 0 var(--tool-accent)}
+.jira-epic-list button:hover{background:var(--tool-hover);color:var(--tool-ink)}
+.jira-epic-list button:active{background:var(--tool-tint)}
+.jira-epic-list small,.jira-epic-list>p{color:var(--tool-muted)}
+.jira-issue-row{background:var(--tool-surface);border-color:var(--tool-line);color:var(--tool-ink);transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out),box-shadow var(--motion-fast,120ms) var(--ease-out,ease-out)}
+.jira-issue-row:first-of-type{border-radius:8px 8px 0 0}
+.jira-issue-row:last-of-type,.jira-add-story{border-color:var(--tool-line)}
+.jira-issue-row:hover{background:var(--tool-hover);box-shadow:inset 3px 0 var(--tool-accent)}
+.jira-issue-row:active{background:var(--tool-tint);box-shadow:inset 3px 0 var(--tool-accent),inset 0 2px 5px #062c4820}
+.jira-issue-row:focus-visible{position:relative;z-index:1;outline:2px solid var(--tool-accent);outline-offset:-3px;background:var(--tool-hover)}
+.jira-issue-row code,.jira-add-story{color:var(--tool-muted)}
+.jira-issue-row small{font-size:9px;letter-spacing:.025em;background:var(--tool-raised);color:var(--tool-muted);border:1px solid var(--tool-line)}
+.jira-own-story{box-shadow:inset 3px 0 var(--tool-selected-line)}
+.jira-own-story small{background:var(--tool-tint);color:var(--tool-accent)}
+.jira-add-story{border-radius:0 0 8px 8px;min-height:44px;transition:background-color var(--motion-control,180ms) var(--ease-out,ease-out)}
+.jira-add-story:hover{background:var(--tool-hover);color:var(--tool-accent)}
+.jira-issue-dialog{background:var(--tool-surface);color:var(--tool-ink);border-color:var(--tool-line)}
+.jira-issue-dialog>header,.jira-story-editor>section>header{background:var(--tool-raised);border-color:var(--tool-line)}
+.jira-create-options>button,.jira-epic-form :is(input,textarea){background:var(--tool-surface);color:var(--tool-ink);border-color:var(--tool-line)}
+.jira-create-options>button:hover{background:var(--tool-hover);border-color:var(--tool-accent);transform:none}
+.jira-create-options>p,.jira-create-options small,.jira-provided-label{color:var(--tool-muted)}
+html[data-theme=graphite] .jira-issue-dialog{--c-surface:23 42 57;--c-ground:17 35 48;--c-raised:28 51 69;--c-ink:222 237 246;--c-ink2:195 215 228;--c-muted:173 195 211;--c-edge:54 82 103;--c-edge2:78 111 132;--c-accent:145 212 236;--c-tint:37 72 93}
+@media(max-width:767px){.jira-view-nav button,.jira-backlog-filters label,.jira-backlog-filters select{min-height:44px}.jira-epic-list>header>button{min-width:36px;min-height:36px}:is(.jira-epic-list>button,.jira-epic-list>div>button:first-child){min-height:44px}}
+@media(prefers-reduced-motion:reduce){.requirements-tabs a,.jira-view-nav button,.jira-epic-list button,.jira-issue-row,.jira-add-story{transition:none!important}}
+
+/* Dialogs can be siblings of the workspace (saved-version comparison), so
+   their palette is self-contained instead of depending on a room ancestor. */
+.jira-issue-dialog{--c-onaccent:255 255 255;--c-dim:82 108 124;--issue-purple:#705099;background:var(--tool-surface,rgb(var(--c-surface)));color:var(--tool-ink,rgb(var(--c-ink)));border-color:var(--tool-line,rgb(var(--c-edge2)));box-shadow:0 24px 80px #10293f4d}
+html[data-theme=graphite] .jira-issue-dialog{--c-onaccent:17 35 48;--c-dim:173 195 211;--issue-purple:#c8acf1;box-shadow:0 24px 80px #0008}
+.jira-issue-dialog>header{box-shadow:inset 0 -1px var(--tool-line)}
+.jira-issue-dialog>header>span>svg{color:var(--tool-accent)}
+.jira-issue-dialog>header>button{display:flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;border:1px solid transparent;border-radius:8px;color:var(--tool-muted);transition:background-color var(--motion-control,180ms),border-color var(--motion-control,180ms)}
+.jira-issue-dialog>header>button:hover{background:var(--tool-hover);border-color:var(--tool-line);color:var(--tool-ink)}
+.jira-issue-dialog>header>button:active{background:var(--tool-tint);box-shadow:inset 0 2px 4px #0002}
+.jira-issue-dialog :focus-visible{outline-color:var(--tool-accent)}
+.jira-epic-form>small{color:var(--issue-purple);font-weight:650;letter-spacing:.04em}
+.jira-epic-form :is(input,textarea){border-color:rgb(var(--c-field-border,113 140 160));background:var(--tool-raised)}
+.jira-backlog-filters :is(label,select){border-color:rgb(var(--c-field-border,113 140 160))}
+.jira-epic-form :is(input,textarea)::placeholder,.jira-backlog-filters input::placeholder{color:var(--tool-muted);opacity:1}
+.jira-issue-dialog select,.jira-backlog-filters select{color-scheme:inherit}
+.jira-issue-dialog option,.jira-backlog-filters option{background:var(--tool-surface);color:var(--tool-ink)}
+.requirements-conflict-body>p,.requirements-conflict-copy dt,.requirements-conflict-actions p{color:var(--tool-muted)}
+.requirements-conflict-copy{background:var(--tool-raised);border-color:var(--tool-line)}
+.requirements-conflict-copy:first-child{border-top:3px solid var(--issue-purple)}
+.requirements-conflict-copy:last-child{border-top:3px solid var(--tool-accent)}
+.requirements-conflict-copy h3{margin-bottom:20px;letter-spacing:-.02em}
+.requirements-conflict-copy details,.requirements-conflict-actions{border-color:var(--tool-line)}
+.requirements-conflict-copy summary{color:var(--tool-accent);padding-block:6px}
+.requirements-conflict-actions{background:var(--tool-surface)}
+.requirements-reference-tabs button,.requirements-review-empty,.requirements-reference-document>p:first-child{color:var(--tool-muted)}
+.requirements-reference-tabs button[aria-pressed=true],.requirements-full-brief summary{color:var(--tool-accent);border-color:var(--tool-accent)}
+@media(max-width:700px){.jira-issue-dialog>header>button{min-width:44px;min-height:44px}.jira-issue-dialog>header{gap:8px}.jira-epic-form{padding:18px}.jira-epic-form :is(input,textarea){font-size:16px}.requirements-conflict-body{padding:16px}.requirements-conflict-copy{padding:14px}.requirements-conflict-actions .btn,.requirements-conflict-actions .btn-secondary{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.jira-issue-dialog>header>button{transition:none}}
+
+/* An issue title remains editable prose. Long titles wrap without changing
+   the saved record; icon actions keep a square hit area inside the criterion. */
+/* The frame must never become a second scroll container when native focus or
+   scrollIntoView reveals a lower field during the opening animation. */
+.jira-issue-dialog:has(>.jira-story-editor),.jira-story-editor,.jira-story-editor>section{overflow:clip}
+.jira-story-title{min-width:8rem;max-height:8em;overflow-y:auto}
+.jira-story-editor .requirement-icon-action{width:28px;min-width:28px;height:28px;min-height:28px;padding:0;border-radius:7px}
+.jira-story-editor span:has(>.requirement-icon-action){max-width:100%;flex-wrap:wrap;justify-content:flex-end}
+.jira-story-editor li>span:has(.requirement-icon-action){min-width:0;max-width:100%}
+@media(max-width:700px){
+  .jira-story-editor>section>header .jira-story-title{flex:1 0 calc(100% - 48px);min-width:0}
+  .jira-story-editor .requirement-icon-action{width:44px;min-width:44px;height:44px;min-height:44px;border-radius:10px}
+}

@@ -1,0 +1,218 @@
+/*
+ * The quiz-results page.
+ *
+ * Existing tokens only: the experience page's ink, muted ink, line and chart
+ * track (experience.css), and the pass token (globals.css). Passed is the pass
+ * token; everything else is ink. Flat bars, no shadows of their own, no axes.
+ */
+.quiz-results {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.quiz-results .quiz-note {
+  margin: 0;
+}
+.quiz-section {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+.quiz-results .quiz-section-title {
+  font-size: 19px;
+  margin: 0;
+}
+.quiz-results .quiz-section-note {
+  margin: 0;
+}
+.quiz-cards-section {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+.quiz-cards {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+}
+.quiz-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+.quiz-results .quiz-card h3 {
+  font-size: 17px;
+}
+.quiz-results .quiz-card-line {
+  margin: 0;
+}
+.quiz-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 12px 18px;
+  margin: 0;
+}
+.quiz-stats > div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.quiz-stats dt {
+  font-size: 11px;
+  color: var(--exp-muted);
+}
+.quiz-stats dd {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--exp-ink);
+  font-variant-numeric: tabular-nums;
+}
+.quiz-chart {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.quiz-results .quiz-chart-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 650;
+}
+.quiz-chart-svg {
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+}
+.quiz-chart-svg text {
+  fill: var(--exp-ink);
+  font-size: 12px;
+  font-family: inherit;
+}
+.quiz-chart-svg .quiz-value {
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.quiz-chart-svg .quiz-quiet {
+  fill: var(--exp-muted);
+  font-weight: 500;
+}
+.quiz-bar-track {
+  fill: var(--exp-chart-track);
+}
+.quiz-bar.is-pass {
+  fill: rgb(var(--c-pass));
+}
+.quiz-bar.is-neutral {
+  fill: var(--exp-muted);
+}
+.quiz-bar.is-neutral.is-rest {
+  fill-opacity: 0.45;
+}
+.quiz-numbers summary {
+  width: fit-content;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--exp-muted);
+}
+.quiz-numbers[open] summary {
+  margin-bottom: 6px;
+}
+.quiz-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.quiz-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12px;
+}
+.quiz-table th,
+.quiz-table td {
+  padding: 8px 9px;
+  border-bottom: 1px solid var(--exp-line);
+  vertical-align: middle;
+}
+.quiz-table thead th {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--exp-muted);
+}
+.quiz-table tbody th {
+  font-weight: 600;
+}
+.quiz-table .is-number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.quiz-results .quiz-empty,
+.quiz-results .quiz-error {
+  margin: 0;
+  font-size: 14px;
+}
+.quiz-results .quiz-error {
+  color: var(--exp-ink);
+}
+.quiz-downloads {
+  justify-content: flex-start;
+}
+@media (max-width: 520px) {
+  .quiz-stats dd {
+    font-size: 18px;
+  }
+}
+
+/*
+ * The learning-gain view. Two links to switch views
+ * (the current one marked by weight and border, not by colour), and a flat
+ * paired bar: before in muted ink, after in the accent. Nothing else coloured.
+ */
+.quiz-views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.quiz-views [aria-current='page'] {
+  font-weight: 650;
+  border-color: var(--exp-ink);
+}
+.learning-gain-bars {
+  display: grid;
+  gap: 6px;
+  max-width: 460px;
+}
+.learning-gain-row {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--exp-ink);
+}
+.learning-gain-label {
+  color: var(--exp-muted);
+}
+.learning-gain-track {
+  display: block;
+  height: 12px;
+  background: var(--exp-chart-track);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.learning-gain-bar {
+  display: block;
+  height: 100%;
+}
+.learning-gain-bar.is-before {
+  background: var(--exp-muted);
+}
+.learning-gain-bar.is-after {
+  background: rgb(var(--c-accent));
+}
+.learning-gain-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}

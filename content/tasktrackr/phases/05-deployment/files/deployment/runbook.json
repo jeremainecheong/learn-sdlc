@@ -1,0 +1,56 @@
+{
+  "environment": [
+    {
+      "id": "E1",
+      "name": "TASKTRACKR_DB",
+      "purpose": "",
+      "kind": "config"
+    },
+    {
+      "id": "E2",
+      "name": "API_URL",
+      "purpose": "",
+      "kind": "config"
+    },
+    {
+      "id": "E3",
+      "name": "PORT",
+      "purpose": "",
+      "kind": "config"
+    },
+    {
+      "id": "E4",
+      "name": "HOST",
+      "purpose": "",
+      "kind": "config"
+    }
+  ],
+  "health": [
+    {
+      "id": "H1",
+      "name": "API healthcheck",
+      "how": "",
+      "expected": ""
+    },
+    {
+      "id": "H2",
+      "name": "Deployment selfcheck",
+      "how": "",
+      "expected": ""
+    }
+  ],
+  "rollback": [],
+  "data": [
+    {
+      "id": "D1",
+      "what": "The database file",
+      "how": "",
+      "where": ""
+    }
+  ],
+  "incident": {
+    "rootCause": "",
+    "fix": "",
+    "actionItem": ""
+  }
+}

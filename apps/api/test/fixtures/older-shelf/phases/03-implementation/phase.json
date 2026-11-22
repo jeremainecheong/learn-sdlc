@@ -1,0 +1,179 @@
+{
+  "key": "implementation",
+  "order": 3,
+  "title": "Implementation",
+  "intro": "The shelf runs except for four marked gaps, two in the Python API and two in the TypeScript page. Make the backlog's rules true in both.",
+  "artifactKind": "code",
+  "canRun": true,
+  "runLabel": "Run visible tests",
+  "taskFile": "task.md",
+  "objectives": [
+    "Implement books with the author filter and shelf order (SH-1)",
+    "Implement lend and its refusals (SH-2)",
+    "Implement shelfLabel so a lent book says so (SH-4)",
+    "Implement sortForShelf so the page agrees with the API (SH-1)"
+  ],
+  "files": [
+    {
+      "path": "api/main.py",
+      "source": "../../canonical/api/main.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "api/shelf.py",
+      "source": "files/api/shelf.py",
+      "editable": true,
+      "language": "python"
+    },
+    {
+      "path": "tests/conftest.py",
+      "source": "../../canonical/tests/conftest.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "tests/test_shelf_api.py",
+      "source": "files/tests/test_shelf_api.py",
+      "editable": false,
+      "language": "python"
+    },
+    {
+      "path": "web/src/lib/shelf.ts",
+      "source": "files/web/src/lib/shelf.ts",
+      "editable": true,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/lib/shelf.test.ts",
+      "source": "files/web/src/lib/shelf.test.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/ShelfPage.ts",
+      "source": "../../canonical/web/src/ShelfPage.ts",
+      "editable": false,
+      "language": "typescript"
+    },
+    {
+      "path": "web/src/main.ts",
+      "source": "../../canonical/web/src/main.ts",
+      "editable": false,
+      "language": "typescript"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "correctness_hidden",
+        "title": "Correctness (hidden tests)",
+        "weight": 0.45,
+        "description": "The sealed suites, one per layer, ask the same rules many more questions."
+      },
+      {
+        "key": "visible_tests",
+        "title": "Visible tests",
+        "weight": 0.15,
+        "description": "The suites you can see pass, and you can run them before submitting."
+      },
+      {
+        "key": "code_quality",
+        "title": "Code quality",
+        "weight": 0.25,
+        "description": "No TODO left behind, reasonable complexity, docstrings kept."
+      },
+      {
+        "key": "process",
+        "title": "Process",
+        "weight": 0.15,
+        "description": "You ran the tests before submitting and used the mentor in moderation."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "code",
+    "editableTargets": [
+      "api/shelf.py",
+      "web/src/lib/shelf.ts"
+    ],
+    "solutionDir": "solution",
+    "runs": [
+      {
+        "id": "api",
+        "language": "python",
+        "harness": "pytest",
+        "hiddenHarness": "unittest",
+        "label": "API tests",
+        "visibleTests": [
+          "tests/test_shelf_api.py"
+        ],
+        "hiddenTestDir": "hidden_tests/api",
+        "supportFiles": [
+          "tests/conftest.py"
+        ]
+      },
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "hiddenHarness": "js",
+        "label": "Front end",
+        "transform": true,
+        "visibleTests": [
+          "web/src/lib/shelf.test.ts"
+        ],
+        "hiddenTestDir": "hidden_tests/web",
+        "supportFiles": []
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the IMPLEMENTATION phase of Shelf, a teacher's own application: a Python Flask API that keeps books in memory and a TypeScript React page that lists them. The learner completes books and lend in api/shelf.py and shelfLabel and sortForShelf in web/src/lib/shelf.ts. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 120 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "books",
+          "filter",
+          "author",
+          "order",
+          "sort"
+        ],
+        "hints": [
+          "Which two decisions does books make, and in which order should it make them?",
+          "What key would make two books with the same title keep a stable order?"
+        ]
+      },
+      {
+        "keywords": [
+          "lend",
+          "borrower",
+          "loan",
+          "409"
+        ],
+        "hints": [
+          "Which three things can make a loan impossible, and which exception does the route expect for each?",
+          "Read give_back just below: what does it check first?"
+        ]
+      },
+      {
+        "keywords": [
+          "label",
+          "shelflabel",
+          "sortforshelf",
+          "typescript"
+        ],
+        "hints": [
+          "What does a person read on one line, and which part depends on the year?",
+          "Does sort change the array it is called on? What does the docstring promise?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Run the visible tests first and read which rule each failing case names.",
+      "Do the Python gaps, then the TypeScript ones: the rules are the same.",
+      "Run both suites again before you submit; the hidden suites add the edge cases."
+    ]
+  }
+}

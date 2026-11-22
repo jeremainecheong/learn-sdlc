@@ -1,0 +1,329 @@
+{
+  "key": "design",
+  "order": 2,
+  "title": "Design",
+  "intro": "Design the feature you specified: the data model, the HTTP contract, the screen contract, and one decision you can defend.",
+  "artifactKind": "markdown",
+  "canRun": false,
+  "runLabel": "",
+  "taskFile": "task.md",
+  "objectives": [
+    "Complete the data model the approved stories force, including the fields US-3 and US-4 need",
+    "Fill the four gaps in the HTTP contract: the tasks entity, the list query, the two empty operations and the error catalogue",
+    "Specify the overdue screen: its component, the operation it reads and what it shows when nothing is late",
+    "Record one design decision with the trade-off you weighed"
+  ],
+  "files": [
+    {
+      "path": "requirements/provided-stories.md",
+      "source": "../01-requirements/files/provided-stories.md",
+      "editable": false,
+      "language": "markdown"
+    },
+    {
+      "path": "design/architecture.md",
+      "source": "files/architecture.md",
+      "editable": false,
+      "language": "markdown"
+    },
+    {
+      "path": "design/my-design.md",
+      "source": "files/my-design.md",
+      "editable": true,
+      "language": "markdown"
+    },
+    {
+      "path": "design/design.json",
+      "source": "files/design.json",
+      "editable": true,
+      "language": "json"
+    },
+    {
+      "path": "shared/contract/api.json",
+      "source": "files/api.json",
+      "editable": true,
+      "language": "json"
+    },
+    {
+      "path": "shared/contract/screens.json",
+      "source": "files/screens.json",
+      "editable": true,
+      "language": "json"
+    }
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "traceability",
+        "title": "Traceability to the backlog",
+        "weight": 0.25,
+        "description": "Every story the design serves is named on the operation or the screen that serves it, so nothing in the backlog lands nowhere."
+      },
+      {
+        "key": "data_model",
+        "title": "Data model completeness",
+        "weight": 0.25,
+        "description": "The tasks entity carries every field the stories force, points at the list it belongs to, and tags are joined rather than stored on the task."
+      },
+      {
+        "key": "api_contract",
+        "title": "API contract precision",
+        "weight": 0.25,
+        "description": "completeTask, the list query and the overdue report each say what they answer with and what they refuse, and every code is declared."
+      },
+      {
+        "key": "screen_contract",
+        "title": "Screen contract precision",
+        "weight": 0.15,
+        "description": "The overdue screen names its component, the operation that feeds it, the components it renders and what it shows when nothing is overdue."
+      },
+      {
+        "key": "decision_justification",
+        "title": "Justified decisions",
+        "weight": 0.1,
+        "description": "At least one decision is recorded with the alternative it beat and the trade-off that was weighed."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "markdown",
+    "targets": [
+      "design/my-design.md",
+      "shared/contract/api.json",
+      "shared/contract/screens.json"
+    ],
+    "minWords": 900,
+    "minWordsCriterion": "decision_justification",
+    "rules": [
+      {
+        "id": "trace-us2",
+        "label": "US-2 lands somewhere in the design",
+        "criterion": "traceability",
+        "pattern": "\"satisfies\"\\s*:\\s*\\[?\\s*\"[^\"]*US-2|^###[^\\n]*US-2",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Nothing claims US-2. Put the story id on the operation that completes a task, in shared/contract/api.json under \"satisfies\", or on its heading in design/my-design.md."
+      },
+      {
+        "id": "trace-us3",
+        "label": "US-3 lands somewhere in the design",
+        "criterion": "traceability",
+        "pattern": "\"satisfies\"\\s*:\\s*\\[?\\s*\"[^\"]*US-3|^###[^\\n]*US-3",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Nothing claims US-3. Filtering, searching and ordering happen in one operation: name the story on it, in shared/contract/api.json or on its heading in design/my-design.md."
+      },
+      {
+        "id": "trace-us4",
+        "label": "US-4 lands somewhere in the design",
+        "criterion": "traceability",
+        "pattern": "\"satisfies\"\\s*:\\s*\\[?\\s*\"[^\"]*US-4|^###[^\\n]*US-4",
+        "flags": "im",
+        "required": true,
+        "failDetail": "Your own overdue story is traceable into nothing. Claim US-4 on the operation that reports it and on the screen that shows it."
+      },
+      {
+        "id": "model-due-date-status",
+        "label": "The tasks entity carries a due date and a status",
+        "criterion": "data_model",
+        "pattern": "(?=[\\s\\S]*(?:\"name\"\\s*:\\s*\"due_date\"|^\\|[^|\\n]*\\bdue_date\\b))(?=[\\s\\S]*(?:\"name\"\\s*:\\s*\"status\"|^\\|[^|\\n]*\\bstatus\\b))",
+        "flags": "im",
+        "required": true,
+        "failDetail": "US-4 cannot work until the model can say when a task was due, and US-3 cannot filter until it can say whether a task is still open. Add both fields to the tasks entity in shared/contract/api.json, or to the model table in design/my-design.md."
+      },
+      {
+        "id": "model-task-belongs-to-list",
+        "label": "A task points at the list it belongs to",
+        "criterion": "data_model",
+        "pattern": "\"references\"\\s*:\\s*\"lists\\.id\"|\\blists\\.id\\b",
+        "flags": "i",
+        "required": true,
+        "failDetail": "A task lives in exactly one list, so something has to say which. Give the tasks entity a field that references lists.id."
+      },
+      {
+        "id": "model-tags-join",
+        "label": "Tags and tasks are joined, not stored on the task",
+        "criterion": "data_model",
+        "pattern": "\"references\"\\s*:\\s*\"tasks\\.id\"[\\s\\S]{0,400}?\"references\"\\s*:\\s*\"tags?\\.id\"|\"references\"\\s*:\\s*\"tags?\\.id\"[\\s\\S]{0,400}?\"references\"\\s*:\\s*\"tasks\\.id\"|\\bmany[-\\s]?to[-\\s]?many\\b|\\bjoin table\\b|\\btask_tags\\b",
+        "flags": "i",
+        "required": true,
+        "failDetail": "A tag belongs to more than one task and a task carries more than one tag. Name the table that pairs them, with a field referencing tasks.id and a field referencing tags.id, rather than a tags column on the task."
+      },
+      {
+        "id": "api-complete",
+        "label": "The contract for completeTask is filled in",
+        "criterion": "api_contract",
+        "pattern": "\"completeTask\"(?:(?!\"id\"\\s*:)[\\s\\S])*?\"summary\"\\s*:\\s*\"[^\"]{25,}\"(?:(?!\"id\"\\s*:)[\\s\\S])*?\"success\"\\s*:\\s*\\{[^{}]*\"status\"\\s*:\\s*[1-5]\\d\\d(?:(?!\"id\"\\s*:)[\\s\\S])*?\"errors\"\\s*:\\s*\\[\\s*\"[a-z]",
+        "required": true,
+        "failDetail": "completeTask still has an empty summary, an empty success or no failures. Say what it does in a sentence, what it answers with, and the code it returns when no task has that id."
+      },
+      {
+        "id": "api-list-query",
+        "label": "The query semantics of listTasks are specified",
+        "criterion": "api_contract",
+        "pattern": "\"listTasks\"(?:(?!\"id\"\\s*:)[\\s\\S])*?\"query\"\\s*:\\s*\\[\\s*\\{[^{}]*\"name\"\\s*:\\s*\"[a-z]+\"(?:(?!\"id\"\\s*:)[\\s\\S])*?\"errors\"\\s*:\\s*\\[\\s*\"[a-z]",
+        "required": true,
+        "failDetail": "listTasks publishes no query parameters and no failures. Name each parameter the caller may send and what it accepts, and name what the API refuses."
+      },
+      {
+        "id": "api-overdue",
+        "label": "The contract for the overdue report is filled in",
+        "criterion": "api_contract",
+        "pattern": "\"getOverdue\"(?:(?!\"id\"\\s*:)[\\s\\S])*?\"summary\"\\s*:\\s*\"[^\"]{25,}\"(?:(?!\"id\"\\s*:)[\\s\\S])*?\"success\"\\s*:\\s*\\{[^{}]*\"status\"\\s*:\\s*[1-5]\\d\\d(?:(?!\"id\"\\s*:)[\\s\\S])*?\"errors\"\\s*:\\s*\\[\\s*\"[a-z]",
+        "required": true,
+        "failDetail": "getOverdue still has an empty summary, an empty success or no failures. State the boundary rule in the summary as a sentence, say what it answers with, and name the code it returns for a bad date."
+      },
+      {
+        "id": "api-errors-404",
+        "label": "The error catalogue declares a 404 with a code",
+        "criterion": "api_contract",
+        "pattern": "\"[a-z][a-z_]*\"\\s*:\\s*\\{[^{}]*\"status\"\\s*:\\s*404[^{}]*\"meaning\"\\s*:\\s*\"[^\"]{8,}\"",
+        "flags": "i",
+        "required": true,
+        "failDetail": "Every code an operation names has to be declared under \"errors\" with its status and what it means, and something in this contract answers 404. An empty catalogue is not a contract."
+      },
+      {
+        "id": "screen-overdue",
+        "label": "The overdue screen names its component, its operation and its empty state",
+        "criterion": "screen_contract",
+        "pattern": "\"#/overdue\"(?:(?!\"route\"\\s*:)[\\s\\S])*?\"component\"\\s*:\\s*\"[A-Za-z][A-Za-z0-9]{2,}\"(?:(?!\"route\"\\s*:)[\\s\\S])*?\"reads\"\\s*:\\s*\\[\\s*\"[A-Za-z][^\"]*\"(?:(?!\"route\"\\s*:)[\\s\\S])*?\"components\"\\s*:\\s*\\[\\s*\"[A-Za-z][^\"]*\"(?:(?!\"route\"\\s*:)[\\s\\S])*?\"empty\"\\s*:\\s*\"[^\"]{15,}\"",
+        "required": true,
+        "failDetail": "The #/overdue row is still blank. Name the component that renders it, the operation it reads, the components it puts on screen, and the sentence it shows when nothing is overdue, which Dana asked for in the interview."
+      },
+      {
+        "id": "decision-tradeoff",
+        "label": "A decision records its trade-off",
+        "criterion": "decision_justification",
+        "pattern": "(^\\|[ \\t]*D\\d+[ \\t]*\\|[^|\\n]*\\w[^|\\n]*\\|[^|\\n]*(because|trade-?off|instead of|rather than|chose [^|\\n]* over)[^|\\n]*\\||^(?!\\|)(?=[^\\n]*\\b(decision|chose|choose|picked|opted|prefer)\\b)[^\\n]*\\b(because|trade-?off|instead of|rather than)\\b[^\\n]{6,})",
+        "flags": "im",
+        "required": true,
+        "failDetail": "A decision without a reason is a guess. Fill a D1 row with the choice AND why: because..., rather than..., the trade-off was..."
+      }
+    ]
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the DESIGN phase of TaskTrackr, a two-service web application: a Python API over SQLite behind a Node proxy, and a TypeScript React front end. The learner must complete the data model, the HTTP contract in shared/contract/api.json, the screen contract in shared/contract/screens.json, and one justified decision in design/my-design.md. The architecture and existing contracts are settled and are not theirs to reopen. TaskTrackr has no accounts or task-to-user relationship. Each task belongs to exactly one list through required list_id (snake_case), and tasks and tags use the declared join table. US-4 requires source-list information on every report row; do not suggest omitting it as a design option. Guide the learner to compare representations and trade-offs while preserving these fixed requirements, rather than asking them to decide whether the known relationship or required information should exist. Propose options and trade-offs; never fill in their design. Keep replies under 120 words, end with one guiding question, and stay on design topics: data modelling, contracts, cohesion, trade-offs, traceability.",
+    "topics": [
+      {
+        "keywords": [
+          "data model",
+          "entity",
+          "field",
+          "type",
+          "table",
+          "schema",
+          "column"
+        ],
+        "hints": [
+          "Walk through each approved story and ask what it forces the model to store. US-3 filters by status and searches the title. US-4 has to know when a task was due. What falls out of each one, and what type is it?",
+          "For every field, decide whether it is required and what it means when it is absent. Does every task have a due date? What should the report do with a task that has none?"
+        ]
+      },
+      {
+        "keywords": [
+          "tag",
+          "tags",
+          "join",
+          "many",
+          "relationship",
+          "foreign key",
+          "reference"
+        ],
+        "hints": [
+          "A tag belongs to more than one task and a task carries more than one tag. A column on the task can hold one value cleanly; what happens when you want every task carrying a given tag? Which shape answers that in one query?",
+          "A task lives in exactly one list. That is a different kind of relationship from tags, and the model should say so. Which entity holds the pointer, and what happens to the tasks when the list is deleted?"
+        ]
+      },
+      {
+        "keywords": [
+          "contract",
+          "api",
+          "operation",
+          "endpoint",
+          "route",
+          "response",
+          "request",
+          "signature"
+        ],
+        "hints": [
+          "A useful operation answers three questions: what goes in, what comes out, and what happens when it goes wrong. Write completeTask as one line for each. What should completing an already-completed task do?",
+          "For listTasks, the contract has to pin down the legal status values, how the keyword matches, and the order the rows come back in. Your US-3 criteria already decided most of it. Which ones?"
+        ]
+      },
+      {
+        "keywords": [
+          "error",
+          "errors",
+          "404",
+          "status",
+          "code",
+          "failure",
+          "refuse"
+        ],
+        "hints": [
+          "Every code an operation names has to be declared once, with a status and a meaning, so two operations cannot mean different things by the same word. Which of your operations can fail because the thing asked for is not there, and which because what was sent was wrong?",
+          "A 400 says the caller sent something the contract does not allow; a 404 says the thing does not exist. Read your operations and decide which each failure is."
+        ]
+      },
+      {
+        "keywords": [
+          "overdue",
+          "boundary",
+          "today",
+          "date",
+          "late"
+        ],
+        "hints": [
+          "Your own US-4 criteria settled the due-today boundary. The summary of getOverdue should restate it precisely: strictly before today, or on or before? And why does the operation take today as a parameter instead of reading the clock itself?",
+          "A report that reads its own clock cannot be tested at its boundary. What does making today a required parameter cost, and who pays it?"
+        ]
+      },
+      {
+        "keywords": [
+          "screen",
+          "screens",
+          "page",
+          "route",
+          "component",
+          "ui",
+          "empty"
+        ],
+        "hints": [
+          "The screen contract answers what a screen shows, which operation feeds it and what it looks like with nothing in it. Dana said an empty list with no words looks like a bug. What sentence does the report show when nothing is overdue?",
+          "Which components does the report share with the tasks screen? A component you have already got is a design decision you do not have to make twice."
+        ]
+      },
+      {
+        "keywords": [
+          "decision",
+          "trade-off",
+          "tradeoff",
+          "justify",
+          "alternative"
+        ],
+        "hints": [
+          "Pick a real fork. The API filtering versus the browser filtering, today as a parameter versus the server clock, a report page versus a filter on the list. Write what you gain and what you give up. Which of these would a reviewer challenge first?"
+        ]
+      },
+      {
+        "keywords": [
+          "traceability",
+          "trace",
+          "story",
+          "requirement",
+          "satisfies"
+        ],
+        "hints": [
+          "Traceability runs both ways: every story lands somewhere in the design, and everything in the design serves a story. Annotate each operation and each screen with the story id it satisfies. Is anything left unclaimed, and is anything claimed by nothing?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Start with the data model. Read the backlog and list the fields each story forces the tasks entity to have, then give each one a type and decide whether it is required. Do the same for the tables tasks depends on.",
+      "Now the HTTP contract. For completeTask, listTasks and getOverdue, write the summary, what the operation answers with and every way it can fail, then declare each of those codes once under errors with its status.",
+      "Then the screen contract: name the component behind #/overdue, the operation it reads, the components it renders and the sentence it shows when nothing is overdue.",
+      "Finish with the decision log. Pick one choice you could defend in review and record the alternative it beat and what you gave up."
+    ]
+  }
+}

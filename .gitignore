@@ -1,0 +1,97 @@
+node_modules/
+dist/
+.next/
+out/
+*.tsbuildinfo
+
+# Compiled twins of test modules must never be committed.
+# `apps/api/tsconfig.build.json` compiles with `rootDir: src`; a source under
+# `src/` that imports from `test/` makes the build fail (TS6059) AND write a
+# compiled twin next to the test module it reached (`dist/../test/<name>.js`).
+# `build-boundary.spec.ts` keeps `src/` from importing `test/`, and the API
+# suite's `moduleFileExtensions` stops such a twin shadowing its source.
+# `setup-env.js` and `environment.js` (the suite's testEnvironment) are
+# hand-written and stay.
+apps/api/test/*.js
+!apps/api/test/setup-env.js
+!apps/api/test/environment.js
+
+.env
+# Local variants (.env.local, .env.verify and the rest), at any depth.
+# .env.example is the tracked one and stays.
+.env.*
+!.env.example
+
+# Keys and certificates, wherever they are made.
+*.pem
+*.key
+*.p12
+*.pfx
+data/
+*.sqlite
+*.sqlite-journal
+playwright-report/
+test-results/
+blob-report/
+coverage/
+.DS_Store
+.e2e-data/
+.demo-data/
+.shots-data/
+__pycache__/
+*.pyc
+
+# The sandbox's pre-baked dependency layer: 45 MB of Flask, pytest, React,
+# jsdom and one esbuild binary, built by `node scripts/prebake.mjs build` and
+# baked into infra/runner.Dockerfile. Machine-specific and reproducible from
+# the packs' pinned versions, so it is built rather than committed.
+apps/api/runner/runtime/
+
+# Run logs: transcripts of one machine's session, not artefacts anyone can
+# act on.
+*.log
+
+# Playwright MCP session data
+.playwright-mcp/
+
+# redis dump written when a local redis-server is used for testing
+dump.rdb
+
+# Recorded videos and screenshots of the product stay out of the repository.
+docs/demo/*
+!docs/demo/README.md
+
+# Compose overrides are per-machine scratch: the runbook has an operator write
+# docker-compose.trial.yml to publish ports for a side-by-side trial, and that
+# file names their ports, not the project's. The three committed files stay.
+docker-compose.*.yml
+!docker-compose.localstack.yml
+!docker-compose.verify.yml
+!docker-compose.ai-stub.yml
+
+# Local releases, tool downloads, account configuration and reports.
+.preview/
+
+# Terraform working state and values, in any Terraform folder. The example
+# values file is tracked and stays.
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.auto.tfvars
+!*.tfvars.example
+
+# Receipts and logs scripts/prove-local.sh writes: one machine's run, kept
+# for the person who ran it, never committed.
+tmp/prove-local-*
+.superpowers/
+
+# Scratch folders for one machine's work: the evaluation harness's scratch
+# copies and its optional starter-fixture label (apps/api/eval/README.md), and
+# local working folders.
+.eval-scratch/
+.eval-starter-state
+/tmp/
+/tmp-never/
+/output/

@@ -1,0 +1,95 @@
+{
+  "title": "Testing",
+  "intro": "Add one test that catches a wrong boundary.",
+  "artifactKind": "tests",
+  "canRun": true,
+  "runLabel": "Run my tests",
+  "taskPanel": "Add one test to web/src/lib/overdue.test.ts: a task due today is not overdue. Put the words \"due today\" in its name, because the check that both criteria have a test looks for them. Keep the example test that is already there, and do not change the helper.\n\nUS-1 Overdue badge\n- AC-1 A task due yesterday is overdue.\n- AC-2 A task due today is not overdue.\n\nWhen you submit, your tests run against the working helper and against a copy with a bug planted in it. A good suite passes on the first and fails on the copy.",
+  "objectives": [
+    "Add a test: a task due today is not overdue (US-1/AC-2)",
+    "Keep the example test passing",
+    "Catch the planted bug"
+  ],
+  "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+      {
+        "key": "tests_pass",
+        "title": "Tests pass on the working helper",
+        "weight": 0.3,
+        "description": "A test that fails on correct code is a bug in the test."
+      },
+      {
+        "key": "mutants_killed",
+        "title": "Planted bug caught",
+        "weight": 0.45,
+        "description": "Your suite fails on the copy with the planted bug."
+      },
+      {
+        "key": "coverage_mapping",
+        "title": "Criteria covered",
+        "weight": 0.25,
+        "description": "Both criteria of US-1 have a test."
+      }
+    ]
+  },
+  "checks": {
+    "kind": "tests",
+    "learnerTestFiles": [
+      "web/src/lib/overdue.test.ts"
+    ],
+    "runs": [
+      {
+        "id": "web",
+        "language": "typescript",
+        "harness": "js",
+        "label": "My tests",
+        "transform": true,
+        "learnerTestFiles": [
+          "web/src/lib/overdue.test.ts"
+        ],
+        "implFiles": [
+          "web/src/lib/overdue.ts"
+        ],
+        "supportFiles": []
+      }
+    ],
+    "coverageKeywords": [
+      {
+        "criterion": "US-1 due yesterday is overdue",
+        "criterionId": "US-1/AC-1",
+        "keywords": [
+          "due yesterday"
+        ]
+      },
+      {
+        "criterion": "US-1 due today is not overdue",
+        "criterionId": "US-1/AC-2",
+        "keywords": [
+          "due today"
+        ]
+      }
+    ],
+    "minTests": 2
+  },
+  "assistant": {
+    "systemPrompt": "You are the LearnSDLC mentor for the TESTING phase of Deadline badge. The learner adds one test to web/src/lib/overdue.test.ts for a task due today. Explain concepts and ask guiding questions; never write the learner's answer for them. Keep replies under 80 words and end with one question.",
+    "topics": [
+      {
+        "keywords": [
+          "boundary",
+          "today",
+          "bug"
+        ],
+        "hints": [
+          "Which wrong comparison would still pass the example test?"
+        ]
+      }
+    ],
+    "progressive": [
+      "Read the example test.",
+      "Add the due today case.",
+      "Run your tests."
+    ]
+  }
+}

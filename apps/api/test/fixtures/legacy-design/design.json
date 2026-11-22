@@ -1,0 +1,49 @@
+{
+  "fields": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "note": "assigned by the database",
+      "satisfies": ["US-1"]
+    }
+  ],
+  "operations": [
+    {
+      "name": "completeTask(id)",
+      "satisfies": "",
+      "inputs": "",
+      "returns": "",
+      "errors": ""
+    },
+    {
+      "name": "listTasks(listId, filters)",
+      "satisfies": "",
+      "inputs": "",
+      "returns": "",
+      "ordering": "",
+      "errors": ""
+    },
+    {
+      "name": "getOverdue(today)",
+      "satisfies": "",
+      "inputs": "",
+      "returns": "",
+      "boundary": "",
+      "errors": ""
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "choice": "",
+      "alternative": "",
+      "rationale": "",
+      "tradeoff": "",
+      "context": "",
+      "consequences": [],
+      "status": "proposed",
+      "stories": []
+    }
+  ]
+}

@@ -1,0 +1,1376 @@
+{
+ "recordedBy": "apps/api/test/reset-contract-wiring.e2e-spec.ts",
+ "redaction": "ids <uuid:n>, emails <email:n>, tokens <jwt>, digests <sha256:n>, named values <label>, times as ordinal instants from 2026-01-01T00:00:00Z",
+ "bodies": {
+  "enrollment": {
+   "id": "<uuid:1>",
+   "projectSlug": "reset-copy",
+   "projectTitle": "Reset Copy",
+   "currentPhaseOrder": 1,
+   "completed": false,
+   "startedAt": "2026-01-01T00:00:01.000Z",
+   "completedAt": null,
+   "phases": [
+    {
+     "id": "<uuid:2>",
+     "key": "requirements",
+     "order": 1,
+     "title": "Requirements",
+     "taskCounts": {
+      "total": 1,
+      "required": 1,
+      "passed": 0,
+      "passedRequired": 0
+     },
+     "tasksUpdatedAt": "2026-01-01T00:00:01.000Z",
+     "status": "in_progress",
+     "bestScore": null,
+     "attempts": 0,
+     "reflection": null,
+     "passedAt": null,
+     "opensAt": null,
+     "dueAt": null,
+     "scenario": "own",
+     "intro": "Four stories are settled. Write the fifth, the one a member asked for, with criteria a tester could check."
+    },
+    {
+     "id": "<uuid:3>",
+     "key": "design",
+     "order": 2,
+     "title": "Design",
+     "taskCounts": {
+      "total": 2,
+      "required": 1,
+      "passed": 0,
+      "passedRequired": 0
+     },
+     "tasksUpdatedAt": "2026-01-01T00:00:01.000Z",
+     "status": "locked",
+     "bestScore": null,
+     "attempts": 0,
+     "reflection": null,
+     "passedAt": null,
+     "opensAt": null,
+     "dueAt": null,
+     "scenario": "own",
+     "intro": "Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision."
+    },
+    {
+     "id": "<uuid:4>",
+     "key": "implementation",
+     "order": 3,
+     "title": "Implementation",
+     "taskCounts": {
+      "total": 1,
+      "required": 1,
+      "passed": 0,
+      "passedRequired": 0
+     },
+     "tasksUpdatedAt": "2026-01-01T00:00:01.000Z",
+     "status": "locked",
+     "bestScore": null,
+     "attempts": 0,
+     "reflection": null,
+     "passedAt": null,
+     "opensAt": null,
+     "dueAt": null,
+     "scenario": "own",
+     "intro": "The shelf runs except for four marked gaps, two in the Python API and two in the TypeScript page. Make the backlog's rules true in both."
+    }
+   ],
+   "releases": [],
+   "packVersion": "1.0.0",
+   "projectVersionId": "<uuid:5>",
+   "projectIsDefault": false
+  },
+  "phaseBefore": {
+   "id": "<uuid:3>",
+   "key": "design",
+   "order": 2,
+   "title": "Design",
+   "taskCounts": {
+    "total": 2,
+    "required": 1,
+    "passed": 0,
+    "passedRequired": 0
+   },
+   "tasksUpdatedAt": "2026-01-01T00:00:01.000Z",
+   "status": "submitted",
+   "bestScore": 60,
+   "attempts": 1,
+   "reflection": null,
+   "passedAt": null,
+   "opensAt": null,
+   "dueAt": null,
+   "scenario": "own",
+   "intro": "Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision.",
+   "provenance": {
+    "phaseKey": "design",
+    "referenceName": null,
+    "rollup": "own",
+    "intro": "own",
+    "interview": null,
+    "files": [],
+    "tasks": [
+     {
+      "taskKey": "main",
+      "provenance": "edited",
+      "titleEdited": false
+     },
+     {
+      "taskKey": "concepts-one",
+      "provenance": "own",
+      "titleEdited": false
+     }
+    ],
+    "roomTask": "other"
+   },
+   "stakeholder": null,
+   "tasks": [
+    {
+     "key": "main",
+     "order": 1,
+     "required": true,
+     "title": "Design",
+     "artefactType": "design-doc",
+     "primaryPath": "design/design.json",
+     "evidence": "reviewed",
+     "sealed": true,
+     "status": "submitted",
+     "awaitingSignOff": false,
+     "attempts": 1,
+     "bestScore": 60,
+     "passedAt": null,
+     "lastSubmissionId": "<uuid:6>",
+     "resetAt": null,
+     "solution": {
+      "available": false,
+      "files": 0,
+      "readAt": null
+     },
+     "brief": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book\n  already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence\n  with because in it.\n",
+     "objectives": [
+      "List every operation the API answers",
+      "Name the status and error code of every refusal",
+      "Record one decision, the alternative and the reason"
+     ],
+     "files": [
+      "design/design.json",
+      "shared/contract/api.json"
+     ],
+     "rubric": {
+      "passThreshold": 70,
+      "criteria": [
+       {
+        "key": "contract",
+        "title": "Contract",
+        "weight": 0.5,
+        "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+       },
+       {
+        "key": "decisions",
+        "title": "Decision",
+        "weight": 0.3,
+        "description": "A decision, the alternative it beat and the reason."
+       },
+       {
+        "key": "completeness",
+        "title": "Completeness",
+        "weight": 0.2,
+        "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+       }
+      ]
+     }
+    },
+    {
+     "key": "concepts-one",
+     "order": 2,
+     "required": false,
+     "title": "Concept check: concepts-one",
+     "artefactType": "quiz",
+     "evidence": "automated",
+     "sealed": true,
+     "status": "in_progress",
+     "awaitingSignOff": false,
+     "attempts": 0,
+     "bestScore": null,
+     "passedAt": null,
+     "lastSubmissionId": null,
+     "resetAt": null,
+     "solution": {
+      "available": false,
+      "files": 0,
+      "readAt": null
+     },
+     "brief": "Answer the fixture questions.",
+     "objectives": [],
+     "files": [],
+     "rubric": {
+      "passThreshold": 60,
+      "criteria": [
+       {
+        "key": "concepts",
+        "title": "Concepts",
+        "weight": 1,
+        "description": "Scored by the quiz your teacher set."
+       }
+      ]
+     }
+    }
+   ],
+   "projectSlug": "reset-copy",
+   "acceptedScreenCopy": null,
+   "place": 2,
+   "count": 3,
+   "taskPanel": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book\n  already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence\n  with because in it.\n",
+   "design": {
+    "contracts": {
+     "api": true,
+     "screens": false
+    },
+    "sequence": false,
+    "stories": [
+     {
+      "id": "SH-1",
+      "title": "Browse the shelf",
+      "line": "As a member, I want to see every book in shelf order, so that I can find one without asking."
+     },
+     {
+      "id": "SH-2",
+      "title": "Lend a book",
+      "line": "As a librarian, I want to record who has borrowed a book, so that I know where it is."
+     },
+     {
+      "id": "SH-3",
+      "title": "Return a book",
+      "line": "As a librarian, I want to put a returned book back, so that the next member can borrow it."
+     }
+    ],
+    "floor": {
+     "minEntities": 1,
+     "minRelations": 0,
+     "minOperations": 3,
+     "operationShape": true,
+     "minDecisions": 1,
+     "decisionShape": true,
+     "traceEveryStory": true,
+     "minEndpoints": 4,
+     "requireErrorCatalogue": true,
+     "minScreens": 0,
+     "screenShape": true
+    }
+   },
+   "objectives": [
+    "List every operation the API answers",
+    "Name the status and error code of every refusal",
+    "Record one decision, the alternative and the reason"
+   ],
+   "artifactKind": "design",
+   "files": [
+    {
+     "path": "design/design.json",
+     "content": "<elided 79 chars>",
+     "editable": true,
+     "language": "json"
+    },
+    {
+     "path": "shared/contract/api.json",
+     "content": "<elided 1000 chars>",
+     "editable": true,
+     "language": "json"
+    }
+   ],
+   "view": "full",
+   "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+     {
+      "key": "contract",
+      "title": "Contract",
+      "weight": 0.5,
+      "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+     },
+     {
+      "key": "decisions",
+      "title": "Decision",
+      "weight": 0.3,
+      "description": "A decision, the alternative it beat and the reason."
+     },
+     {
+      "key": "completeness",
+      "title": "Completeness",
+      "weight": 0.2,
+      "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+     }
+    ]
+   },
+   "canRun": false,
+   "runLabel": "Run",
+   "lastSubmission": {
+    "taskKey": "main",
+    "id": "<uuid:6>",
+    "status": "completed",
+    "score": 60,
+    "passed": false,
+    "report": {
+     "overall": 60,
+     "criteria": [
+      {
+       "key": "contract",
+       "title": "Contract",
+       "weight": 0.5,
+       "score": 60,
+       "evidence": [
+        "✓ The design record",
+        "✗ At least 1 entity: Fewer than 1 entity in the data model",
+        "✓ At least 0 relations",
+        "✗ At least 3 operations: Fewer than 3 operations",
+        "✓ Every operation has an input and a return",
+        "✗ At least 1 decision: Fewer than 1 decision",
+        "✓ Every decision has a rationale and a trade-off",
+        "✗ Every story is traced: Stories not traced by any operation or entity: SH-1, SH-2, SH-3",
+        "✓ At least 4 endpoints",
+        "✓ An error catalogue"
+       ]
+      },
+      {
+       "key": "decisions",
+       "title": "Decision",
+       "weight": 0.3,
+       "score": 60,
+       "evidence": [
+        "✓ The design record",
+        "✗ At least 1 entity: Fewer than 1 entity in the data model",
+        "✓ At least 0 relations",
+        "✗ At least 3 operations: Fewer than 3 operations",
+        "✓ Every operation has an input and a return",
+        "✗ At least 1 decision: Fewer than 1 decision",
+        "✓ Every decision has a rationale and a trade-off",
+        "✗ Every story is traced: Stories not traced by any operation or entity: SH-1, SH-2, SH-3",
+        "✓ At least 4 endpoints",
+        "✓ An error catalogue"
+       ]
+      },
+      {
+       "key": "completeness",
+       "title": "Completeness",
+       "weight": 0.2,
+       "score": 60,
+       "evidence": [
+        "✓ The design record",
+        "✗ At least 1 entity: Fewer than 1 entity in the data model",
+        "✓ At least 0 relations",
+        "✗ At least 3 operations: Fewer than 3 operations",
+        "✓ Every operation has an input and a return",
+        "✗ At least 1 decision: Fewer than 1 decision",
+        "✓ Every decision has a rationale and a trade-off",
+        "✗ Every story is traced: Stories not traced by any operation or entity: SH-1, SH-2, SH-3",
+        "✓ At least 4 endpoints",
+        "✓ An error catalogue"
+       ]
+      }
+     ],
+     "checks": [
+      {
+       "id": "design.record",
+       "label": "The design record",
+       "status": "passed",
+       "detail": "The record is well formed"
+      },
+      {
+       "id": "design.entities.min",
+       "label": "At least 1 entity",
+       "status": "failed",
+       "detail": "Fewer than 1 entity in the data model"
+      },
+      {
+       "id": "design.relations.min",
+       "label": "At least 0 relations",
+       "status": "passed",
+       "detail": "0 relations"
+      },
+      {
+       "id": "design.operations.min",
+       "label": "At least 3 operations",
+       "status": "failed",
+       "detail": "Fewer than 3 operations"
+      },
+      {
+       "id": "design.operations.shape",
+       "label": "Every operation has an input and a return",
+       "status": "passed",
+       "detail": "Every operation names an input and a return"
+      },
+      {
+       "id": "design.decisions.min",
+       "label": "At least 1 decision",
+       "status": "failed",
+       "detail": "Fewer than 1 decision"
+      },
+      {
+       "id": "design.decisions.shape",
+       "label": "Every decision has a rationale and a trade-off",
+       "status": "passed",
+       "detail": "Every decision gives a rationale and a trade-off"
+      },
+      {
+       "id": "design.trace",
+       "label": "Every story is traced",
+       "status": "failed",
+       "detail": "Stories not traced by any operation or entity: SH-1, SH-2, SH-3"
+      },
+      {
+       "id": "design.api.min",
+       "label": "At least 4 endpoints",
+       "status": "passed",
+       "detail": "4 endpoints"
+      },
+      {
+       "id": "design.api.errors",
+       "label": "An error catalogue",
+       "status": "passed",
+       "detail": "3 errors declared"
+      }
+     ],
+     "assessmentMode": "strict_binary",
+     "passed": false,
+     "aiReview": {
+      "provider": "mock-ai",
+      "verdict": "needs_revision",
+      "summary": "Mocked semantic review for route persistence and authority tests.",
+      "strengths": [],
+      "improvements": [
+       "Revise the failing evidence."
+      ],
+      "processNote": "Provider is explicitly mocked in this integration suite.",
+      "criteriaEvidence": [
+       {
+        "key": "contract",
+        "met": false,
+        "evidence": "Synthetic semantic finding; automated checks execute separately.",
+        "issue": "A required check failed.",
+        "nextStep": "Revise the identified check."
+       },
+       {
+        "key": "decisions",
+        "met": false,
+        "evidence": "Synthetic semantic finding; automated checks execute separately.",
+        "issue": "A required check failed.",
+        "nextStep": "Revise the identified check."
+       },
+       {
+        "key": "completeness",
+        "met": false,
+        "evidence": "Synthetic semantic finding; automated checks execute separately.",
+        "issue": "A required check failed.",
+        "nextStep": "Revise the identified check."
+       }
+      ]
+     },
+     "aiReliance": {
+      "hintsThisPhase": 0,
+      "index": 0
+     },
+     "integrity": {
+      "relianceFlag": false,
+      "relianceIndex": 0,
+      "mentorPasteFlag": false,
+      "noEffortFlag": false,
+      "note": "No integrity concerns flagged — healthy, self-directed process."
+     }
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z",
+    "commitMessage": null,
+    "runClock": null
+   },
+   "updatedAt": "2026-01-01T00:00:01.000Z",
+   "workspaceUpdatedAt": "2026-01-01T00:00:02.000Z",
+   "links": [],
+   "drill": null,
+   "runClock": null,
+   "canPreview": false,
+   "previewUnsupported": null,
+   "solution": {
+    "available": false,
+    "files": 0,
+    "readAt": null
+   }
+  },
+  "plan": {
+   "restores": [
+    "design/design.json",
+    "shared/contract/api.json"
+   ],
+   "reseeds": [],
+   "protectedBy": [],
+   "dropsPendingProposal": false,
+   "refusal": null,
+   "retry": null
+  },
+  "staleReset": {
+   "status": 409,
+   "body": {
+    "error": "workspace_changed",
+    "message": "This workspace was saved somewhere else after you opened it. Nothing here was written over it.",
+    "version": "2026-01-01T00:00:02.000Z",
+    "files": {
+     "design/design.json": "<elided 79 chars>",
+     "shared/contract/api.json": "<elided 1000 chars>"
+    }
+   }
+  },
+  "reset": {
+   "status": 201,
+   "body": {
+    "version": "2026-01-01T00:00:03.000Z",
+    "workspace": {},
+    "task": {
+     "key": "main",
+     "order": 1,
+     "required": true,
+     "title": "Design",
+     "artefactType": "design-doc",
+     "primaryPath": "design/design.json",
+     "evidence": "reviewed",
+     "sealed": true,
+     "status": "submitted",
+     "awaitingSignOff": false,
+     "attempts": 1,
+     "bestScore": 60,
+     "passedAt": null,
+     "lastSubmissionId": null,
+     "resetAt": "2026-01-01T00:00:03.000Z",
+     "solution": {
+      "available": false,
+      "files": 0,
+      "readAt": null
+     },
+     "brief": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book\n  already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence\n  with because in it.\n",
+     "objectives": [
+      "List every operation the API answers",
+      "Name the status and error code of every refusal",
+      "Record one decision, the alternative and the reason"
+     ],
+     "files": [
+      "design/design.json",
+      "shared/contract/api.json"
+     ],
+     "rubric": {
+      "passThreshold": 70,
+      "criteria": [
+       {
+        "key": "contract",
+        "title": "Contract",
+        "weight": 0.5,
+        "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+       },
+       {
+        "key": "decisions",
+        "title": "Decision",
+        "weight": 0.3,
+        "description": "A decision, the alternative it beat and the reason."
+       },
+       {
+        "key": "completeness",
+        "title": "Completeness",
+        "weight": 0.2,
+        "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+       }
+      ]
+     }
+    }
+   }
+  },
+  "phaseAfter": {
+   "id": "<uuid:3>",
+   "key": "design",
+   "order": 2,
+   "title": "Design",
+   "taskCounts": {
+    "total": 2,
+    "required": 1,
+    "passed": 0,
+    "passedRequired": 0
+   },
+   "tasksUpdatedAt": "2026-01-01T00:00:01.000Z",
+   "status": "submitted",
+   "bestScore": 60,
+   "attempts": 1,
+   "reflection": null,
+   "passedAt": null,
+   "opensAt": null,
+   "dueAt": null,
+   "scenario": "own",
+   "intro": "Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision.",
+   "provenance": {
+    "phaseKey": "design",
+    "referenceName": null,
+    "rollup": "own",
+    "intro": "own",
+    "interview": null,
+    "files": [],
+    "tasks": [
+     {
+      "taskKey": "main",
+      "provenance": "edited",
+      "titleEdited": false
+     },
+     {
+      "taskKey": "concepts-one",
+      "provenance": "own",
+      "titleEdited": false
+     }
+    ],
+    "roomTask": "other"
+   },
+   "stakeholder": null,
+   "tasks": [
+    {
+     "key": "main",
+     "order": 1,
+     "required": true,
+     "title": "Design",
+     "artefactType": "design-doc",
+     "primaryPath": "design/design.json",
+     "evidence": "reviewed",
+     "sealed": true,
+     "status": "submitted",
+     "awaitingSignOff": false,
+     "attempts": 1,
+     "bestScore": 60,
+     "passedAt": null,
+     "lastSubmissionId": "<uuid:6>",
+     "resetAt": "2026-01-01T00:00:03.000Z",
+     "solution": {
+      "available": false,
+      "files": 0,
+      "readAt": null
+     },
+     "brief": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book\n  already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence\n  with because in it.\n",
+     "objectives": [
+      "List every operation the API answers",
+      "Name the status and error code of every refusal",
+      "Record one decision, the alternative and the reason"
+     ],
+     "files": [
+      "design/design.json",
+      "shared/contract/api.json"
+     ],
+     "rubric": {
+      "passThreshold": 70,
+      "criteria": [
+       {
+        "key": "contract",
+        "title": "Contract",
+        "weight": 0.5,
+        "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+       },
+       {
+        "key": "decisions",
+        "title": "Decision",
+        "weight": 0.3,
+        "description": "A decision, the alternative it beat and the reason."
+       },
+       {
+        "key": "completeness",
+        "title": "Completeness",
+        "weight": 0.2,
+        "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+       }
+      ]
+     }
+    },
+    {
+     "key": "concepts-one",
+     "order": 2,
+     "required": false,
+     "title": "Concept check: concepts-one",
+     "artefactType": "quiz",
+     "evidence": "automated",
+     "sealed": true,
+     "status": "in_progress",
+     "awaitingSignOff": false,
+     "attempts": 0,
+     "bestScore": null,
+     "passedAt": null,
+     "lastSubmissionId": null,
+     "resetAt": null,
+     "solution": {
+      "available": false,
+      "files": 0,
+      "readAt": null
+     },
+     "brief": "Answer the fixture questions.",
+     "objectives": [],
+     "files": [],
+     "rubric": {
+      "passThreshold": 60,
+      "criteria": [
+       {
+        "key": "concepts",
+        "title": "Concepts",
+        "weight": 1,
+        "description": "Scored by the quiz your teacher set."
+       }
+      ]
+     }
+    }
+   ],
+   "projectSlug": "reset-copy",
+   "acceptedScreenCopy": null,
+   "place": 2,
+   "count": 3,
+   "taskPanel": "Design: the shelf's contract\n\nFill the design in the Design room's forms: the entities and operations on the UML model tab, the endpoints and the error catalogue on the API contract tab, and one decision with its reason.\n\nWhat good looks like\n\n- The errors: which status a refusal carries (a book nobody has, a book\n  already on loan) and the error code in its body.\n- One decision, the alternative you rejected, and the reason, in a sentence\n  with because in it.\n",
+   "design": {
+    "contracts": {
+     "api": true,
+     "screens": false
+    },
+    "sequence": false,
+    "stories": [
+     {
+      "id": "SH-1",
+      "title": "Browse the shelf",
+      "line": "As a member, I want to see every book in shelf order, so that I can find one without asking."
+     },
+     {
+      "id": "SH-2",
+      "title": "Lend a book",
+      "line": "As a librarian, I want to record who has borrowed a book, so that I know where it is."
+     },
+     {
+      "id": "SH-3",
+      "title": "Return a book",
+      "line": "As a librarian, I want to put a returned book back, so that the next member can borrow it."
+     }
+    ],
+    "floor": {
+     "minEntities": 1,
+     "minRelations": 0,
+     "minOperations": 3,
+     "operationShape": true,
+     "minDecisions": 1,
+     "decisionShape": true,
+     "traceEveryStory": true,
+     "minEndpoints": 4,
+     "requireErrorCatalogue": true,
+     "minScreens": 0,
+     "screenShape": true
+    }
+   },
+   "objectives": [
+    "List every operation the API answers",
+    "Name the status and error code of every refusal",
+    "Record one decision, the alternative and the reason"
+   ],
+   "artifactKind": "design",
+   "files": [
+    {
+     "path": "design/design.json",
+     "content": "<elided 79 chars>",
+     "editable": true,
+     "language": "json"
+    },
+    {
+     "path": "shared/contract/api.json",
+     "content": "<elided 39 chars>",
+     "editable": true,
+     "language": "json"
+    }
+   ],
+   "view": "full",
+   "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+     {
+      "key": "contract",
+      "title": "Contract",
+      "weight": 0.5,
+      "description": "Every operation the stories need, and every refusal with its status and error code, as a client would need them."
+     },
+     {
+      "key": "decisions",
+      "title": "Decision",
+      "weight": 0.3,
+      "description": "A decision, the alternative it beat and the reason."
+     },
+     {
+      "key": "completeness",
+      "title": "Completeness",
+      "weight": 0.2,
+      "description": "Every story the design lists is served by an operation, and every operation names its inputs and what it returns."
+     }
+    ]
+   },
+   "canRun": false,
+   "runLabel": "Run",
+   "lastSubmission": {
+    "taskKey": "main",
+    "id": "<uuid:6>",
+    "status": "completed",
+    "score": 60,
+    "passed": false,
+    "report": {
+     "overall": 60,
+     "criteria": [
+      {
+       "key": "contract",
+       "title": "Contract",
+       "weight": 0.5,
+       "score": 60,
+       "evidence": [
+        "✓ The design record",
+        "✗ At least 1 entity: Fewer than 1 entity in the data model",
+        "✓ At least 0 relations",
+        "✗ At least 3 operations: Fewer than 3 operations",
+        "✓ Every operation has an input and a return",
+        "✗ At least 1 decision: Fewer than 1 decision",
+        "✓ Every decision has a rationale and a trade-off",
+        "✗ Every story is traced: Stories not traced by any operation or entity: SH-1, SH-2, SH-3",
+        "✓ At least 4 endpoints",
+        "✓ An error catalogue"
+       ]
+      },
+      {
+       "key": "decisions",
+       "title": "Decision",
+       "weight": 0.3,
+       "score": 60,
+       "evidence": [
+        "✓ The design record",
+        "✗ At least 1 entity: Fewer than 1 entity in the data model",
+        "✓ At least 0 relations",
+        "✗ At least 3 operations: Fewer than 3 operations",
+        "✓ Every operation has an input and a return",
+        "✗ At least 1 decision: Fewer than 1 decision",
+        "✓ Every decision has a rationale and a trade-off",
+        "✗ Every story is traced: Stories not traced by any operation or entity: SH-1, SH-2, SH-3",
+        "✓ At least 4 endpoints",
+        "✓ An error catalogue"
+       ]
+      },
+      {
+       "key": "completeness",
+       "title": "Completeness",
+       "weight": 0.2,
+       "score": 60,
+       "evidence": [
+        "✓ The design record",
+        "✗ At least 1 entity: Fewer than 1 entity in the data model",
+        "✓ At least 0 relations",
+        "✗ At least 3 operations: Fewer than 3 operations",
+        "✓ Every operation has an input and a return",
+        "✗ At least 1 decision: Fewer than 1 decision",
+        "✓ Every decision has a rationale and a trade-off",
+        "✗ Every story is traced: Stories not traced by any operation or entity: SH-1, SH-2, SH-3",
+        "✓ At least 4 endpoints",
+        "✓ An error catalogue"
+       ]
+      }
+     ],
+     "checks": [
+      {
+       "id": "design.record",
+       "label": "The design record",
+       "status": "passed",
+       "detail": "The record is well formed"
+      },
+      {
+       "id": "design.entities.min",
+       "label": "At least 1 entity",
+       "status": "failed",
+       "detail": "Fewer than 1 entity in the data model"
+      },
+      {
+       "id": "design.relations.min",
+       "label": "At least 0 relations",
+       "status": "passed",
+       "detail": "0 relations"
+      },
+      {
+       "id": "design.operations.min",
+       "label": "At least 3 operations",
+       "status": "failed",
+       "detail": "Fewer than 3 operations"
+      },
+      {
+       "id": "design.operations.shape",
+       "label": "Every operation has an input and a return",
+       "status": "passed",
+       "detail": "Every operation names an input and a return"
+      },
+      {
+       "id": "design.decisions.min",
+       "label": "At least 1 decision",
+       "status": "failed",
+       "detail": "Fewer than 1 decision"
+      },
+      {
+       "id": "design.decisions.shape",
+       "label": "Every decision has a rationale and a trade-off",
+       "status": "passed",
+       "detail": "Every decision gives a rationale and a trade-off"
+      },
+      {
+       "id": "design.trace",
+       "label": "Every story is traced",
+       "status": "failed",
+       "detail": "Stories not traced by any operation or entity: SH-1, SH-2, SH-3"
+      },
+      {
+       "id": "design.api.min",
+       "label": "At least 4 endpoints",
+       "status": "passed",
+       "detail": "4 endpoints"
+      },
+      {
+       "id": "design.api.errors",
+       "label": "An error catalogue",
+       "status": "passed",
+       "detail": "3 errors declared"
+      }
+     ],
+     "assessmentMode": "strict_binary",
+     "passed": false,
+     "aiReview": {
+      "provider": "mock-ai",
+      "verdict": "needs_revision",
+      "summary": "Mocked semantic review for route persistence and authority tests.",
+      "strengths": [],
+      "improvements": [
+       "Revise the failing evidence."
+      ],
+      "processNote": "Provider is explicitly mocked in this integration suite.",
+      "criteriaEvidence": [
+       {
+        "key": "contract",
+        "met": false,
+        "evidence": "Synthetic semantic finding; automated checks execute separately.",
+        "issue": "A required check failed.",
+        "nextStep": "Revise the identified check."
+       },
+       {
+        "key": "decisions",
+        "met": false,
+        "evidence": "Synthetic semantic finding; automated checks execute separately.",
+        "issue": "A required check failed.",
+        "nextStep": "Revise the identified check."
+       },
+       {
+        "key": "completeness",
+        "met": false,
+        "evidence": "Synthetic semantic finding; automated checks execute separately.",
+        "issue": "A required check failed.",
+        "nextStep": "Revise the identified check."
+       }
+      ]
+     },
+     "aiReliance": {
+      "hintsThisPhase": 0,
+      "index": 0
+     },
+     "integrity": {
+      "relianceFlag": false,
+      "relianceIndex": 0,
+      "mentorPasteFlag": false,
+      "noEffortFlag": false,
+      "note": "No integrity concerns flagged — healthy, self-directed process."
+     }
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z",
+    "commitMessage": null,
+    "runClock": null
+   },
+   "updatedAt": "2026-01-01T00:00:01.000Z",
+   "workspaceUpdatedAt": "2026-01-01T00:00:03.000Z",
+   "links": [],
+   "drill": null,
+   "runClock": null,
+   "canPreview": false,
+   "previewUnsupported": null,
+   "solution": {
+    "available": false,
+    "files": 0,
+    "readAt": null
+   }
+  },
+  "regradeBatch": {
+   "id": "<uuid:7>",
+   "status": "finished",
+   "projectSlug": "reset-copy",
+   "phaseKey": "design",
+   "scope": "everyone",
+   "reason": "The criteria need another look before this phase can count.",
+   "packVersionTo": "1.0.0",
+   "requested": 1,
+   "done": 1,
+   "failed": 0,
+   "newPasses": 0,
+   "skipped": [
+    {
+     "userId": "<uuid:8>",
+     "displayName": "<name:learner>",
+     "reason": "No submission in this phase yet."
+    }
+   ],
+   "createdAt": "2026-01-01T00:00:01.000Z",
+   "finishedAt": "2026-01-01T00:00:04.000Z"
+  },
+  "auditTrail": [
+   {
+    "id": "<uuid:9>",
+    "event": "cohort.join",
+    "actorUserId": "<uuid:8>",
+    "actorName": "<name:learner>",
+    "subjectUserId": "<uuid:8>",
+    "subjectName": "<name:learner>",
+    "targetId": "<uuid:10>",
+    "action": "Friday",
+    "reason": null,
+    "detail": {
+     "from": "default",
+     "to": "<uuid:10>"
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   },
+   {
+    "id": "<uuid:11>",
+    "event": "phase.regrade",
+    "actorUserId": "<uuid:12>",
+    "actorName": "<name:teacher>",
+    "subjectUserId": "<uuid:8>",
+    "subjectName": "<name:learner>",
+    "targetId": "<uuid:3>",
+    "action": null,
+    "reason": "The criteria need another look before this phase can count.",
+    "detail": {
+     "batchId": "<uuid:7>",
+     "submissionId": "<uuid:13>",
+     "projectSlug": "reset-copy",
+     "phaseKey": "design",
+     "from": 60,
+     "to": 60,
+     "packVersionFrom": "0.0.1",
+     "packVersionTo": "1.0.0",
+     "passedBefore": false,
+     "passedAfter": false,
+     "run": "of an earlier run, moved no gate"
+    },
+    "createdAt": "2026-01-01T00:00:01.000Z"
+   }
+  ],
+  "plainPhase": {
+   "id": "<uuid:14>",
+   "key": "requirements",
+   "order": 1,
+   "title": "Requirements",
+   "taskCounts": {
+    "total": 1,
+    "required": 1,
+    "passed": 0,
+    "passedRequired": 0
+   },
+   "tasksUpdatedAt": null,
+   "status": "in_progress",
+   "bestScore": null,
+   "attempts": 0,
+   "reflection": null,
+   "passedAt": null,
+   "opensAt": null,
+   "dueAt": null,
+   "scenario": "reference",
+   "intro": "Complete the partly-specified backlog: the overdue-report story is missing.",
+   "provenance": {
+    "phaseKey": "requirements",
+    "referenceName": "TaskTrackr",
+    "rollup": "reference",
+    "intro": "reference",
+    "interview": "reference",
+    "files": [],
+    "tasks": [
+     {
+      "taskKey": "",
+      "provenance": "reference",
+      "titleEdited": false
+     }
+    ],
+    "roomTask": "reference"
+   },
+   "stakeholder": {
+    "name": "Dana Osei",
+    "role": "product owner for TaskTrackr"
+   },
+   "tasks": [
+    {
+     "key": "",
+     "order": 1,
+     "required": true,
+     "title": "Requirements",
+     "artefactType": "user-story",
+     "primaryPath": "requirements/story.json",
+     "evidence": "reviewed",
+     "sealed": true,
+     "status": "in_progress",
+     "awaitingSignOff": false,
+     "attempts": 0,
+     "bestScore": null,
+     "passedAt": null,
+     "lastSubmissionId": null,
+     "resetAt": null,
+     "solution": {
+      "available": false,
+      "files": 0,
+      "readAt": null
+     },
+     "brief": "The TaskTrackr backlog is almost complete. Product has signed off on US-1, US-2, US-3 and US-5 (shown read-only beside your story), but the overdue report story was never written, and the team cannot build what nobody has specified.\n\nTaskTrackr is a task manager for people juggling study and work: a Python API over a SQLite database and a React front end in TypeScript, where tasks live in lists, carry a priority and an optional due date, and can be searched, filtered and commented on. This release covers lists and tasks, completing and reopening a task, filtering and searching a list, an overdue report, and a late marker on the rows a person is already looking at. Accounts, sync, notifications and anything that sends a message to a human being are out of scope.\n\nComplete your story, US-4:\n\n1. Write user story US-4 for the overdue report, in the standard format:\n   As a <persona>, I want <capability>, so that <benefit>.\n2. Add at least two acceptance criteria in Given / When / Then form. Make them testable — a machine should be able to verify each one. At least one criterion must settle an edge case: what about a task due today? What about a task that is already completed?\n3. Say where the report appears. Dana asked for one place to look, and told you it is not a filter on the list. A requirement can name the surface without designing it.\n4. Add a scope note — one or two sentences on what the overdue report will not do in this release.\n\nTo pass the checks, tag one criterion happy path and one boundary (the task due today), and add at least one out-of-scope line.\n\nInterview Dana before you write. She has ten minutes and she has already decided more than you would expect: the boundary, completed tasks, tasks with no due date, the order, what an empty report says, and where she wants to read it. One thing she will not decide is whether the report is a new screen or a new endpoint — that is your problem, and phase 2 is where you answer it.\n\nLater phases build on your story, so the review reads the meaning of your requirements as well as their shape. An epic relationship is optional; if you add one, link it to an epic you have defined.\n\nNumber your criteria the way the rest of the project reads them\n\nYour story's id is US-4, and criterion ids are local to it: AC-1, AC-2, and so on. The rest of the project qualifies those same ids as US-4/AC-1, US-4/AC-2, and so on.\n\nEvery criterion in this project has an id. US-2/AC-1 is the first criterion of US-2, and the testing phase files each seeded bug against the one criterion that should catch it. Yours are the ones you are about to mint, so write them in this order:\n\n- US-4/AC-1 — the report itself: a task whose due date has passed appears in it.\n- US-4/AC-2 — the boundary: a task due today is not in it yet.\n- US-4/AC-3 — the exclusion: a task you have completed is not in it, however late it was.\n\nTwo of the eight bugs in phase 4 are filed against AC-2 and AC-3. Number them differently and the mapping still works, but you will be reading someone else's numbering for four phases.\n\nWhat good looks like\n\n- The story names a real persona from the provided backlog and a concrete benefit.\n- Every criterion could be turned into an automated test without further discussion.\n- The reader can tell where the report appears and what a row of it shows.\n- No vague words like fast, user-friendly or and so on — nothing testable follows them.\n\nUsing the AI mentor well\n\nAsk the mentor to critique your draft, propose edge cases you may have missed, or explain what makes a criterion testable. It will not write the story for you — in this phase the requirement decisions are yours, and the next five phases build on what you write here.\n\nWhen you are ready, press Submit for review. Every required criterion and its evidence must pass review before the next phase opens.\n",
+     "objectives": [
+      "Write user story US-4 for the overdue report in the standard format",
+      "Give US-4 at least two testable Given/When/Then acceptance criteria",
+      "Say where the report appears, so phase 2 can design a screen for it",
+      "State what is in and out of scope for the overdue report"
+     ],
+     "files": [
+      "requirements/story.json"
+     ],
+     "rubric": {
+      "passThreshold": 70,
+      "criteria": [
+       {
+        "key": "story_structure",
+        "title": "User story structure",
+        "weight": 0.3,
+        "description": "US-4 follows As a / I want / so that and names the overdue report."
+       },
+       {
+        "key": "acceptance_criteria",
+        "title": "Testable acceptance criteria",
+        "weight": 0.4,
+        "description": "At least two Given / When / Then criteria a test could verify, covering the overdue boundary: a task due today is not overdue."
+       },
+       {
+        "key": "scope_clarity",
+        "title": "Scope and precision",
+        "weight": 0.3,
+        "description": "A scope note states what is excluded, the story says where the report appears (a page, screen or view), and the wording is precise enough to test, with no vague words like user-friendly, fast or etc."
+       }
+      ]
+     }
+    }
+   ],
+   "projectSlug": "tasktrackr",
+   "acceptedScreenCopy": null,
+   "place": 1,
+   "count": 6,
+   "taskPanel": "The TaskTrackr backlog is almost complete. Product has signed off on US-1, US-2, US-3 and US-5 (shown read-only beside your story), but the overdue report story was never written, and the team cannot build what nobody has specified.\n\nTaskTrackr is a task manager for people juggling study and work: a Python API over a SQLite database and a React front end in TypeScript, where tasks live in lists, carry a priority and an optional due date, and can be searched, filtered and commented on. This release covers lists and tasks, completing and reopening a task, filtering and searching a list, an overdue report, and a late marker on the rows a person is already looking at. Accounts, sync, notifications and anything that sends a message to a human being are out of scope.\n\nComplete your story, US-4:\n\n1. Write user story US-4 for the overdue report, in the standard format:\n   As a <persona>, I want <capability>, so that <benefit>.\n2. Add at least two acceptance criteria in Given / When / Then form. Make them testable — a machine should be able to verify each one. At least one criterion must settle an edge case: what about a task due today? What about a task that is already completed?\n3. Say where the report appears. Dana asked for one place to look, and told you it is not a filter on the list. A requirement can name the surface without designing it.\n4. Add a scope note — one or two sentences on what the overdue report will not do in this release.\n\nTo pass the checks, tag one criterion happy path and one boundary (the task due today), and add at least one out-of-scope line.\n\nInterview Dana before you write. She has ten minutes and she has already decided more than you would expect: the boundary, completed tasks, tasks with no due date, the order, what an empty report says, and where she wants to read it. One thing she will not decide is whether the report is a new screen or a new endpoint — that is your problem, and phase 2 is where you answer it.\n\nLater phases build on your story, so the review reads the meaning of your requirements as well as their shape. An epic relationship is optional; if you add one, link it to an epic you have defined.\n\nNumber your criteria the way the rest of the project reads them\n\nYour story's id is US-4, and criterion ids are local to it: AC-1, AC-2, and so on. The rest of the project qualifies those same ids as US-4/AC-1, US-4/AC-2, and so on.\n\nEvery criterion in this project has an id. US-2/AC-1 is the first criterion of US-2, and the testing phase files each seeded bug against the one criterion that should catch it. Yours are the ones you are about to mint, so write them in this order:\n\n- US-4/AC-1 — the report itself: a task whose due date has passed appears in it.\n- US-4/AC-2 — the boundary: a task due today is not in it yet.\n- US-4/AC-3 — the exclusion: a task you have completed is not in it, however late it was.\n\nTwo of the eight bugs in phase 4 are filed against AC-2 and AC-3. Number them differently and the mapping still works, but you will be reading someone else's numbering for four phases.\n\nWhat good looks like\n\n- The story names a real persona from the provided backlog and a concrete benefit.\n- Every criterion could be turned into an automated test without further discussion.\n- The reader can tell where the report appears and what a row of it shows.\n- No vague words like fast, user-friendly or and so on — nothing testable follows them.\n\nUsing the AI mentor well\n\nAsk the mentor to critique your draft, propose edge cases you may have missed, or explain what makes a criterion testable. It will not write the story for you — in this phase the requirement decisions are yours, and the next five phases build on what you write here.\n\nWhen you are ready, press Submit for review. Every required criterion and its evidence must pass review before the next phase opens.\n",
+   "story": {
+    "id": "US-4",
+    "hints": {
+     "persona": "person who runs TaskTrackr every morning",
+     "capability": "a report of the tasks that are overdue",
+     "benefit": "I catch what I missed before the day starts"
+    },
+    "floor": {
+     "minCriteria": 2,
+     "requiredTags": [
+      "happy",
+      "boundary"
+     ],
+     "minExclusions": 1,
+     "requireSentence": true
+    },
+    "providedStories": [
+     {
+      "id": "US-1",
+      "title": "Add a task",
+      "persona": "busy learner",
+      "capability": "to add a task to a list with a title, a priority and an optional due date",
+      "benefit": "I can capture work the moment I think of it",
+      "criteria": [
+       {
+        "id": "AC-1",
+        "given": "a list with no tasks",
+        "when": "I add a task titled \"Write report\"",
+        "then": "the task is stored in that list with priority medium, status open and no completion time",
+        "tag": "happy"
+       },
+       {
+        "id": "AC-2",
+        "given": "any list",
+        "when": "I add a task with an empty title",
+        "then": "the API answers 400 with the code invalid_title and stores nothing",
+        "tag": "error"
+       },
+       {
+        "id": "AC-3",
+        "given": "any list",
+        "when": "I add a task with priority urgent",
+        "then": "the API answers 400 with the code invalid_priority; only low, medium and high exist",
+        "tag": "error"
+       }
+      ]
+     },
+     {
+      "id": "US-2",
+      "title": "Complete a task",
+      "persona": "busy learner",
+      "capability": "to mark a task as completed by its id",
+      "benefit": "my lists reflect what is actually left to do",
+      "criteria": [
+       {
+        "id": "AC-1",
+        "given": "an open task",
+        "when": "I complete it",
+        "then": "it is stored as done with the time it was completed, and it is still done the next time anything reads it",
+        "tag": "happy"
+       },
+       {
+        "id": "AC-2",
+        "given": "an id no task has",
+        "when": "I complete it",
+        "then": "the API answers 404 with the code task_not_found and nothing changes",
+        "tag": "error"
+       }
+      ]
+     },
+     {
+      "id": "US-3",
+      "title": "Filter, search and order a list",
+      "persona": "busy learner",
+      "capability": "to narrow a list by status, tag and keyword and read it in priority order",
+      "benefit": "I can see the right work without scrolling past the rest",
+      "criteria": [
+       {
+        "id": "AC-1",
+        "given": "a list of open and done tasks",
+        "when": "I ask for status open",
+        "then": "only the open tasks come back",
+        "tag": "happy"
+       },
+       {
+        "id": "AC-2",
+        "given": "tasks titled \"Pay rent\" and \"Review notes\"",
+        "when": "I search for \"rent\"",
+        "then": "only \"Pay rent\" comes back, and searching for \"RENT\" returns the same task; the match ignores case",
+        "tag": "boundary"
+       },
+       {
+        "id": "AC-3",
+        "given": "a keyword in the search box",
+        "when": "I also change the status or the tag",
+        "then": "the request the front end sends still carries the keyword, so the search is not silently dropped by the next filter",
+        "tag": "boundary"
+       },
+       {
+        "id": "AC-4",
+        "given": "tasks of mixed priorities",
+        "when": "I read a list",
+        "then": "high tasks come before medium and medium before low, and two tasks of the same priority are ordered by id",
+        "tag": "happy"
+       }
+      ]
+     },
+     {
+      "id": "US-5",
+      "title": "See at a glance which tasks are late",
+      "persona": "busy learner",
+      "capability": "a late marker on the task rows I am already looking at",
+      "benefit": "I do not have to open a report to notice a deadline I have missed",
+      "criteria": [
+       {
+        "id": "AC-1",
+        "given": "a task whose due date has passed",
+        "when": "I look at its row",
+        "then": "the row carries a marker saying how many whole days late the task is",
+        "tag": "happy"
+       },
+       {
+        "id": "AC-2",
+        "given": "a task I have completed",
+        "when": "I look at its row",
+        "then": "it carries no late marker, however long ago its due date was; a finished task is not owed",
+        "tag": "boundary"
+       },
+       {
+        "id": "AC-3",
+        "given": "a task with no due date",
+        "when": "I look at its row",
+        "then": "it carries no late marker and no empty space where one would go",
+        "tag": "boundary"
+       }
+      ]
+     }
+    ]
+   },
+   "objectives": [
+    "Write user story US-4 for the overdue report in the standard format",
+    "Give US-4 at least two testable Given/When/Then acceptance criteria",
+    "Say where the report appears, so phase 2 can design a screen for it",
+    "State what is in and out of scope for the overdue report"
+   ],
+   "artifactKind": "story",
+   "files": [
+    {
+     "path": "requirements/story.json",
+     "content": "<elided 146 chars>",
+     "editable": true,
+     "language": "json"
+    }
+   ],
+   "view": "full",
+   "rubric": {
+    "passThreshold": 70,
+    "criteria": [
+     {
+      "key": "story_structure",
+      "title": "User story structure",
+      "weight": 0.3,
+      "description": "US-4 follows As a / I want / so that and names the overdue report."
+     },
+     {
+      "key": "acceptance_criteria",
+      "title": "Testable acceptance criteria",
+      "weight": 0.4,
+      "description": "At least two Given / When / Then criteria a test could verify, covering the overdue boundary: a task due today is not overdue."
+     },
+     {
+      "key": "scope_clarity",
+      "title": "Scope and precision",
+      "weight": 0.3,
+      "description": "A scope note states what is excluded, the story says where the report appears (a page, screen or view), and the wording is precise enough to test, with no vague words like user-friendly, fast or etc."
+     }
+    ]
+   },
+   "canRun": false,
+   "runLabel": "Run",
+   "lastSubmission": null,
+   "updatedAt": "2026-01-01T00:00:01.000Z",
+   "workspaceUpdatedAt": null,
+   "links": [],
+   "drill": null,
+   "runClock": null,
+   "canPreview": false,
+   "previewUnsupported": null,
+   "solution": {
+    "available": false,
+    "files": 0,
+    "readAt": null
+   }
+  },
+  "solePlan": {
+   "restores": [],
+   "reseeds": [],
+   "protectedBy": [],
+   "dropsPendingProposal": false,
+   "refusal": "This phase has a single task. Your instructor can reset its files for you.",
+   "retry": null
+  },
+  "soleRefused": {
+   "status": 400,
+   "body": {
+    "message": "This phase has a single task. Your instructor can reset its files for you.",
+    "error": "Bad Request",
+    "statusCode": 400
+   }
+  }
+ }
+}

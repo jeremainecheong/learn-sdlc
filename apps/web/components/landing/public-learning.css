@@ -1,0 +1,47 @@
+/* Keep the tallest worked example's space while switching tabs. Only the
+   active panel is visible or exposed to assistive technology. */
+.marketing .lh-examples { display: grid; flex: 1; }
+.marketing .lh-examples > .lh-example { grid-area: 1 / 1; min-width: 0; padding-bottom: 20px; }
+.marketing .lh-examples > .lh-example[aria-hidden="true"] { visibility: hidden; pointer-events: none; }
+.marketing .lh-step-panel-head { gap: 12px; flex-wrap: wrap; }
+.marketing .lh-step-tab:focus-visible,
+.marketing .lh-example:focus-visible { outline: 3px solid var(--lh-accent); outline-offset: 3px; }
+
+/* Lucide is rendered directly; the reference’s wrapped glyph sits by its label. */
+.marketing .lh-step-tab svg { margin-left: 0; }
+/* Step controls carry their state through surface, number and arrow. */
+.marketing .lh-step-tab {
+  cursor: pointer;
+  transition: background-color var(--motion-control, 180ms) ease,
+    border-color var(--motion-control, 180ms) ease,
+    box-shadow var(--motion-control, 180ms) ease, transform var(--motion-fast, 120ms) var(--ease-press, ease-in);
+}
+.marketing .lh-step-tab > span,
+.marketing .lh-step-tab > svg {
+  transition: background-color var(--motion-control, 180ms) ease,
+    transform var(--motion-control, 180ms) var(--ease-out, ease-out), border-color var(--motion-control, 180ms) ease;
+}
+.marketing .lh-step-tab[aria-selected="true"] {
+  border-color: light-dark(#214f5e, #e6ffff);
+  box-shadow: inset 0 1px 0 light-dark(#ffffff38, #ffffff), 0 6px 16px var(--lh-shadow);
+}
+.marketing .lh-step-tab[aria-selected="true"] > span {
+  background: light-dark(#ffffff1c, #153a4512);
+}
+@media (hover: hover) and (pointer: fine) {
+  .marketing .lh-step-tab:not([aria-selected="true"]):hover {
+    background: var(--lh-chip);
+    border-color: var(--lh-edge);
+    box-shadow: inset 0 1px 0 var(--lh-highlight), 0 4px 12px var(--lh-shadow);
+  }
+  .marketing .lh-step-tab:hover > svg { transform: translateX(3px); }
+}
+.marketing .lh-step-tab:active {
+  transform: scale(.99);
+  box-shadow: inset 0 2px 4px var(--lh-shadow);
+}
+@media (prefers-reduced-motion: reduce) {
+  .marketing .lh-step-tab,
+  .marketing .lh-step-tab > span,
+  .marketing .lh-step-tab > svg { transition: none; transform: none !important; }
+}
