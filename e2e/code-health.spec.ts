@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { openConsole, openFile, reachImplementation, setEditor } from './preview-helpers';
+import { openConsole, openFile, reachImplementation, setEditor, verdictOnScreen } from './preview-helpers';
 import { myPhaseIds } from './passing-work';
 import { NAVIGATION, UI_READY } from './support/timeouts';
 
@@ -40,7 +40,7 @@ test('the analyzer’s findings are drawn on the code and read under it', async 
 
   await openFile(page, REPOSITORY);
   await page.getByTestId('header-submit').click();
-  await expect(page.getByTestId('feedback-verdict')).toBeVisible({ timeout: 180_000 });
+  await verdictOnScreen(page, 180_000);
 
   /* ---------------------- the findings, on the code ---------------------- */
 
