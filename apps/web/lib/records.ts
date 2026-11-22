@@ -281,6 +281,21 @@ export async function loadRecords(
   return p;
 }
 
+/**
+ * The refresh of a phase's records that is in the air right now, if one is.
+ *
+ * A change marks the copy stale and starts its refetch there and then
+ * ({@link staleRecords}, {@link refreshPhaseRecords}). A page that draws the
+ * stale copy in the meantime follows this to the fresh one, which nothing
+ * else hands it: the cache takes the answer without telling anyone. It starts
+ * nothing itself. With no refresh in the air the copy held is the newest
+ * there is, and asking would be the three requests the cache exists to save.
+ */
+export function refreshingRecords(phaseId: string): Promise<{ records: PhaseRecords; partial: boolean }> | undefined {
+  own();
+  return inflight.get(`rec:${phaseId}`) as Promise<{ records: PhaseRecords; partial: boolean }> | undefined;
+}
+
 /* ------------------------------ invalidation ------------------------------ */
 
 /**

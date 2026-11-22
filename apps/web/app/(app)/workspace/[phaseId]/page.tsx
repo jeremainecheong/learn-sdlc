@@ -63,7 +63,7 @@ import { jobWake } from '@/lib/job-signal';
 import { PollTimeoutError, useRecoverWhenBack } from '@/lib/poll';
 import { getSocket } from '@/lib/socket';
 import { getActiveProject, setActiveProject } from '@/lib/project';
-import { cachedRecords, loadRecords, refreshPhaseRecords } from '@/lib/records';
+import { cachedRecords, loadRecords, refreshPhaseRecords, refreshingRecords } from '@/lib/records';
 import { getSession } from '@/lib/session';
 import { useIsoLayoutEffect } from '@/lib/use-iso-layout-effect';
 import { THEME_EVENT, THEME_KEY, useTheme, type Theme } from '@/lib/theme';
@@ -1254,7 +1254,26 @@ function PhaseWorkspace({ phaseId }: { phaseId: string }) {
     const known = cachedRecords([phaseId])[phaseId];
     if (known) {
       apply(known.submissions, known.runs);
-      return;
+      // A verdict marks this copy stale and starts its refresh before this
+      // runs (invalidateProject), and a verdict arrives twice, by the socket
+      // and by the poll. When the second arrives before the first one's
+      // refresh has landed, the copy drawn above is still the list from
+      // before the revision; with nothing following the refresh the room kept
+      // it, and the Commit tab's count, the review history and the health
+      // trend stayed one revision behind. So a refresh in the air is followed
+      // to its answer. Nothing is asked for here: with none in the air the
+      // copy is the newest there is.
+      const refresh = refreshingRecords(phaseId);
+      if (!refresh) return;
+      refresh
+        .then(({ records, partial }) => {
+          // A read that lost one of its three leaves the room what it holds.
+          if (!partial) apply(records.submissions, records.runs);
+        })
+        .catch(() => undefined);
+      return () => {
+        stale = true;
+      };
     }
     // With the phase's tasks in hand the revisions are read one task
     // at a time, because the phase-wide route is refused on a split phase.

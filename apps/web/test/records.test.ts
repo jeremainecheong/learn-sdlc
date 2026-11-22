@@ -153,6 +153,53 @@ describe('when something changes underneath', () => {
     expect(records.cachedRuns('p1')).not.toEqual([runRow('stale-answer')]);
   });
 
+  // The room draws the stale copy at once and follows the refresh to the fresh one (the workspace page's records effect).
+  it('hands a page the refresh a change started, and nothing when none is in the air', async () => {
+    api.submissions.mockResolvedValue([{ id: 's1' }]);
+    await records.loadRecords('p1');
+    expect(records.refreshingRecords('p1')).toBeUndefined();
+
+    api.submissions.mockResolvedValue([{ id: 's1' }, { id: 's2' }]);
+    api.submissions.mockClear();
+    records.refreshPhaseRecords('p1');
+
+    // Still the copy from before the change, with its refresh in the air.
+    expect(records.cachedRecords(['p1']).p1.submissions).toEqual([{ id: 's1' }]);
+    const refresh = records.refreshingRecords('p1');
+    expect(refresh).toBeDefined();
+    await expect(refresh).resolves.toMatchObject({ partial: false, records: { submissions: [{ id: 's1' }, { id: 's2' }] } });
+    // Following it asked for nothing of its own, and once it has landed there is nothing left to follow.
+    expect(api.submissions).toHaveBeenCalledTimes(1);
+    expect(records.refreshingRecords('p1')).toBeUndefined();
+    expect(records.refreshingRecords('never-read')).toBeUndefined();
+  });
+
+  it('hands a page the newer refresh when a second change overtakes the first', async () => {
+    api.submissions.mockResolvedValue([{ id: 's1' }]);
+    await records.loadRecords('p1');
+
+    // Two changes, the second while the first one's refresh is still in the air: a verdict's two arrivals.
+    const land: ((v: unknown[]) => void)[] = [];
+    api.submissions.mockImplementation(() => new Promise<unknown[]>((resolve) => { land.push(resolve); }));
+    records.staleRecords();
+    const first = records.refreshingRecords('p1');
+    records.staleRecords();
+    const second = records.refreshingRecords('p1');
+    expect(first).toBeDefined();
+    expect(second).toBeDefined();
+    expect(second).not.toBe(first);
+
+    // The overtaken answer reaches whoever waited on it and is never written into the cache, so the copy a
+    // page reads at that moment is still the one from before the change.
+    land[0]([{ id: 's1' }, { id: 's2' }]);
+    await first;
+    expect(records.cachedRecords(['p1']).p1.submissions).toEqual([{ id: 's1' }]);
+    // The refresh a page is handed after the second change is the one that brings the list as it now is.
+    land[1]([{ id: 's1' }, { id: 's2' }]);
+    await expect(second).resolves.toMatchObject({ partial: false, records: { submissions: [{ id: 's1' }, { id: 's2' }] } });
+    expect(records.cachedRecords(['p1']).p1.submissions).toEqual([{ id: 's1' }, { id: 's2' }]);
+  });
+
   it('refreshes only the phase that was run, and only what is already held', async () => {
     await records.loadRuns('p1');
     api.runs.mockClear().mockResolvedValue([runRow('after')]);
