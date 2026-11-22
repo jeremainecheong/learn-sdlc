@@ -81,8 +81,11 @@ const MERGE_WAITING_PURPOSE = "Your work passed review. Your teacher's countersi
 const MERGE_WAITING_PLACEHOLDER = 'Record what you changed and learned, or leave it blank.';
 /** A purpose MergeCard must not show while waiting: it promises a Merge the learner cannot press. */
 const MERGE_OLD_PURPOSE = 'A Pass lets you complete this phase';
-/** apps/web/components/pr/headline.ts prHeadline on the shelf fixture's Design phase: an uploaded room is titled with its own intro's opening paragraph. */
-const PR_HEADLINE = 'PR-2: Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision.';
+/**
+ * apps/web/components/pr/headline.ts prHeadline on the shelf fixture's Design phase: an uploaded room is titled with
+ * the first sentence of its own intro, without the closing full stop (`ownPrTitle`, `firstSentence`).
+ */
+const PR_HEADLINE = 'PR-2: Write down what the shelf API answers before anyone builds it: every operation, every refusal, one decision';
 /** apps/web/components/staff/guide/DownloadHistory.tsx. */
 const DOWNLOADS_LABEL = 'Your starter downloads';
 /** apps/workflow: the gate's refusal while a task waits on its countersignature. */
