@@ -46,8 +46,10 @@ async function showBrief(page: Page): Promise<void> {
   await panels.waitFor({ timeout: NAVIGATION });
   const show = panels.getByRole('button', { name: 'Show brief', exact: true });
   if (await show.count()) await show.click();
-  // The phase's brief, the clock with it, sits under "Phase requirements and review" in that column.
-  const contract = page.locator('details.phase-contract-detail').first();
+  // The phase's brief, the clock with it, sits under "Phase requirements and review" in that column. The column
+  // holds a second disclosure of the same class before it ("Mission and review criteria", Brief.tsx), open as
+  // it lands, so the one to open is picked by what it holds, as render-cost.spec.ts picks its own.
+  const contract = page.locator('details.phase-contract-detail').filter({ has: page.getByTestId('run-clock') });
   await contract.waitFor({ timeout: UI_READY });
   if ((await contract.getAttribute('open')) === null) await contract.locator('> summary').click();
 }
