@@ -160,7 +160,7 @@ export function RequestForm({ ticket, change, files, editable, onChange, assiste
           )}
           {editable && (
             <form className="flex flex-wrap items-start gap-2" onSubmit={(e) => { e.preventDefault(); onChange(addImpact(change, list, typed[list])); setTyped({ ...typed, [list]: '' }); }}>
-              <input className={`${CELL} min-w-[160px] flex-1`} aria-label={`Add to ${IMPACT_TITLE[list]}`} maxLength={CHANGE_CAPS.fieldChars} value={typed[list]} data-testid={`change-impact-${list}-input`}
+              <input className={`${CELL} min-w-[min(100%,160px)] flex-1`} aria-label={`Add to ${IMPACT_TITLE[list]}`} maxLength={CHANGE_CAPS.fieldChars} value={typed[list]} data-testid={`change-impact-${list}-input`}
                 disabled={change.impact[list].length >= CHANGE_CAPS.listItems} onChange={(e) => setTyped({ ...typed, [list]: e.target.value })} />
               {/* a submit button: `Button`'s type defaults to "button" (`Button` in `components/ui/index.tsx`), which would submit nothing */}
               <Button size="sm" variant="secondary" type="submit" testId={`change-impact-${list}-add`} disabled={change.impact[list].length >= CHANGE_CAPS.listItems}>Add</Button>
