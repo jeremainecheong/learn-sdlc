@@ -377,6 +377,11 @@ test('1. the seeded instructor signs in and opens Projects from the sidebar', as
   await teacherHome(teacher);
   await teacher.getByTestId('nav-projects').first().click();
   await teacher.waitForURL('**/teacher/projects', { timeout: NAVIGATION });
+  // The press leaves the pointer on the rail, and the rail stays peeked open over the page for as long as it
+  // rests there (Sidebar.tsx onPointerEnter): its Teacher guide row then lies over "Download the starter" and
+  // takes the press meant for it. A teacher's pointer goes on into the page; this one is parked there, as
+  // atViewport parks it after a resize.
+  await teacher.mouse.move(DESKTOP.width - 2, Math.round(DESKTOP.height / 2));
   await expect(teacher.getByTestId('projects-loading')).toHaveCount(0, { timeout: NAVIGATION });
 });
 

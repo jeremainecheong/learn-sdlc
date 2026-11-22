@@ -1,6 +1,6 @@
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 import { dismissPhaseTutorial, signInAs, stripDoor, waitForEditor } from './pw-fixtures';
-import { openConsole } from './preview-helpers';
+import { openConsole, verdictOnScreen } from './preview-helpers';
 import { reachImplementationByApi } from './passing-work';
 import { testEmail } from './support/env';
 import { UI_READY } from './support/timeouts';
@@ -50,7 +50,7 @@ async function signIn(page: Page): Promise<void> {
 /** Submit from the IDE and wait for the verdict to land in the Review tab. */
 async function submitAndWait(page: Page, attempt: number): Promise<void> {
   await page.getByTestId('header-submit').click();
-  await expect(page.getByTestId('feedback-verdict')).toBeVisible({ timeout: 180_000 });
+  await verdictOnScreen(page, 180_000);
   await expect(page.getByTestId('tab-commit')).toContainText(String(attempt), { timeout: UI_READY });
 }
 
@@ -71,7 +71,7 @@ test('a learner\'s revisions read as a log', async ({ page, request }) => {
   // The field is empty and Submit is not blocked by it: that is the whole
   // promise, and it is the one an agent would "simplify" away.
   await page.getByTestId('header-submit').click();
-  await expect(page.getByTestId('feedback-verdict')).toBeVisible({ timeout: 180_000 });
+  await verdictOnScreen(page, 180_000);
 
   /* --------------------- two revisions that say what changed -------------- */
   await page.getByTestId('tab-commit').click();
@@ -116,6 +116,8 @@ test('a learner\'s revisions read as a log', async ({ page, request }) => {
   await page.getByTestId('commit-input').fill(draft);
   await page.getByTestId('pr-open-workspace').click();
   await waitForEditor(page, 60_000);
+  // The IDE opens with its bottom panel shut, as it did at the top of this walk.
+  await openConsole(page);
   await page.getByTestId('tab-commit').click();
   await expect(page.getByTestId('commit-input')).toHaveValue(draft);
 });

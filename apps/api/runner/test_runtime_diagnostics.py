@@ -104,7 +104,12 @@ class PreviewCleanupTests(unittest.TestCase):
         session = app_session.PreviewSession({}, app_session.limits())
         session.launch_finished = True
         session.proc = Mock(pid=123)
+        # A stop keeps asking for GROUP_GONE_SECONDS before it answers
+        # unconfirmed (test_app_session.py holds that wait to its bounds). With
+        # no wait each ask is one probe, so the group that still answers the
+        # stop and is gone by the sweep is told apart by exactly these two.
         with patch.dict(app_session.SESSIONS, {session.id: session}, clear=True), \
+             patch.object(app_session, "GROUP_GONE_SECONDS", 0), \
              patch.object(app_session, "reap_group") as reap, \
              patch.object(app_session.os, "killpg", side_effect=[None, ProcessLookupError()]):
             stopped = app_session._finish(session, "stopped")

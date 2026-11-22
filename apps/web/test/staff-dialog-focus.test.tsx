@@ -243,6 +243,40 @@ describe('the page behind the staff dialog', () => {
     }
   });
 
+  // The sign-off queue's confirm opens inside the class page's tab panel, which
+  // is a tab stop (`tabPanelProps`) and cannot be inert with the dialog in it.
+  it('takes the tab stop of a panel the dialog sits inside, and gives it back on close', async () => {
+    function InPanel() {
+      const [open, setOpen] = useState(true);
+      return (
+        <main tabIndex={-1} data-testid="skip-target">
+          <div role="tabpanel" tabIndex={0} data-testid="panel">
+            {open && (
+              <StaffDialog title="Sign off Design" onClose={() => setOpen(false)} testId="staff-dialog">
+                <button type="button" data-testid="dialog-first">
+                  Confirm sign-off
+                </button>
+              </StaffDialog>
+            )}
+          </div>
+        </main>
+      );
+    }
+    await act(async () => root?.render(<InPanel />));
+    const panel = byId('panel') as HTMLElement;
+    expect(panel.hasAttribute('tabindex')).toBe(false);
+    expect(panel.tabIndex).toBe(-1);
+    expect(panel.hasAttribute('inert')).toBe(false);
+    // A target focus is sent to, never a stop: left as it is.
+    expect(byId('skip-target')?.getAttribute('tabindex')).toBe('-1');
+
+    (byId('dialog-first') as HTMLElement).focus();
+    key('Escape');
+    expect(byId('staff-dialog')).toBeNull();
+    expect(panel.getAttribute('tabindex')).toBe('0');
+    expect(byId('skip-target')?.getAttribute('tabindex')).toBe('-1');
+  });
+
   it('gives the page back when the dialog unmounts without closing', async () => {
     await act(async () => root?.render(<Page />));
     expect(byId('beside-root')?.hasAttribute('inert')).toBe(true);

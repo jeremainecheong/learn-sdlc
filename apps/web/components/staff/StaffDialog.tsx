@@ -14,7 +14,10 @@
  *   (from there Tab would walk the page behind and Escape would not reach the
  *   dialog), and the page behind is `inert` while the dialog is open:
  *   everything beside the dialog, up to `<body>`, is marked on open and
- *   given back exactly as it was on close.
+ *   given back exactly as it was on close. What the dialog sits inside
+ *   cannot be inert (the dialog would be too), so an ancestor that is a tab
+ *   stop of its own (a tab panel) gives the stop up for as long, and has it
+ *   back on close.
  * - **Focus comes back.** On close, to the control that opened it, after the
  *   page behind is given back (a browser will not focus an inert element).
  * - **Escape closes**, unless the caller says the dialog is mid-save.
@@ -62,10 +65,14 @@ export function StaffDialog({
   closeRef.current = onClose;
   /** The elements this dialog made inert, and nothing else. */
   const markedRef = useRef<Element[]>([]);
+  /** The ancestors whose tab stop this dialog took, each with the `tabindex` it had. */
+  const stoppedRef = useRef<[Element, string][]>([]);
   /** Where focus goes back to on close. */
   const previousRef = useRef<HTMLElement | null>(null);
   const giveBack = () => {
     for (const one of markedRef.current.splice(0)) one.removeAttribute('inert');
+    // Only where nothing wrote a `tabindex` in the meantime: that value is newer than the one kept here.
+    for (const [one, was] of stoppedRef.current.splice(0)) if (!one.hasAttribute('tabindex')) one.setAttribute('tabindex', was);
   };
 
   // The page behind is out of reach while the dialog is open.
@@ -91,6 +98,17 @@ export function StaffDialog({
       path.push(at);
     }
     for (const at of path) for (const sibling of at.parentElement?.children ?? []) mark(sibling);
+    // An ancestor cannot be inert, so one that takes Tab itself (the class
+    // page's tab panel, `tabPanelProps`) would be the one stop left behind an
+    // `aria-modal` dialog: where Tab lands from `<body>` once a control in the
+    // dialog switches off under the focus. It is no stop while the dialog is
+    // open. A negative `tabindex` (a skip link's target) is no stop to begin with.
+    for (const at of path.slice(1)) {
+      const was = at.getAttribute('tabindex');
+      if (was === null || !(Number.parseInt(was, 10) >= 0)) continue;
+      at.removeAttribute('tabindex');
+      stoppedRef.current.push([at, was]);
+    }
     // What is added beside the path while the dialog is
     // open (a toast, a portal, a control a poll draws) is marked too, and given back.
     const watch =

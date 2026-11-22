@@ -148,6 +148,35 @@ export async function openConsole(page: Page): Promise<void> {
 }
 
 /**
+ * The verdict of the Submit just pressed, on screen in the IDE.
+ *
+ * The verdict is drawn only once the review has come back (FeedbackPanel draws
+ * its pending steps until then), so attached means landed. Landed is not in
+ * view everywhere: Submit selects the Review tab, but where the column is too
+ * short for the editor and the results both, the code view keeps the results
+ * as their tab bar alone (useResultsSplit), and the verdict's own band makes
+ * the column shorter still. The way to the review is then the band's "View
+ * review" (PhaseGateBanner's ViewReview), which the band draws exactly while
+ * the review is not the results view's selected tab. So it is pressed where
+ * it is drawn and not waited for where it is not, and neither answer depends
+ * on how tall the runner's window happens to leave the column.
+ *
+ * On a second Submit the last verdict is still drawn for the moment before
+ * the new revision is recorded, so the last wait is given the whole budget as
+ * well: the review it may be waiting through is the one just asked for.
+ */
+export async function verdictOnScreen(page: Page, timeout: number): Promise<void> {
+  const verdict = page.getByTestId('feedback-verdict');
+  await expect(verdict).toBeAttached({ timeout });
+  const door = page.getByTestId('gate-view-review');
+  // apps/web/components/workspace/PhaseGateBanner.tsx REVIEW_TAB_SHOWN.
+  const inView = page.locator('[data-focus-show="results"] [data-testid="tab-feedback"][aria-selected="true"]');
+  await expect(door.or(inView).first()).toBeVisible({ timeout: UI_READY });
+  if (await door.isVisible()) await door.click();
+  await expect(verdict).toBeVisible({ timeout });
+}
+
+/**
  * The door opens the phase's room in one step: no case file in front
  * of it, nothing to press.
  */
